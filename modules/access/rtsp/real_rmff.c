@@ -62,7 +62,7 @@ static int rmff_dump_fileheader(rmff_fileheader_t *fileheader, uint8_t *buffer, 
 static int rmff_dump_prop(rmff_prop_t *prop, uint8_t *buffer, int bufsize) {
 
     if (!prop) return 0;
-    
+
     if (bufsize < RMFF_PROPHEADER_SIZE)
         return -1;
 
@@ -163,7 +163,7 @@ static int rmff_dump_cont(rmff_cont_t *cont, uint8_t *buffer, int bufsize) {
     int p;
 
     if (!cont) return 0;
-    
+
     if (bufsize < RMFF_CONTHEADER_SIZE + cont->title_len + cont->author_len + \
             cont->copyright_len + cont->comment_len)
         return -1;
@@ -209,7 +209,7 @@ static int rmff_dump_cont(rmff_cont_t *cont, uint8_t *buffer, int bufsize) {
 static int rmff_dump_dataheader(rmff_data_t *data, uint8_t *buffer, int bufsize) {
 
   if (!data) return 0;
-  
+
   if (bufsize < RMFF_DATAHEADER_SIZE)
       return -1;
 
@@ -241,13 +241,13 @@ int rmff_dump_header(rmff_header_t *h, void *buf_gen, int max) {
 
     if ((size=rmff_dump_fileheader(h->fileheader, &buffer[written], max)) < 0)
         return -1;
-    
+
     written += size;
     max -= size;
 
     if ((size=rmff_dump_prop(h->prop, &buffer[written], max)) < 0)
         return -1;
-    
+
     written += size;
     max -= size;
 
@@ -269,7 +269,7 @@ int rmff_dump_header(rmff_header_t *h, void *buf_gen, int max) {
 
     if ((size=rmff_dump_dataheader(h->data, &buffer[written], max)) < 0)
         return -1;
-    
+
     written+=size;
 
     return written;

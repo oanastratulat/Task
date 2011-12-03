@@ -85,7 +85,7 @@ int main( int argc, char *argv[] ) {
               *player_widget,
               *hbuttonbox,
               *stop_button;
-    
+
     gtk_init (&argc, &argv);
     // setup window
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);

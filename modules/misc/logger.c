@@ -172,7 +172,7 @@ vlc_module_begin ()
 #endif
     add_integer( "log-verbose", -1, LOGVERBOSE_TEXT, LOGVERBOSE_LONGTEXT,
            false )
-    
+
     add_obsolete_string( "rrd-file" )
 
     set_capability( "interface", 0 )

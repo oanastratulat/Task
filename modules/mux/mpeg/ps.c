@@ -122,7 +122,7 @@ struct sout_mux_sys_t
     int i_system_header;
     int i_dts_delay;
     int i_rate_bound; /* units of 50 bytes/second */
- 
+
     int64_t i_instant_bitrate;
     int64_t i_instant_size;
     int64_t i_instant_dts;
@@ -261,7 +261,7 @@ static int AddStream( sout_mux_t *p_mux, sout_input_t *p_input )
 {
     sout_mux_sys_t  *p_sys = p_mux->p_sys;
     ps_stream_t *p_stream;
- 
+
 
     msg_Dbg( p_mux, "adding input codec=%4.4s",
              (char*)&p_input->p_fmt->i_codec );

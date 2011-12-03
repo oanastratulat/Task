@@ -136,7 +136,7 @@ vlc_module_end ()
  *****************************************************************************/
 
 #ifdef WIN32
-static void * load_syms(decoder_t *p_dec, const char *path) 
+static void * load_syms(decoder_t *p_dec, const char *path)
 {
     void *handle;
 
@@ -167,14 +167,14 @@ static void * load_syms(decoder_t *p_dec, const char *path)
     return NULL; // error
 }
 #else
-static void * load_syms_linux(decoder_t *p_dec, const char *path) 
+static void * load_syms_linux(decoder_t *p_dec, const char *path)
 {
     void *handle;
 
     msg_Dbg( p_dec, "opening shared obj '%s'", path);
 
     handle = dlopen (path, RTLD_LAZY);
-    if (!handle) 
+    if (!handle)
     {
         msg_Err( p_dec,"Error: %s",dlerror());
         return NULL;
@@ -347,7 +347,7 @@ static int InitVideo(decoder_t *p_dec)
     es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_YUYV);
      */
     es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_I420);
-     
+
     p_dec->fmt_out.video.i_width = p_dec->fmt_in.video.i_width;
     p_dec->fmt_out.video.i_height= p_dec->fmt_in.video.i_height;
     p_dec->fmt_out.video.i_sar_num = 1;
@@ -370,10 +370,10 @@ static int Open( vlc_object_t *p_this )
 
     switch ( p_dec->fmt_in.i_codec )
     {
-    case VLC_CODEC_RV10: 
-    case VLC_CODEC_RV20: 
+    case VLC_CODEC_RV10:
+    case VLC_CODEC_RV20:
     case VLC_CODEC_RV30:
-    case VLC_CODEC_RV40: 
+    case VLC_CODEC_RV40:
         p_dec->p_sys = NULL;
         p_dec->pf_decode_video = DecodeVideo;
         return InitVideo(p_dec);
@@ -509,15 +509,15 @@ static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
                          p_dec->fmt_in.video.i_width,
                          p_dec->fmt_in.video.i_height,
                          transform_out[3],transform_out[4]);
-                
+
                 if ( p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height >= transform_out[3] * transform_out[4] )
                 {
-                    p_dec->fmt_out.video.i_width = 
-                    p_dec->fmt_out.video.i_visible_width = 
+                    p_dec->fmt_out.video.i_width =
+                    p_dec->fmt_out.video.i_visible_width =
                     p_dec->fmt_in.video.i_width = transform_out[3] ;
 
-                    p_dec->fmt_out.video.i_height= 
-                    p_dec->fmt_out.video.i_visible_height = 
+                    p_dec->fmt_out.video.i_height=
+                    p_dec->fmt_out.video.i_visible_height =
                     p_dec->fmt_in.video.i_height= transform_out[4];
 
                     p_dec->fmt_out.video.i_sar_num = 1;
@@ -525,7 +525,7 @@ static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
                 }
                 else
                 {
-                    // TODO: realloc plane's size! but [in fact] it maybe not happen! 
+                    // TODO: realloc plane's size! but [in fact] it maybe not happen!
                     msg_Err(p_dec,"plane space not enough ,skip");
                 }
             }
@@ -538,7 +538,7 @@ static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
         memcpy( p_pic->p[2].p_pixels, p_sys->plane + img_size * 5/4, img_size/4);
         p_pic->date = i_pts ;
 
-        /*  real video frame is small( frame and frame's time-shift is short), 
+        /*  real video frame is small( frame and frame's time-shift is short),
             so it will become late picture easier (when render-time changed)and
             droped by video-output.*/
         p_pic->b_force = 1;

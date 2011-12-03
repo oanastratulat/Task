@@ -449,7 +449,7 @@ static int ScanDvbTNextFast( scan_t *p_scan, scan_configuration_t *p_cfg, double
     const int i_offset_count = 5;
     const int i_mhz = 1000000;
 
-    /* We will probe the whole band divided in all bandwidth possibility trying 
+    /* We will probe the whole band divided in all bandwidth possibility trying
      * i_offset_count offset around the position
      */
     for( ;; p_scan->i_index++ )
@@ -832,7 +832,7 @@ static void NITCallBack( scan_session_t *p_session, dvbpsi_nit_t *p_nit )
             msg_Dbg( p_obj, "       * service_id %d", i_service_id );
             msg_Dbg( p_obj, "       * linkage_type %d", i_linkage_type );
         }
-        else 
+        else
         {
             msg_Dbg( p_obj, "   * dsc 0x%x", p_dsc->i_tag );
         }
@@ -1229,7 +1229,7 @@ bool scan_session_Push( scan_session_t *p_scan, block_t *p_block )
 
     block_Release( p_block );
 
-    return p_scan->p_pat && p_scan->p_sdt && 
+    return p_scan->p_pat && p_scan->p_sdt &&
 #ifdef DVBPSI_USE_NIT
         p_scan->p_nit;
 #else

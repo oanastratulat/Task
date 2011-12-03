@@ -288,7 +288,7 @@ static int ParseLine ( demux_t *p_demux, char *psz_line )
     }
     *psz_value = '\0';
     psz_value++;
- 
+
     if( !strncasecmp( psz_value, "0x", 2 ) )
     {
         int i_value;

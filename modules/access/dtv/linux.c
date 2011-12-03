@@ -134,7 +134,7 @@ static int dvb_parse_modulation (const char *str, int def)
         { "32APSK", APSK_32   },
         { "32QAM",   QAM_32   },
         { "64QAM",   QAM_64   },
-        { "8PSK",    PSK_8    }, 
+        { "8PSK",    PSK_8    },
         { "8VSB",    VSB_8    },
         { "DQPSK", DQPSK      },
         { "QAM",     QAM_AUTO },

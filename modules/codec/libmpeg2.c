@@ -218,7 +218,7 @@ static int OpenDecoder( vlc_object_t *p_this )
 
 # ifdef MPEG2_ACCEL_ARM_NEON
     if( vlc_CPU() & CPU_CAPABILITY_NEON )
-	i_accel |= MPEG2_ACCEL_ARM_NEON;
+ i_accel |= MPEG2_ACCEL_ARM_NEON;
 # endif
 
 #else

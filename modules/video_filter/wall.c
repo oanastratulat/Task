@@ -308,7 +308,7 @@ static int Open( vlc_object_t *p_this )
             p_output->i_left = i_left;
             p_output->i_top = i_top;
 
-            msg_Dbg( p_splitter, "window %dx%d at %d:%d size %dx%d", 
+            msg_Dbg( p_splitter, "window %dx%d at %d:%d size %dx%d",
                      x, y, i_left, i_top, i_width, i_height );
 
             if( p_output->b_active )

@@ -85,7 +85,7 @@ const char rtsp_protocol_version[]="RTSP/1.0";
  * rtsp_get gets a line from stream
  * and returns a null terminated string (must be freed).
  */
- 
+
 static char *rtsp_get( rtsp_client_t *rtsp )
 {
   char *psz_buffer = malloc( BUF_SIZE );

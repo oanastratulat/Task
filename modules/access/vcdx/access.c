@@ -288,14 +288,14 @@ VCDSeek( access_t * p_access, uint64_t i_pos )
                    (long unsigned int) p_vcdplayer->origin_lsn,
                    (long unsigned int) p_vcdplayer->i_lsn, i_pos,
                    i_entry );
- 
+
         /* Find seekpoint */
         for( i_seekpoint = 0; i_seekpoint < t->i_seekpoint; i_seekpoint++ )
         {
             if( i_seekpoint + 1 >= t->i_seekpoint ) break;
             if( i_pos < t->seekpoint[i_seekpoint + 1]->i_byte_offset ) break;
         }
- 
+
         /* Update current seekpoint */
         if( i_seekpoint != p_access->info.i_seekpoint )
         {
@@ -318,29 +318,29 @@ static bool
 VCDEntryPoints( access_t * p_access )
 {
     if (!p_access || !p_access->p_sys) return false;
- 
+
     vcdplayer_t       *p_vcdplayer = (vcdplayer_t *) p_access->p_sys;
     const unsigned int i_entries   = vcdinfo_get_num_entries(p_vcdplayer->vcd);
     const track_t      i_last_track
            = cdio_get_num_tracks(vcdinfo_get_cd_image(p_vcdplayer->vcd))
            + cdio_get_first_track_num(vcdinfo_get_cd_image(p_vcdplayer->vcd));
     unsigned int i;
- 
+
     if (0 == i_entries) {
         LOG_ERR ("no entires found -- something is wrong" );
         return false;
     }
- 
+
     p_vcdplayer->p_entries  = malloc( sizeof( lsn_t ) * i_entries );
- 
+
     if( p_vcdplayer->p_entries == NULL )
     {
         LOG_ERR ("not enough memory for entry points treatment" );
         return false;
     }
- 
+
     p_vcdplayer->i_entries = i_entries;
- 
+
     for( i = 0 ; i < i_entries ; i++ )
     {
         const track_t i_track = vcdinfo_get_track(p_vcdplayer->vcd, i);
@@ -348,17 +348,17 @@ VCDEntryPoints( access_t * p_access )
         {
             seekpoint_t *s = vlc_seekpoint_New();
             char psz_entry[100];
-    
+
             snprintf(psz_entry, sizeof(psz_entry), "%s %02d", _("Entry"), i );
 
             p_vcdplayer->p_entries[i] =
                                    vcdinfo_get_entry_lsn(p_vcdplayer->vcd, i);
-    
+
             s->psz_name      = strdup(psz_entry);
             s->i_byte_offset = (p_vcdplayer->p_entries[i]
                              - vcdinfo_get_track_lsn(p_vcdplayer->vcd,i_track))
                              * M2F2_SECTOR_SIZE;
-    
+
             dbg_print( INPUT_DBG_MRL, "%s, lsn %d,  byte_offset %"PRId64"",
                        s->psz_name, p_vcdplayer->p_entries[i],
                        s->i_byte_offset);
@@ -441,7 +441,7 @@ VCDTitles( access_t * p_access )
        very careful about this. Note: cdio_get_first_track() will give the
        ISO-9660 track before the MPEG tracks.
      */
- 
+
     if (!p_access || !p_access->p_sys) return VLC_EGENERIC;
 
     {
@@ -981,7 +981,7 @@ VCDClose ( vlc_object_t *p_this )
             if (p_vcdplayer->p_title[i])
                 free(p_vcdplayer->p_title[i]->psz_name);
     }
- 
+
     vcdinfo_close( p_vcdplayer->vcd );
 
     if( p_vcdplayer->p_input ) vlc_object_release( p_vcdplayer->p_input );

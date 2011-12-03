@@ -274,10 +274,10 @@ static int Open( vlc_object_t *p_this )
 
 #ifdef __APPLE__
         case VLC_FOURCC('I','L','B','C'): /* iLBC */
-            if ((err != noErr) || (qtVersion < 0x07500000)) 
+            if ((err != noErr) || (qtVersion < 0x07500000))
                 return VLC_EGENERIC;
         case VLC_FOURCC('i','l','b','c'): /* iLBC */
-            if ((err != noErr) || (qtVersion < 0x07500000)) 
+            if ((err != noErr) || (qtVersion < 0x07500000))
                 return VLC_EGENERIC;
 #endif
         case VLC_CODEC_AMR_NB: /* 3GPP AMR audio */
@@ -805,7 +805,7 @@ static int OpenVideo( decoder_t *p_dec )
     p_sys->framedescHandle = (ImageDescriptionHandle) NewHandleClear( id->idSize );
     memcpy( *p_sys->framedescHandle, id, id->idSize );
 
-    if( p_dec->fmt_in.video.i_width != 0 && p_dec->fmt_in.video.i_height != 0) 
+    if( p_dec->fmt_in.video.i_width != 0 && p_dec->fmt_in.video.i_height != 0)
         p_sys->plane = malloc( p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height * 3 );
     if( !p_sys->plane )
         goto exit_error;
@@ -897,7 +897,7 @@ static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
     }
     p_block = *pp_block;
     *pp_block = NULL;
- 
+
     i_pts = p_block->i_pts > VLC_TS_INVALID ? p_block->i_pts : p_block->i_dts;
 
     mtime_t i_display_date = 0;
@@ -922,7 +922,7 @@ static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
         block_Release( p_block );
         return NULL;
     }
- 
+
     vlc_mutex_lock( &qt_mutex );
 
     if( ( p_pic = decoder_NewPicture( p_dec ) ) )
@@ -946,7 +946,7 @@ static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
                 p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height * 2 );
         p_pic->date = i_pts;
     }
- 
+
     vlc_mutex_unlock( &qt_mutex );
 
     block_Release( p_block );

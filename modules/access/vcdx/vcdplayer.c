@@ -227,12 +227,12 @@ _vcdplayer_set_segment(access_t * p_access, unsigned int num)
               "Error in getting current segment number", num);
       return;
     }
- 
+
     itemid.num = num;
     itemid.type = VCDINFO_ITEM_TYPE_SEGMENT;
 
     VCDSetOrigin(p_access, vcdinfo_get_seg_lsn(p_vcdinfo, num), 0, &itemid);
- 
+
     dbg_print(INPUT_DBG_LSN, "LSN: %u", p_vcdplayer->i_lsn);
   }
 }
@@ -263,7 +263,7 @@ vcdplayer_play_single_item( access_t * p_access, vcdinfo_itemid_t itemid)
 
       if (itemid.num >= i_segs) return false;
       _vcdplayer_set_segment(p_access, itemid.num);
- 
+
       switch (segtype)
         {
         case VCDINFO_FILES_VIDEO_NTSC_STILL:
@@ -275,16 +275,16 @@ vcdplayer_play_single_item( access_t * p_access, vcdinfo_itemid_t itemid)
         default:
           p_vcdplayer->i_still = 0;
         }
- 
+
       break;
     }
- 
+
   case VCDINFO_ITEM_TYPE_TRACK:
     dbg_print(INPUT_DBG_PBC, "track %d", itemid.num);
     if (itemid.num < 1 || itemid.num > p_vcdplayer->i_tracks) return false;
     _vcdplayer_set_track(p_access, itemid.num);
     break;
- 
+
   case VCDINFO_ITEM_TYPE_ENTRY:
     {
       unsigned int i_entries = vcdinfo_get_num_entries(p_vcdinfo);
@@ -293,7 +293,7 @@ vcdplayer_play_single_item( access_t * p_access, vcdinfo_itemid_t itemid)
       _vcdplayer_set_entry(p_access, itemid.num);
       break;
     }
- 
+
   case VCDINFO_ITEM_TYPE_LID:
     LOG_ERR("%s", "Should have converted p_vcdplayer above");
     return false;
@@ -308,7 +308,7 @@ vcdplayer_play_single_item( access_t * p_access, vcdinfo_itemid_t itemid)
     LOG_ERR("item type %d not implemented.", itemid.type);
     return false;
   }
- 
+
   p_vcdplayer->play_item = itemid;
 
   /* Some players like xine, have a fifo queue of audio and video buffers
@@ -374,7 +374,7 @@ vcdplayer_inc_play_item(access_t *p_access)
   noi = vcdinf_pld_get_noi(p_vcdplayer->pxd.pld);
   if ( noi <= 0 )
     return false;
- 
+
   /* Handle delays like autowait or wait here? */
 
   p_vcdplayer->pdi++;
@@ -387,7 +387,7 @@ vcdplayer_inc_play_item(access_t *p_access)
   vcdinfo_itemid_t trans_itemid;
 
   if (VCDINFO_INVALID_ITEMID == trans_itemid_num) return false;
- 
+
   vcdinfo_classify_itemid(trans_itemid_num, &trans_itemid);
   dbg_print(INPUT_DBG_PBC, "  play-item[%d]: %s",
             p_vcdplayer->pdi, vcdinfo_pin2str (trans_itemid_num));
@@ -414,9 +414,9 @@ vcdplayer_play(access_t *p_access, vcdinfo_itemid_t itemid)
 
     p_vcdplayer->i_lid = itemid.num;
     vcdinfo_lid_get_pxd(p_vcdinfo, &(p_vcdplayer->pxd), itemid.num);
- 
+
     switch (p_vcdplayer->pxd.descriptor_type) {
- 
+
     case PSD_TYPE_SELECTION_LIST:
     case PSD_TYPE_EXT_SELECTION_LIST: {
       vcdinfo_itemid_t trans_itemid;
@@ -430,17 +430,17 @@ vcdplayer_play(access_t *p_access, vcdinfo_itemid_t itemid)
       vcdplayer_play_single_item(p_access, trans_itemid);
       break;
     }
- 
+
     case PSD_TYPE_PLAY_LIST: {
       if (p_vcdplayer->pxd.pld == NULL) return;
       p_vcdplayer->pdi = -1;
       vcdplayer_inc_play_item(p_access);
       break;
     }
- 
+
     case PSD_TYPE_END_LIST:
     case PSD_TYPE_COMMAND_LIST:
- 
+
     default:
       ;
     }
@@ -458,7 +458,7 @@ vcdplayer_pbc_nav ( access_t * p_access, uint8_t *wait_time )
 
   /* The end of an entry is really the end of the associated
      sequence (or track). */
- 
+
   if ( (VCDINFO_ITEM_TYPE_ENTRY == p_vcdplayer->play_item.type) &&
        (p_vcdplayer->i_lsn < p_vcdplayer->end_lsn) ) {
     /* Set up to just continue to the next entry */
@@ -469,7 +469,7 @@ vcdplayer_pbc_nav ( access_t * p_access, uint8_t *wait_time )
     /* p_vcdplayer->update_title(); */
     return READ_BLOCK;
   }
- 
+
   switch (p_vcdplayer->pxd.descriptor_type) {
   case PSD_TYPE_END_LIST:
     return READ_END;
@@ -501,10 +501,10 @@ vcdplayer_pbc_nav ( access_t * p_access, uint8_t *wait_time )
       uint16_t max_loop     = vcdinf_get_loop_count(p_vcdplayer->pxd.psd);
       vcdinfo_offset_t *offset_timeout_LID =
         vcdinfo_get_offset_t(p_vcdplayer->vcd, timeout_offs);
- 
+
       dbg_print(INPUT_DBG_PBC, "looped: %d, max_loop %d",
                 p_vcdplayer->i_loop, max_loop);
- 
+
       /* Set up for caller process wait time given. */
       if (p_vcdplayer->i_still) {
         *wait_time = vcdinf_get_timeout_time(p_vcdplayer->pxd.psd);
@@ -512,7 +512,7 @@ vcdplayer_pbc_nav ( access_t * p_access, uint8_t *wait_time )
                   "playlist wait_time: %d", *wait_time);
         return READ_STILL_FRAME;
       }
- 
+
       /* Wait time has been processed; continue with next entry. */
       /* Handle any looping given. */
       if ( max_loop == 0 || p_vcdplayer->i_loop < max_loop ) {
@@ -522,10 +522,10 @@ vcdplayer_pbc_nav ( access_t * p_access, uint8_t *wait_time )
         /* if (p_vcdplayer->i_still) p_vcdplayer->force_redisplay();*/
         return READ_BLOCK;
       }
- 
+
       /* Looping finished and wait finished. Move to timeout
          entry or next entry, or handle still. */
- 
+
       if (NULL != offset_timeout_LID) {
         /* Handle timeout_LID */
         itemid.num  = offset_timeout_LID->lid;
@@ -582,7 +582,7 @@ vcdplayer_read (access_t * p_access, uint8_t *p_buf)
   vcdplayer_t *p_vcdplayer= (vcdplayer_t *)p_access->p_sys;
   if ( p_vcdplayer->i_lsn > p_vcdplayer->end_lsn ) {
     vcdplayer_read_status_t read_status;
- 
+
     /* We've run off of the end of this entry. Do we continue or stop? */
     dbg_print( (INPUT_DBG_LSN|INPUT_DBG_PBC),
               "end reached, cur: %u, end: %u\n",
@@ -602,7 +602,7 @@ vcdplayer_read (access_t * p_access, uint8_t *p_buf)
   }
 
   /* Read the next block.
- 
+
     Important note: we probably speed things up by removing "data"
     and the memcpy to it by extending vcd_image_source_read_mode2
     to allow a mode to do what's below in addition to its
@@ -635,7 +635,7 @@ vcdplayer_read (access_t * p_access, uint8_t *p_buf)
                    p_vcdplayer->i_lsn, p_vcdplayer->end_lsn);
         break;
       }
- 
+
       /* Check header ID for a padding sector and simply discard
          these.  It is alleged that VCD's put these in to keep the
          bitrate constant.
@@ -645,7 +645,7 @@ vcdplayer_read (access_t * p_access, uint8_t *p_buf)
     if ( p_vcdplayer->i_lsn >= p_vcdplayer->end_lsn )
       /* We've run off of the end of this entry. Do we continue or stop? */
       goto handle_item_continuation;
- 
+
     memcpy (p_buf, vcd_sector.data, M2F2_SECTOR_SIZE);
     return READ_BLOCK;
   }
@@ -668,7 +668,7 @@ vcdplayer_play_default( access_t * p_access )
            "null p_vcdplayer" );
     return VLC_EGENERIC;
   }
- 
+
 
   dbg_print( (INPUT_DBG_CALL|INPUT_DBG_PBC),
          "current: %d" , p_vcdplayer->play_item.num);
@@ -693,7 +693,7 @@ vcdplayer_play_default( access_t * p_access )
 #else
     vcdinfo_lid_get_pxd(p_vcdplayer->vcd, &(p_vcdplayer->pxd),
                         p_vcdplayer->i_lid);
- 
+
     switch (p_vcdplayer->pxd.descriptor_type) {
     case PSD_TYPE_SELECTION_LIST:
     case PSD_TYPE_EXT_SELECTION_LIST:
@@ -711,15 +711,15 @@ vcdplayer_play_default( access_t * p_access )
       return false;
     }
 #endif /* LIBVCD_VERSION (< 0.7.21) */
- 
+
 
   } else {
 
     /* PBC is not on. "default" selection beginning of current
        selection . */
- 
+
     itemid.num = p_vcdplayer->play_item.num;
- 
+
   }
 
   /** ??? p_vcdplayer->update_title(); ***/
@@ -753,7 +753,7 @@ vcdplayer_play_next( access_t * p_access )
   if  (vcdplayer_pbc_is_on(p_vcdplayer)) {
 
     vcdinfo_lid_get_pxd(p_vcdinfo, &(p_vcdplayer->pxd), p_vcdplayer->i_lid);
- 
+
     switch (p_vcdplayer->pxd.descriptor_type) {
     case PSD_TYPE_SELECTION_LIST:
     case PSD_TYPE_EXT_SELECTION_LIST:
@@ -771,7 +771,7 @@ vcdplayer_play_next( access_t * p_access )
                              &itemid.num, "next");
       itemid.type = VCDINFO_ITEM_TYPE_LID;
       break;
- 
+
     case PSD_TYPE_END_LIST:
     case PSD_TYPE_COMMAND_LIST:
       LOG_WARN( "There is no PBC 'next' selection here" );
@@ -780,14 +780,14 @@ vcdplayer_play_next( access_t * p_access )
   } else {
 
     /* PBC is not on. "Next" selection is play_item.num+1 if possible. */
- 
+
     int max_entry = 0;
 
     switch (p_vcdplayer->play_item.type) {
     case VCDINFO_ITEM_TYPE_ENTRY:
     case VCDINFO_ITEM_TYPE_SEGMENT:
     case VCDINFO_ITEM_TYPE_TRACK:
- 
+
       switch (p_vcdplayer->play_item.type) {
       case VCDINFO_ITEM_TYPE_ENTRY:
         max_entry = p_vcdplayer->i_entries;
@@ -800,16 +800,16 @@ vcdplayer_play_next( access_t * p_access )
         break;
       default: ; /* Handle exceptional cases below */
       }
- 
+
       if (p_vcdplayer->play_item.num+1 < max_entry) {
         itemid.num = p_vcdplayer->play_item.num+1;
       } else {
         LOG_WARN( "At the end - non-PBC 'next' not possible here" );
         return false;
       }
- 
+
       break;
- 
+
     case VCDINFO_ITEM_TYPE_LID:
       /* Should have handled above. */
       LOG_WARN( "Internal inconsistency - should not have gotten here." );
@@ -845,7 +845,7 @@ vcdplayer_play_prev( access_t * p_access )
   if (vcdplayer_pbc_is_on(p_vcdplayer)) {
 
     vcdinfo_lid_get_pxd(p_vcdinfo, &(p_vcdplayer->pxd), p_vcdplayer->i_lid);
- 
+
     switch (p_vcdplayer->pxd.descriptor_type) {
     case PSD_TYPE_SELECTION_LIST:
     case PSD_TYPE_EXT_SELECTION_LIST:
@@ -863,7 +863,7 @@ vcdplayer_play_prev( access_t * p_access )
                              &itemid.num, "prev");
       itemid.type = VCDINFO_ITEM_TYPE_LID;
       break;
- 
+
     case PSD_TYPE_END_LIST:
     case PSD_TYPE_COMMAND_LIST:
       LOG_WARN( "There is no PBC 'prev' selection here" );
@@ -872,17 +872,17 @@ vcdplayer_play_prev( access_t * p_access )
   } else {
 
     /* PBC is not on. "Prev" selection is play_item.num-1 if possible. */
- 
+
     int min_entry = (VCDINFO_ITEM_TYPE_ENTRY == p_vcdplayer->play_item.type)
                     ? 0 : 1;
- 
+
     if (p_vcdplayer->play_item.num > min_entry) {
       itemid.num = p_vcdplayer->play_item.num-1;
     } else {
       LOG_WARN( "At the beginning - non-PBC 'prev' not possible here" );
       return false;
     }
- 
+
   }
 
   /** ??? p_vcdplayer->update_title(); ***/
@@ -911,7 +911,7 @@ vcdplayer_play_return( access_t * p_access )
   if (vcdplayer_pbc_is_on(p_vcdplayer)) {
 
     vcdinfo_lid_get_pxd(p_vcdinfo, &(p_vcdplayer->pxd), p_vcdplayer->i_lid);
- 
+
     switch (p_vcdplayer->pxd.descriptor_type) {
     case PSD_TYPE_SELECTION_LIST:
     case PSD_TYPE_EXT_SELECTION_LIST:
@@ -929,7 +929,7 @@ vcdplayer_play_return( access_t * p_access )
                              &itemid.num, "return");
       itemid.type = VCDINFO_ITEM_TYPE_LID;
       break;
- 
+
     case PSD_TYPE_END_LIST:
     case PSD_TYPE_COMMAND_LIST:
       LOG_WARN( "There is no PBC 'return' selection here" );
@@ -938,11 +938,11 @@ vcdplayer_play_return( access_t * p_access )
   } else {
 
     /* PBC is not on. "Return" selection is min_entry if possible. */
- 
+
     p_vcdplayer->play_item.num =
       (VCDINFO_ITEM_TYPE_ENTRY == p_vcdplayer->play_item.type)
       ? 0 : 1;
- 
+
   }
 
   /** ??? p_vcdplayer->update_title(); ***/

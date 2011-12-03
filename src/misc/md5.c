@@ -96,9 +96,9 @@ transform ( MD5_CONTEXT *ctx, const unsigned char *data )
     for(i=0, p1=data, p2=(byte*)correct_words; i < 16; i++, p2 += 4 )
       {
         p2[3] = *p1++;
-	p2[2] = *p1++;
-	p2[1] = *p1++;
-	p2[0] = *p1++;
+ p2[2] = *p1++;
+ p2[1] = *p1++;
+ p2[0] = *p1++;
       }
   }
 #else
@@ -107,12 +107,12 @@ transform ( MD5_CONTEXT *ctx, const unsigned char *data )
 
 
 #define OP(a, b, c, d, s, T) \
-  do			         	   \
-    {					   \
+  do              \
+    {    \
       a += FF (b, c, d) + (*cwp++) + T;    \
-      a = rol(a, s);			   \
-      a += b;				   \
-    }					   \
+      a = rol(a, s);    \
+      a += b;    \
+    }    \
   while (0)
 
   /* Before we start, one word about the strange constants.
@@ -141,12 +141,12 @@ transform ( MD5_CONTEXT *ctx, const unsigned char *data )
 
 #undef OP
 #define OP(f, a, b, c, d, k, s, T)  \
-    do								      \
-      { 							      \
-	a += f (b, c, d) + correct_words[k] + T;		      \
-	a = rol(a, s);						      \
-	a += b; 						      \
-      } 							      \
+    do       \
+      {        \
+ a += f (b, c, d) + correct_words[k] + T;       \
+ a = rol(a, s);       \
+ a += b;        \
+      }        \
     while (0)
 
   /* Round 2.  */
@@ -299,11 +299,11 @@ md5_final( void *context)
       memset(hd->buf, 0, 56 ); /* fill next block with zeroes */
     }
   /* append the 64 bit count */
-  hd->buf[56] = lsb	   ;
+  hd->buf[56] = lsb    ;
   hd->buf[57] = lsb >>  8;
   hd->buf[58] = lsb >> 16;
   hd->buf[59] = lsb >> 24;
-  hd->buf[60] = msb	   ;
+  hd->buf[60] = msb    ;
   hd->buf[61] = msb >>  8;
   hd->buf[62] = msb >> 16;
   hd->buf[63] = msb >> 24;
@@ -312,7 +312,7 @@ md5_final( void *context)
   p = hd->buf;
 #ifdef WORDS_BIGENDIAN
 #define X(a) do { *p++ = hd->a      ; *p++ = hd->a >> 8;      \
-	          *p++ = hd->a >> 16; *p++ = hd->a >> 24; } while(0)
+           *p++ = hd->a >> 16; *p++ = hd->a >> 24; } while(0)
 #else /* little endian */
 #define X(a) do { *(u32*)p = (*hd).a ; p += 4; } while(0)
 #endif

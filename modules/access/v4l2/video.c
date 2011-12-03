@@ -290,13 +290,13 @@ static const char *const psz_tuner_audio_modes_list_text[] = {
 #define V4L2_DEFAULT "/dev/video0"
 
 #ifdef HAVE_MAEMO
-# define DEFAULT_WIDTH	640
-# define DEFAULT_HEIGHT	492
+# define DEFAULT_WIDTH 640
+# define DEFAULT_HEIGHT 492
 #endif
 
 #ifndef DEFAULT_WIDTH
-# define DEFAULT_WIDTH	(-1)
-# define DEFAULT_HEIGHT	(-1)
+# define DEFAULT_WIDTH (-1)
+# define DEFAULT_HEIGHT (-1)
 #endif
 
 vlc_module_begin ()

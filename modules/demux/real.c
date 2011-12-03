@@ -373,7 +373,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
         case DEMUX_GET_POSITION:
             pf = (double*) va_arg( args, double* );
 
-            /* read stream size maybe failed in rtsp streaming, 
+            /* read stream size maybe failed in rtsp streaming,
                so use duration to determin the position at first  */
             if( p_sys->i_our_duration > 0 )
             {
@@ -440,7 +440,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
 
         case DEMUX_GET_LENGTH:
             pi64 = (int64_t*)va_arg( args, int64_t * );
- 
+
             if( p_sys->i_our_duration <= 0 )
             {
                 *pi64 = 0;
@@ -1230,7 +1230,7 @@ static void HeaderINDX( demux_t *p_demux )
         }
 
         real_index_t *p_idx = &p_sys->p_index[i];
-        
+
         p_idx->i_time_offset = GetDWBE( &p_entry[2] );
         p_idx->i_file_offset = GetDWBE( &p_entry[6] );
         p_idx->i_frame_index = GetDWBE( &p_entry[10] );

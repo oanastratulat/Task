@@ -56,26 +56,26 @@ extern CGError CGSGetCurrentCursorLocation( CGSConnectionRef, CGPoint * );
 struct screen_data_t
 {
   CGLContextObj screen;
-  
+
   CGLContextObj scaled;
   char *scaled_image;
-  
+
   GLuint texture;
   char *texture_image;
-  
+
   GLuint cursor_texture;
-  
+
   int left;
   int top;
   int src_width;
   int src_height;
-  
+
   int dest_width;
   int dest_height;
-  
+
   int screen_width;
   int screen_height;
-  
+
   CGSConnectionRef connection;
 };
 
@@ -218,7 +218,7 @@ block_t *screen_Capture( demux_t *p_demux )
     block_t *p_block;
     int i_size;
 
-    i_size = p_sys->fmt.video.i_height * p_sys->fmt.video.i_width * 4; 
+    i_size = p_sys->fmt.video.i_height * p_sys->fmt.video.i_width * 4;
 
     if( !( p_block = block_New( p_demux, i_size ) ) )
     {
@@ -335,7 +335,7 @@ block_t *screen_Capture( demux_t *p_demux )
         free( cursor_image );
     }
 
-    glReadPixels( 0, 0, 
+    glReadPixels( 0, 0,
                   p_data->dest_width,
                   p_data->dest_height,
                   GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,

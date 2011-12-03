@@ -125,7 +125,7 @@ static int Control (access_t *access, int query, va_list args)
             *dp = DEFAULT_PTS_DELAY;
             return VLC_SUCCESS;
         }
-    
+
         case ACCESS_SET_PAUSE_STATE:
             return VLC_SUCCESS;
     }

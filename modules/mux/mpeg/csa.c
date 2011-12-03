@@ -185,7 +185,7 @@ void csa_Decrypt( csa_t *c, uint8_t *pkt, int i_pkt_size )
     n = (i_pkt_size - i_hdr) / 8;
     if( n < 0 )
         return;
- 
+
     i_residue = (i_pkt_size - i_hdr) % 8;
     for( i = 1; i < n + 1; i++ )
     {
