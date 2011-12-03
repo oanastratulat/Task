@@ -2,7 +2,7 @@
  * mtp.c: mtp input (mtp: access plug-in)
  *****************************************************************************
  * Copyright (C) 2001-2006 the VideoLAN team
- * Copyright © 2006-2008 Rémi Denis-Courmont
+ * Copyright © 2006-2008 Rémi Denis-Courmon
  *
  * Authors: Fabio Ritrovato <exsephiroth87@gmail.com>
  * Original file.c: Christophe Massiot <massiot@via.ecp.fr>
@@ -80,7 +80,7 @@ static int  Control( access_t *, int, va_list );
 
 static int  open_file( access_t *, const char * );
 
-struct access_sys_t
+struct access_sys_
 {
     unsigned int i_nb_reads;
     int fd;
@@ -175,7 +175,7 @@ static int Open( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Close: close the target
+ * Close: close the targe
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {
@@ -183,7 +183,7 @@ static void Close( vlc_object_t * p_this )
     access_sys_t *p_sys = p_access->p_sys;
 
     close ( p_sys->fd );
-    if(	vlc_unlink( p_access->psz_filepath ) != 0 )
+    if( vlc_unlink( p_access->psz_filepath ) != 0 )
         msg_Err( p_access, "Error deleting file %s, %m",
                  p_access->psz_filepath );
     free( p_sys );

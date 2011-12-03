@@ -108,7 +108,7 @@ static int vlclua_version( lua_State *L )
 }
 
 /*****************************************************************************
- * Get the VLC copyright
+ * Get the VLC copyrigh
  *****************************************************************************/
 static int vlclua_copyright( lua_State *L )
 {
@@ -256,7 +256,7 @@ static const luaL_Reg vlclua_timer_reg[] = {
     { NULL,         NULL                    }
 };
 
-typedef struct
+typedef struc
 {
     lua_State *L;
     vlc_timer_t timer;

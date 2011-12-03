@@ -93,7 +93,7 @@ static ssize_t Read( access_t *, uint8_t *, size_t );
 static int Seek( access_t *, uint64_t );
 static int Control( access_t *, int, va_list );
 
-struct access_sys_t
+struct access_sys_
 {
     int i_smb;
 };

@@ -10,7 +10,7 @@
  *          Derk-Jan Hartman <hartman at videolan dot org>
  *          Rémi Denis-Courmont <rem # videolan : org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -96,13 +96,13 @@
 static bool b_daemon = false;
 #endif
 
-#undef vlc_gc_init
+#undef vlc_gc_ini
 #undef vlc_hold
 #undef vlc_release
 
 /**
  * Atomically set the reference count to 1.
- * @param p_gc reference counted object
+ * @param p_gc reference counted objec
  * @param pf_destruct destruction calback
  * @return p_gc.
  */
@@ -118,7 +118,7 @@ void *vlc_gc_init (gc_object_t *p_gc, void (*pf_destruct) (gc_object_t *))
 
 /**
  * Atomically increment the reference count.
- * @param p_gc reference counted object
+ * @param p_gc reference counted objec
  * @return p_gc.
  */
 void *vlc_hold (gc_object_t * p_gc)
@@ -165,7 +165,7 @@ libvlc_int_t * libvlc_InternalCreate( void )
     libvlc_priv_t *priv;
     char *psz_env = NULL;
 
-    /* Now that the thread system is initialized, we don't have much, but
+    /* Now that the thread system is initialized, we don't have much, bu
      * at least we have variables */
     /* Allocate a libvlc instance object */
     p_libvlc = vlc_custom_create( (vlc_object_t *)NULL, sizeof (*priv),
@@ -273,7 +273,7 @@ int libvlc_InternalInit( libvlc_int_t *p_libvlc, int i_argc,
     priv->i_verbose = var_InheritInteger( p_libvlc, "verbose" );
 
     /*
-     * Support for gettext
+     * Support for gettex
      */
 #if defined( ENABLE_NLS ) \
      && ( defined( HAVE_GETTEXT ) || defined( HAVE_INCLUDED_GETTEXT ) )
@@ -711,7 +711,7 @@ int libvlc_InternalInit( libvlc_int_t *p_libvlc, int i_argc,
     GetFilenames( p_libvlc, i_argc - vlc_optind, ppsz_argv + vlc_optind );
 
     /*
-     * Get --open argument
+     * Get --open argumen
      */
     psz_val = var_InheritString( p_libvlc, "open" );
     if ( psz_val != NULL )
@@ -832,7 +832,7 @@ void libvlc_InternalDestroy( libvlc_int_t *p_libvlc )
 }
 
 /**
- * Add an interface plugin and run it
+ * Add an interface plugin and run i
  */
 int libvlc_InternalAddIntf( libvlc_int_t *p_libvlc, char const *psz_module )
 {
@@ -884,7 +884,7 @@ static void SetLanguage ( const char *psz_lang )
     setenv( "LANG", psz_lang, 1 );
 
 #else
-    /* We set LC_ALL manually because it is the only way to set
+    /* We set LC_ALL manually because it is the only way to se
      * the language at runtime under eg. Windows. Beware that this
      * makes the environment unconsistent when libvlc is unloaded and
      * should probably be moved to a safer place like vlc.c. */

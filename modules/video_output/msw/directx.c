@@ -1,5 +1,5 @@
 /*****************************************************************************
- * directx.c: Windows DirectDraw video output
+ * directx.c: Windows DirectDraw video outpu
  *****************************************************************************
  * Copyright (C) 2001-2009 the VideoLAN team
  * $Id: b4797d11ece32a2db771d9468949e1501b25ba0f $
@@ -762,7 +762,7 @@ static uint32_t DirectXFindColorkey(vout_display_t *vd, uint32_t *color)
 }
 
 /**
- * Create and initialize display according to preferences specified in the vout
+ * Create and initialize display according to preferences specified in the vou
  * thread fields.
  */
 static int DirectXOpenDisplay(vout_display_t *vd)
@@ -828,7 +828,7 @@ static void DirectXCloseDisplay(vout_display_t *vd)
  * conversion is done in hardware.
  * You can also create a plain RGB surface.
  * (Maybe we could also try an RGB overlay surface, which could have hardware
- * scaling and which would also be faster in window mode because you don't
+ * scaling and which would also be faster in window mode because you don'
  * need to do any blitting to the main display...)
  */
 static int DirectXCreateSurface(vout_display_t *vd,

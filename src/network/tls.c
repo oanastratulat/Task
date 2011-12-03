@@ -1,12 +1,12 @@
 /*****************************************************************************
  * tls.c
  *****************************************************************************
- * Copyright © 2004-2007 Rémi Denis-Courmont
+ * Copyright © 2004-2007 Rémi Denis-Courmon
  * $Id: 93892aaf4dcf8c4c151a363581819123b8c18fcc $
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.

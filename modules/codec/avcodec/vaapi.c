@@ -48,7 +48,7 @@
 #include <X11/Xlib.h>
 #include <va/va_x11.h>
 
-typedef struct
+typedef struc
 {
     VASurfaceID  i_id;
     int          i_refcount;
@@ -56,7 +56,7 @@ typedef struct
 
 } vlc_va_surface_t;
 
-typedef struct
+typedef struc
 {
     vlc_va_t     va;
 
@@ -406,7 +406,7 @@ static int Get( vlc_va_t *p_external, AVFrame *p_ff )
     int i_old;
     int i;
 
-    /* Grab an unused surface, in case none are, try the oldest
+    /* Grab an unused surface, in case none are, try the oldes
      * XXX using the oldest is a workaround in case a problem happens with ffmpeg */
     for( i = 0, i_old = 0; i < p_va->i_surface_count; i++ )
     {

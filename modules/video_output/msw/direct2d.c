@@ -169,7 +169,7 @@ error:
 }
 
 /**
- * Close Direct2D vout
+ * Close Direct2D vou
  */
 static void Close(vlc_object_t *object)
 {
@@ -228,7 +228,7 @@ static void Prepare(vout_display_t *vd, picture_t *picture, subpicture_t *subpic
 }
 
 /**
- * Blits a scaled picture_t to the render target
+ * Blits a scaled picture_t to the render targe
  */
 static void Display(vout_display_t *vd, picture_t *picture, subpicture_t *subpicture)
 {
@@ -275,7 +275,7 @@ static int Control(vout_display_t *vd, int query, va_list args)
 }
 
 /**
- * Handles surface management
+ * Handles surface managemen
  * ID2D1RenderTargets cannot be resized and must be recreated
  */
 static void Manage(vout_display_t *vd)
@@ -352,7 +352,7 @@ static int D2D_CreateRenderTarget(vout_display_t *vd)
 
     D2D1_SIZE_U bitmap_size = {
         vd->fmt.i_width,
-        vd->fmt.i_height
+        vd->fmt.i_heigh
     };
 
     hr = ID2D1HwndRenderTarget_CreateBitmap(sys->d2_render_target,
@@ -379,7 +379,7 @@ static int D2D_CreateRenderTarget(vout_display_t *vd)
 }
 
 /**
- * Resizes a ID2D1HWndRenderTarget
+ * Resizes a ID2D1HWndRenderTarge
  */
 static void D2D_ResizeRenderTarget(vout_display_t *vd)
 {

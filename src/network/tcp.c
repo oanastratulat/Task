@@ -2,13 +2,13 @@
  * tcp.c:
  *****************************************************************************
  * Copyright (C) 2004-2005 VLC authors and VideoLAN
- * Copyright (C) 2005-2006 Rémi Denis-Courmont
+ * Copyright (C) 2005-2006 Rémi Denis-Courmon
  * $Id: 9e0442c905a13e209739dc951e6cf75c00aad4a2 $
  *
  * Authors: Laurent Aimar <fenrir@videolan.org>
  *          Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -65,7 +65,7 @@ static int SocksHandshakeTCP( vlc_object_t *,
 extern int net_Socket( vlc_object_t *p_this, int i_family, int i_socktype,
                        int i_protocol );
 
-#undef net_Connect
+#undef net_Connec
 /*****************************************************************************
  * net_Connect:
  *****************************************************************************
@@ -259,7 +259,7 @@ int net_AcceptSingle (vlc_object_t *obj, int lfd)
 }
 
 
-#undef net_Accept
+#undef net_Accep
 /**
  * Accepts an new connection on a set of listening sockets.
  * If there are no pending connections, this function will wait.
@@ -267,7 +267,7 @@ int net_AcceptSingle (vlc_object_t *obj, int lfd)
  * you need to use poll() and net_AcceptSingle() instead.
  *
  * @param p_this VLC object for logging and object kill signal
- * @param pi_fd listening socket set
+ * @param pi_fd listening socket se
  * @return -1 on error (may be transient error due to network issues),
  * a new socket descriptor on success.
  */

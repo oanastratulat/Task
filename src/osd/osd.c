@@ -6,7 +6,7 @@
  *
  * Authors: Jean-Paul Saman <jpsaman #_at_# m2x dot nl>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -372,7 +372,7 @@ void osd_MenuActivate( vlc_object_t *p_this )
     vlc_mutex_unlock( &osd_mutex );
 }
 
-#undef osd_MenuNext
+#undef osd_MenuNex
 void osd_MenuNext( vlc_object_t *p_this )
 {
     osd_button_t *p_button = NULL;
@@ -681,7 +681,7 @@ osd_button_t *osd_ButtonFind( vlc_object_t *p_this, int i_x, int i_y,
     return NULL;
 }
 
-#undef osd_ButtonSelect
+#undef osd_ButtonSelec
 /**
  * Select the button provided as the new active button
  */

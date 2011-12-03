@@ -6,7 +6,7 @@
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -87,7 +87,7 @@
  *          if close enough, read data and use this ring
  *          else use the oldest ring, seek and use it.
  *
- *  TODO: - with access non seekable: use all space available for only one ring, but
+ *  TODO: - with access non seekable: use all space available for only one ring, bu
  *          we have to support seekable/non-seekable switch on the fly.
  *        - compute a good value for i_read_size
  *        - ?
@@ -95,7 +95,7 @@
 #define STREAM_READ_ATONCE 1024
 #define STREAM_CACHE_TRACK_SIZE (STREAM_CACHE_SIZE/STREAM_CACHE_TRACK)
 
-typedef struct
+typedef struc
 {
     int64_t i_date;
 
@@ -106,7 +106,7 @@ typedef struct
 
 } stream_track_t;
 
-typedef struct
+typedef struc
 {
     char     *psz_path;
     uint64_t  i_size;
@@ -119,7 +119,7 @@ typedef enum
     STREAM_METHOD_STREAM
 } stream_read_method_t;
 
-struct stream_sys_t
+struct stream_sys_
 {
     access_t    *p_access;
 
@@ -128,7 +128,7 @@ struct stream_sys_t
     uint64_t     i_pos;      /* Current reading offset */
 
     /* Method 1: pf_block */
-    struct
+    struc
     {
         uint64_t i_start;        /* Offset of block for p_first */
         uint64_t i_offset;       /* Offset for data in p_current */
@@ -141,7 +141,7 @@ struct stream_sys_t
     } block;
 
     /* Method 2: for pf_read */
-    struct
+    struc
     {
         unsigned i_offset;   /* Buffer offset in the current track */
         int      i_tk;       /* Current track */
@@ -161,7 +161,7 @@ struct stream_sys_t
     uint8_t *p_peek;
 
     /* Stat for both method */
-    struct
+    struc
     {
         bool b_fastseek;  /* From access */
 
@@ -1217,7 +1217,7 @@ static int AStreamSeekStream( stream_t *s, uint64_t i_pos )
             assert( b_aseek );
 
             /* Seek at the end of the buffer
-             * TODO it is stupid to seek now, it would be better to delay it
+             * TODO it is stupid to seek now, it would be better to delay i
              */
             if( ASeek( s, tk->i_end ) )
                 return VLC_EGENERIC;

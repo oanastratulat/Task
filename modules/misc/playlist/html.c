@@ -38,7 +38,7 @@ int Export_HTML( vlc_object_t *p_this );
 
 
 /**
- * Recursively follow the playlist
+ * Recursively follow the playlis
  * @param p_export: the export structure
  * @param p_root: the current node
  */
@@ -92,7 +92,7 @@ static void DoChildren( playlist_export_t *p_export, playlist_item_t *p_root )
 
 /**
  * Export the playlist as an HTML page
- * @param p_this: the playlist
+ * @param p_this: the playlis
  * @return VLC_SUCCESS if everything goes fine
  */
 int Export_HTML( vlc_object_t *p_this )

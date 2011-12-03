@@ -8,7 +8,7 @@
  *          Samuel Hocevar <sam@zoy.org>
  *          Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -96,7 +96,7 @@ struct spu_private_t {
 };
 
 /*****************************************************************************
- * heap managment
+ * heap managmen
  *****************************************************************************/
 static void SpuHeapInit(spu_heap_t *heap)
 {
@@ -269,9 +269,9 @@ static void SpuRenderText(spu_t *spu, bool *rerender_text,
      * time-dependent text (and effects). The first indicates
      * the total amount of time the text will be on screen,
      * the second the amount of time it has already been on
-     * screen (can be a negative value as text is layed out
+     * screen (can be a negative value as text is layed ou
      * before it is rendered) and the third is a feedback
-     * variable from the renderer - if the renderer sets it
+     * variable from the renderer - if the renderer sets i
      * then this particular text is time-dependent, eg. the
      * visual progress bar inside the text in karaoke and the
      * text needs to be rendered multiple times in order for
@@ -280,7 +280,7 @@ static void SpuRenderText(spu_t *spu, bool *rerender_text,
      * instead of leaving it in YUVA or YUVP.
      * Any renderer which is unaware of how to render
      * time-dependent text can happily ignore the variables
-     * and render the text the same as usual - it should at
+     * and render the text the same as usual - it should a
      * least show up on screen, but the effect won't change
      * the text over time.
      */
@@ -531,7 +531,7 @@ static int SubpictureCmp(const void *s0, const void *s1)
  * displayed. If no picture has been selected, display_date will depend on
  * the subpicture.
  * We also check for ephemer DVD subpictures (subpictures that have
- * to be removed if a newer one is available), which makes it a lot
+ * to be removed if a newer one is available), which makes it a lo
  * more difficult to guess if a subpicture has to be rendered or not.
  *****************************************************************************/
 static void SpuSelectSubpictures(spu_t *spu,
@@ -612,7 +612,7 @@ static void SpuSelectSubpictures(spu_t *spu,
 
             is_late = is_stop_valid && current->i_stop <= render_date;
 
-            /* start_date will be used for correct automatic overlap support
+            /* start_date will be used for correct automatic overlap suppor
              * in case picture that should not be displayed anymore (display_time)
              * overlap with a picture to be displayed (current->i_start)  */
             if (current->b_subtitle && !is_late && !current->b_ephemer)
@@ -707,7 +707,7 @@ static void SpuRenderRegion(spu_t *spu,
     const bool force_crop    = force_palette && sys->force_crop;
     bool changed_palette     = false;
 
-    /* Compute the margin which is expressed in destination pixel unit
+    /* Compute the margin which is expressed in destination pixel uni
      * The margin is applied only to subtitle and when no forced crop is
      * requested (dvd menu) */
     int y_margin = 0;
@@ -719,7 +719,7 @@ static void SpuRenderRegion(spu_t *spu,
     SpuRegionPlace(&x_offset, &y_offset,
                    subpic, region);
 
-    /* Save this position for subtitle overlap support
+    /* Save this position for subtitle overlap suppor
      * it is really important that there are given without scale_size applied */
     *dst_area = spu_area_create(x_offset, y_offset,
                                 region->fmt.i_width, region->fmt.i_height,
@@ -730,7 +730,7 @@ static void SpuRenderRegion(spu_t *spu,
         SpuAreaFixOverlap(dst_area, subtitle_area, subtitle_area_count,
                           region->i_align);
 
-    /* we copy the area: for the subtitle overlap support we want
+    /* we copy the area: for the subtitle overlap support we wan
      * to only save the area without margin applied */
     spu_area_t restrained = *dst_area;
 
@@ -1197,9 +1197,9 @@ static void SubSourceAllocationClean(filter_t *filter)
 
 #undef spu_Create
 /**
- * Creates the subpicture unit
+ * Creates the subpicture uni
  *
- * \param p_this the parent object which creates the subpicture unit
+ * \param p_this the parent object which creates the subpicture uni
  */
 spu_t *spu_Create(vlc_object_t *object)
 {
@@ -1259,9 +1259,9 @@ spu_t *spu_Create(vlc_object_t *object)
 }
 
 /**
- * Destroy the subpicture unit
+ * Destroy the subpicture uni
  *
- * \param p_this the parent object which destroys the subpicture unit
+ * \param p_this the parent object which destroys the subpicture uni
  */
 void spu_Destroy(spu_t *spu)
 {
@@ -1292,9 +1292,9 @@ void spu_Destroy(spu_t *spu)
 }
 
 /**
- * Attach/Detach the SPU from any input
+ * Attach/Detach the SPU from any inpu
  *
- * \param p_this the object in which to destroy the subpicture unit
+ * \param p_this the object in which to destroy the subpicture uni
  * \param b_attach to select attach or detach
  */
 void spu_Attach(spu_t *spu, vlc_object_t *input, bool attach)
@@ -1324,7 +1324,7 @@ void spu_Attach(spu_t *spu, vlc_object_t *input, bool attach)
 }
 
 /**
- * Inform the SPU filters of mouse event
+ * Inform the SPU filters of mouse even
  */
 int spu_ProcessMouse(spu_t *spu,
                      const vlc_mouse_t *mouse,
@@ -1344,7 +1344,7 @@ int spu_ProcessMouse(spu_t *spu,
  *
  * Remove the reservation flag of a subpicture, which will cause it to be
  * ready for display.
- * \param spu the subpicture unit object
+ * \param spu the subpicture unit objec
  * \param subpic the subpicture to display
  */
 void spu_PutSubpicture(spu_t *spu, subpicture_t *subpic)

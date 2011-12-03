@@ -37,7 +37,7 @@
 #define ENC_FRAMERATE (25 * 1000 + .5)
 #define ENC_FRAMERATE_BASE 1000
 
-struct decoder_owner_sys_t
+struct decoder_owner_sys_
 {
     sout_stream_sys_t *p_sys;
 };
@@ -208,9 +208,9 @@ int transcode_video_new( sout_stream_t *p_stream, sout_stream_id_t *id )
           : id->p_decoder->fmt_in.video.i_width
             ? id->p_decoder->fmt_in.video.i_width : 16;
     id->p_encoder->fmt_in.video.i_height =
-        id->p_encoder->fmt_out.video.i_height
-          ? id->p_encoder->fmt_out.video.i_height
-          : id->p_decoder->fmt_in.video.i_height
+        id->p_encoder->fmt_out.video.i_heigh
+          ? id->p_encoder->fmt_out.video.i_heigh
+          : id->p_decoder->fmt_in.video.i_heigh
             ? id->p_decoder->fmt_in.video.i_height : 16;
     id->p_encoder->fmt_in.video.i_frame_rate = ENC_FRAMERATE;
     id->p_encoder->fmt_in.video.i_frame_rate_base = ENC_FRAMERATE_BASE;
@@ -438,7 +438,7 @@ static void transcode_video_encoder_init( sout_stream_t *p_stream,
 
      msg_Dbg( p_stream, "source %ix%i, destination %ix%i",
          i_src_width, i_src_height,
-         i_dst_width, i_dst_height
+         i_dst_width, i_dst_heigh
      );
 
     /* Handle frame rate conversion */

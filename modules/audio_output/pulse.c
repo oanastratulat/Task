@@ -2,7 +2,7 @@
  * pulse.c : Pulseaudio output plugin for vlc
  *****************************************************************************
  * Copyright (C) 2008 the VideoLAN team
- * Copyright (C) 2009-2011 Rémi Denis-Courmont
+ * Copyright (C) 2009-2011 Rémi Denis-Courmon
  *
  * Authors: Martin Hamrle <hamrle @ post . cz>
  *
@@ -51,8 +51,8 @@ vlc_module_begin ()
 vlc_module_end ()
 
 /* TODO:
- * - pause input on policy event
- * - resample to compensate for long term drift
+ * - pause input on policy even
+ * - resample to compensate for long term drif
  * - select music or video stream property correctly (?)
  * - set further appropriate stream properties
  * - update output devices list dynamically
@@ -64,7 +64,7 @@ vlc_module_end ()
  * In particular, a VLC variable callback cannot be triggered nor deleted with
  * the PulseAudio mainloop lock held, if the callback acquires the lock. */
 
-struct aout_sys_t
+struct aout_sys_
 {
     pa_stream *stream; /**< PulseAudio playback stream object */
     pa_context *context; /**< PulseAudio connection context */
@@ -813,7 +813,7 @@ static int Open(vlc_object_t *obj)
     /* PulseAudio assumes that tlength bytes are available in the buffer. Thus
      * we need to be conservative and set the minimum value that the VLC
      * audio decoder thread warrants. Otherwise, PulseAudio buffers will
-     * underrun on hardware with large buffers. VLC keeps at least
+     * underrun on hardware with large buffers. VLC keeps at leas
      * AOUT_MIN_PREPARE and at most AOUT_MAX_PREPARE worth of audio buffers.
      * TODO? tlength could be adaptively increased to reduce wakeups. */
     attr.tlength = pa_usec_to_bytes(AOUT_MIN_PREPARE_TIME, &ss);

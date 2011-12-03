@@ -54,7 +54,7 @@
 /*****************************************************************************
  * decoder_sys_t: decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     /* Common part between video and audio decoder */
     AVCODEC_COMMON_MEMBERS

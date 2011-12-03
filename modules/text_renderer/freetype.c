@@ -258,7 +258,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-typedef struct
+typedef struc
 {
     FT_BitmapGlyph p_glyph;
     FT_BitmapGlyph p_outline;
@@ -269,7 +269,7 @@ typedef struct
 } line_character_t;
 
 typedef struct line_desc_t line_desc_t;
-struct line_desc_t
+struct line_desc_
 {
     line_desc_t      *p_next;
 
@@ -280,7 +280,7 @@ struct line_desc_t
 };
 
 typedef struct font_stack_t font_stack_t;
-struct font_stack_t
+struct font_stack_
 {
     char          *psz_name;
     int            i_size;
@@ -296,7 +296,7 @@ struct font_stack_t
  * This structure is part of the video output thread descriptor.
  * It describes the freetype specific properties of an output thread.
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     FT_Library     p_library;   /* handle to library     */
     FT_Face        p_face;      /* handle to face object */
@@ -1323,8 +1323,8 @@ static int HandleFontAttributes( xml_reader_t *p_xml_reader,
     uint32_t   i_karaoke_bg_color = 0x00ffffff;
     int        i_font_size  = 24;
 
-    /* Default all attributes to the top font in the stack -- in case not
-     * all attributes are specified in the sub-font
+    /* Default all attributes to the top font in the stack -- in case no
+     * all attributes are specified in the sub-fon
      */
     if( VLC_SUCCESS == PeekFont( p_fonts,
                                  &psz_fontname,
@@ -2434,7 +2434,7 @@ static int RenderCommon( filter_t *p_filter, subpicture_region_t *p_region_out,
     p_region_out->i_x = p_region_in->i_x;
     p_region_out->i_y = p_region_in->i_y;
 
-    /* Don't attempt to render text that couldn't be layed out
+    /* Don't attempt to render text that couldn't be layed ou
      * properly. */
     if( !rv && i_text_length > 0 && bbox.xMin < bbox.xMax && bbox.yMin < bbox.yMax )
     {

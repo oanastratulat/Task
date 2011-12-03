@@ -121,7 +121,7 @@ vlc_module_end ()
 
 TYPEDEF_ARRAY( uint64_t, size_array_t );
 
-struct access_sys_t
+struct access_sys_
 {
     /* file sizes of all parts */
     size_array_t file_sizes;
@@ -455,7 +455,7 @@ static void FindSeekpoint( access_t *p_access )
 }
 
 /*****************************************************************************
- * Returns the path of a certain part
+ * Returns the path of a certain par
  *****************************************************************************/
 static char *GetFilePath( access_t *p_access, unsigned i_file )
 {
@@ -469,7 +469,7 @@ static char *GetFilePath( access_t *p_access, unsigned i_file )
 }
 
 /*****************************************************************************
- * Check if another part exists and import it
+ * Check if another part exists and import i
  *****************************************************************************/
 static bool ImportNextFile( access_t *p_access )
 {

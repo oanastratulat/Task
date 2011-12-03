@@ -1,12 +1,12 @@
 /*****************************************************************************
  * poll.c: I/O event multiplexing
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmont
+ * Copyright © 2007 Rémi Denis-Courmon
  * $Id: da78f7fd23d7d4c2e941b41a42908584c48ba984 $
  *
- * Author: Rémi Denis-Courmont
+ * Author: Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.

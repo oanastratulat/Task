@@ -33,7 +33,7 @@
  */
 
 /**
- * @brief Add an item to the head of the list
+ * @brief Add an item to the head of the lis
  * @param p_ml
  * @param p_media media object. ID must be non zero and valid
  * @param p_item input item to add, MUST NOT be NULL
@@ -80,7 +80,7 @@ int __item_list_add( watch_thread_t *p_wt, ml_media_t* p_media, input_item_t *p_
 }
 
 /**
- * @brief Delete an item from the list
+ * @brief Delete an item from the lis
  * @param p_ml this media library
  * @param i_media_id media library's media ID
  */
@@ -110,7 +110,7 @@ item_list_t* item_list_delMedia( watch_thread_t *p_wt, int i_media_id )
 }
 
 /**
- * @brief Delete an item from the list and return the single element
+ * @brief Delete an item from the list and return the single elemen
  * @param p_ml this media library
  * @param p_item item to delete
  * @return The element from the list containing p_item

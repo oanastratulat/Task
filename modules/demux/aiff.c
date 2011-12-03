@@ -56,7 +56,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-struct demux_sys_t
+struct demux_sys_
 {
     es_format_t  fmt;
     es_out_id_t *es;

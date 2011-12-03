@@ -313,7 +313,7 @@ vlc_module_end()
  * picture_pts_t : store pts alongside picture number, not carried through
  * encoder
  *****************************************************************************/
-struct picture_pts_t
+struct picture_pts_
 {
    bool b_empty;      /* entry is invalid */
    uint32_t u_pnum;  /* dirac picture number */
@@ -324,7 +324,7 @@ struct picture_pts_t
  * encoder_sys_t : dirac encoder descriptor
  *****************************************************************************/
 #define PTS_TLB_SIZE 256
-struct encoder_sys_t
+struct encoder_sys_
 {
     dirac_encoder_t *p_dirac;
     dirac_encoder_context_t ctx;
@@ -344,7 +344,7 @@ struct encoder_sys_t
     mtime_t i_field_time;
 };
 
-static struct
+static struc
 {
     unsigned int i_height;
     int i_approx_fps;
@@ -782,7 +782,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pic )
     uint8_t *p_dst;
 
     if( !p_pic ) return NULL;
-    /* we only know if the sequence is interlaced when the first
+    /* we only know if the sequence is interlaced when the firs
      * picture arrives, so final setup is done here */
     /* XXX todo, detect change of interlace */
     p_sys->ctx.src_params.topfieldfirst = p_pic->b_top_field_first;
@@ -897,7 +897,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pic )
             memcpy( p_block->p_buffer, p_sys->p_dirac->enc_buf.buffer,
                     p_sys->p_dirac->enc_buf.size );
 
-            /* if some flags were set for a previous block, prevent
+            /* if some flags were set for a previous block, preven
              * them from getting lost */
             if( p_sys->p_chain )
                 p_block->i_flags |= p_sys->p_chain->i_flags;
@@ -916,7 +916,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pic )
                     uint32_t len = GetDWBE( p_block->p_buffer + 5 );
                     /* if it hasn't been done so far, stash a copy of the
                      * sequence header for muxers such as ogg */
-                    /* The OggDirac spec advises that a Dirac EOS DataUnit
+                    /* The OggDirac spec advises that a Dirac EOS DataUni
                      * is appended to the sequence header to allow guard
                      * against poor streaming servers */
                     /* XXX, should this be done using the packetizer ? */

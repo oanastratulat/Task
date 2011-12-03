@@ -3,7 +3,7 @@
  * @brief X C Bindings video output module for VLC media player
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmont
+ * Copyright © 2009 Rémi Denis-Courmon
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -60,7 +60,7 @@ vlc_module_end ()
  * with XCB X11. */
 #define MAX_PICTURES (3)
 
-struct vout_display_sys_t
+struct vout_display_sys_
 {
     xcb_connection_t *conn;
     vout_window_t *embed; /* VLC window */

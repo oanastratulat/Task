@@ -1,9 +1,9 @@
 /*****************************************************************************
  * dialog.c: User dialog functions
  *****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmont
+ * Copyright © 2009 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -174,9 +174,9 @@ void dialog_Login (vlc_object_t *obj, char **username, char **password,
  * Asks a total (Yes/No/Cancel) question through the user interface.
  * @param obj VLC object emitting the question
  * @param title dialog box title
- * @param text dialog box text
- * @param yes first choice/button text
- * @param no second choice/button text
+ * @param text dialog box tex
+ * @param yes first choice/button tex
+ * @param no second choice/button tex
  * @param cancel third answer/button text, or NULL if no third option
  * @return 0 if the user could not answer the question (e.g. there is no UI),
  * 1, 2 resp. 3 if the user pressed the first, second resp. third button.
@@ -229,7 +229,7 @@ dialog_ProgressCreate (vlc_object_t *obj, const char *title,
 
     /* FIXME: This could conceivably crash if the dialog provider is destroyed
      * before the dialog user. Holding the provider does not help, as it only
-     * protects object variable operations. For instance, it does not prevent
+     * protects object variable operations. For instance, it does not preven
      * unloading of the interface plugin. In the short term, the only solution
      * is to not use progress dialog after deinitialization of the interfaces.
      */

@@ -5,10 +5,10 @@
  *
  * Copyright (C) 2003-2008 VLC authors and VideoLAN
  *
- * Authors: Christophe Massiot
- *          Rémi Denis-Courmont
+ * Authors: Christophe Massio
+ *          Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -82,7 +82,7 @@ float us_strtof( const char *str, char **end )
 
 
 /**
- * us_atof() has the same prototype as ANSI C atof() but it expects a dot
+ * us_atof() has the same prototype as ANSI C atof() but it expects a do
  * as decimal separator, regardless of the system locale.
  */
 double us_atof( const char *str )

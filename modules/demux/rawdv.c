@@ -98,7 +98,7 @@ typedef struct {
     int8_t ap3;
 } dv_header_t;
 
-struct demux_sys_t
+struct demux_sys_
 {
     int    frame_size;
 
@@ -228,7 +228,7 @@ static int Open( vlc_object_t * p_this )
 
     /* FIXME FIXME */
 #if 0
-    /* necessary because input_SplitBuffer() will only get
+    /* necessary because input_SplitBuffer() will only ge
      * INPUT_DEFAULT_BUFSIZE bytes at a time. */
     p_input->i_bufsize = p_sys->frame_size;
 #endif

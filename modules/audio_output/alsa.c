@@ -2,7 +2,7 @@
  * alsa.c : alsa plugin for vlc
  *****************************************************************************
  * Copyright (C) 2000-2010 the VideoLAN team
- * Copyright (C) 2009-2011 Rémi Denis-Courmont
+ * Copyright (C) 2009-2011 Rémi Denis-Courmon
  *
  * Authors: Henri Fallon <henri@videolan.org> - Original Author
  *          Jeffrey Baker <jwbaker@acm.org> - Port to ALSA 1.0 API
@@ -40,7 +40,7 @@
 #include <alsa/version.h>
 
 /** Private data for an ALSA PCM playback stream */
-struct aout_sys_t
+struct aout_sys_
 {
     snd_pcm_t *pcm;
 };
@@ -633,7 +633,7 @@ static void Play (audio_output_t *aout, block_t *block)
             block->i_buffer -= bytes;
             // pts, length
         }
-        else  
+        else
         {
             int val = snd_pcm_recover (pcm, frames, 1);
             if (val)

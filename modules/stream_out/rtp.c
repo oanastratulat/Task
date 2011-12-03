@@ -2,7 +2,7 @@
  * rtp.c: rtp stream output module
  *****************************************************************************
  * Copyright (C) 2003-2004, 2010 the VideoLAN team
- * Copyright © 2007-2008 Rémi Denis-Courmont
+ * Copyright © 2007-2008 Rémi Denis-Courmon
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
  *          Pierre Ynard
@@ -298,7 +298,7 @@ static int HttpSetup( sout_stream_t *p_stream, const vlc_url_t * );
 static int64_t rtp_init_ts( const vod_media_t *p_media,
                             const char *psz_vod_session );
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     /* SDP */
     char    *psz_sdp;
@@ -348,13 +348,13 @@ struct sout_stream_sys_t
     sout_stream_id_t **es;
 };
 
-typedef struct rtp_sink_t
+typedef struct rtp_sink_
 {
     int rtp_fd;
     rtcp_sender_t *rtcp;
 } rtp_sink_t;
 
-struct sout_stream_id_t
+struct sout_stream_id_
 {
     sout_stream_t *p_stream;
     /* rtp field */
@@ -526,14 +526,14 @@ static int Open( vlc_object_t *p_this )
 
     p_sys->b_latm = var_GetBool( p_stream, SOUT_CFG_PREFIX "mp4a-latm" );
 
-    /* NPT=0 time will be determined when we packetize the first packet
+    /* NPT=0 time will be determined when we packetize the first packe
      * (of any ES). But we want to be able to report rtptime in RTSP
      * without waiting (and already did in the VoD case). So until then,
      * we use an arbitrary reference PTS for timestamp computations, and
      * then actual PTS will catch up using offsets. */
     p_sys->i_npt_zero = VLC_TS_INVALID;
     p_sys->i_pts_zero = rtp_init_ts(p_sys->p_vod_media,
-                                    p_sys->psz_vod_session); 
+                                    p_sys->psz_vod_session);
     p_sys->i_es = 0;
     p_sys->es   = NULL;
     p_sys->rtsp = NULL;
@@ -796,12 +796,12 @@ char *SDPGenerate( sout_stream_t *p_stream, const char *rtsp_url )
     /*
      * When we have a fixed destination (typically when we do multicast),
      * we need to put the actual port numbers in the SDP.
-     * When there is no fixed destination, we only support RTSP unicast
+     * When there is no fixed destination, we only support RTSP unicas
      * on-demand setup, so we should rather let the clients decide which ports
      * to use.
      * When there is both a fixed destination and RTSP unicast, we need to
      * put port numbers used by the fixed destination, otherwise the SDP would
-     * become totally incorrect for multicast use. It should be noted that
+     * become totally incorrect for multicast use. It should be noted tha
      * port numbers from SDP with RTSP are only "recommendation" from the
      * server to the clients (per RFC2326), so only broken clients will fail
      * to handle this properly. There is no solution but to use two differents
@@ -1245,7 +1245,7 @@ static int Del( sout_stream_t *p_stream, sout_stream_id_t *id )
         vlc_join( id->listen.thread, NULL );
         net_ListenClose( id->listen.fd );
     }
-    /* Delete remaining sinks (incoming connections or explicit
+    /* Delete remaining sinks (incoming connections or explici
      * outgoing dst=) */
     while( id->sinkc > 0 )
         rtp_del_sink( id, id->sinkv[0].rtp_fd );
@@ -1583,7 +1583,7 @@ static int64_t rtp_init_ts( const vod_media_t *p_media,
     return i_ts_init;
 }
 
-/* Return a timestamp corresponding to packets being sent now, and that
+/* Return a timestamp corresponding to packets being sent now, and tha
  * can be passed to rtp_compute_ts() to get rtptime values for each ES.
  * Also return the NPT corresponding to this timestamp. If the stream
  * output is not started, the initial timestamp that will be used with
@@ -1618,7 +1618,7 @@ int64_t rtp_get_ts( const sout_stream_t *p_stream, const sout_stream_id_t *id,
     if (p_npt != NULL)
         *p_npt = npt;
 
-    return p_sys->i_pts_zero + npt; 
+    return p_sys->i_pts_zero + npt;
 }
 
 void rtp_packetize_common( sout_stream_id_t *id, block_t *out,

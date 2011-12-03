@@ -259,7 +259,7 @@ const char *ErrorToString(OMX_ERRORTYPE error)
 /*****************************************************************************
  * fourcc -> omx id mapping
  *****************************************************************************/
-static const struct
+static const struc
 {
     vlc_fourcc_t i_fourcc;
     OMX_VIDEO_CODINGTYPE i_codec;
@@ -282,7 +282,7 @@ static const struct
     { 0, 0, 0 }
 };
 
-static const struct
+static const struc
 {
     vlc_fourcc_t i_fourcc;
     OMX_AUDIO_CODINGTYPE i_codec;
@@ -297,7 +297,7 @@ static const struct
     { 0, 0, 0 }
 };
 
-static const struct
+static const struc
 {
     vlc_fourcc_t i_fourcc;
     OMX_VIDEO_CODINGTYPE i_codec;
@@ -320,7 +320,7 @@ static const struct
     { 0, 0, 0 }
 };
 
-static const struct
+static const struc
 {
     vlc_fourcc_t i_fourcc;
     OMX_AUDIO_CODINGTYPE i_codec;
@@ -335,7 +335,7 @@ static const struct
     { 0, 0, 0 }
 };
 
-static const struct
+static const struc
 {
     vlc_fourcc_t i_fourcc;
     OMX_COLOR_FORMATTYPE i_codec;
@@ -797,7 +797,7 @@ OMX_ERRORTYPE GetAudioParameters(OMX_HANDLETYPE handle,
 }
 
 /*****************************************************************************
- * PrintOmx: print component summary 
+ * PrintOmx: print component summary
  *****************************************************************************/
 void PrintOmx(decoder_t *p_dec, OMX_HANDLETYPE omx_handle, OMX_U32 i_port)
 {

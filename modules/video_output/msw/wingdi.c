@@ -183,7 +183,7 @@ static void Display(vout_display_t *vd, picture_t *picture, subpicture_t *subpic
 #else
 #define rect_src vd->sys->rect_src
 #define rect_src_clipped vd->sys->rect_src_clipped
-#define rect_dest vd->sys->rect_dest
+#define rect_dest vd->sys->rect_des
 #define rect_dest_clipped vd->sys->rect_dest_clipped
     RECT rect_dst = rect_dest_clipped;
     HDC hdc = GetDC(sys->hvideownd);
@@ -212,7 +212,7 @@ static void Display(vout_display_t *vd, picture_t *picture, subpicture_t *subpic
     ReleaseDC(sys->hvideownd, hdc);
 #undef rect_src
 #undef rect_src_clipped
-#undef rect_dest
+#undef rect_des
 #undef rect_dest_clipped
 #endif
     /* TODO */

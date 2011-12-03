@@ -81,7 +81,7 @@ vlc_module_end ()
  * This structure is part of the video output thread descriptor.
  * It describes the module specific properties of an output thread.
  *****************************************************************************/
-struct vout_display_sys_t
+struct vout_display_sys_
 {
     TID                tid;
     HEV                ack_event;
@@ -106,7 +106,7 @@ struct vout_display_sys_t
     bool               is_mouse_hidden;
 };
 
-struct picture_sys_t
+struct picture_sys_
 {
     int i_chroma_shift;
 };
@@ -391,7 +391,7 @@ static picture_pool_t *Pool(vout_display_t *vd, unsigned count)
 }
 
 /*****************************************************************************
- * Display: displays previously rendered output
+ * Display: displays previously rendered outpu
  *****************************************************************************
  * This function sends the currently rendered image to the display.
  *****************************************************************************/
@@ -421,7 +421,7 @@ static void Manage( vout_display_t *vd )
 }
 
 /*****************************************************************************
- * Control: control facility for the vout
+ * Control: control facility for the vou
  *****************************************************************************/
 static int Control( vout_display_t *vd, int query, va_list args )
 {
@@ -530,7 +530,7 @@ static int Control( vout_display_t *vd, int query, va_list args )
 /*****************************************************************************
  * OpenDisplay: open and initialize KVA device
  *****************************************************************************
- * Open and initialize display according to preferences specified in the vout
+ * Open and initialize display according to preferences specified in the vou
  * thread fields.
  *****************************************************************************/
 static int OpenDisplay( vout_display_t *vd, video_format_t *fmt )
@@ -775,7 +775,7 @@ static void MorphToPM( void )
 /*****************************************************************************
  * Key events handling
  *****************************************************************************/
-static const struct
+static const struc
 {
     USHORT i_pmkey;
     int    i_vlckey;

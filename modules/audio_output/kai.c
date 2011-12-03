@@ -43,7 +43,7 @@
  * This structure is part of the audio output thread descriptor.
  * It describes the specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     aout_packet_t   packet;
     HKAI            hkai;

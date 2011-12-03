@@ -35,7 +35,7 @@
 #include <vlc_dialog.h>                   // dialog_Fatal
 #include <vlc_aout.h>                     // aout_*
 
-#include <AudioUnit/AudioUnit.h>          // AudioUnit
+#include <AudioUnit/AudioUnit.h>          // AudioUni
 #include <CoreAudio/CoreAudio.h>      // AudioDeviceID
 #include <AudioToolbox/AudioFormat.h>     // AudioFormatGetProperty
 #include <CoreServices/CoreServices.h>
@@ -68,7 +68,7 @@
  * This structure is part of the audio output thread descriptor.
  * It describes the CoreAudio specific properties of an output thread.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     aout_packet_t               packet;
     AudioDeviceID               i_default_dev;       /* DeviceID of defaultOutputDevice */
@@ -139,7 +139,7 @@ vlc_module_begin ()
 vlc_module_end ()
 
 /*****************************************************************************
- * Open: open macosx audio output
+ * Open: open macosx audio outpu
  *****************************************************************************/
 static int Open( vlc_object_t * p_this )
 {
@@ -276,7 +276,7 @@ error:
 }
 
 /*****************************************************************************
- * Open: open and setup a HAL AudioUnit to do analog (multichannel) audio output
+ * Open: open and setup a HAL AudioUnit to do analog (multichannel) audio outpu
  *****************************************************************************/
 static int OpenAnalog( audio_output_t *p_aout )
 {
@@ -821,7 +821,7 @@ static int OpenSPDIF( audio_output_t * p_aout )
 
 
 /*****************************************************************************
- * Close: Close HAL AudioUnit
+ * Close: Close HAL AudioUni
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {
@@ -1160,7 +1160,7 @@ static int AudioStreamSupportsDigital( audio_output_t *p_aout, AudioStreamID i_s
 }
 
 /*****************************************************************************
- * AudioStreamChangeFormat: Change i_stream_id to change_format
+ * AudioStreamChangeFormat: Change i_stream_id to change_forma
  *****************************************************************************/
 static int AudioStreamChangeFormat( audio_output_t *p_aout, AudioStreamID i_stream_id, AudioStreamBasicDescription change_format )
 {
@@ -1340,7 +1340,7 @@ static OSStatus RenderCallbackAnalog( vlc_object_t *_p_aout,
 }
 
 /*****************************************************************************
- * RenderCallbackSPDIF: callback for SPDIF audio output
+ * RenderCallbackSPDIF: callback for SPDIF audio outpu
  *****************************************************************************/
 static OSStatus RenderCallbackSPDIF( AudioDeviceID inDevice,
                                     const AudioTimeStamp * inNow,

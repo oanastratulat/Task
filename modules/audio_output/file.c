@@ -44,7 +44,7 @@
  * This structure is part of the audio output thread descriptor.
  * It describes the direct sound specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     FILE     * p_file;
     bool b_add_wav_header;

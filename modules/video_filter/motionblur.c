@@ -74,9 +74,9 @@ static const char *const ppsz_filter_options[] = {
 };
 
 /*****************************************************************************
- * filter_sys_t
+ * filter_sys_
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     picture_t *p_tmp;
     bool      b_first;

@@ -223,7 +223,7 @@ vlc_module_end ()
 /*****************************************************************************
  * fbosd_render_t: render descriptor
  *****************************************************************************/
-struct fbosd_render_t
+struct fbosd_render_
 {
 #define FBOSD_RENDER_IMAGE 0
 #define FBOSD_RENDER_TEXT  1
@@ -250,7 +250,7 @@ struct fbosd_render_t
 /*****************************************************************************
  * intf_sys_t: interface framebuffer method descriptor
  *****************************************************************************/
-struct intf_sys_t
+struct intf_sys_
 {
     /* Framebuffer information */
     int                         i_fd;                       /* device handle */
@@ -661,14 +661,14 @@ static void DeAllocatePicture( picture_t *p_pic, video_format_t *p_fmt )
 
 /*****************************************************************************
  * SetOverlayTransparency: Set the transparency for this overlay fb,
- * - true is make transparent
- * - false is make non tranparent
+ * - true is make transparen
+ * - false is make non tranparen
  *****************************************************************************/
 static void SetOverlayTransparency( intf_thread_t *p_intf,
                                     bool b_transparent )
 {
     intf_sys_t *p_sys = p_intf->p_sys;
-    size_t i_size = p_sys->fmt_out.i_width * p_sys->fmt_out.i_height
+    size_t i_size = p_sys->fmt_out.i_width * p_sys->fmt_out.i_heigh
                         * p_sys->i_bytes_per_pixel;
     size_t i_page_size = (p_sys->i_page_size > i_size) ?
                             i_size : p_sys->i_page_size;
@@ -827,7 +827,7 @@ static int RenderPicture( intf_thread_t *p_intf, int i_x_offset, int i_y_offset,
 }
 
 /*****************************************************************************
- * RenderText - Render text to the desired picture format
+ * RenderText - Render text to the desired picture forma
  *****************************************************************************/
 static picture_t *RenderText( intf_thread_t *p_intf, const char *psz_string,
                               text_style_t *p_style, video_format_t *p_fmt )
@@ -1082,7 +1082,7 @@ static int OpenDisplay( intf_thread_t *p_intf )
         p_sys->i_height = p_sys->fmt_out.i_height = p_sys->var_info.yres;
     }
 
-    /* FIXME: if the image is full-size, it gets cropped on the left
+    /* FIXME: if the image is full-size, it gets cropped on the lef
      * because of the xres / xres_virtual slight difference */
     msg_Dbg( p_intf, "%ix%i (virtual %ix%i)",
              p_sys->var_info.xres, p_sys->var_info.yres,
@@ -1138,7 +1138,7 @@ static int OpenDisplay( intf_thread_t *p_intf )
         return VLC_EGENERIC;
     }
 
-    p_sys->i_page_size = p_sys->i_width * p_sys->i_height
+    p_sys->i_page_size = p_sys->i_width * p_sys->i_heigh
                          * p_sys->i_bytes_per_pixel;
 
     msg_Dbg( p_intf, "framebuffer type=%d, visual=%d, ypanstep=%d, "

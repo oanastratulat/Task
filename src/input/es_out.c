@@ -7,7 +7,7 @@
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
  *          Jean-Paul Saman <jpsaman #_at_# m2x dot nl>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -56,7 +56,7 @@
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-typedef struct
+typedef struc
 {
     /* Program ID */
     int i_id;
@@ -75,7 +75,7 @@ typedef struct
     char    *psz_publisher;
 } es_out_pgrm_t;
 
-struct es_out_id_t
+struct es_out_id_
 {
     /* ES ID */
     int       i_id;
@@ -104,7 +104,7 @@ struct es_out_id_t
     int         i_meta_id;
 };
 
-struct es_out_sys_t
+struct es_out_sys_
 {
     input_thread_t *p_input;
 
@@ -1403,7 +1403,7 @@ static void EsOutMeta( es_out_t *p_out, const vlc_meta_t *p_meta )
 
         if( !strncmp( psz_arturl, "attachment://", strlen("attachment") ) )
         {
-            /* Don't look for art cover if sout
+            /* Don't look for art cover if sou
              * XXX It can change when sout has meta data support */
             if( p_input->p->p_sout && !p_input->b_preparsing )
                 input_item_SetArtURL( p_item, "" );
@@ -1425,7 +1425,7 @@ static void EsOutMeta( es_out_t *p_out, const vlc_meta_t *p_meta )
 }
 
 /* EsOutAdd:
- *  Add an es_out
+ *  Add an es_ou
  */
 static es_out_id_t *EsOutAdd( es_out_t *out, const es_format_t *fmt )
 {
@@ -1910,7 +1910,7 @@ static void EsOutSelect( es_out_t *out, es_out_id_t *es, bool b_force )
 }
 
 /**
- * Send a block for the given es_out
+ * Send a block for the given es_ou
  *
  * \param out the es_out to send from
  * \param es the es_out_id
@@ -2170,7 +2170,7 @@ static int EsOutControlLocked( es_out_t *out, int i_query, va_list args )
             if( i_mode != ES_OUT_MODE_NONE && !p_sys->b_active && p_sys->i_es > 0 )
             {
                 /* XXX Terminate vout if there are tracks but no video one.
-                 * This one is not mandatory but is he earliest place where it
+                 * This one is not mandatory but is he earliest place where i
                  * can be done */
                 int i;
                 for( i = 0; i < p_sys->i_es; i++ )
@@ -2251,7 +2251,7 @@ static int EsOutControlLocked( es_out_t *out, int i_query, va_list args )
             }
             return VLC_SUCCESS;
         }
- 
+
         case ES_OUT_SET_ES_DEFAULT:
         {
             es_out_id_t *es = va_arg( args, es_out_id_t * );

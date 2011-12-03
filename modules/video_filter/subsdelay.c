@@ -117,7 +117,7 @@ static const char * const ppsz_mode_descriptions[] = { N_( "Absolute delay" ), N
 
 typedef subpicture_updater_sys_t subsdelay_heap_entry_t;
 
-struct subpicture_updater_sys_t
+struct subpicture_updater_sys_
 {
     subpicture_t *p_subpic; /* local subtitle */
 
@@ -152,7 +152,7 @@ struct subpicture_updater_sys_t
  * subsdelay_heap_t: Heap
  *****************************************************************************/
 
-typedef struct
+typedef struc
 {
     vlc_mutex_t lock; /* heap global lock */
 
@@ -170,7 +170,7 @@ typedef struct
 * filter_sys_t: Subsdelay filter descriptor
  *****************************************************************************/
 
-struct filter_sys_t
+struct filter_sys_
 {
     int i_mode; /* delay calculation mode */
 
@@ -1152,7 +1152,7 @@ static subpicture_t *SubpicClone( subpicture_t *p_source, subpicture_updater_t *
 }
 
 /*****************************************************************************
- * SubpicDestroyClone: destroy cloned subpicture (shared references will not
+ * SubpicDestroyClone: destroy cloned subpicture (shared references will no
  *     be destroyed)
  *****************************************************************************/
 static void SubpicDestroyClone( subpicture_t *p_subpic )
@@ -1181,7 +1181,7 @@ static int64_t SubsdelayEstimateDelay( filter_t *p_filter, subsdelay_heap_entry_
 
     if( i_mode == SUBSDELAY_MODE_RELATIVE_SOURCE_CONTENT )
     {
-        if( p_entry->p_subpic && p_entry->p_subpic->p_region && ( p_entry->p_subpic->p_region->psz_text
+        if( p_entry->p_subpic && p_entry->p_subpic->p_region && ( p_entry->p_subpic->p_region->psz_tex
                 || p_entry->p_subpic->p_region->psz_html ) )
         {
             if( p_entry->p_subpic->p_region->psz_text )

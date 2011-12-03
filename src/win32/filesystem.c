@@ -2,11 +2,11 @@
  * filesystem.c: Windows file system helpers
  *****************************************************************************
  * Copyright (C) 2005-2006 VLC authors and VideoLAN
- * Copyright © 2005-2008 Rémi Denis-Courmont
+ * Copyright © 2005-2008 Rémi Denis-Courmon
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.

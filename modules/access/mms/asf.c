@@ -219,12 +219,12 @@ void  asf_StreamSelect  ( asf_header_t *hdr,
      *    - no audio nor video stream
      *    - or:
      *         - if i_bitrate_max not set keep the highest bitrate
-     *         - if i_bitrate_max is set, keep stream that make we used best
+     *         - if i_bitrate_max is set, keep stream that make we used bes
      *           quality regarding i_bitrate_max
      *
      * XXX: little buggy:
      *        - it doesn't use mutual exclusion info..
-     *        - when selecting a better stream we could select
+     *        - when selecting a better stream we could selec
      *        something that make i_bitrate_total> i_bitrate_max
      */
     for( i = 1; i < 128; i++ )

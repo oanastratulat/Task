@@ -50,7 +50,7 @@
 
 #define CDG_SCREEN_PITCH CDG_SCREEN_WIDTH
 
-struct decoder_sys_t
+struct decoder_sys_
 {
     uint8_t  color[16][3];
     unsigned i_offseth;

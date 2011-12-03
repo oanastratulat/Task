@@ -44,7 +44,7 @@
  *  - optimize a bit (you can hardly do slower ;)
  *  - add tables for more bands (15 and 32 would be cool), maybe with auto coeffs
  *  computation (not too hard once the Q is found).
- *  - support for external preset
+ *  - support for external prese
  *  - callback to handle preset changes on the fly
  *  - ...
  */
@@ -94,7 +94,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     /* Filter static config */
     int i_band;
@@ -211,11 +211,11 @@ static block_t * DoWork( filter_t * p_filter, block_t * p_in_buf )
 /*****************************************************************************
  * Equalizer stuff
  *****************************************************************************/
-typedef struct
+typedef struc
 {
     int   i_band;
 
-    struct
+    struc
     {
         float f_frequency;
         float f_alpha;

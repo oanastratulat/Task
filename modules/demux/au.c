@@ -80,7 +80,7 @@ enum AuCat_e
     AU_CAT_ADPCM    = 2
 };
 
-struct demux_sys_t
+struct demux_sys_
 {
     es_format_t     fmt;
     es_out_id_t     *es;

@@ -65,7 +65,7 @@ static const char *const ppsz_color_descriptions[] = {
 /*****************************************************************************
  * filter_sys_t: marquee filter descriptor
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     vlc_mutex_t lock;
 

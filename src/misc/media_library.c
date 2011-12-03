@@ -6,7 +6,7 @@
  *
  * Authors: Srikanth Raju <srikiraju at gmail dot com>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -33,8 +33,8 @@
 #include "../libvlc.h"
 
 /**
- * @brief Destroy the medialibrary object
- * @param Parent object that holds the media library object
+ * @brief Destroy the medialibrary objec
+ * @param Parent object that holds the media library objec
  */
 void ml_Destroy( vlc_object_t * p_this )
 {
@@ -45,7 +45,7 @@ void ml_Destroy( vlc_object_t * p_this )
 
 /**
  * Atomically set the reference count to 1.
- * @param p_gc reference counted object
+ * @param p_gc reference counted objec
  * @param pf_destruct destruction calback
  * @return p_gc.
  */
@@ -68,7 +68,7 @@ static void *ml_gc_init (ml_gc_object_t *p_gc, void (*pf_destruct) (ml_gc_object
 
 /**
  * @brief Create an instance of the media library
- * @param p_this Parent object
+ * @param p_this Parent objec
  * @param psz_name Name which is passed to module_need (not needed)
  * @return p_ml created and attached, module loaded. NULL if
  * not able to load
@@ -97,7 +97,7 @@ media_library_t *ml_Create( vlc_object_t *p_this, char *psz_name )
     return p_ml;
 }
 
-#undef ml_Get
+#undef ml_Ge
 /**
  * @brief Acquire a reference to the media library singleton
  * @param p_this Object that holds the reference
@@ -122,7 +122,7 @@ media_library_t* ml_Get( vlc_object_t* p_this )
 }
 
 /**
- * @brief Destructor for ml_media_t
+ * @brief Destructor for ml_media_
  */
 static void media_Destroy( ml_gc_object_t *p_gc )
 {
@@ -133,11 +133,11 @@ static void media_Destroy( ml_gc_object_t *p_gc )
 }
 
 /**
- * @brief Object constructor for ml_media_t
- * @param p_ml The media library object
+ * @brief Object constructor for ml_media_
+ * @param p_ml The media library objec
  * @param id If 0, this item isn't in database. If non zero, it is and
  * it will be a singleton
- * @param select Type of object
+ * @param select Type of objec
  * @param reload Whether to reload from database
  */
 ml_media_t* media_New( media_library_t* p_ml, int id,
@@ -158,7 +158,7 @@ ml_media_t* media_New( media_library_t* p_ml, int id,
 #undef ml_UpdateSimple
 /**
  * @brief Update a given table
- * @param p_media_library The media library object
+ * @param p_media_library The media library objec
  * @param selected_type The table to update
  * @param psz_lvalue The role of the person if selected_type = ML_PEOPLE
  * @param id The id of the row to update
@@ -344,7 +344,7 @@ ml_ftree_t* ml_FtreeSpec( ml_ftree_t* tree,
 
 /**
  * @brief Creates and adds the playlist based on a given find tree
- * @param p_ml Media library object
+ * @param p_ml Media library objec
  * @param p_tree Find tree to create SELECT
  */
 void ml_PlaySmartPlaylistBasedOn( media_library_t* p_ml,
@@ -374,8 +374,8 @@ void ml_PlaySmartPlaylistBasedOn( media_library_t* p_ml,
 
 /**
  * @brief Returns a person list of given type
- * @param p_ml The ML object
- * @param p_media The Media object
+ * @param p_ml The ML objec
+ * @param p_media The Media objec
  * @param i_type The person type
  * @note This function is thread safe
  */
@@ -403,7 +403,7 @@ ml_person_t*  ml_GetPersonsFromMedia( media_library_t* p_ml,
         p_person = p_person->p_next;
     }
     ml_UnlockMedia( p_media );
-    //TODO: Fill up empty names + clean up list
+    //TODO: Fill up empty names + clean up lis
     return p_return;
 }
 

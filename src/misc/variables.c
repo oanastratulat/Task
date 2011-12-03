@@ -6,7 +6,7 @@
  *
  * Authors: Samuel Hocevar <sam@zoy.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -49,7 +49,7 @@
 /*****************************************************************************
  * Private types
  *****************************************************************************/
-struct callback_entry_t
+struct callback_entry_
 {
     vlc_callback_t pf_callback;
     void *         p_data;
@@ -118,7 +118,7 @@ static void FreeList( vlc_value_t *p_val )
     free( p_val->p_list );
 }
 
-static const struct variable_ops_t
+static const struct variable_ops_
 void_ops   = { NULL,       DupDummy,  FreeDummy,  },
 addr_ops   = { CmpAddress, DupDummy,  FreeDummy,  },
 bool_ops   = { CmpBool,    DupDummy,  FreeDummy,  },
@@ -564,9 +564,9 @@ int var_Change( vlc_object_t *p_this, const char *psz_name,
             if( p_val2 ) p_val2->p_list = malloc( sizeof(vlc_list_t) );
             if( p_var->choices.i_count )
             {
-                p_val->p_list->p_values = malloc( p_var->choices.i_count
+                p_val->p_list->p_values = malloc( p_var->choices.i_coun
                                                   * sizeof(vlc_value_t) );
-                p_val->p_list->pi_types = malloc( p_var->choices.i_count
+                p_val->p_list->pi_types = malloc( p_var->choices.i_coun
                                                   * sizeof(int) );
                 if( p_val2 )
                 {
@@ -616,7 +616,7 @@ int var_Change( vlc_object_t *p_this, const char *psz_name,
     return ret;
 }
 
-#undef var_GetAndSet
+#undef var_GetAndSe
 /**
  * Perform a Get and Set on a variable
  *
@@ -773,13 +773,13 @@ int var_SetChecked( vlc_object_t *p_this, const char *psz_name,
     return i_ret;
 }
 
-#undef var_Set
+#undef var_Se
 /**
  * Set a variable's value
  *
  * \param p_this The object that hold the variable
  * \param psz_name The name of the variable
- * \param val the value to set
+ * \param val the value to se
  */
 int var_Set( vlc_object_t *p_this, const char *psz_name, vlc_value_t val )
 {
@@ -823,7 +823,7 @@ int var_GetChecked( vlc_object_t *p_this, const char *psz_name,
     return err;
 }
 
-#undef var_Get
+#undef var_Ge
 /**
  * Get a variable's value
  *
@@ -847,7 +847,7 @@ int var_Get( vlc_object_t *p_this, const char *psz_name, vlc_value_t *p_val )
  * \param p_this The object that holds the variable
  * \param psz_name The name of the variable
  * \param pf_callback The function pointer
- * \param p_data A generic pointer that will be passed as the last
+ * \param p_data A generic pointer that will be passed as the las
  *               argument to the callback function.
  *
  * \warning The callback function is run in the thread that calls var_Set on
@@ -990,13 +990,13 @@ int var_TriggerCallback( vlc_object_t *p_this, const char *psz_name )
 }
 
 /** Parse a stringified option
- * This function parse a string option and create the associated object
+ * This function parse a string option and create the associated objec
  * variable
  * The option must be of the form "[no[-]]foo[=bar]" where foo is the
  * option name and bar is the value of the option.
  * \param p_obj the object in which the variable must be created
  * \param psz_option the option to parse
- * \param trusted whether the option is set by a trusted input or not
+ * \param trusted whether the option is set by a trusted input or no
  * \return nothing
  */
 void var_OptionParse( vlc_object_t *p_obj, const char *psz_option,
@@ -1184,7 +1184,7 @@ static void CheckValue ( variable_t *p_var, vlc_value_t *p_val )
     switch( p_var->i_type & VLC_VAR_TYPE )
     {
         case VLC_VAR_INTEGER:
-            if( p_var->i_type & VLC_VAR_HASSTEP && p_var->step.i_int
+            if( p_var->i_type & VLC_VAR_HASSTEP && p_var->step.i_in
                  && (p_val->i_int % p_var->step.i_int) )
             {
                 p_val->i_int = (p_val->i_int + (p_var->step.i_int / 2))

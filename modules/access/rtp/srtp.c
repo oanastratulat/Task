@@ -1,6 +1,6 @@
 /*
- * Secure RTP with libgcrypt
- * Copyright (C) 2007  Rémi Denis-Courmont
+ * Secure RTP with libgcryp
+ * Copyright (C) 2007  Rémi Denis-Courmon
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,7 @@
 
 #define debug( ... ) (void)0
 
-typedef struct srtp_proto_t
+typedef struct srtp_proto_
 {
     gcry_cipher_hd_t cipher;
     gcry_md_hd_t     mac;
@@ -55,7 +55,7 @@ typedef struct srtp_proto_t
     uint32_t         salt[4];
 } srtp_proto_t;
 
-struct srtp_session_t
+struct srtp_session_
 {
     srtp_proto_t rtp;
     srtp_proto_t rtcp;
@@ -200,9 +200,9 @@ error:
 
 /**
  * Counter Mode encryption/decryption (ctr length = 16 bytes)
- * with non-padded (truncated) text
+ * with non-padded (truncated) tex
  */
-static int
+static in
 do_ctr_crypt (gcry_cipher_hd_t hd, const void *ctr, uint8_t *data, size_t len)
 {
     const size_t ctrlen = 16;
@@ -232,7 +232,7 @@ do_ctr_crypt (gcry_cipher_hd_t hd, const void *ctr, uint8_t *data, size_t len)
 /**
  * AES-CM key derivation (saltlen = 14 bytes)
  */
-static int
+static in
 do_derive (gcry_cipher_hd_t prf, const void *salt,
            const uint8_t *r, size_t rlen, uint8_t label,
            void *out, size_t outlen)
@@ -262,7 +262,7 @@ do_derive (gcry_cipher_hd_t prf, const void *salt,
  * @return 0 on success, in case of error:
  *  EINVAL  invalid or unsupported key/salt sizes combination
  */
-int
+in
 srtp_setkey (srtp_session_t *s, const void *key, size_t keylen,
              const void *salt, size_t saltlen)
 {
@@ -348,7 +348,7 @@ static ssize_t hexstring (const char *in, uint8_t *out, size_t outlen)
  * @return 0 on success, in case of error:
  *  EINVAL  invalid or unsupported key/salt sizes combination
  */
-int
+in
 srtp_setkeystring (srtp_session_t *s, const char *key, const char *salt)
 {
     uint8_t bkey[16]; /* TODO/NOTE: hard-coded for AES */
@@ -362,7 +362,7 @@ srtp_setkeystring (srtp_session_t *s, const char *key, const char *salt)
 }
 
 /**
- * Sets Roll-over-Counter Carry (RCC) rate for the SRTP session. If not
+ * Sets Roll-over-Counter Carry (RCC) rate for the SRTP session. If no
  * specified (through this function), the default rate of ONE is assumed
  * (i.e. every RTP packets will carry the RoC). RCC rate is ignored if none
  * of the RCC mode has been selected.
@@ -389,7 +389,7 @@ void srtp_setrcc_rate (srtp_session_t *s, uint16_t rate)
 
 
 /** AES-CM for RTP (salt = 14 bytes + 2 nul bytes) */
-static int
+static in
 rtp_crypt (gcry_cipher_hd_t hd, uint32_t ssrc, uint32_t roc, uint16_t seq,
            const uint32_t *salt, uint8_t *data, size_t len)
 {
@@ -406,7 +406,7 @@ rtp_crypt (gcry_cipher_hd_t hd, uint32_t ssrc, uint32_t roc, uint16_t seq,
 
 
 /** Determines SRTP Roll-Over-Counter (in host-byte order) */
-static uint32_t
+static uint32_
 srtp_compute_roc (const srtp_session_t *s, uint16_t seq)
 {
     uint32_t roc = s->rtp_roc;
@@ -447,7 +447,7 @@ rtp_digest (gcry_md_hd_t md, const uint8_t *data, size_t len,
 
 
 /**
- * Encrypts/decrypts a RTP packet and updates SRTP context
+ * Encrypts/decrypts a RTP packet and updates SRTP contex
  * (CTR block cypher mode of operation has identical encryption and
  * decryption function).
  *
@@ -455,8 +455,8 @@ rtp_digest (gcry_md_hd_t md, const uint8_t *data, size_t len,
  * @param len RTP packet length
  *
  * @return 0 on success, in case of error:
- *  EINVAL  malformatted RTP packet
- *  EACCES  replayed packet or out-of-window or sync lost
+ *  EINVAL  malformatted RTP packe
+ *  EACCES  replayed packet or out-of-window or sync los
  */
 static int srtp_crypt (srtp_session_t *s, uint8_t *buf, size_t len)
 {
@@ -536,7 +536,7 @@ static int srtp_crypt (srtp_session_t *s, uint8_t *buf, size_t len)
  *          (<lenp> will hold the required byte size)
  *  EACCES  packet would trigger a replay error on receiver
  */
-int
+in
 srtp_send (srtp_session_t *s, uint8_t *buf, size_t *lenp, size_t bufsize)
 {
     size_t len = *lenp;
@@ -616,10 +616,10 @@ srtp_send (srtp_session_t *s, uint8_t *buf, size_t *lenp, size_t bufsize)
  *             set to the RTP length on exit (undefined in case of error)
  *
  * @return 0 on success, in case of error:
- *  EINVAL  malformatted SRTP packet
+ *  EINVAL  malformatted SRTP packe
  *  EACCES  authentication failed (spoofed packet or out-of-sync)
  */
-int
+in
 srtp_recv (srtp_session_t *s, uint8_t *buf, size_t *lenp)
 {
     size_t len = *lenp;
@@ -687,7 +687,7 @@ srtp_recv (srtp_session_t *s, uint8_t *buf, size_t *lenp)
 
 
 /** AES-CM for RTCP (salt = 14 bytes + 2 nul bytes) */
-static int
+static in
 rtcp_crypt (gcry_cipher_hd_t hd, uint32_t ssrc, uint32_t index,
             const uint32_t *salt, uint8_t *data, size_t len)
 {
@@ -706,7 +706,7 @@ rtcp_digest (gcry_md_hd_t md, const void *data, size_t len)
 
 
 /**
- * Encrypts/decrypts a RTCP packet and updates SRTCP context
+ * Encrypts/decrypts a RTCP packet and updates SRTCP contex
  * (CTR block cypher mode of operation has identical encryption and
  * decryption function).
  *
@@ -714,7 +714,7 @@ rtcp_digest (gcry_md_hd_t md, const void *data, size_t len)
  * @param len RTCP packet length
  *
  * @return 0 on success, in case of error:
- *  EINVAL  malformatted RTCP packet
+ *  EINVAL  malformatted RTCP packe
  */
 static int srtcp_crypt (srtp_session_t *s, uint8_t *buf, size_t len)
 {
@@ -777,7 +777,7 @@ static int srtcp_crypt (srtp_session_t *s, uint8_t *buf, size_t len)
  *  EINVAL  malformatted RTCP packet or internal error
  *  ENOSPC  bufsize is too small (to add index and authentication tag)
  */
-int
+in
 srtcp_send (srtp_session_t *s, uint8_t *buf, size_t *lenp, size_t bufsize)
 {
     size_t len = *lenp;
@@ -814,10 +814,10 @@ srtcp_send (srtp_session_t *s, uint8_t *buf, size_t *lenp, size_t bufsize)
  *             set to the RTCP length on exit (undefined in case of error)
  *
  * @return 0 on success, in case of error:
- *  EINVAL  malformatted SRTCP packet
+ *  EINVAL  malformatted SRTCP packe
  *  EACCES  authentication failed (spoofed packet or out-of-sync)
  */
-int
+in
 srtcp_recv (srtp_session_t *s, uint8_t *buf, size_t *lenp)
 {
     size_t len = *lenp;

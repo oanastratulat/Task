@@ -1,10 +1,10 @@
 /*****************************************************************************
  * rand.c : non-predictible random bytes generator
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmont
+ * Copyright © 2007 Rémi Denis-Courmon
  * $Id: 3b84de63641baf1e8a090e076954fab49a3e84d2 $
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -142,7 +142,7 @@ void vlc_rand_bytes (void *buf, size_t len)
             memcpy (p_buf, &val, count);
             break;
         }
- 
+
         memcpy (p_buf, &val, sizeof (val));
         count -= sizeof (val);
         p_buf += sizeof (val);
@@ -156,7 +156,7 @@ void vlc_rand_bytes (void *buf, size_t len)
         PROV_RSA_FULL,     // Type of provider to acquire.
         0) )
     {
-        /* fill buffer with pseudo-random data, intial buffer content
+        /* fill buffer with pseudo-random data, intial buffer conten
            is used as auxillary random seed */
         CryptGenRandom(hProv, len, buf);
         CryptReleaseContext(hProv, 0);
@@ -164,7 +164,7 @@ void vlc_rand_bytes (void *buf, size_t len)
 }
 #endif
 
-static struct
+static struc
 {
     bool           init;
     unsigned short subi[3];

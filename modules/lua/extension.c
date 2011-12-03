@@ -95,7 +95,7 @@ static void inputItemMetaChanged( const vlc_event_t *p_event,
 
 
 /**
- * Module entry-point
+ * Module entry-poin
  **/
 int Open_Extension( vlc_object_t *p_this )
 {
@@ -196,7 +196,7 @@ void Close_Extension( vlc_object_t *p_this )
 
 /**
  * Batch scan all Lua files in folder "extensions"
- * @param p_mgr This extensions_manager_t object
+ * @param p_mgr This extensions_manager_t objec
  **/
 static int ScanExtensions( extensions_manager_t *p_mgr )
 {
@@ -254,7 +254,7 @@ static int vlclua_extension_require( lua_State *L )
     int i_ret = vlclua_dofile( p_this, L, psz_fullpath );
     if( i_ret != 0 )
     {
-        // Remove trailing 'c' --> try with .lua script
+        // Remove trailing 'c' --> try with .lua scrip
         psz_fullpath[ strlen( psz_fullpath ) - 1 ] = '\0';
         i_ret = vlclua_dofile( p_this, L, psz_fullpath );
     }
@@ -270,7 +270,7 @@ static int vlclua_extension_require( lua_State *L )
 
 /**
  * Batch scan all Lua files in folder "extensions": callback
- * @param p_this This extensions_manager_t object
+ * @param p_this This extensions_manager_t objec
  * @param psz_filename Name of the script to run
  * @param L Lua State, common to all scripts here
  * @param dummy: unused
@@ -571,7 +571,7 @@ static int Control( extensions_manager_t *p_mgr, int i_control, va_list args )
             if( !LockExtension( p_ext ) )
                 return VLC_EGENERIC;
 
-            // Change input
+            // Change inpu
             input_thread_t *old = p_ext->p_sys->p_input;
             input_item_t *p_item;
             if( old )
@@ -691,9 +691,9 @@ int lua_ExtensionWidgetClick( extensions_manager_t *p_mgr,
 
 
 /**
- * Get the list of menu entries from an extension script
+ * Get the list of menu entries from an extension scrip
  * @param p_mgr
- * @param p_ext
+ * @param p_ex
  * @param pppsz_titles Pointer to NULL. All strings must be freed by the caller
  * @param ppi_ids Pointer to NULL. Must be freed by the caller.
  * @note This function is allowed to run in the UI thread. This means
@@ -890,7 +890,7 @@ int lua_ExecuteFunction( extensions_manager_t *p_mgr, extension_t *p_ext,
 }
 
 /**
- * Execute a function in a Lua script
+ * Execute a function in a Lua scrip
  * @param psz_function Name of global function to execute. If NULL, assume
  *                     that the function object is already on top of the
  *                     stack.
@@ -1031,7 +1031,7 @@ int lua_ExtensionTriggerMenu( extensions_manager_t *p_mgr,
     return i_ret;
 }
 
-/** Directly trigger an extension, without activating it
+/** Directly trigger an extension, without activating i
  * This is NOT multithreaded, and this code runs in the UI thread
  * @param p_mgr
  * @param p_ext Extension to trigger
@@ -1050,7 +1050,7 @@ static int TriggerExtension( extensions_manager_t *p_mgr,
     return i_ret;
 }
 
-/** Set extension associated to the current script
+/** Set extension associated to the current scrip
  * @param L current lua_State
  * @param p_ext the extension
  */
@@ -1061,7 +1061,7 @@ void vlclua_extension_set( lua_State *L, extension_t *p_ext )
     lua_rawset( L, LUA_REGISTRYINDEX );
 }
 
-/** Retrieve extension associated to the current script
+/** Retrieve extension associated to the current scrip
  * @param L current lua_State
  * @return Extension pointer
  **/
@@ -1151,7 +1151,7 @@ static int vlclua_extension_dialog_callback( vlc_object_t *p_this,
     return VLC_SUCCESS;
 }
 
-/** Callback on vlc_InputItemMetaChanged event
+/** Callback on vlc_InputItemMetaChanged even
  **/
 static void inputItemMetaChanged( const vlc_event_t *p_event,
                                   void *data )
@@ -1213,7 +1213,7 @@ static void WatchTimerCallback( void *data )
     // Do we have a pending Deactivate command?
     if( ( p_ext->p_sys->command &&
           p_ext->p_sys->command->i_command == CMD_DEACTIVATE )
-        || ( p_ext->p_sys->command->next
+        || ( p_ext->p_sys->command->nex
              && p_ext->p_sys->command->next->i_command == CMD_DEACTIVATE) )
     {
         if( p_ext->p_sys->progress )

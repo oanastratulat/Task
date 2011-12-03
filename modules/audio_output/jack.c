@@ -48,7 +48,7 @@ typedef jack_default_audio_sample_t jack_sample_t;
  * This structure is part of the audio output thread descriptor.
  * It describes some JACK specific variables.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     aout_packet_t   packet;
     jack_client_t  *p_jack_client;
@@ -95,7 +95,7 @@ vlc_module_begin ()
 vlc_module_end ()
 
 /*****************************************************************************
- * Open: create a JACK client
+ * Open: create a JACK clien
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {
@@ -333,7 +333,7 @@ static int GraphChange( void *p_arg )
 }
 
 /*****************************************************************************
- * Close: close the JACK client
+ * Close: close the JACK clien
  *****************************************************************************/
 static void Close( vlc_object_t *p_this )
 {

@@ -62,7 +62,7 @@ vlc_module_end ()
 /****************************************************************************
  * Local prototypes
  ****************************************************************************/
-typedef struct
+typedef struc
 {
     int i_nal_type;
     int i_nal_ref_idc;
@@ -85,7 +85,7 @@ typedef struct
 
 #define SPS_MAX (32)
 #define PPS_MAX (256)
-struct decoder_sys_t
+struct decoder_sys_
 {
     /* */
     packetizer_t packetizer;
@@ -241,7 +241,7 @@ static int Open( vlc_object_t *p_this )
     if( p_dec->fmt_in.i_original_fourcc == VLC_FOURCC( 'a', 'v', 'c', '1' ) )
     {
         /* This type of stream is produced by mp4 and matroska
-         * when we want to store it in another streamformat, you need to convert
+         * when we want to store it in another streamformat, you need to conver
          * The fmt_in.p_extra should ALWAYS contain the avcC
          * The fmt_out.p_extra should contain all the SPS and PPS with 4 byte startcodes */
         uint8_t *p = &((uint8_t*)p_dec->fmt_in.p_extra)[4];

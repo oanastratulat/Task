@@ -43,7 +43,7 @@
 /*****************************************************************************
  * filter_sys_t : filter descriptor
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     CvMemStorage* p_storage;
     CvHaarClassifierCascade* p_cascade;
@@ -92,7 +92,7 @@ static int OpenFilter( vlc_object_t *p_this )
         return VLC_ENOMEM;
     }
 
-    //init the video_filter_event_info_t struct
+    //init the video_filter_event_info_t struc
     p_sys->event_info.i_region_size = 0;
     p_sys->event_info.p_region = NULL;
     p_sys->i_id = 0;
@@ -147,7 +147,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
     CvPoint pt1, pt2;
     int i, scale = 1;
     filter_sys_t *p_sys = p_filter->p_sys;
- 
+
     if ((!p_pic) )
     {
         msg_Err( p_filter, "no image array" );
@@ -183,7 +183,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
                                             p_sys->p_storage, 1.15, 5,
                                             CV_HAAR_DO_CANNY_PRUNING,
                                             cvSize(20, 20) );
-        //create the video_filter_region_info_t struct
+        //create the video_filter_region_info_t struc
         if (faces && (faces->total > 0))
         {
             //msg_Dbg( p_filter, "Found %d face(s)", faces->total );
@@ -195,7 +195,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
             p_sys->event_info.i_region_size = faces->total;
         }
 
-        //populate the video_filter_region_info_t struct
+        //populate the video_filter_region_info_t struc
         for( i = 0; i < (faces ? faces->total : 0); i++ )
         {
             CvRect *r = (CvRect*)cvGetSeqElem( faces, i );
@@ -210,7 +210,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
             p_sys->event_info.p_region[i].p_description = "Face Detected";
         }
 
-        if (faces && (faces->total > 0))    //raise the video filter event
+        if (faces && (faces->total > 0))    //raise the video filter even
             var_TriggerCallback( p_filter->p_libvlc, VIDEO_FILTER_EVENT_VARIABLE );
     }
     else

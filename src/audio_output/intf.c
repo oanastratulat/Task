@@ -6,7 +6,7 @@
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -122,7 +122,7 @@ static void cancelVolume (vlc_object_t *obj, audio_output_t *aout)
     }
 }
 
-#undef aout_VolumeGet
+#undef aout_VolumeGe
 /**
  * Gets the volume of the output device (independent of mute).
  */
@@ -136,7 +136,7 @@ audio_volume_t aout_VolumeGet (vlc_object_t *obj)
     return volume;
 }
 
-#undef aout_VolumeSet
+#undef aout_VolumeSe
 /**
  * Sets the volume of the output device.
  * The mute status is not changed.
@@ -230,11 +230,11 @@ int aout_SetMute (vlc_object_t *obj, audio_volume_t *volp, bool mute)
 
 
 /*
- * Pipelines management
+ * Pipelines managemen
  */
 
 /*****************************************************************************
- * aout_ChannelsRestart : change the audio device or channels and restart
+ * aout_ChannelsRestart : change the audio device or channels and restar
  *****************************************************************************/
 int aout_ChannelsRestart( vlc_object_t * p_this, const char * psz_variable,
                           vlc_value_t oldval, vlc_value_t newval,
@@ -255,7 +255,7 @@ int aout_ChannelsRestart( vlc_object_t * p_this, const char * psz_variable,
 
 #undef aout_EnableFilter
 /** Enable or disable an audio filter
- * \param p_this a vlc object
+ * \param p_this a vlc objec
  * \param psz_name name of the filter
  * \param b_add are we adding or removing the filter ?
  */

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * wpl.c : WPL playlist format import
+ * wpl.c : WPL playlist format impor
  *****************************************************************************
  * Copyright (C) 2009 the VideoLAN team
  *
@@ -33,7 +33,7 @@
 
 #include "playlist.h"
 
-struct demux_sys_t
+struct demux_sys_
 {
     char *psz_prefix;
 };

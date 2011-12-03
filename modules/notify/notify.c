@@ -75,7 +75,7 @@ static int ItemChange( vlc_object_t *, const char *,
 static int Notify( vlc_object_t *, const char *, GdkPixbuf *, intf_thread_t * );
 #define MAX_LENGTH 256
 
-struct intf_sys_t
+struct intf_sys_
 {
     NotifyNotification *notification;
     vlc_mutex_t     lock;

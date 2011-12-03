@@ -24,7 +24,7 @@
 /* Dirac packetizer, formed of three parts:
  *  1) Bitstream synchroniser (dirac_DoSync)
  *      - Given an arbitrary sequence of bytes, extract whole Dirac Data Units
- *      - Maps timestamps in supplied block_t's to the extracted Data Unit
+ *      - Maps timestamps in supplied block_t's to the extracted Data Uni
  *        A time stamp applies to the next Data Unit to commence at, or after
  *        the first byte of the block_t with the timestamp.
  *  2) Encapsulation Unit generation (dirac_BuildEncapsulationUnit)
@@ -36,13 +36,13 @@
  *        every encapsulation unit.  Timestamp generator syncs to avaliable
  *        timestamps and produces DTS&PTS for each encapsulation unit.
  *      - For 'Occasional' missing PTS|DTS:
- *          Missing timestamp is generated using interpolation from last
+ *          Missing timestamp is generated using interpolation from las
  *          known good values.
  *      - for All PTS missing:
  *          It is assumed that DTS values are fake, and are actually
  *          in the sequence of the PTS values at the output of a decoder.
  *          Fill in PTS by copying from DTS (accounting for reordering,
- *          by simulating reorder buffer); adjust DTS to provide correct
+ *          by simulating reorder buffer); adjust DTS to provide correc
  *          value.  This is how demuxers like AVI work.
  *      - for All DTS missing:
  *          (Ie, PTS is present), reorder buffer is simulated to determine
@@ -92,7 +92,7 @@ vlc_module_end()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     /* sync state */
     block_bytestream_t bytestream;
@@ -423,7 +423,7 @@ static block_t *dirac_Reorder( decoder_t *p_dec, block_t *p_block_in, uint32_t u
      *       buffer if it has a lower picture number than any entry in the
      *       reorder buffer. This picture is output by the system.
      *    b. Otherwise, the lowest picture number in the reorder buffer is
-     *       removed from the buffer and output by the system.  The current
+     *       removed from the buffer and output by the system.  The curren
      *       decoded picture (u_picnum) is inserted into the reorder buffer
      */
 
@@ -667,7 +667,7 @@ static block_t *dirac_EmitEOS( decoder_t *p_dec, uint32_t i_prev_parse_offset )
 
 /***
  * Bytestream synchronizer
- * maps [Bytes] -> DataUnit
+ * maps [Bytes] -> DataUni
  */
 static block_t *dirac_DoSync( decoder_t *p_dec )
 {
@@ -691,7 +691,7 @@ static block_t *dirac_DoSync( decoder_t *p_dec )
             /* candidate parse_code_prefix has been found at p_sys->i_offset */
             if( VLC_SUCCESS != block_PeekOffsetBytes( &p_sys->bytestream, p_sys->i_offset + 12, NULL, 0 ) )
             {
-                /* insufficient data has been accumulated to fully extract
+                /* insufficient data has been accumulated to fully extrac
                  * a parse_info header. exit for now in the hope of more
                  * data later to retry at exactly the same point */
                 return NULL;
@@ -705,7 +705,7 @@ static block_t *dirac_DoSync( decoder_t *p_dec )
             assert( p_sys->i_offset == 0 );
             if( VLC_SUCCESS != block_PeekOffsetBytes( &p_sys->bytestream, 12, NULL, 0 ) )
             {
-                /* insufficient data has been accumulated to fully extract
+                /* insufficient data has been accumulated to fully extrac
                  * a parse_info header, retry later */
                 return NULL;
             }
@@ -713,7 +713,7 @@ static block_t *dirac_DoSync( decoder_t *p_dec )
              || !pu.u_next_offset || (p_sys->u_last_npo != pu.u_prev_offset) )
             {
                 /* !a: not a valid parse info.
-                 * !pu.u_next_offset: don't know the length of the data unit
+                 * !pu.u_next_offset: don't know the length of the data uni
                  *                    search for the next one that points back
                  *                    to this one to determine length.
                  * (p_sys->u_last_npo != pu.u_prev_offset): some desync
@@ -724,7 +724,7 @@ static block_t *dirac_DoSync( decoder_t *p_dec )
             if( pu.u_next_offset > 1024*1024 )
             {
                 /* sanity check for erronious hugs next_parse_offsets
-                 * (eg, 2^32-1) that would cause a very long wait
+                 * (eg, 2^32-1) that would cause a very long wai
                  * and large space consumption: fall back to try sync */
                 p_sys->i_state = TRY_SYNC;
                 break;
@@ -755,7 +755,7 @@ static block_t *dirac_DoSync( decoder_t *p_dec )
                     goto sync_fail; /* can't find different pu_b from pu_a */
                 }
                 /* state == SYNCED: already know where pu_b is.
-                 * pu_a has probably been inserted by something that doesn't
+                 * pu_a has probably been inserted by something that doesn'
                  * know what the last next_parse_offset was */
                 pu_a.u_prev_offset = pu.u_next_offset;
             }
@@ -785,7 +785,7 @@ sync_fail:
     } while( SYNCED != p_sys->i_state );
 
     /*
-     * synced, attempt to extract a data unit
+     * synced, attempt to extract a data uni
      */
 
     /* recover any timestamps from the data that is about to be flushed */
@@ -849,9 +849,9 @@ static int dirac_InspectDataUnit( decoder_t *p_dec, block_t **pp_block, block_t 
         /* let anything down streem know too */
         /*
         Actually, this is a bad idea:
-         - It sets the discontinuity for every dirac EOS packet
+         - It sets the discontinuity for every dirac EOS packe
            which doesnt imply a time discontinuity.
-         - When the syncronizer detects a real discontinuity, it
+         - When the syncronizer detects a real discontinuity, i
            should copy the flags through.
         p_eu->i_flags |= BLOCK_FLAG_DISCONTINUITY;
         */
@@ -953,7 +953,7 @@ static int dirac_InspectDataUnit( decoder_t *p_dec, block_t **pp_block, block_t 
 
 /***
  * Encapsulation (packetization) suitable for all muxing standards
- * maps [DataUnit] -> EncapsulationUnit
+ * maps [DataUnit] -> EncapsulationUni
  */
 static block_t *dirac_BuildEncapsulationUnit( decoder_t *p_dec, block_t *p_block )
 {
@@ -984,7 +984,7 @@ static block_t *dirac_BuildEncapsulationUnit( decoder_t *p_dec, block_t *p_block
     {
         /* block has been discarded during inspection */
         /* becareful, don't discard anything that is dated,
-         * as this needs to go into the timegen loop.  set
+         * as this needs to go into the timegen loop.  se
          * the DIRAC_DISCARD block flag, and it'll be dropped
          * at output time */
         return NULL;
@@ -994,7 +994,7 @@ static block_t *dirac_BuildEncapsulationUnit( decoder_t *p_dec, block_t *p_block
 
     dirac_block_encap_t *p_dbe = dirac_GetBlockEncap( p_block );
 #ifdef SANITIZE_PREV_PARSE_OFFSET
-    /* fixup prev_parse_offset to point to the last data unit
+    /* fixup prev_parse_offset to point to the last data uni
      * to arrive */
     if( p_dbe )
     {
@@ -1033,13 +1033,13 @@ static block_t *dirac_BuildEncapsulationUnit( decoder_t *p_dec, block_t *p_block
 
 /**
  * dirac_TimeGenPush:
- * @p_dec: vlc object
+ * @p_dec: vlc objec
  * @p_block_in: whole encapsulation unit to generate timestamps for
  *
  * Returns:
  *  0: everything ok
- *  1: EOS occured, please flush and reset
- *  2: picture number discontinuity, please flush and reset
+ *  1: EOS occured, please flush and rese
+ *  2: picture number discontinuity, please flush and rese
  */
 static int dirac_TimeGenPush( decoder_t *p_dec, block_t *p_block_in )
 {
@@ -1065,7 +1065,7 @@ static int dirac_TimeGenPush( decoder_t *p_dec, block_t *p_block_in )
     /*
      * Simple DTS regeneration:
      *  - DTS values linearly increase in stream order.
-     *  - Every time a DTS occurs at the input, sync to it
+     *  - Every time a DTS occurs at the input, sync to i
      *    - If this is the first DTS seen, backdate all the previous ones that are undated
      *  - If a DTS is missing, guess that it increases by one picture period
      *  - If never seen DTS, don't do anything
@@ -1186,7 +1186,7 @@ static int dirac_TimeGenPush( decoder_t *p_dec, block_t *p_block_in )
     if( !p_sys->b_pts )
     {
         /* some demuxers (eg, AVI) will provide a series of fake dts values,
-         * which are actually inorder pts values (ie, what should be seen at
+         * which are actually inorder pts values (ie, what should be seen a
          * the output of a decoder.  A main reason for simulating the reorder
          * buffer is to turn the inorder fakedts into an out-of-order pts */
         p_block->i_pts = p_sys->p_out_dts->i_dts;

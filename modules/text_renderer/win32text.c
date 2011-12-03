@@ -120,7 +120,7 @@ vlc_module_end ()
 /*****************************************************************************
  * filter_sys_t: win32text local data
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     uint8_t        i_font_opacity;
     int            i_font_color;

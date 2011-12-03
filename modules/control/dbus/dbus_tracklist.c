@@ -335,7 +335,7 @@ DBUS_METHOD( GetProperty )
     else if( dbus_message_is_method_call( p_from, interface, method ) )\
         return function( p_conn, p_from, p_this )
 
-DBusHandlerResult
+DBusHandlerResul
 handle_tracklist ( DBusConnection *p_conn, DBusMessage *p_from, void *p_this )
 {
     if(0);
@@ -359,7 +359,7 @@ handle_tracklist ( DBusConnection *p_conn, DBusMessage *p_from, void *p_this )
  * PropertiesChangedSignal: synthetizes and sends the
  * org.freedesktop.DBus.Properties.PropertiesChanged signal
  */
-static DBusHandlerResult
+static DBusHandlerResul
 PropertiesChangedSignal( intf_thread_t    *p_intf,
                          vlc_dictionary_t *p_changed_properties )
 {

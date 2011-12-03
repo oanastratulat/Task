@@ -51,14 +51,14 @@
 
 typedef struct media_es_t media_es_t;
 
-struct media_es_t
+struct media_es_
 {
     int es_id;
     rtp_format_t rtp_fmt;
     rtsp_stream_id_t *rtsp_id;
 };
 
-struct vod_media_t
+struct vod_media_
 {
     /* VoD server */
     vod_t *p_vod;
@@ -75,7 +75,7 @@ struct vod_media_t
     mtime_t i_length;
 };
 
-struct vod_sys_t
+struct vod_sys_
 {
     char *psz_rtsp_path;
 
@@ -93,7 +93,7 @@ typedef enum
 } rtsp_cmd_type_t;
 
 /* */
-typedef struct
+typedef struc
 {
     int i_type;
     vod_media_t *p_media;
@@ -525,7 +525,7 @@ const char *vod_get_mux(const vod_media_t *p_media)
 }
 
 
-/* Match an RTP id to a VoD media ES and RTSP track to initialize it
+/* Match an RTP id to a VoD media ES and RTSP track to initialize i
  * with the data that was already set up */
 int vod_init_id(vod_media_t *p_media, const char *psz_session, int es_id,
                 sout_stream_id_t *sout_id, rtp_format_t *rtp_fmt,

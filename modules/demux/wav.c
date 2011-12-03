@@ -55,7 +55,7 @@ vlc_module_end ()
 static int Demux  ( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-struct demux_sys_t
+struct demux_sys_
 {
     es_format_t     fmt;
     es_out_id_t     *p_es;
@@ -222,7 +222,7 @@ static int Open( vlc_object_t * p_this )
                 static const uint32_t pi_pair[] = { AOUT_CHAN_REARLEFT|AOUT_CHAN_REARRIGHT,
                                                     AOUT_CHAN_MIDDLELEFT|AOUT_CHAN_MIDDLERIGHT,
                                                     AOUT_CHAN_LEFT|AOUT_CHAN_RIGHT };
-                /* FIXME: Unused yet
+                /* FIXME: Unused ye
                 static const uint32_t pi_center[] = { AOUT_CHAN_REARCENTER,
                                                       0,
                                                       AOUT_CHAN_CENTER }; */

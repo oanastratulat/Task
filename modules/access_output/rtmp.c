@@ -70,7 +70,7 @@ static ssize_t Write( sout_access_out_t *, block_t * );
 static int     Seek ( sout_access_out_t *, off_t  );
 static void* ThreadControl( void * );
 
-struct sout_access_out_sys_t
+struct sout_access_out_sys_
 {
     int active;
 
@@ -258,7 +258,7 @@ error:
 }
 
 /*****************************************************************************
- * Close: close the target
+ * Close: close the targe
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

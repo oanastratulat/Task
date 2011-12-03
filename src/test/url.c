@@ -1,10 +1,10 @@
 /*****************************************************************************
  * url.c: Test for url encoding/decoding stuff
  *****************************************************************************
- * Copyright (C) 2006 Rémi Denis-Courmont
+ * Copyright (C) 2006 Rémi Denis-Courmon
  * $Id: b6f2681b400c00c47559d1fce5fce1e9088101d5 $
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -83,7 +83,7 @@ static inline void test_current_directory_path (const char *in, const char *cwd,
     char * expected_result = NULL;
     int val = asprintf(&expected_result, "file://%s/%s", cwd, out);
     assert (val != -1);
-    
+
     test (make_URI_def, in, expected_result);
 }
 
@@ -158,7 +158,7 @@ int main (void)
     test ("fd://0#ref", "/dev/stdin");
     test ("fd://1", "/dev/stdout");
     test ("fd://12345", "/dev/fd/12345");
-#undef test
+#undef tes
 
     return 0;
 }

@@ -1,12 +1,12 @@
 /*****************************************************************************
- * output.c : internal management of output streams for the audio output
+ * output.c : internal management of output streams for the audio outpu
  *****************************************************************************
  * Copyright (C) 2002-2004 VLC authors and VideoLAN
  * $Id: aa135793a03ac8fa07394fae0d5ac7d6f6e11dda $
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -278,7 +278,7 @@ static int aout_VolumeNoneSet (audio_output_t *aout, float volume, bool mute)
 
 /**
  * Configures the dummy volume setter.
- * @note Audio output plugins for which volume is irrelevant
+ * @note Audio output plugins for which volume is irrelevan
  * should call this function during activation.
  */
 void aout_VolumeNoneInit (audio_output_t *aout)
@@ -353,7 +353,7 @@ void aout_VolumeHardInit (audio_output_t *aout, aout_volume_cb setter)
  *
  * @warning The caller (i.e. the audio output plug-in) is responsible for
  * interlocking and synchronizing call to this function and to the
- * audio_output_t.pf_volume_set callback. This ensures that VLC gets correct
+ * audio_output_t.pf_volume_set callback. This ensures that VLC gets correc
  * volume information (possibly with a latency).
  */
 void aout_VolumeHardSet (audio_output_t *aout, float volume, bool mute)
@@ -557,7 +557,7 @@ static block_t *aout_OutputSlice (audio_output_t *p_aout)
  * @note This function is considered legacy. Please do not use this function in
  * new audio output plugins.
  * @param p_aout audio output instance
- * @param start_date expected PTS of the audio packet
+ * @param start_date expected PTS of the audio packe
  */
 block_t *aout_PacketNext (audio_output_t *p_aout, mtime_t start_date)
 {

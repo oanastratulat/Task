@@ -112,7 +112,7 @@ static int Control( sout_access_out_t *, int, va_list );
 static void* ThreadWrite( void * );
 static block_t *NewUDPPacket( sout_access_out_t *, mtime_t );
 
-struct sout_access_out_sys_t
+struct sout_access_out_sys_
 {
     mtime_t       i_caching;
     int           i_handle;
@@ -235,7 +235,7 @@ static int Open( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Close: close the target
+ * Close: close the targe
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

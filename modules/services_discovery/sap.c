@@ -2,11 +2,11 @@
  * sap.c :  SAP interface module
  *****************************************************************************
  * Copyright (C) 2004-2005 the VideoLAN team
- * Copyright © 2007 Rémi Denis-Courmont
+ * Copyright © 2007 Rémi Denis-Courmon
  * $Id: b3a29d6cd2afdbad96b067c142a56ab5ad78c92b $
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
- *          Rémi Denis-Courmont
+ *          Rémi Denis-Courmon
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -145,7 +145,7 @@ typedef struct attribute_t attribute_t;
 typedef struct sap_announce_t sap_announce_t;
 
 
-struct sdp_media_t
+struct sdp_media_
 {
     struct sdp_t           *parent;
     char                   *fmt;
@@ -158,7 +158,7 @@ struct sdp_media_t
 
 
 /* The structure that contains sdp information */
-struct  sdp_t
+struct  sdp_
 {
     const char *psz_sdp;
 
@@ -187,13 +187,13 @@ struct  sdp_t
     struct sdp_media_t *mediav;
 };
 
-struct attribute_t
+struct attribute_
 {
     const char *value;
     char name[];
 };
 
-struct sap_announce_t
+struct sap_announce_
 {
     mtime_t i_last;
     mtime_t i_period;
@@ -208,7 +208,7 @@ struct sap_announce_t
     input_item_t * p_item;
 };
 
-struct services_discovery_sys_t
+struct services_discovery_sys_
 {
     vlc_thread_t thread;
 
@@ -227,7 +227,7 @@ struct services_discovery_sys_t
     int i_timeout;
 };
 
-struct demux_sys_t
+struct demux_sys_
 {
     sdp_t *p_sdp;
 };

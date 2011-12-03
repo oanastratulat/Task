@@ -210,7 +210,7 @@ error:
 }
 
 /**
- * Close a libcaca video output
+ * Close a libcaca video outpu
  */
 static void Close(vlc_object_t *object)
 {
@@ -333,7 +333,7 @@ static int Control(vout_display_t *vd, int query, va_list args)
 }
 
 /**
- * Refresh the display and send resize event
+ * Refresh the display and send resize even
  */
 static void Refresh(vout_display_t *vd)
 {
@@ -462,7 +462,7 @@ static const struct {
 };
 
 /**
- * Proccess pending event
+ * Proccess pending even
  */
 static void Manage(vout_display_t *vd)
 {

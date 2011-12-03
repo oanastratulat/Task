@@ -79,7 +79,7 @@ vlc_module_end ()
 /*****************************************************************************
  * decoder_sys_t : lpcm decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     /* Module mode */
     bool b_packetizer;
@@ -95,7 +95,7 @@ struct decoder_sys_t
 };
 
 #ifdef ENABLE_SOUT
-struct encoder_sys_t
+struct encoder_sys_
 {
     int     i_channels;
     int     i_rate;
@@ -152,7 +152,7 @@ enum
     LPCM_BD,
 };
 
-typedef struct
+typedef struc
 {
     unsigned i_channels;
     bool     b_used;
@@ -894,7 +894,7 @@ static int BdHeader( unsigned *pi_rate,
     default:
         return -1;
     }
-    switch( (h >> 8) & 0x0f ) 
+    switch( (h >> 8) & 0x0f )
     {
     case 1:
         *pi_rate = 48000;

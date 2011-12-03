@@ -58,7 +58,7 @@
 #include "../demux/dvb-text.h"
 #include "dtv/en50221.h"
 
-typedef struct en50221_session_t
+typedef struct en50221_session_
 {
     unsigned i_slot;
     int i_resource_id;
@@ -75,32 +75,32 @@ typedef struct en50221_session_t
 #define EN50221_MMI_MENU_ANSW 4
 #define EN50221_MMI_LIST 5
 
-typedef struct en50221_mmi_object_t
+typedef struct en50221_mmi_object_
 {
     int i_object_type;
 
     union
     {
-        struct
+        struc
         {
             bool b_blind;
             char *psz_text;
         } enq;
 
-        struct
+        struc
         {
             bool b_ok;
             char *psz_answ;
         } answ;
 
-        struct
+        struc
         {
             char *psz_title, *psz_subtitle, *psz_bottom;
             char **ppsz_choices;
             int i_choices;
         } menu; /* menu and list are the same */
 
-        struct
+        struc
         {
             int i_choice;
         } menu_answ;
@@ -1007,7 +1007,7 @@ static void ApplicationInformationOpen( cam_t * p_cam, unsigned i_session_id )
 
 #define MAX_CASYSTEM_IDS 64
 
-typedef struct
+typedef struc
 {
     uint16_t pi_system_ids[MAX_CASYSTEM_IDS + 1];
 } system_ids_t;
@@ -1042,7 +1042,7 @@ static bool CAPMTNeedsDescrambling( dvbpsi_pmt_t *p_pmt )
             return true;
         }
     }
- 
+
     for( p_es = p_pmt->p_first_es; p_es != NULL; p_es = p_es->p_next )
     {
         for( p_dr = p_es->p_first_descriptor; p_dr != NULL;
@@ -1140,7 +1140,7 @@ static uint8_t *CAPMTES( system_ids_t *p_ids, uint8_t *p_capmt,
 {
     uint8_t *p_data;
     int i;
- 
+
     if ( i_size )
         p_data = xrealloc( p_capmt, i_capmt_size + 6 + i_size );
     else
@@ -1240,7 +1240,7 @@ static uint8_t *CAPMTBuild( cam_t * p_cam, int i_session_id,
 }
 
 /*****************************************************************************
- * CAPMTFirst
+ * CAPMTFirs
  *****************************************************************************/
 static void CAPMTFirst( cam_t * p_cam, int i_session_id,
                         dvbpsi_pmt_t *p_pmt )
@@ -1283,11 +1283,11 @@ static void CAPMTAdd( cam_t * p_cam, int i_session_id,
         CAPMTFirst( p_cam, i_session_id, p_pmt );
         return;
     }
- 
+
 #ifdef CAPMT_WAIT
     msleep( CAPMT_WAIT * 1000 );
 #endif
- 
+
     msg_Dbg( p_cam->obj, "adding CAPMT for SID %d on session %d",
              p_pmt->i_program_number, i_session_id );
 
@@ -1422,7 +1422,7 @@ static void ConditionalAccessOpen( cam_t * p_cam, unsigned i_session_id )
  * Date Time
  */
 
-typedef struct
+typedef struc
 {
     int i_interval;
     mtime_t i_last;
@@ -1612,7 +1612,7 @@ static void MMIFree( mmi_t *p_object )
 
 
 /*****************************************************************************
- * MMISendObject
+ * MMISendObjec
  *****************************************************************************/
 static void MMISendObject( cam_t *p_cam, int i_session_id,
                            mmi_t *p_object )
@@ -1677,7 +1677,7 @@ static void MMIDisplayReply( cam_t *p_cam, int i_session_id )
 }
 
 /*****************************************************************************
- * MMIGetText
+ * MMIGetTex
  *****************************************************************************/
 static char *MMIGetText( cam_t *p_cam, uint8_t **pp_apdu, int *pi_size )
 {

@@ -98,7 +98,7 @@ union dw
  * It also incorporates some source from mad, written by Robert Leslie
  *****************************************************************************/
 
-/* The following two routines and data structure are from the ever-brilliant
+/* The following two routines and data structure are from the ever-brillian
      Rob Leslie.
 */
 

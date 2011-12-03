@@ -40,9 +40,9 @@ int Find( media_library_t *p_ml, vlc_array_t *p_result_array, ... )
 }
 
 /**
- * @brief Generic find in Media Library, returns arrays of psz or int
+ * @brief Generic find in Media Library, returns arrays of psz or in
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param result A pointer to a result array
  * @param criterias list of criterias used in SELECT
  * @return VLC_SUCCESS or VLC_EGENERIC
@@ -80,9 +80,9 @@ int FindVa( media_library_t *p_ml,
 }
 
 /**
- * @brief Generic find in Media Library, returns arrays of psz or int
+ * @brief Generic find in Media Library, returns arrays of psz or in
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param result a pointer to a result array
  * @param selected_type the type of the element we're selecting
  * @param criterias list of criterias used in SELECT
@@ -126,7 +126,7 @@ int FindAdv( media_library_t *p_ml, vlc_array_t *p_result_array,
 /**
  * @brief Generic SELECT query builder with va_list parameter
  *
- * @param p_ml This media_library_t object
+ * @param p_ml This media_library_t objec
  * @param ppsz_query *ppsz_query will contain query
  * @param p_result_type see enum ml_result_type_e
  * @param criterias list of criterias used in SELECT
@@ -285,7 +285,7 @@ static void PackFromPersons( char*** pppsz_frompersons, int i_num_frompersons )
 /**
  * @brief Generic SELECT query builder
  *
- * @param p_ml This media_library_t object
+ * @param p_ml This media_library_t objec
  * @param ppsz_query *ppsz_query will contain query
  * @param p_result_type see enum ml_result_type_e
  * @param selected_type the type of the element we're selecting
@@ -305,7 +305,7 @@ int BuildSelect( media_library_t *p_ml,
     char *psz_query = NULL;
 
     /* Building psz_query :
-    psz_query = "SELECT psz_distinct psz_select
+    psz_query = "SELECT psz_distinct psz_selec
                  FROM psz_from [JOIN psz_join ON psz_on]
                  [JOIN psz_join2 ON psz_on2]
                  [WHERE psz_where[i] [AND psz_where[j] ...]]
@@ -731,7 +731,7 @@ int BuildSelect( media_library_t *p_ml,
         for( int i = 0; i < i_num_frompersons ; i++ )
         {
             /* We assume ppsz_frompersons has unique entries and
-             * if ppsz_frompersons[i] is empty(but not NULL), then it
+             * if ppsz_frompersons[i] is empty(but not NULL), then i
              * means we accept any role */
             if( ppsz_frompersons[i] && *ppsz_frompersons[i] )
             {

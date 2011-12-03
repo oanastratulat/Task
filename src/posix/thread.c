@@ -7,9 +7,9 @@
  *          Samuel Hocevar <sam@zoy.org>
  *          Gildas Bazin <gbazin@netcourrier.com>
  *          Clément Sténac
- *          Rémi Denis-Courmont
+ *          Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -314,7 +314,7 @@ void vlc_mutex_lock (vlc_mutex_t *p_mutex)
  * This function is not a cancellation-point.
  *
  * <b>Beware</b>: If this function fails, then the mutex is held... by another
- * thread. The calling thread must deal with the error appropriately. That
+ * thread. The calling thread must deal with the error appropriately. Tha
  * typically implies postponing the operations that would have required the
  * mutex. If the thread cannot defer those operations, then it must use
  * vlc_mutex_lock(). If in doubt, use vlc_mutex_lock() instead.
@@ -431,7 +431,7 @@ void vlc_cond_broadcast (vlc_cond_t *p_condvar)
  * @param p_condvar condition variable to wait on
  * @param p_mutex mutex which is unlocked while waiting,
  *                then locked again when waking up.
- * @param deadline <b>absolute</b> timeout
+ * @param deadline <b>absolute</b> timeou
  */
 void vlc_cond_wait (vlc_cond_t *p_condvar, vlc_mutex_t *p_mutex)
 {
@@ -450,7 +450,7 @@ void vlc_cond_wait (vlc_cond_t *p_condvar, vlc_mutex_t *p_mutex)
  * @param p_condvar condition variable to wait on
  * @param p_mutex mutex which is unlocked while waiting,
  *                then locked again when waking up.
- * @param deadline <b>absolute</b> timeout
+ * @param deadline <b>absolute</b> timeou
  *
  * @return 0 if the condition was signaled, an error code in case of timeout.
  */
@@ -681,7 +681,7 @@ static int vlc_clone_attr (vlc_thread_t *th, pthread_attr_t *attr,
 
     /* Block the signals that signals interface plugin handles.
      * If the LibVLC caller wants to handle some signals by itself, it should
-     * block these before whenever invoking LibVLC. And it must obviously not
+     * block these before whenever invoking LibVLC. And it must obviously no
      * start the VLC signals interface plugin.
      *
      * LibVLC will normally ignore any interruption caused by an asynchronous
@@ -723,7 +723,7 @@ static int vlc_clone_attr (vlc_thread_t *th, pthread_attr_t *attr,
 #endif
 
     /* The thread stack size.
-     * The lower the value, the less address space per thread, the highest
+     * The lower the value, the less address space per thread, the highes
      * maximum simultaneous threads per process. Too low values will cause
      * stack overflows and weird crashes. Set with caution. Also keep in mind
      * that 64-bits platforms consume more stack than 32-bits one.
@@ -756,7 +756,7 @@ static int vlc_clone_attr (vlc_thread_t *th, pthread_attr_t *attr,
  * @param th [OUT] pointer to write the handle of the created thread to
  *                 (mandatory, must be non-NULL)
  * @param entry entry point for the thread
- * @param data data parameter given to the entry point
+ * @param data data parameter given to the entry poin
  * @param priority thread priority value
  * @return 0 on success, a standard error code on error.
  */
@@ -812,7 +812,7 @@ void vlc_join (vlc_thread_t handle, void **result)
  *
  * @param th [OUT] pointer to hold the thread handle, or NULL
  * @param entry entry point for the thread
- * @param data data parameter given to the entry point
+ * @param data data parameter given to the entry poin
  * @param priority thread priority value
  * @return 0 on success, a standard error code on error.
  */
@@ -872,8 +872,8 @@ void vlc_cancel (vlc_thread_t thread_id)
 /**
  * Save the current cancellation state (enabled or disabled), then disable
  * cancellation for the calling thread.
- * This function must be called before entering a piece of code that is not
- * cancellation-safe, unless it can be proven that the calling thread will not
+ * This function must be called before entering a piece of code that is no
+ * cancellation-safe, unless it can be proven that the calling thread will no
  * be cancelled.
  * @return Previous cancellation state (opaque value for vlc_restorecancel()).
  */
@@ -961,7 +961,7 @@ mtime_t mdate (void)
 #endif
 }
 
-#undef mwait
+#undef mwai
 /**
  * Waits until a deadline (possibly later due to OS scheduling).
  * @param deadline timestamp to wait for (see mdate())
@@ -1069,7 +1069,7 @@ static void *vlc_timer_thread (void *data)
 /**
  * Initializes an asynchronous timer.
  * @warning Asynchronous timers are processed from an unspecified thread.
- * Multiple occurences of a single interval timer are serialized; they cannot
+ * Multiple occurences of a single interval timer are serialized; they canno
  * run concurrently.
  *
  * @param id pointer to timer to be initialized
@@ -1135,7 +1135,7 @@ void vlc_timer_destroy (vlc_timer_t timer)
  * @param timer initialized timer
  * @param absolute the timer value origin is the same as mdate() if true,
  *                 the timer value is relative to now if false.
- * @param value zero to disarm the timer, otherwise the initial time to wait
+ * @param value zero to disarm the timer, otherwise the initial time to wai
  *              before firing the timer.
  * @param interval zero to fire the timer just once, otherwise the timer
  *                 repetition interval.

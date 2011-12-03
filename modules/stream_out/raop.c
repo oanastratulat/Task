@@ -1,5 +1,5 @@
 /*****************************************************************************
- * raop.c: Remote Audio Output Protocol streaming support
+ * raop.c: Remote Audio Output Protocol streaming suppor
  *****************************************************************************
  * Copyright (C) 2008 the VideoLAN team
  * $Id: 7664615756d070ae35de615f6cbdda76d622f98e $
@@ -96,7 +96,7 @@ typedef enum
     JACK_TYPE_DIGITAL,
 } jack_type_t;
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     /* Input parameters */
     char *psz_host;
@@ -133,7 +133,7 @@ struct sout_stream_sys_t
     uint8_t *p_sendbuf;
 };
 
-struct sout_stream_id_t
+struct sout_stream_id_
 {
     es_format_t fmt;
 };
@@ -565,7 +565,7 @@ static char *ReadPasswordFile( vlc_object_t *p_this, const char *psz_path )
         }
 
         /* Nothing was read, but there was no error either. Maybe the file is
-         * empty. Not all implementations of fgets(3) write \0 to the output
+         * empty. Not all implementations of fgets(3) write \0 to the outpu
          * buffer in this case.
          */
         ps_buffer[0] = '\0';

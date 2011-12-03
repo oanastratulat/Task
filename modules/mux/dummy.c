@@ -58,7 +58,7 @@ static int AddStream( sout_mux_t *, sout_input_t * );
 static int DelStream( sout_mux_t *, sout_input_t * );
 static int Mux      ( sout_mux_t * );
 
-struct sout_mux_sys_t
+struct sout_mux_sys_
 {
     /* Some streams have special initialization data, we'll output this
      * data as an header in the stream. */

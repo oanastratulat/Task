@@ -92,7 +92,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Access: local prototypes
  *****************************************************************************/
-struct access_sys_t
+struct access_sys_
 {
     vcddev_t    *vcddev;                            /* vcd device descriptor */
 

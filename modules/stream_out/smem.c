@@ -22,10 +22,10 @@
  *****************************************************************************/
 
 /*****************************************************************************
- * How to use it
+ * How to use i
  *****************************************************************************
  *
- * You should use this module in combination with the transcode module, to get
+ * You should use this module in combination with the transcode module, to ge
  * raw datas from it. This module does not make any conversion at all, so you
  * need to use the transcode module for this purpose.
  *
@@ -136,13 +136,13 @@ static int SendVideo( sout_stream_t *p_stream, sout_stream_id_t *id,
 static int SendAudio( sout_stream_t *p_stream, sout_stream_id_t *id,
                       block_t *p_buffer );
 
-struct sout_stream_id_t
+struct sout_stream_id_
 {
     es_format_t* format;
     void *p_data;
 };
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     vlc_mutex_t *p_lock;
     void ( *pf_video_prerender_callback ) ( void* p_video_data, uint8_t** pp_pixel_buffer , int size );

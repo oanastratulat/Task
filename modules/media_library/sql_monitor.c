@@ -49,13 +49,13 @@ static void ScanFiles( monitoring_thread_t *, int, bool, stat_list_t *stparent )
 static int Sort( const char **, const char ** );
 
 /* Struct used to verify there are no recursive directory */
-struct stat_list_t
+struct stat_list_
 {
     stat_list_t *parent;
     struct stat st;
 };
 
-struct preparsed_item_t
+struct preparsed_item_
 {
     monitoring_thread_t *p_mon;
     char* psz_uri;
@@ -67,7 +67,7 @@ struct preparsed_item_t
 
 /**
  * @brief Remove a directory to monitor
- * @param p_ml A media library object
+ * @param p_ml A media library objec
  * @param psz_dir the directory to remove
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
@@ -134,7 +134,7 @@ int RemoveDirToMonitor( media_library_t *p_ml, const char *psz_dir )
 
 /**
  * @brief Get the list of the monitored directories
- * @param p_ml A media library object
+ * @param p_ml A media library objec
  * @param p_array An initialized array where the list will be put in
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
@@ -160,7 +160,7 @@ int ListMonitoredDirs( media_library_t *p_ml, vlc_array_t *p_array )
 
 /**
  * @brief Add a directory to monitor
- * @param p_ml This media_library_t object
+ * @param p_ml This media_library_t objec
  * @param psz_dir the directory to add
  * @return VLC_SUCCESS or VLC_EGENERIC
  */

@@ -43,7 +43,7 @@
 
 /* header length (including itself) */
 const uint8_t RTMP_HEADER_SIZE_MASK = 0xC0;
-const uint8_t RTMP_HEADER_SIZE_12 = 0x00; 
+const uint8_t RTMP_HEADER_SIZE_12 = 0x00;
 const uint8_t RTMP_HEADER_SIZE_8 = 0x40;
 const uint8_t RTMP_HEADER_SIZE_4 = 0x80;
 const uint8_t RTMP_HEADER_SIZE_1 = 0xC0;
@@ -170,7 +170,7 @@ const uint64_t AMF_CALL_NETCONNECTION_CONNECT_VIDEOCODECS = 0x405F000000000000;
 const uint64_t AMF_CALL_NETCONNECTION_CONNECT_VIDEOFUNCTION = 0x3FF0000000000000;
 const uint64_t AMF_CALL_NETCONNECTION_CONNECT_OBJECTENCODING = 0x0;
 const double AMF_CALL_STREAM_CLIENT_NUMBER = 3.0;
-const double AMF_CALL_ONBWDONE = 2.0; 
+const double AMF_CALL_ONBWDONE = 2.0;
 const uint64_t AMF_CALL_NETSTREAM_PLAY = 0x0;
 
 /*****************************************************************************
@@ -268,7 +268,7 @@ static rtmp_packet_t *flv_build_onMetaData( access_t *p_access, uint64_t duratio
 /*****************************************************************************
  * RTMP implementation:
  ******************************************************************************/
-int
+in
 rtmp_handshake_passive( vlc_object_t *p_this, int fd )
 {
     uint8_t p_read[RTMP_HANDSHAKE_BODY_SIZE + 1];
@@ -323,7 +323,7 @@ rtmp_handshake_passive( vlc_object_t *p_this, int fd )
     return 0;
 }
 
-int
+in
 rtmp_handshake_active( vlc_object_t *p_this, int fd )
 {
     uint8_t p_read[RTMP_HANDSHAKE_BODY_SIZE * 2 + 1];
@@ -379,7 +379,7 @@ rtmp_handshake_active( vlc_object_t *p_this, int fd )
     return 0;
 }
 
-static int
+static in
 write_rtmp( rtmp_control_thread_t *p_thread, uint8_t *buf,
             rtmp_packet_t *pkt, const char *errmsg )
 {
@@ -397,7 +397,7 @@ write_rtmp( rtmp_control_thread_t *p_thread, uint8_t *buf,
     return 1;
 }
 
-int
+in
 rtmp_connect_active( rtmp_control_thread_t *p_thread )
 {
     rtmp_packet_t *rtmp_packet;
@@ -409,7 +409,7 @@ rtmp_connect_active( rtmp_control_thread_t *p_thread )
     rtmp_body = rtmp_body_new( -1 );
 
     tmp_buffer = amf_encode_element( AMF_DATATYPE_STRING, "connect" );
-    rtmp_body_append( rtmp_body, tmp_buffer, 
+    rtmp_body_append( rtmp_body, tmp_buffer,
         AMF_DATATYPE_SIZE_STRING + strlen( "connect" ) );
     free( tmp_buffer );
 
@@ -425,7 +425,7 @@ rtmp_connect_active( rtmp_control_thread_t *p_thread )
     tmp_buffer = amf_encode_object_variable( "app",
         AMF_DATATYPE_STRING, p_thread->psz_application );
     rtmp_body_append( rtmp_body, tmp_buffer,
-        AMF_DATATYPE_SIZE_OBJECT_VARIABLE + strlen( "app" ) + 
+        AMF_DATATYPE_SIZE_OBJECT_VARIABLE + strlen( "app" ) +
         AMF_DATATYPE_SIZE_STRING + strlen( p_thread->psz_application ) );
     free( tmp_buffer );
 
@@ -533,7 +533,7 @@ rtmp_connect_active( rtmp_control_thread_t *p_thread )
     rtmp_body = rtmp_body_new( -1 );
 
     tmp_buffer = amf_encode_element( AMF_DATATYPE_STRING, "createStream" );
-    rtmp_body_append( rtmp_body, tmp_buffer, 
+    rtmp_body_append( rtmp_body, tmp_buffer,
         AMF_DATATYPE_SIZE_STRING + strlen( "createStream" ) );
     free( tmp_buffer );
 
@@ -548,7 +548,7 @@ rtmp_connect_active( rtmp_control_thread_t *p_thread )
     rtmp_body_append( rtmp_body, tmp_buffer, AMF_DATATYPE_SIZE_NULL );
     free( tmp_buffer );
 
-    rtmp_packet = rtmp_new_packet( p_thread, RTMP_DEFAULT_STREAM_INDEX_INVOKE, 
+    rtmp_packet = rtmp_new_packet( p_thread, RTMP_DEFAULT_STREAM_INDEX_INVOKE,
         0, RTMP_CONTENT_TYPE_INVOKE, 0, rtmp_body );
     free( rtmp_body->body );
     free( rtmp_body );
@@ -650,7 +650,7 @@ rtmp_connect_active( rtmp_control_thread_t *p_thread )
     return 0;
 }
 
-int
+in
 rtmp_connect_passive( rtmp_control_thread_t *p_thread )
 {
     /* Force control thread to stop if receive NetStream.play call and wait is not ready */
@@ -678,7 +678,7 @@ rtmp_packet_free( rtmp_packet_t *pkt )
 }
 
 /* TODO
-int
+in
 rtmp_seek( access_t *p_access, int64_t i_pos )
 {
     access_sys_t *p_sys = p_access->p_sys;
@@ -716,7 +716,7 @@ msg_Warn(p_access, "i_pos %lld", i_pos);
     free( rtmp_body->body );
     free( rtmp_body );
 
-    tmp_buffer = rtmp_encode_packet( p_access, rtmp_packet ); 
+    tmp_buffer = rtmp_encode_packet( p_access, rtmp_packet );
 
     // Call NetStream.seek //
     if( !write_rtmp( p_thread, tmp_buffer, rtmp_packet,
@@ -1170,7 +1170,7 @@ rtmp_handler_invoke( rtmp_control_thread_t *p_thread, rtmp_packet_t *rtmp_packet
         tmp_rtmp_packet = rtmp_encode_ping_clear_stream( p_thread, RTMP_SRC_DST_CONNECT_OBJECT2 );
 
         tmp_buffer = rtmp_encode_packet( p_thread, tmp_rtmp_packet );
-    
+
         i_ret = net_Write( p_thread, p_thread->fd, NULL, tmp_buffer, tmp_rtmp_packet->length_encoded );
         if( i_ret != tmp_rtmp_packet->length_encoded )
         {
@@ -1350,7 +1350,7 @@ rtmp_handler_invoke( rtmp_control_thread_t *p_thread, rtmp_packet_t *rtmp_packet
             msg_Warn( p_thread, "undefined AMF type" );
         }
     }
-    
+
     rtmp_packet_free( rtmp_packet );
     return;
 
@@ -1384,7 +1384,7 @@ rtmp_new_packet( rtmp_control_thread_t *p_thread, uint8_t stream_index,
         rtmp_send->length_body = body->length_body;
         rtmp_send->content_type = content_type;
         rtmp_send->src_dst = src_dst;
-        
+
         rtmp_packet->length_header = 12;
     }
     else if( content_type != rtmp_send->content_type
@@ -1893,7 +1893,7 @@ rtmp_encode_NetStream_play_start_onStatus( rtmp_control_thread_t *p_thread, char
     return rtmp_packet;
 }
 
-static uint8_t
+static uint8_
 rtmp_encode_header_size( vlc_object_t *p_this, uint8_t header_size )
 {
     if( header_size == 1 )
@@ -1911,7 +1911,7 @@ rtmp_encode_header_size( vlc_object_t *p_this, uint8_t header_size )
     }
 }
 
-static uint8_t
+static uint8_
 rtmp_decode_header_size( vlc_object_t *p_this, uint8_t header_size )
 {
     if( header_size == RTMP_HEADER_SIZE_1 )
@@ -1929,7 +1929,7 @@ rtmp_decode_header_size( vlc_object_t *p_this, uint8_t header_size )
     }
 }
 
-static uint8_t
+static uint8_
 rtmp_get_stream_index( uint8_t content_type )
 {
     if( content_type == RTMP_CONTENT_TYPE_AUDIO_DATA )
@@ -2055,7 +2055,7 @@ amf_encode_element( uint8_t element, const void *value )
 
         out = (uint8_t *) malloc( AMF_DATATYPE_SIZE_NUMBER * sizeof( uint8_t ) );
         if( !out ) return NULL;
-        
+
         number = hton64( number );
         out[0] = AMF_DATATYPE_NUMBER;
         memcpy( out + 1, &number, sizeof( uint64_t ) );
@@ -2174,7 +2174,7 @@ amf_decode_number( uint8_t **buffer )
     return out;
 }
 
-static int
+static in
 amf_decode_boolean( uint8_t **buffer )
 {
     int out;

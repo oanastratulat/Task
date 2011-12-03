@@ -80,7 +80,7 @@ static int FilterCallback( vlc_object_t *, char const *,
 
 typedef void (*SepiaFunction)( picture_t *, picture_t *, int );
 
-static const struct
+static const struc
 {
     vlc_fourcc_t i_chroma;
     SepiaFunction pf_sepia;
@@ -98,7 +98,7 @@ static const struct
 /*****************************************************************************
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     SepiaFunction pf_sepia;
     int i_intensity;
@@ -167,10 +167,10 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered output
+ * Render: displays previously rendered outpu
  *****************************************************************************
  * This function send the currently rendered image to sepia image, waits
- * until it is displayed and switch the two rendering buffers, preparing next
+ * until it is displayed and switch the two rendering buffers, preparing nex
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
@@ -218,11 +218,11 @@ static inline void Sepia8ySSE2(uint8_t * dst, const uint8_t * src,
         "movd              %2, %%xmm3\n"
         "pshufd    $0, %%xmm3, %%xmm3\n"
         "psrlw             $2, %%xmm2\n"    // rotate right 2
-        "psubusb       %%xmm1, %%xmm2\n"    // subtract
+        "psubusb       %%xmm1, %%xmm2\n"    // subtrac
         "psrlw             $2, %%xmm3\n"
         "paddsb        %%xmm1, %%xmm3\n"    // add
         "packuswb      %%xmm2, %%xmm1\n"    // pack back to bytes
-        "movq          %%xmm1, (%0)  \n"    // load to dest
+        "movq          %%xmm1, (%0)  \n"    // load to des
         :
         :"r" (dst), "r"(src), "r"(i_intensity_spread)
         :"memory");
@@ -457,7 +457,7 @@ static void RVSepia( picture_t *p_pic, picture_t *p_outpic, int i_intensity )
         while (p_in < p_line_end)
         {
             /* do sepia: this calculation is based on the formula to calculate
-             * YUV->RGB and RGB->YUV (in filter_picture.h) mode and that
+             * YUV->RGB and RGB->YUV (in filter_picture.h) mode and tha
              * y = y - y/4 + intensity/4 . As Y is the only channel that changes
              * through the whole image. After that, precomputed values are added
              * for each RGB channel and saved in the output image.

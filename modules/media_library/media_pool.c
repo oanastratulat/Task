@@ -32,8 +32,8 @@ static inline int mediapool_hash( int media_id )
 
 /**
  * @brief Get a media from the pool
- * @param p_ml ML object
- * @param media_id The media id of the object to get
+ * @param p_ml ML objec
+ * @param media_id The media id of the object to ge
  * @return the found media or NULL if not found
  */
 ml_media_t* pool_GetMedia( media_library_t* p_ml, int media_id )
@@ -56,8 +56,8 @@ ml_media_t* pool_GetMedia( media_library_t* p_ml, int media_id )
 
 /**
  * @brief Insert a media into the media pool
- * @param p_ml ML object
- * @param p_media Media object to insert
+ * @param p_ml ML objec
+ * @param p_media Media object to inser
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
 int pool_InsertMedia( media_library_t* p_ml, ml_media_t* p_media, bool locked )
@@ -112,7 +112,7 @@ int pool_InsertMedia( media_library_t* p_ml, ml_media_t* p_media, bool locked )
 
 /**
  * @brief Perform a single garbage collection scan on the media pool
- * @param p_ml The ML object
+ * @param p_ml The ML objec
  * @note Scans all media and removes any medias not held by any other objects.
  */
 void pool_GC( media_library_t* p_ml )
@@ -140,7 +140,7 @@ void pool_GC( media_library_t* p_ml )
                 vlc_spin_lock( &p_media->ml_gc_data.spin );
                 p_media->ml_gc_data.pool = false;
                 vlc_spin_unlock( &p_media->ml_gc_data.spin );
-                ml_gc_decref( p_item->p_media );//This should destroy the object
+                ml_gc_decref( p_item->p_media );//This should destroy the objec
                 free( p_item );
             }
             p_prev = p_item;

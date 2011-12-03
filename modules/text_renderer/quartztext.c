@@ -133,7 +133,7 @@ vlc_module_begin ()
 vlc_module_end ()
 
 typedef struct font_stack_t font_stack_t;
-struct font_stack_t
+struct font_stack_
 {
     char          *psz_name;
     int            i_size;
@@ -142,7 +142,7 @@ struct font_stack_t
     font_stack_t  *p_next;
 };
 
-typedef struct
+typedef struc
 {
     int         i_font_size;
     uint32_t    i_font_color;         /* ARGB */
@@ -153,7 +153,7 @@ typedef struct
 } ft_style_t;
 
 typedef struct offscreen_bitmap_t offscreen_bitmap_t;
-struct offscreen_bitmap_t
+struct offscreen_bitmap_
 {
     uint8_t       *p_data;
     int            i_bitsPerChannel;
@@ -168,7 +168,7 @@ struct offscreen_bitmap_t
 // This structure is part of the video output thread descriptor.
 // It describes the freetype specific properties of an output thread.
 //////////////////////////////////////////////////////////////////////////////
-struct filter_sys_t
+struct filter_sys_
 {
     char          *psz_font_name;
     uint8_t        i_font_opacity;
@@ -484,8 +484,8 @@ static int HandleFontAttributes( xml_reader_t *p_xml_reader,
     int        i_font_size  = 24;
     const char *attr, *value;
 
-    // Default all attributes to the top font in the stack -- in case not
-    // all attributes are specified in the sub-font
+    // Default all attributes to the top font in the stack -- in case no
+    // all attributes are specified in the sub-fon
     if( VLC_SUCCESS == PeekFont( p_fonts,
                                  &psz_fontname,
                                  &i_font_size,
@@ -941,7 +941,7 @@ static offscreen_bitmap_t *Compose( int i_text_align,
                                           (float)(i_height - VERTICAL_MARGIN  *2));
             CGPathAddRect( p_path, NULL, p_bounds );
 
-            // Create the frame and draw it into the graphics context
+            // Create the frame and draw it into the graphics contex
             frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), p_path, NULL);
 
             CGPathRelease(p_path);

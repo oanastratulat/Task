@@ -1,7 +1,7 @@
 /*****************************************************************************
  * voc.c : Creative Voice File (.VOC) demux module for vlc
  *****************************************************************************
- * Copyright (C) 2005 Rémi Denis-Courmont
+ * Copyright (C) 2005 Rémi Denis-Courmon
  * $Id: 07a9850a8c4370b01cae1408b3c1f83af2290ade $
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
@@ -53,7 +53,7 @@ vlc_module_end ()
 static int Demux  ( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-struct demux_sys_t
+struct demux_sys_
 {
     es_format_t     fmt;
     es_out_id_t     *p_es;
@@ -282,7 +282,7 @@ static int ReadBlockHeader( demux_t *p_demux )
             /* read subsequent block 1 */
             if( stream_Read( p_demux->s, buf, 4 ) < 4 )
                 return VLC_EGENERIC; /* EOF */
- 
+
             i_block_size = GetDWLE( buf ) >> 8;
             msg_Dbg( p_demux, "new block: type: %u, size: %u",
                     (unsigned)*buf, i_block_size );

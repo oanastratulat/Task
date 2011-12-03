@@ -41,7 +41,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of log interface
  *****************************************************************************/
-struct intf_sys_t
+struct intf_sys_
 {
     char            *psz_format;
     DBusConnection  *p_conn;

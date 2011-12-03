@@ -198,7 +198,7 @@ static void vnc_encrypt_bytes( unsigned char *bytes, char *passwd );
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     bool          b_need_update;       /* VNC picture is updated, do update the OSD*/
     mtime_t       i_vnc_poll_interval; /* Update the OSD menu every n ms */

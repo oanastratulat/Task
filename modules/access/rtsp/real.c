@@ -1,7 +1,7 @@
 /*****************************************************************************
- * real.c: real rtsp input
+ * real.c: real rtsp inpu
  *****************************************************************************
- * Copyright (C) 2002-2004 the xine project
+ * Copyright (C) 2002-2004 the xine projec
  * Copyright (C) 2005 VideoLAN
  * $Id: 9bd4c87d65ea9a52a0a3073a437ace8b49f48388 $
  *

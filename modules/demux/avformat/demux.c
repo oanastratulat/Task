@@ -1,5 +1,5 @@
 /*****************************************************************************
- * demux.c: demuxer using libavformat
+ * demux.c: demuxer using libavforma
  *****************************************************************************
  * Copyright (C) 2004-2009 the VideoLAN team
  * $Id: ce87eb4140176aeb2b6b1129dc2959f9ee1b586d $
@@ -58,7 +58,7 @@
 /*****************************************************************************
  * demux_sys_t: demux descriptor
  *****************************************************************************/
-struct demux_sys_t
+struct demux_sys_
 {
     ByteIOContext   io;
     int             io_buffer_size;
@@ -217,7 +217,7 @@ int OpenDemux( vlc_object_t *p_this )
     {
        /* Tell avformat that input is stream, so it doesn't get stuck
        when trying av_find_stream_info() trying to seek all the wrong places
-       init_put_byte defaults io.is_streamed=0, so thats why we set them after it
+       init_put_byte defaults io.is_streamed=0, so thats why we set them after i
        */
        p_sys->url.is_streamed = 1;
        p_sys->io.is_streamed = 1;
@@ -883,7 +883,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
 }
 
 /*****************************************************************************
- * I/O wrappers for libavformat
+ * I/O wrappers for libavforma
  *****************************************************************************/
 static int IORead( void *opaque, uint8_t *buf, int buf_size )
 {

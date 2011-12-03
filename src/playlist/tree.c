@@ -6,7 +6,7 @@
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -47,7 +47,7 @@ playlist_item_t *GetPrevItem( playlist_t *p_playlist,
 /**
  * Create a playlist node
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param psz_name the name of the node
  * \param p_parent the parent node to attach to or NULL if no attach
  * \param i_pos position of the node in the parent, PLAYLIST_END to append to end.
@@ -96,7 +96,7 @@ playlist_item_t * playlist_NodeCreate( playlist_t *p_playlist,
  *
  * This function must be entered with the playlist lock
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_root the node
  * \param b_delete_items do we have to delete the children items ?
  * \return VLC_SUCCESS or an error
@@ -132,7 +132,7 @@ int playlist_NodeEmpty( playlist_t *p_playlist, playlist_item_t *p_root,
 /**
  * Remove all the children of a node and removes the node
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_root the node
  * \param b_delete_items do we have to delete the children items ?
  * \return VLC_SUCCESS or an error
@@ -194,7 +194,7 @@ int playlist_NodeDelete( playlist_t *p_playlist, playlist_item_t *p_root,
 /**
  * Adds an item to the children of a node
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_item the item to append
  * \param p_parent the parent node
  * \return VLC_SUCCESS or an error
@@ -228,7 +228,7 @@ int playlist_NodeInsert( playlist_t *p_playlist,
 /**
  * Deletes an item from the children of a node
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_item the item to remove
  * \param p_parent the parent node
  * \return VLC_SUCCESS or an error
@@ -293,7 +293,7 @@ playlist_item_t *playlist_ChildSearchName( playlist_item_t *p_node,
 /**
  * Finds the next item to play
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_root the root node
  * \param p_item the previous item  (NULL if none )
  * \return the next item to play, or NULL if none found
@@ -335,7 +335,7 @@ playlist_item_t *playlist_GetNextLeaf( playlist_t *p_playlist,
 /**
  * Finds the previous item to play
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_root the root node
  * \param p_item the previous item  (NULL if none )
  * \return the next item to play, or NULL if none found
@@ -379,7 +379,7 @@ playlist_item_t *playlist_GetPrevLeaf( playlist_t *p_playlist,
 
 /**
  * Get the next item in the tree
- * If p_item is NULL, return the first child of root
+ * If p_item is NULL, return the first child of roo
  **/
 playlist_item_t *GetNextItem( playlist_t *p_playlist,
                               playlist_item_t *p_root,

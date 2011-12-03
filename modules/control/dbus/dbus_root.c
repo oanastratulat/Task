@@ -1,5 +1,5 @@
 /*****************************************************************************
- * dbus-root.c : dbus control module (mpris v1.0) - root object
+ * dbus-root.c : dbus control module (mpris v1.0) - root objec
  *****************************************************************************
  * Copyright © 2006-2008 Rafaël Carré
  * Copyright © 2007-2010 Mirsal Ennaime
@@ -278,7 +278,7 @@ DBUS_METHOD( GetProperty )
         return function( p_conn, p_from, p_this )
 #define METHOD_MAPPING_END return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
-DBusHandlerResult
+DBusHandlerResul
 handle_root ( DBusConnection *p_conn, DBusMessage *p_from, void *p_this )
 {
     METHOD_MAPPING_BEGIN

@@ -90,7 +90,7 @@ static const char *const ppsz_filter_options[] = {
 };
 
 enum { RED=0xFF0000, GREEN=0x00FF00, BLUE=0x0000FF };
-struct filter_sys_t
+struct filter_sys_
 {
     vlc_mutex_t lock;
     int *projection_matrix;

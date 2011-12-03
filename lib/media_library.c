@@ -7,7 +7,7 @@
  *
  * Authors: Pierre d'Herbemont <pdherbemont # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -36,7 +36,7 @@
 
 #include "libvlc_internal.h"
 
-struct libvlc_media_library_t
+struct libvlc_media_library_
 {
     libvlc_event_manager_t * p_event_manager;
     libvlc_instance_t *      p_libvlc_instance;

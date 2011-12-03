@@ -78,7 +78,7 @@ static sout_stream_id_t *Add ( sout_stream_t *, es_format_t * );
 static int               Del ( sout_stream_t *, sout_stream_id_t * );
 static int               Send( sout_stream_t *, sout_stream_id_t *, block_t* );
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     bool     b_audio;
     bool     b_video;

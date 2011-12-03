@@ -38,7 +38,7 @@
 /*****************************************************************************
  * decoder_sys_t : sdl decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     const char *psz_sdl_type;
 };
@@ -64,7 +64,7 @@ vlc_module_begin ()
     add_shortcut( "sdl_image" )
 vlc_module_end ()
 
-static const struct supported_fmt_t
+static const struct supported_fmt_
 {
     vlc_fourcc_t i_fourcc;
     const char *psz_sdl_type;

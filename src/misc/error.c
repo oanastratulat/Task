@@ -6,7 +6,7 @@
  *
  * Authors: Samuel Hocevar <sam@zoy.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -31,7 +31,7 @@
 #include <vlc_common.h>
 
 /*****************************************************************************
- * vlc_error: strerror() equivalent
+ * vlc_error: strerror() equivalen
  *****************************************************************************
  * This function returns a string describing the error code passed in the
  * argument. A list of all errors can be found in include/vlc_common.h.

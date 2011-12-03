@@ -34,7 +34,7 @@
 #include <vlc_demux.h>
 
 /* TODO:
- *  - test
+ *  - tes
  */
 
 /*****************************************************************************
@@ -59,14 +59,14 @@ static int Demux  ( demux_t * );
 static int Control( demux_t *, int, va_list );
 
 /* */
-typedef struct
+typedef struc
 {
     int64_t i_time;
     int64_t i_offset;
 
 } demux_index_entry_t;
 
-typedef struct
+typedef struc
 {
     int i_idx;
     int i_idx_max;
@@ -86,7 +86,7 @@ static int64_t demux_IndexFindOffset( demux_index_t *, int64_t i_offset );
 
 
 /* */
-typedef struct
+typedef struc
 {
     char id[12];       /* "NuppelVideo\0" or "MythTVVideo\0" */
     char version[5];    /* "x.xx\0" */
@@ -110,9 +110,9 @@ typedef struct
 } header_t;
 
 #define NUV_FH_SIZE 12
-typedef struct
+typedef struc
 {
-    char i_type;        /* A: audio, V: video, S: sync; T: test
+    char i_type;        /* A: audio, V: video, S: sync; T: tes
                            R: Seekpoint (string:RTjjjjjjjj)
                            D: Extra data for codec
                            X: extended data Q: seektable */
@@ -120,7 +120,7 @@ typedef struct
                               1 RTJpeg
                               2 RTJpeg+lzo
                               N black frame
-                              L copy last
+                              L copy las
                            A: 0 uncompressed (44100 1-bits, 2ch)
                               1 lzo
                               2 layer 2
@@ -128,8 +128,8 @@ typedef struct
                               F flac
                               S shorten
                               N null frame loudless
-                              L copy last
-                            S: B audio and vdeo sync point
+                              L copy las
+                            S: B audio and vdeo sync poin
                                A audio sync info (timecode == effective
                                     dsp frequency*100)
                                V next video sync (timecode == next video
@@ -146,7 +146,7 @@ typedef struct
                            S: length of packet correl */
 } frame_header_t;
 
-typedef struct
+typedef struc
 {
     int             i_version;
     vlc_fourcc_t    i_video_fcc;
@@ -169,7 +169,7 @@ typedef struct
 
 } extended_header_t;
 
-struct demux_sys_t
+struct demux_sys_
 {
     header_t          hdr;
     extended_header_t exh;
@@ -714,12 +714,12 @@ static int ExtendedHeaderLoad( demux_t *p_demux, extended_header_t *h )
 }
 
 /*
-    typedef struct
+    typedef struc
     {
       int64_t i_file_offset;
       int32_t i_keyframe_number;
     } seektable_entry_t;
-    typedef struct
+    typedef struc
     {
        int32_t i_adjust;
        int32_t i_keyframe_number;

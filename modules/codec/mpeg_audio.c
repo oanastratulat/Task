@@ -45,7 +45,7 @@
 /*****************************************************************************
  * decoder_sys_t : decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     /* Module mode */
     bool b_packetizer;
@@ -450,7 +450,7 @@ static block_t *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
                 p_sys->i_free_frame_size = p_sys->i_frame_size;
             }
 
-            /* Copy the whole frame into the buffer. When we reach this point
+            /* Copy the whole frame into the buffer. When we reach this poin
              * we already know we have enough data available. */
             block_GetBytes( &p_sys->bytestream,
                             p_buf, __MIN( (unsigned)p_sys->i_frame_size, p_out_buffer->i_buffer ) );

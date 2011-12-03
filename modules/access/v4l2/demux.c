@@ -268,7 +268,7 @@ float GetAbsoluteMaxFrameRate( vlc_object_t *obj, int fd,
 #ifdef VIDIOC_ENUM_FRAMESIZES
     /* This is new in Linux 2.6.19 */
     struct v4l2_frmsizeenum fse = {
-        .pixel_format = pixel_format
+        .pixel_format = pixel_forma
     };
 
     if( v4l2_ioctl( fd, VIDIOC_ENUM_FRAMESIZES, &fse ) < 0 )
@@ -326,7 +326,7 @@ void GetMaxDimensions( vlc_object_t *obj, int fd, uint32_t pixel_format,
 #ifdef VIDIOC_ENUM_FRAMESIZES
     /* This is new in Linux 2.6.19 */
     struct v4l2_frmsizeenum fse = {
-        .pixel_format = pixel_format
+        .pixel_format = pixel_forma
     };
 
     if( v4l2_ioctl( fd, VIDIOC_ENUM_FRAMESIZES, &fse ) < 0 )

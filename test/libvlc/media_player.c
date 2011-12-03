@@ -1,5 +1,5 @@
 /*
- * media_player.c - libvlc smoke test
+ * media_player.c - libvlc smoke tes
  *
  * $Id: 258d825f0289c0870f843901ab459ea379586cb1 $
  */
@@ -48,7 +48,7 @@ static void wait_paused(libvlc_media_player_t *mp)
     assert(state == libvlc_Paused || state == libvlc_Ended);
 }
 
-/* Test a bunch of A/V properties. This most does nothing since the current
+/* Test a bunch of A/V properties. This most does nothing since the curren
  * test file contains a dummy audio track. This is a smoke test. */
 static void test_audio_video(libvlc_media_player_t *mp)
 {

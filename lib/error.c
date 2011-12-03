@@ -1,9 +1,9 @@
 /*****************************************************************************
  * error.c: Error handling for libvlc
  *****************************************************************************
- * Copyright (C) 2009 Rémi Denis-Courmont
+ * Copyright (C) 2009 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -74,7 +74,7 @@ static void free_error (void)
 
 /**
  * Gets a human-readable error message for the last LibVLC error in the calling
- * thread. The resulting string is valid until another error occurs (at least
+ * thread. The resulting string is valid until another error occurs (at leas
  * until the next LibVLC call).
  *
  * @return NULL if there was no error, a nul-terminated string otherwise.

@@ -435,7 +435,7 @@ static int vlclua_dialog_add_button( lua_State *L )
 
 /**
  * Create a text label: add_label
- * Arguments: text
+ * Arguments: tex
  * Qt: QLabel
  **/
 static int vlclua_dialog_add_label( lua_State *L )
@@ -505,7 +505,7 @@ static int vlclua_dialog_add_dropdown( lua_State *L )
 /**
  * Create a list panel (multiple selection)
  * Arguments: (none)
- * Qt: QListWidget
+ * Qt: QListWidge
  **/
 static int vlclua_dialog_add_list( lua_State *L )
 {
@@ -551,7 +551,7 @@ static int vlclua_dialog_add_spin_icon( lua_State *L )
 }
 
 /**
- * Internal helper to finalize the creation of a widget
+ * Internal helper to finalize the creation of a widge
  * @param L Lua State
  * @param i_args Number of arguments before "row" (0 or more)
  * @param p_widget The widget to add
@@ -1010,7 +1010,7 @@ static int vlclua_dialog_delete_widget( lua_State *L )
 
     /* Same remarks as for dialog delete.
      * If the dialog is deleted or about to be deleted, then there is no
-     * need to wait on this particular widget that already doesn't exist
+     * need to wait on this particular widget that already doesn't exis
      * anymore in the UI */
     while( p_widget->p_sys_intf != NULL && !p_dlg->b_kill
            && p_dlg->p_sys_intf != NULL )

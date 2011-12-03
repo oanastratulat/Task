@@ -7,7 +7,7 @@
  * Authors: Derk-Jan Hartman <hartman at videolan.org>
  * This is adapted code from the GPL'ed MPlayer (http://mplayerhq.hu)
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -51,7 +51,7 @@
 #define MAX_SUBTITLE_FILES 128
 
 /**
- * The possible extensions for subtitle files we support
+ * The possible extensions for subtitle files we suppor
  */
 static const char const sub_exts[][6] = {
     "idx", "sub",  "srt",
@@ -142,7 +142,7 @@ enum
     SUB_PRIORITY_MATCH_LEFT  = 3,
     SUB_PRIORITY_MATCH_ALL   = 4,
 };
-typedef struct
+typedef struc
 {
     int priority;
     char *psz_fname;
@@ -240,7 +240,7 @@ static char **paths_to_list( const char *psz_dir, char *psz_path )
  * subtitles files.
  *
  * \ingroup Demux
- * \param p_this the calling \ref input_thread_t
+ * \param p_this the calling \ref input_thread_
  * \param psz_path a list of subdirectories (separated by a ',') to look in.
  * \param psz_name the complete filename to base the search on.
  * \return a NULL terminated array of filenames with detected possible subtitles.

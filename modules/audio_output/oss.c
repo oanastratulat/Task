@@ -68,7 +68,7 @@
  * This structure is part of the audio output thread descriptor.
  * It describes the DSP specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     aout_packet_t packet;
     int i_fd;
@@ -548,7 +548,7 @@ static mtime_t BufferDuration( audio_output_t * p_aout )
             * p_aout->format.i_frame_length;
 }
 
-typedef struct
+typedef struc
 {
     aout_buffer_t *p_buffer;
     void          *p_bytes;

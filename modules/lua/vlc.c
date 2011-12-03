@@ -755,7 +755,7 @@ int vlclua_add_modules_path( vlc_object_t *obj, lua_State *L, const char *psz_fi
     /* Setup the module search path:
      *   * "The script's directory"/modules
      *   * "The script's parent directory"/modules
-     *   * and so on for all the next directories in the directory list
+     *   * and so on for all the next directories in the directory lis
      */
     char *psz_path = strdup( psz_filename );
     if( !psz_path )

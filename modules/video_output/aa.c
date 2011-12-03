@@ -261,7 +261,7 @@ static int Control(vout_display_t *vd, int query, va_list args)
 
 
 /**
- * Proccess pending event
+ * Proccess pending even
  */
 static void Manage(vout_display_t *vd)
 {

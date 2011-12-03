@@ -3,9 +3,9 @@
  * @brief Digital broadcasting input module for VLC media player
  */
 /*****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmont
+ * Copyright © 2011 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -392,7 +392,7 @@ vlc_module_begin ()
 #endif
 vlc_module_end ()
 
-struct access_sys_t
+struct access_sys_
 {
     dvb_device_t *dev;
     uint8_t signal_poll;

@@ -1,12 +1,12 @@
 /*****************************************************************************
  * acl.c:
  *****************************************************************************
- * Copyright © 2005-2007 Rémi Denis-Courmont
+ * Copyright © 2005-2007 Rémi Denis-Courmon
  * $Id: d2a4518e38ca2ce0f1d3e5322a34397104c0b277 $
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -37,7 +37,7 @@
 #include <vlc_fs.h>
 
 /* FIXME: rwlock on acl, but libvlc doesn't implement rwlock */
-typedef struct vlc_acl_entry_t
+typedef struct vlc_acl_entry_
 {
     uint8_t    host[17];
     uint8_t    i_bytes_match;
@@ -45,7 +45,7 @@ typedef struct vlc_acl_entry_t
     bool b_allow;
 } vlc_acl_entry_t;
 
-struct vlc_acl_t
+struct vlc_acl_
 {
     vlc_object_t    *p_owner;
     unsigned         i_size;
@@ -109,7 +109,7 @@ static int ACL_Resolve( vlc_object_t *p_this, uint8_t *p_bytes,
 /**
  * Check if a given address passes an access control list.
  *
- * @param p_acl pre-existing ACL to match the address against
+ * @param p_acl pre-existing ACL to match the address agains
  * @param psz_ip numeric IPv4/IPv6 address
  *
  * @return 0 if the first matching ACL entry is an access grant,

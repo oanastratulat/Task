@@ -8,7 +8,7 @@
  *          Samuel Hocevar <sam@via.ecp.fr>
  *          Jean-Marc Dressler <polux@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -49,7 +49,7 @@
  * tau[I,P,B]   : Mean time to decode an [I,P,B] picture.
  * tauYUV       : Mean time to render a picture (given by the video_output).
  * tau´[I,P,B] = 2 * tau[I,P,B] + tauYUV
- *              : Mean time + typical difference (estimated to tau/2, that
+ *              : Mean time + typical difference (estimated to tau/2, tha
  *                needs to be confirmed) + render time.
  * DELTA        : A given error margin.
  *
@@ -64,7 +64,7 @@
  *    ========================
  * On fast machines, we decode all I's.
  * Otherwise :
- * We can decode an I picture if we simply have enough time to decode it
+ * We can decode an I picture if we simply have enough time to decode i
  * before displaying :
  *      t0 - t > tau´I + DELTA
  *
@@ -109,7 +109,7 @@
 
 #define MAX_PIC_AVERAGE         8
 
-struct decoder_synchro_t
+struct decoder_synchro_
 {
     /* */
     decoder_t       *p_dec;
@@ -141,7 +141,7 @@ struct decoder_synchro_t
     unsigned int    i_eta_p, i_eta_b;
     mtime_t         backward_pts, current_pts;
     int             i_current_period;   /* period to add to the next picture */
-    int             i_backward_period;  /* period to add after the next
+    int             i_backward_period;  /* period to add after the nex
                                          * reference picture
                                          * (backward_period * period / 2) */
 
@@ -205,7 +205,7 @@ void decoder_SynchroReset( decoder_synchro_t * p_synchro )
 }
 
 /*****************************************************************************
- * decoder_SynchroChoose : Decide whether we will decode a picture or not
+ * decoder_SynchroChoose : Decide whether we will decode a picture or no
  *****************************************************************************/
 bool decoder_SynchroChoose( decoder_synchro_t * p_synchro, int i_coding_type,
                                int i_render_time, bool b_low_delay )
@@ -244,7 +244,7 @@ bool decoder_SynchroChoose( decoder_synchro_t * p_synchro, int i_coding_type,
         else
         {
             /* displaying order : B B P B B I
-             *                      ^       ^
+             *
              *                      |       +- current picture
              *                      +- current PTS
              */
@@ -373,7 +373,7 @@ void decoder_SynchroEnd( decoder_synchro_t * p_synchro, int i_coding_type,
     {
         tau = mdate() - p_synchro->decoding_start;
 
-        /* If duration too high, something happened (pause ?), so don't
+        /* If duration too high, something happened (pause ?), so don'
          * take it into account. */
         if( tau < 3 * p_synchro->p_tau[i_coding_type]
              || ( !p_synchro->pi_meaningful[i_coding_type]
@@ -574,7 +574,7 @@ void decoder_SynchroNewPicture( decoder_synchro_t * p_synchro, int i_coding_type
     /* Removed for incompatibility with slow motion */
     if( p_synchro->current_pts + DEFAULT_PTS_DELAY < now )
     {
-        /* We cannot be _that_ late, something must have happened, reinit
+        /* We cannot be _that_ late, something must have happened, reini
          * the dates. */
         if( !p_synchro->b_quiet )
             msg_Warn( p_synchro->p_dec, "PTS << now (%"PRId64"), resetting",

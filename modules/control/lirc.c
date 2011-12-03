@@ -70,7 +70,7 @@ vlc_module_end ()
 /*****************************************************************************
  * intf_sys_t: description and status of FB interface
  *****************************************************************************/
-struct intf_sys_t
+struct intf_sys_
 {
     struct lirc_config *config;
 

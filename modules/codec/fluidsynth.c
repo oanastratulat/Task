@@ -1,7 +1,7 @@
 /*****************************************************************************
  * fluidsynth.c: Software MIDI synthesizer using libfluidsynth
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmont
+ * Copyright © 2007 Rémi Denis-Courmon
  * $Id: 7c3ee9b8c23c81675cf173c0f40931ef95d4b04e $
  *
  * This program is free software; you can redistribute it and/or modify
@@ -72,7 +72,7 @@ vlc_module_begin ()
 vlc_module_end ()
 
 
-struct decoder_sys_t
+struct decoder_sys_
 {
     fluid_settings_t *settings;
     fluid_synth_t    *synth;

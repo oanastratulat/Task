@@ -892,7 +892,7 @@ static void Stop( access_t *p_access )
 }
 
 /*****************************************************************************
- * get packet
+ * get packe
  *****************************************************************************/
 static int GetPacket( access_t * p_access, chunk_t *p_ck )
 {

@@ -9,7 +9,7 @@
  * Authors: Vincent Seguin <seguin@via.ecp.fr>
  *          Samuel Hocevar <sam@zoy.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -57,7 +57,7 @@
 vlc_rwlock_t msg_lock = VLC_STATIC_RWLOCK;
 msg_subscription_t *msg_head;
 
-struct msg_subscription_t
+struct msg_subscription_
 {
     msg_subscription_t *prev, *next;
     msg_callback_t  func;
@@ -117,7 +117,7 @@ void vlc_Unsubscribe (msg_subscription_t *sub)
  * \param type VLC_MSG_* message type (info, error, warning or debug)
  * \param module name of module from which the message come
  *               (normally MODULE_STRING)
- * \param format printf-like message format
+ * \param format printf-like message forma
  */
 void vlc_Log (vlc_object_t *obj, int type, const char *module,
               const char *format, ... )
@@ -134,7 +134,7 @@ static void PrintColorMsg (void *, int, const msg_item_t *,
 static void PrintMsg (void *, int, const msg_item_t *, const char *, va_list);
 
 /**
- * Emit a log message. This function is the variable argument list equivalent
+ * Emit a log message. This function is the variable argument list equivalen
  * to vlc_Log().
  */
 void vlc_vaLog (vlc_object_t *obj, int type, const char *module,

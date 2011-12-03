@@ -66,7 +66,7 @@ vlc_module_end ()
  * This structure is part of the video output thread descriptor.
  * It describes the Distort specific properties of an output thread.
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     double  f_angle;
     mtime_t last_date;
@@ -106,10 +106,10 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered output
+ * Render: displays previously rendered outpu
  *****************************************************************************
  * This function send the currently rendered image to Distort image, waits
- * until it is displayed and switch the two rendering buffers, preparing next
+ * until it is displayed and switch the two rendering buffers, preparing nex
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )

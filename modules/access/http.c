@@ -131,7 +131,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-struct access_sys_t
+struct access_sys_
 {
     int fd;
     bool b_error;
@@ -163,7 +163,7 @@ struct access_sys_t
     bool b_ssl;
 #ifdef HAVE_ZLIB_H
     bool b_compressed;
-    struct
+    struc
     {
         z_stream   stream;
         uint8_t   *p_buffer;
@@ -229,7 +229,7 @@ static int Open( vlc_object_t *p_this )
 
 /**
  * Open the given url using the given cookies
- * @param p_this: the vlc object
+ * @param p_this: the vlc objec
  * @psz_access: the acces to use (http, https, ...) (this value must be used
  *              instead of p_access->psz_access)
  * @i_redirect: number of redirections remaining
@@ -1511,11 +1511,11 @@ static int Request( access_t *p_access, uint64_t i_tell )
             if( !strncasecmp( p, "Icecast", 7 ) ||
                 !strncasecmp( p, "Nanocaster", 10 ) )
             {
-                /* Remember if this is Icecast
+                /* Remember if this is Icecas
                  * we need to force demux in this case without breaking
                  *  autodetection */
 
-                /* Let live 365 streams (nanocaster) piggyback on the icecast
+                /* Let live 365 streams (nanocaster) piggyback on the icecas
                  * routine. They look very similar */
 
                 p_sys->b_reconnect = true;

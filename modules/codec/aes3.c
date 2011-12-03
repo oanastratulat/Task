@@ -59,7 +59,7 @@ vlc_module_end ()
 /*****************************************************************************
  * decoder_sys_t : aes3 decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     /*
      * Output properties

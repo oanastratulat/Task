@@ -30,7 +30,7 @@
 
 #include "csa.h"
 
-struct csa_t
+struct csa_
 {
     /* odd and even keys */
     uint8_t o_ck[8];
@@ -185,7 +185,7 @@ void csa_Decrypt( csa_t *c, uint8_t *pkt, int i_pkt_size )
     n = (i_pkt_size - i_hdr) / 8;
     if( n < 0 )
         return;
- 
+
     i_residue = (i_pkt_size - i_hdr) % 8;
     for( i = 1; i < n + 1; i++ )
     {
@@ -444,11 +444,11 @@ static void csa_StreamCypher( csa_t *c, int b_init, uint8_t *ck, uint8_t *sb, ui
 
             // T2 =  xor all inputs
             // in1,in2 are only used in T1 during initialisation, not generation
-            // if p=0, use this, if p=1, rotate the result left
+            // if p=0, use this, if p=1, rotate the result lef
             next_B1 = c->B[7] ^ c->B[10] ^ c->Y;
             if( b_init) next_B1 = next_B1 ^ ((j % 2) ? in1 : in2);
 
-            // if p=1, rotate left
+            // if p=1, rotate lef
             if( c->p ) next_B1 = ( (next_B1 << 1) | ((next_B1 >> 3) & 1) ) & 0xf;
 
             // T3 = xor all inputs
@@ -488,7 +488,7 @@ static void csa_StreamCypher( csa_t *c, int b_init, uint8_t *ck, uint8_t *sb, ui
             // xor 2 by 2
             op = (op << 2)^ ( (((c->D^(c->D>>1))>>1)&2) | ((c->D^(c->D>>1))&1) );
         }
-        // return input data during init
+        // return input data during ini
         cb[i] = b_init ? sb[i] : op;
     }
 }

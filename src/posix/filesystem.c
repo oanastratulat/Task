@@ -2,11 +2,11 @@
  * filesystem.c: POSIX file system helpers
  *****************************************************************************
  * Copyright (C) 2005-2006 VLC authors and VideoLAN
- * Copyright © 2005-2008 Rémi Denis-Courmont
+ * Copyright © 2005-2008 Rémi Denis-Courmon
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -184,7 +184,7 @@ DIR *vlc_opendir (const char *dirname)
  */
 char *vlc_readdir( DIR *dir )
 {
-    /* Beware that readdir_r() assumes <buf> is large enough to hold the result
+    /* Beware that readdir_r() assumes <buf> is large enough to hold the resul
      * dirent including the file name. A buffer overflow could occur otherwise.
      * In particular, pathconf() and _POSIX_NAME_MAX cannot be used here. */
     struct dirent *ent;
@@ -424,7 +424,7 @@ int vlc_pipe (int fds[2])
  * @param pf protocol family
  * @param type socket type
  * @param proto network protocol
- * @param nonblock true to create a non-blocking socket
+ * @param nonblock true to create a non-blocking socke
  * @return a new file descriptor or -1
  */
 int vlc_socket (int pf, int type, int proto, bool nonblock)

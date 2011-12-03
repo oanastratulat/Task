@@ -58,7 +58,7 @@
 /*****************************************************************************
  * decoder_sys_t : decoder descriptor
  *****************************************************************************/
-typedef struct
+typedef struc
 {
     int i_object_type;
     int i_samplerate;
@@ -66,7 +66,7 @@ typedef struct
     int i_sbr;          // 0: no sbr, 1: sbr, -1: unknown
     int i_ps;           // 0: no ps,  1: ps,  -1: unknown
 
-    struct
+    struc
     {
         int i_object_type;
         int i_samplerate;
@@ -78,7 +78,7 @@ typedef struct
 } mpeg4_cfg_t;
 
 #define LATM_MAX_EXTRA_SIZE 64
-typedef struct
+typedef struc
 {
     int i_program;
     int i_layer;
@@ -97,7 +97,7 @@ typedef struct
 
 #define LATM_MAX_LAYER (8)
 #define LATM_MAX_PROGRAM (16)
-typedef struct
+typedef struc
 {
     int b_same_time_framing;
     int i_sub_frames;
@@ -114,7 +114,7 @@ typedef struct
     int i_crc;  /* -1 if not set */
 } latm_mux_t;
 
-struct decoder_sys_t
+struct decoder_sys_
 {
     /*
      * Input properties

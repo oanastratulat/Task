@@ -44,7 +44,7 @@
  * struct entrant below */
 #include "shine.c"
 
-struct encoder_sys_t
+struct encoder_sys_
 {
     block_fifo_t *p_fifo;
 
@@ -68,7 +68,7 @@ vlc_module_begin();
     set_callbacks( OpenEncoder, CloseEncoder );
 vlc_module_end();
 
-static struct
+static struc
 {
     bool busy;
     vlc_mutex_t lock;

@@ -2,12 +2,12 @@
  * darwin_dirs.c: Mac OS X directories configuration
  *****************************************************************************
  * Copyright (C) 2001-2009 VLC authors and VideoLAN
- * Copyright © 2007-2009 Rémi Denis-Courmont
+ * Copyright © 2007-2009 Rémi Denis-Courmon
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *          Felix Paul Kühne <fkuehne at videolan dot org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -106,7 +106,7 @@ static char *getAppDependentDir(vlc_userdir_t type)
             char identifier[256];
             Boolean ret = CFStringGetCString(identifierAsNS, identifier, sizeof(identifier), kCFStringEncodingUTF8);
             if (ret)
-                name = identifier;            
+                name = identifier;
         }
     }
 
@@ -116,7 +116,7 @@ static char *getAppDependentDir(vlc_userdir_t type)
         psz_dir = NULL;
     free(psz_parent);
 
-    return psz_dir;    
+    return psz_dir;
 }
 
 char *config_GetUserDir (vlc_userdir_t type)

@@ -48,7 +48,7 @@
  * This structure is part of the audio output thread descriptor.
  * It describes the direct sound specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     SLObjectItf                     engineObject;
     SLEngineItf                     engineEngine;
@@ -111,7 +111,7 @@ vlc_module_end ()
 
 static void Clear( aout_sys_t *p_sys )
 {
-    // Destroy buffer queue audio player object
+    // Destroy buffer queue audio player objec
     // and invalidate all associated interfaces
     if( p_sys->playerObject != NULL )
         (*p_sys->playerObject)->Destroy( p_sys->playerObject );
@@ -215,7 +215,7 @@ static int Open( vlc_object_t * p_this )
     // configure audio sink
     SLDataLocator_OutputMix loc_outmix = {
         SL_DATALOCATOR_OUTPUTMIX,
-        p_sys->outputMixObject
+        p_sys->outputMixObjec
     };
     SLDataSink audioSnk = {&loc_outmix, NULL};
 

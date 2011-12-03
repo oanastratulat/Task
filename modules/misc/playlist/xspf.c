@@ -52,7 +52,7 @@ static char *input_xml( input_item_t *p_item, char *(*func)(input_item_t *) )
 
 /**
  * \brief exports one item to file or traverse if item is a node
- * \param p_item playlist item to export
+ * \param p_item playlist item to expor
  * \param p_file file to write xml-converted item to
  * \param p_i_count counter for track identifiers
  */
@@ -169,7 +169,7 @@ xspfexportitem_end:
 
 /**
  * \brief exports one item in extension to file and traverse if item is a node
- * \param p_item playlist item to export
+ * \param p_item playlist item to expor
  * \param p_file file to write xml-converted item to
  * \param p_i_count counter for track identifiers
  */
@@ -209,7 +209,7 @@ static void xspf_extension_item( playlist_item_t *p_item, FILE *p_file,
 /**
  * \brief Prints the XSPF header to file, writes each item by xspf_export_item()
  * and closes the open xml elements
- * \param p_this the VLC playlist object
+ * \param p_this the VLC playlist objec
  * \return VLC_SUCCESS if some memory is available, otherwise VLC_ENONMEM
  */
 int xspf_export_playlist( vlc_object_t *p_this )

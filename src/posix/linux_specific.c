@@ -1,9 +1,9 @@
 /*****************************************************************************
  * linux_specific.c: Linux-specific initialization
  *****************************************************************************
- * Copyright © 2008 Rémi Denis-Courmont
+ * Copyright © 2008 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -77,7 +77,7 @@ static void unset_libvlc_path (void)
         free (psz_vlcpath);
 }
 
-static struct
+static struc
 {
     vlc_mutex_t lock;
     unsigned refs;

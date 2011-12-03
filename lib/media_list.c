@@ -6,7 +6,7 @@
  *
  * Authors: Pierre d'Herbemont <pdherbemont # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -243,7 +243,7 @@ void libvlc_media_list_retain( libvlc_media_list_t * p_mlist )
 /**************************************************************************
  *       add_file_content (Public)
  **************************************************************************/
-int
+in
 libvlc_media_list_add_file_content( libvlc_media_list_t * p_mlist,
                                     const char * psz_uri )
 {

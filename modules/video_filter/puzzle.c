@@ -85,7 +85,7 @@ static void Shuffle( filter_sys_t * );
 static int PuzzleCallback( vlc_object_t *, char const *,
                            vlc_value_t, vlc_value_t, void * );
 
-struct filter_sys_t
+struct filter_sys_
 {
     /* */
     int i_cols;
@@ -98,7 +98,7 @@ struct filter_sys_t
     /* */
     vlc_mutex_t lock;
     bool b_change;
-    struct
+    struc
     {
         int i_cols;
         int i_rows;

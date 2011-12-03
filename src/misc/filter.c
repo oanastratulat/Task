@@ -6,7 +6,7 @@
  *
  * Author: Laurent Aimar <fenrir _AT_ videolan _DOT_ org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -41,7 +41,7 @@ filter_t *filter_NewBlend( vlc_object_t *p_this,
 
     es_format_Init( &p_blend->fmt_out, VIDEO_ES, 0 );
 
-    p_blend->fmt_out.i_codec        = 
+    p_blend->fmt_out.i_codec        =
     p_blend->fmt_out.video.i_chroma = p_dst_chroma->i_chroma;
     p_blend->fmt_out.video.i_rmask  = p_dst_chroma->i_rmask;
     p_blend->fmt_out.video.i_gmask  = p_dst_chroma->i_gmask;

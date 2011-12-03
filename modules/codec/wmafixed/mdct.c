@@ -139,7 +139,7 @@ int mdct_init_global(void)
 {
     int i,j,m;
 
-    /* although seemingly degenerate, these cannot actually be merged together without
+    /* although seemingly degenerate, these cannot actually be merged together withou
        a substantial increase in error which is unjustified by the tiny memory savings*/
 
     tcosarray[0] = tcos0; tcosarray[1] = tcos1; tcosarray[2] = tcos2; tcosarray[3] = tcos3;tcosarray[4] = tcos4;

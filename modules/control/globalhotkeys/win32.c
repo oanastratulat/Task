@@ -51,7 +51,7 @@ vlc_module_begin()
     set_callbacks( Open, Close )
 vlc_module_end()
 
-struct intf_sys_t
+struct intf_sys_
 {
     vlc_thread_t thread;
     HWND hotkeyWindow;

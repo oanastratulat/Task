@@ -23,7 +23,7 @@
  *****************************************************************************/
 
 /*****************************************************************************
- * Atom : http://www.ietf.org/rfc/rfc4287.txt
+ * Atom : http://www.ietf.org/rfc/rfc4287.tx
  * RSS : http://www.rssboard.org/rss-specification
  *****************************************************************************/
 
@@ -78,14 +78,14 @@ static const char *const ppsz_color_descriptions[] = {
  * filter_sys_t: rss filter descriptor
  *****************************************************************************/
 
-typedef struct rss_item_t
+typedef struct rss_item_
 {
     char *psz_title;
     char *psz_description;
     char *psz_link;
 } rss_item_t;
 
-typedef struct rss_feed_t
+typedef struct rss_feed_
 {
     char *psz_url;
     char *psz_title;
@@ -98,7 +98,7 @@ typedef struct rss_feed_t
     rss_item_t *p_items;
 } rss_feed_t;
 
-struct filter_sys_t
+struct filter_sys_
 {
     vlc_mutex_t lock;
     vlc_timer_t timer;  /* Timer to refresh the rss feeds */
@@ -885,7 +885,7 @@ static rss_feed_t* FetchRSS( filter_t *p_filter )
     xml_reader_t *p_xml_reader;
     int i_feed;
 
-    /* These data are not modified after the creation of the module so we don't
+    /* These data are not modified after the creation of the module so we don'
        need to hold the lock */
     int i_feeds = p_sys->i_feeds;
     bool b_images = p_sys->b_images;

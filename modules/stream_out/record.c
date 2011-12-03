@@ -80,7 +80,7 @@ static int               Del ( sout_stream_t *, sout_stream_id_t * );
 static int               Send( sout_stream_t *, sout_stream_id_t *, block_t* );
 
 /* */
-struct sout_stream_id_t
+struct sout_stream_id_
 {
     es_format_t fmt;
 
@@ -93,7 +93,7 @@ struct sout_stream_id_t
     bool b_wait_start;
 };
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     char *psz_prefix;
 
@@ -254,7 +254,7 @@ static int Send( sout_stream_t *p_stream, sout_stream_id_t *id,
 /*****************************************************************************
  *
  *****************************************************************************/
-typedef struct
+typedef struc
 {
     const char  *psz_muxer;
     const char  *psz_extension;
@@ -409,7 +409,7 @@ static void OutputStart( sout_stream_t *p_stream )
         break;
     }
 
-    /* If failed, brute force our demuxers and select the one that
+    /* If failed, brute force our demuxers and select the one tha
      * keeps most of our stream */
     if( !psz_muxer || !psz_extension )
     {
@@ -418,7 +418,7 @@ static void OutputStart( sout_stream_t *p_stream )
             { "asf", "asf" }, {  "ts",  "ts" }, {  "ps", "mpg" },
 #if 0
             // XXX ffmpeg sefault really easily if you try an unsupported codec
-            // mov and avi at least segfault
+            // mov and avi at least segfaul
             { "ffmpeg{mux=avi}", "avi" },
             { "ffmpeg{mux=mov}", "mov" },
             { "ffmpeg{mux=mp4}", "mp4" },

@@ -3,7 +3,7 @@
  * @brief RTP session handling
  */
 /*****************************************************************************
- * Copyright © 2008 Rémi Denis-Courmont
+ * Copyright © 2008 Rémi Denis-Courmon
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,7 +36,7 @@
 typedef struct rtp_source_t rtp_source_t;
 
 /** State for a RTP session: */
-struct rtp_session_t
+struct rtp_session_
 {
     rtp_source_t **srcv;
     unsigned       srcc;
@@ -134,7 +134,7 @@ int rtp_add_type (demux_t *demux, rtp_session_t *ses, const rtp_pt_t *pt)
 }
 
 /** State for an RTP source */
-struct rtp_source_t
+struct rtp_source_
 {
     uint32_t ssrc;
     uint32_t jitter;  /* interarrival delay jitter estimate */
@@ -231,8 +231,8 @@ rtp_find_ptype (const rtp_session_t *session, rtp_source_t *source,
 /**
  * Receives an RTP packet and queues it. Not a cancellation point.
  *
- * @param demux VLC demux object
- * @param session RTP session receiving the packet
+ * @param demux VLC demux objec
+ * @param session RTP session receiving the packe
  * @param block RTP packet including the RTP header
  */
 void
@@ -384,8 +384,8 @@ static void rtp_decode (demux_t *, const rtp_session_t *, rtp_source_t *);
  * given up waiting on the missing packets (time out) from the last one
  * already decoded.
  *
- * @param demux VLC demux object
- * @param session RTP session receiving the packet
+ * @param demux VLC demux objec
+ * @param session RTP session receiving the packe
  * @param deadlinep pointer to deadline to call rtp_dequeue() again
  * @return true if the buffer is not empty, false otherwise.
  * In the later case, *deadlinep is undefined.
@@ -416,7 +416,7 @@ bool rtp_dequeue (demux_t *demux, const rtp_session_t *session,
          * definitely a lost packets.
          *
          * The rest of the "de-jitter buffer" work is done by the internal
-         * LibVLC E/S-out clock synchronization. Here, we need to bother about
+         * LibVLC E/S-out clock synchronization. Here, we need to bother abou
          * re-ordering packets, as decoders can't cope with mis-ordered data.
          */
         while (((block = src->blocks)) != NULL)
@@ -442,7 +442,7 @@ bool rtp_dequeue (demux_t *demux, const rtp_session_t *session,
                 deadline = CLOCK_FREQ / 40;
 
             /* Additionnaly, we implicitly wait for the packetization time
-             * multiplied by the number of missing packets. block is the first
+             * multiplied by the number of missing packets. block is the firs
              * non-missing packet (lowest sequence number). We have no better
              * estimated time of arrival, as we do not know the RTP timestamp
              * of not yet received packets. */

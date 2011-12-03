@@ -1,5 +1,5 @@
 /*****************************************************************************
- * b4s.c : B4S playlist format import
+ * b4s.c : B4S playlist format impor
  *****************************************************************************
  * Copyright (C) 2005-2009 the VideoLAN team
  * $Id: cbf7bebc85f54f88c4a50ccc8205826a2835f4f3 $
@@ -35,7 +35,7 @@
 
 #include "playlist.h"
 
-struct demux_sys_t
+struct demux_sys_
 {
 };
 
@@ -193,7 +193,7 @@ static int Demux( demux_t *p_demux )
                 break;
             }
 
-            // End element
+            // End elemen
             case XML_READER_ENDELEM:
             {
                 // Read the element name

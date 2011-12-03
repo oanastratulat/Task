@@ -104,7 +104,7 @@ static ssize_t Write( sout_access_out_t *, block_t * );
 static int Seek ( sout_access_out_t *, off_t  );
 static int Control( sout_access_out_t *, int, va_list );
 
-struct sout_access_out_sys_t
+struct sout_access_out_sys_
 {
     /* host */
     httpd_host_t        *p_httpd_host;
@@ -271,7 +271,7 @@ static int Open( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Close: close the target
+ * Close: close the targe
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

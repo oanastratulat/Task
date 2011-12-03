@@ -137,7 +137,7 @@ static int OpenAudioDev( demux_t *, const char * );
 static bool ProbeAudioDevAlsa( demux_t *, const char * );
 static char *ListAvailableDevices( demux_t *, bool b_probe );
 
-struct demux_sys_t
+struct demux_sys_
 {
     /* Audio */
     unsigned int i_sample_rate;

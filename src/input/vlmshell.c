@@ -8,7 +8,7 @@
  *          Laurent Aimar <fenrir@videolan.org>
  *          Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -705,7 +705,7 @@ static int ExecuteMediaProperty( vlm_t *p_vlm, int64_t id, bool b_new,
             int i_index;
 
             MISSING( "inputdeln" );
- 
+
             i_index = atoi( psz_value );
             if( i_index > 0 && i_index <= p_cfg->i_input )
                 TAB_REMOVE( p_cfg->i_input, p_cfg->ppsz_input, p_cfg->ppsz_input[i_index-1] );
@@ -893,7 +893,7 @@ int ExecuteCommand( vlm_t *p_vlm, const char *psz_command,
     }
 
     /*
-     * And then Interpret it
+     * And then Interpret i
      */
 
 #define IF_EXECUTE( name, check, cmd ) if( !strcmp(ppsz_command[0], name ) ) { if( (check) ) goto syntax_error;  if( (cmd) ) goto error; goto success; }

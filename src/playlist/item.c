@@ -7,7 +7,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -156,7 +156,7 @@ static void input_item_add_subitem_tree ( const vlc_event_t * p_event,
                 p_play_item = p_item->pp_children[pos];
                 /* NOTE: this is a work around the general bug:
                 if node-to-be-played contains sub-nodes, then second instead
-                of first leaf starts playing (only in case the leafs have just
+                of first leaf starts playing (only in case the leafs have jus
                 been instered and playlist has not yet been rebuilt.)
                 */
                 while( p_play_item->i_children > 0 )
@@ -184,7 +184,7 @@ static void input_item_changed( const vlc_event_t * p_event,
 }
 
 /*****************************************************************************
- * Listen to vlc_InputItemAddSubItem event
+ * Listen to vlc_InputItemAddSubItem even
  *****************************************************************************/
 static void install_input_item_observer( playlist_item_t * p_item )
 {
@@ -280,10 +280,10 @@ int playlist_ItemRelease( playlist_item_t *p_item )
  * Delete input item
  *
  * Remove an input item when it appears from a root playlist item
- * \param p_playlist playlist object
+ * \param p_playlist playlist objec
  * \param p_input the input to delete
  * \param p_root root playlist item
- * \param b_do_stop must stop or not the playlist
+ * \param b_do_stop must stop or not the playlis
  * \return VLC_SUCCESS or VLC_EGENERIC
 */
 static int DeleteFromInput( playlist_t *p_playlist, input_item_t *p_input,
@@ -300,7 +300,7 @@ static int DeleteFromInput( playlist_t *p_playlist, input_item_t *p_input,
  * Delete input item
  *
  * Remove an input item when it appears from a root playlist item
- * \param p_playlist playlist object
+ * \param p_playlist playlist objec
  * \param p_input the input to delete
  * \param p_root root playlist item
  * \param b_locked TRUE if the playlist is locked
@@ -318,10 +318,10 @@ int playlist_DeleteFromInputInParent( playlist_t *p_playlist,
 }
 
 /**
- * Delete from input
+ * Delete from inpu
  *
- * Search anywhere in playlist for an an input item and delete it
- * \param p_playlist playlist object
+ * Search anywhere in playlist for an an input item and delete i
+ * \param p_playlist playlist objec
  * \param p_input the input to delete
  * \param b_locked TRUE if the playlist is locked
  * \return VLC_SUCCESS or VLC_ENOITEM
@@ -338,9 +338,9 @@ int playlist_DeleteFromInput( playlist_t *p_playlist, input_item_t *p_input,
 }
 
 /**
- * Clear the playlist
+ * Clear the playlis
  *
- * \param p_playlist playlist object
+ * \param p_playlist playlist objec
  * \param b_locked TRUE if the playlist is locked
  * \return nothing
  */
@@ -355,8 +355,8 @@ void playlist_Clear( playlist_t * p_playlist, bool b_locked )
  * Delete playlist item
  *
  * Remove a playlist item from the playlist, given its id
- * This function is to be used only by the playlist
- * \param p_playlist playlist object
+ * This function is to be used only by the playlis
+ * \param p_playlist playlist objec
  * \param i_id id of the item do delete
  * \return VLC_SUCCESS or an error
  */
@@ -376,11 +376,11 @@ int playlist_DeleteFromItemId( playlist_t *p_playlist, int i_id )
  *
  * Add an item to the playlist or the media library
  * \param p_playlist the playlist to add into
- * \param psz_uri the mrl to add to the playlist
+ * \param psz_uri the mrl to add to the playlis
  * \param psz_name a text giving a name or description of this item
  * \param i_mode the mode used when adding
  * \param i_pos the position in the playlist where to add. If this is
- *        PLAYLIST_END the item will be added at the end of the playlist
+ *        PLAYLIST_END the item will be added at the end of the playlis
  *        regardless of its size
  * \param b_playlist TRUE for playlist, FALSE for media library
  * \param b_locked TRUE if the playlist is locked
@@ -398,11 +398,11 @@ int playlist_Add( playlist_t *p_playlist, const char *psz_uri,
  * Add a MRL into the playlist or the media library, duration and options given
  *
  * \param p_playlist the playlist to add into
- * \param psz_uri the mrl to add to the playlist
+ * \param psz_uri the mrl to add to the playlis
  * \param psz_name a text giving a name or description of this item
  * \param i_mode the mode used when adding
  * \param i_pos the position in the playlist where to add. If this is
- *        PLAYLIST_END the item will be added at the end of the playlist
+ *        PLAYLIST_END the item will be added at the end of the playlis
  *        regardless of its size
  * \param i_duration length of the item in milliseconds.
  * \param i_options the number of options
@@ -440,7 +440,7 @@ int playlist_AddExt( playlist_t *p_playlist, const char * psz_uri,
  * \param p_input the input item to add
  * \param i_mode the mode used when adding
  * \param i_pos the position in the playlist where to add. If this is
- *        PLAYLIST_END the item will be added at the end of the playlist
+ *        PLAYLIST_END the item will be added at the end of the playlis
  *        regardless of its size
  * \param b_playlist TRUE for playlist, FALSE for media library
  * \param b_locked TRUE if the playlist is locked
@@ -478,7 +478,7 @@ int playlist_AddInput( playlist_t* p_playlist, input_item_t *p_input,
  * \param p_parent the parent item to add into
  * \param i_mode the mode used when addin
  * \param i_pos the position in the playlist where to add. If this is
- *        PLAYLIST_END the item will be added at the end of the playlist
+ *        PLAYLIST_END the item will be added at the end of the playlis
  *        regardless of its size
  * \param b_locked TRUE if the playlist is locked
  * \return the new playlist item
@@ -555,9 +555,9 @@ int playlist_NodeAddCopy (
  * \param p_node the root of input item tree,
           only it's contents will be inserted
  * \param i_pos the position in the playlist where to insert. If this is
- *        PLAYLIST_END the items will be added at the end of the playlist
+ *        PLAYLIST_END the items will be added at the end of the playlis
  *        regardless of its size
- * \param b_flat TRUE if the new tree contents should be flattened into a list
+ * \param b_flat TRUE if the new tree contents should be flattened into a lis
  * \return the first new leaf inserted (in playing order)
  */
 int playlist_InsertInputItemTree (
@@ -576,7 +576,7 @@ int playlist_InsertInputItemTree (
 /**
  * Find an item within a root, given its input id.
  *
- * \param p_playlist the playlist object
+ * \param p_playlist the playlist objec
  * \param p_item the input item
  * \param p_root root playlist item
  * \param b_items_only TRUE if we want the item himself
@@ -620,10 +620,10 @@ static int ItemIndex ( playlist_item_t *p_item )
  *
  * This function must be entered with the playlist lock
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param p_item the item to move
  * \param p_node the new parent of the item
- * \param i_newpos the new position under this new parent
+ * \param i_newpos the new position under this new paren
  * \return VLC_SUCCESS or an error
  */
 int playlist_TreeMove( playlist_t * p_playlist, playlist_item_t *p_item,
@@ -654,7 +654,7 @@ int playlist_TreeMove( playlist_t * p_playlist, playlist_item_t *p_item,
  *
  * This function must be entered with the playlist lock
  *
- * \param p_playlist the playlist
+ * \param p_playlist the playlis
  * \param i_items the number of indexes to move
  * \param pp_items the array of indexes to move
  * \param p_node the target node
@@ -693,7 +693,7 @@ int playlist_TreeMoveMany( playlist_t *p_playlist,
 /**
  * Send a notification that an item has been added to a node
  *
- * \param p_playlist the playlist object
+ * \param p_playlist the playlist objec
  * \param i_item_id id of the item added
  * \param i_node_id id of the node in wich the item was added
  * \param b_signal TRUE if the function must send a signal

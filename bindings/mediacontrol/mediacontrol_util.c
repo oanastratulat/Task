@@ -1,5 +1,5 @@
 /*****************************************************************************
- * util.c: Utility functions and exceptions management
+ * util.c: Utility functions and exceptions managemen
  *****************************************************************************
  * Copyright (C) 2005 the VideoLAN team
  * $Id: 965f853e08c27b36a86d0f4a5859b192eb1c6b70 $
@@ -109,7 +109,7 @@ libvlc_time_t private_mediacontrol_unit_convert( libvlc_media_player_t *p_media_
 
 /* Converts a mediacontrol_Position into a time in microseconds in
    movie clock time */
-libvlc_time_t
+libvlc_time_
 private_mediacontrol_position2microsecond( libvlc_media_player_t * p_media_player,
                                            const mediacontrol_Position * pos )
 {

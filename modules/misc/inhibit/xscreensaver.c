@@ -102,7 +102,7 @@ static int Activate( vlc_object_t *p_this )
     posix_spawnattr_init (&p_sys->attr);
     sigemptyset (&set);
     posix_spawnattr_setsigmask (&p_sys->attr, &set);
-   
+
     return VLC_SUCCESS;
 }
 

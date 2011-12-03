@@ -7,7 +7,7 @@
  * Authors: Filippo Carone <filippo@carone.org>
  *          Jean-Paul Saman <jpsaman _at_ m2x _dot_ nl>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -42,7 +42,7 @@
 #include "media_player_internal.h"
 
 /*
- * Remember to release the returned audio_output_t since it is locked at
+ * Remember to release the returned audio_output_t since it is locked a
  * the end of this function.
  */
 static audio_output_t *GetAOut( libvlc_media_player_t *mp )

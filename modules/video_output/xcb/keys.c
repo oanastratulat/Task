@@ -3,9 +3,9 @@
  * @brief X C Bindings VLC keyboard event handling
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmont
+ * Copyright © 2009 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -38,7 +38,7 @@
 #include <X11/XF86keysym.h>
 #include <vlc_keys.h>
 
-struct key_handler_t
+struct key_handler_
 {
     vlc_object_t      *obj;
     xcb_key_symbols_t *syms;
@@ -80,7 +80,7 @@ static int keysymcmp (const void *pa, const void *pb)
 
 static uint_fast32_t ConvertKeySym (xcb_keysym_t sym)
 {
-    static const struct
+    static const struc
     {
         xcb_keysym_t x11;
         uint32_t vlc;

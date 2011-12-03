@@ -1,5 +1,5 @@
 /*****************************************************************************
- * core.c: Core functions : init, playlist, stream management
+ * core.c: Core functions : init, playlist, stream managemen
  *****************************************************************************
  * Copyright (C) 2005 the VideoLAN team
  * $Id: d52d8cd801c899b6dd956129645255a742be1a04 $
@@ -103,7 +103,7 @@ mediacontrol_new_from_instance( libvlc_instance_t* p_instance,
 }
 
 /**************************************************************************
- * Playback management
+ * Playback managemen
  **************************************************************************/
 mediacontrol_Position*
 mediacontrol_get_media_position( mediacontrol_Instance *self,
@@ -161,7 +161,7 @@ mediacontrol_set_media_position( mediacontrol_Instance *self,
 
 /* Starts playing a stream */
 /*
- * Known issues: since moving in the playlist using playlist_Next
+ * Known issues: since moving in the playlist using playlist_Nex
  * or playlist_Prev implies starting to play items, the a_position
  * argument will be only honored for the 1st item in the list.
  *
@@ -243,7 +243,7 @@ mediacontrol_stop( mediacontrol_Instance *self,
 }
 
 /**************************************************************************
- * File management
+ * File managemen
  **************************************************************************/
 
 void

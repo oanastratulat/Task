@@ -7,10 +7,10 @@
  *          Samuel Hocevar <sam@zoy.org>
  *          Gildas Bazin <gbazin@netcourrier.com>
  *          Clément Sténac
- *          Rémi Denis-Courmont
+ *          Rémi Denis-Courmon
  *          Pierre Ynard
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -596,7 +596,7 @@ static int vlc_clone_attr (vlc_thread_t *p_handle, bool detached,
 #ifndef UNDER_CE
     /* When using the MSVCRT C library you have to use the _beginthreadex
      * function instead of CreateThread, otherwise you'll end up with
-     * memory leaks and the signal functions not working (see Microsoft
+     * memory leaks and the signal functions not working (see Microsof
      * Knowledge Base, article 104641) */
     uintptr_t h;
 
@@ -794,7 +794,7 @@ mtime_t mdate (void)
     return (d.quot * 1000000) + ((d.rem * 1000000) / freq.QuadPart);
 }
 
-#undef mwait
+#undef mwai
 void mwait (mtime_t deadline)
 {
     mtime_t delay;

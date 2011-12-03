@@ -1,9 +1,9 @@
 /*****************************************************************************
  * missing.c: missing libvlccore symbols
  *****************************************************************************
- * Copyright (C) 2008 Rémi Denis-Courmont
+ * Copyright (C) 2008 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -384,7 +384,7 @@ vlm_t *vlm_New (vlc_object_t *obj)
 #ifndef MEDIA_LIBRARY
 #include<vlc_media_library.h>
 
-#undef ml_Get
+#undef ml_Ge
 media_library_t* ml_Get ( vlc_object_t* p_this )
 {
     VLC_UNUSED( p_this );

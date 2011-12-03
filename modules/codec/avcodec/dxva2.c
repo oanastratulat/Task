@@ -260,7 +260,7 @@ typedef struct {
 } vlc_va_surface_t;
 
 #define VA_DXVA2_MAX_SURFACE_COUNT (64)
-typedef struct
+typedef struc
 {
     /* */
     vlc_va_t va;
@@ -408,7 +408,7 @@ static int Extract(vlc_va_t *external, picture_t *picture, AVFrame *ff)
         uint8_t *plane[3] = {
             lock.pBits,
             (uint8_t*)lock.pBits + lock.Pitch * va->surface_height,
-            (uint8_t*)lock.pBits + lock.Pitch * va->surface_height
+            (uint8_t*)lock.pBits + lock.Pitch * va->surface_heigh
                                  + (lock.Pitch/2) * (va->surface_height/2)
         };
         size_t  pitch[3] = {
@@ -423,7 +423,7 @@ static int Extract(vlc_va_t *external, picture_t *picture, AVFrame *ff)
         assert(va->render == MAKEFOURCC('N','V','1','2'));
         uint8_t *plane[2] = {
             lock.pBits,
-            (uint8_t*)lock.pBits + lock.Pitch * va->surface_height
+            (uint8_t*)lock.pBits + lock.Pitch * va->surface_heigh
         };
         size_t  pitch[2] = {
             lock.Pitch,
@@ -453,7 +453,7 @@ static int Get(vlc_va_t *external, AVFrame *ff)
         return VLC_EGENERIC;
     }
 
-    /* Grab an unused surface, in case none are, try the oldest
+    /* Grab an unused surface, in case none are, try the oldes
      * XXX using the oldest is a workaround in case a problem happens with ffmpeg */
     unsigned i, old;
     for (i = 0, old = 0; i < va->surface_count; i++) {
@@ -621,7 +621,7 @@ static int D3dCreateDevice(vlc_va_dxva2_t *va)
     d3dpp->BackBufferHeight       = 0;
     d3dpp->EnableAutoDepthStencil = FALSE;
 
-    /* Direct3D needs a HWND to create a device, even without using ::Present
+    /* Direct3D needs a HWND to create a device, even without using ::Presen
     this HWND is used to alert Direct3D when there's a change of focus window.
     For now, use GetShellWindow, as it looks harmless */
     LPDIRECT3DDEVICE9 d3ddev;
@@ -648,7 +648,7 @@ static void D3dDestroyDevice(vlc_va_dxva2_t *va)
         IDirect3D9_Release(va->d3dobj);
 }
 /**
- * It describes our Direct3D object
+ * It describes our Direct3D objec
  */
 static char *DxDescribe(vlc_va_dxva2_t *va)
 {
@@ -859,7 +859,7 @@ static int DxFindVideoServiceConversion(vlc_va_dxva2_t *va, GUID *input, D3DFORM
 }
 
 /**
- * It creates a DXVA2 decoder using the given video format
+ * It creates a DXVA2 decoder using the given video forma
  */
 static int DxCreateVideoDecoder(vlc_va_dxva2_t *va,
                                 int codec_id, const video_format_t *fmt)

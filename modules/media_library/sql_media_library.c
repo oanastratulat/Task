@@ -56,7 +56,7 @@ static int CreateInputItemFromMedia( input_item_t **pp_item,
                                      ml_media_t *p_media );
 
 
-struct ml_table_elt
+struct ml_table_el
 {
     int column_id;
     const char* column_name;
@@ -130,7 +130,7 @@ vlc_module_end()
 
 /**
  * @brief Load module
- * @param obj Parent object
+ * @param obj Parent objec
  */
 static int load( vlc_object_t *obj )
 {
@@ -200,7 +200,7 @@ static int load( vlc_object_t *obj )
 /**
  * @brief Unload module
  *
- * @param obj the media library object
+ * @param obj the media library objec
  * @return Nothing
  */
 static void unload( vlc_object_t *obj )
@@ -237,7 +237,7 @@ static void unload( vlc_object_t *obj )
 /**
  * @brief Get results of an SQL-Query on the database (please : free the result)
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param ppp_res char *** in which to store the table of results (allocated)
  * @param pi_rows resulting row number in table
  * @param pi_cols resulting column number in table
@@ -261,7 +261,7 @@ int Query( media_library_t *p_ml,
 /**
  * @brief Get results of an SQL-Query on the database (please : free the result)
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param ppp_res char *** in which to store the table of results (allocated)
  * @param pi_rows resulting row number in table
  * @param pi_cols resulting column number in table
@@ -290,7 +290,7 @@ int QueryVa( media_library_t *p_ml, char ***ppp_res,
 /**
  * @brief Do a SQL-query without any data coming back
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param psz_fmt query command with printf-like format enabled
  * @param va_args format the command
  * @return VLC_SUCCESS or a VLC error code
@@ -310,7 +310,7 @@ int QuerySimple( media_library_t *p_ml,
 /**
  * @brief Do a SQL-query without any data coming back
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param psz_fmt query command with printf-like format enabled
  * @param argp format the command
  * @return VLC_SUCCESS or a VLC error code
@@ -336,9 +336,9 @@ int QuerySimpleVa( media_library_t *p_ml,
  * @brief Transforms a string to a ml_result_t, with given type and id (as psz)
  *
  * @param res the result of the function
- * @param psz string to transform into a result
+ * @param psz string to transform into a resul
  * @param psz_id id as a string
- * @param result_type type of the result
+ * @param result_type type of the resul
  * @return ID or a VLC error code
  */
 int StringToResult( ml_result_t *p_result, const char *psz,
@@ -377,12 +377,12 @@ int StringToResult( ml_result_t *p_result, const char *psz,
 /**
  * @brief fills an ml_result_array_t with result of an SQL query
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param p_media ml_result_array_t object to fill
  * @param pp_results result of sql query
  * @param i_rows row number
  * @param i_cols column number
- * @param result_type type of the result
+ * @param result_type type of the resul
  * @return VLC_SUCCESS or a VLC error code
  **/
 int SQLToResultArray( media_library_t *p_ml, vlc_array_t *p_result_array,
@@ -442,9 +442,9 @@ int SQLToResultArray( media_library_t *p_ml, vlc_array_t *p_result_array,
 
 /**
  * @brief fills a vlc_array_t with results of an SQL query
- *        medias in ml_result_t
+ *        medias in ml_result_
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param p_array array to fill with ml_media_t elements (might be initialized)
  * @param pp_results result of sql query
  * @param i_rows row number
@@ -693,7 +693,7 @@ quit_sqlmediaarray:
 /**
  * @brief Returns (unique) ID of media with specified URI
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param psz_uri URI to look for
  * @return i_id: (first) ID found, VLC_EGENERIC in case of error
  * NOTE: Normally, there should not be more than one ID with one URI
@@ -1084,7 +1084,7 @@ int InitDatabase( media_library_t *p_ml )
 /**
  * @brief Gets the current version number from the database
  *
- * @param p_ml media library object
+ * @param p_ml media library objec
  * @return version number of the current db. <= 0 on error.
  */
 int GetDatabaseVersion( media_library_t *p_ml )
@@ -1105,11 +1105,11 @@ int GetDatabaseVersion( media_library_t *p_ml )
 }
 
  /**
- * @brief Object constructor for ml_media_t
- * @param p_ml The media library object
+ * @brief Object constructor for ml_media_
+ * @param p_ml The media library objec
  * @param id If 0, this item isn't in database. If non zero, it is and
  * it will be a singleton
- * @param select Type of object
+ * @param select Type of objec
  * @param reload Whether to reload from database
  */
 ml_media_t* GetMedia( media_library_t* p_ml, int id,
@@ -1158,7 +1158,7 @@ ml_media_t* GetMedia( media_library_t* p_ml, int id,
 /**
  * @brief Create an input item from media (given its ID)
  *
- * @param p_ml This media_library_t object
+ * @param p_ml This media_library_t objec
  * @param i_media Media ID
  * @return input_item_t* created
  *
@@ -1184,7 +1184,7 @@ input_item_t* GetInputItemFromMedia( media_library_t *p_ml, int i_media )
 }
 
 /**
- * @brief Copy an input_item_t to a ml_media_t
+ * @brief Copy an input_item_t to a ml_media_
  * @param p_media Destination
  * @param p_item Source
  * @note Media ID will not be set! This function is threadsafe. Leaves
@@ -1296,7 +1296,7 @@ void CopyInputItemToMedia( ml_media_t *p_media, input_item_t *p_item )
 }
 
 /**
- * @brief Copy a ml_media_t to an input_item_t
+ * @brief Copy a ml_media_t to an input_item_
  * @param p_item Destination
  * @param p_media Source
  */
@@ -1347,7 +1347,7 @@ void CopyMediaToInputItem( input_item_t *p_item, ml_media_t *p_media )
 }
 
 /**
- * @brief Copy a ml_media_t to an input_item_t
+ * @brief Copy a ml_media_t to an input_item_
  * @param pp_item A pointer to a new input_item (return value)
  * @param p_media The media to copy as an input item
  * @note This function is threadsafe

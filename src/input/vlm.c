@@ -8,7 +8,7 @@
  *          Laurent Aimar <fenrir@videolan.org>
  *          Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -70,7 +70,7 @@
 static void* Manage( void * );
 static int vlm_MediaVodControl( void *, vod_media_t *, const char *, int, va_list );
 
-typedef struct preparse_data_t
+typedef struct preparse_data_
 {
     vlc_sem_t *p_sem;
     bool b_mux;
@@ -336,7 +336,7 @@ static int vlm_MediaVodControl( void *p_private, vod_media_t *p_vod_media,
         }
         else
         {
-            /* We want to seek before unpausing, but it won't
+            /* We want to seek before unpausing, but it won'
              * work if the instance is not running yet. */
             b_retry = vlm_ControlInternal( vlm, VLM_SET_MEDIA_INSTANCE_TIME, id, psz_id, *i_time );
         }
@@ -544,14 +544,14 @@ static void* Manage( void* p_object )
 /* New API
  */
 /*
-typedef struct
+typedef struc
 {
-    struct
+    struc
     {
         int i_connection_count;
         int i_connection_active;
     } vod;
-    struct
+    struc
     {
         int        i_count;
         bool b_playing;

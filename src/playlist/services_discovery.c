@@ -6,7 +6,7 @@
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -34,7 +34,7 @@
 #include "playlist_internal.h"
 #include "../libvlc.h"
 
-typedef struct
+typedef struc
 {
     char *name;
     char *longname;
@@ -239,7 +239,7 @@ services_discovery_RemoveItem ( services_discovery_t * p_sd, input_item_t * p_it
  * Playlist - Services discovery bridge
  */
 
-struct vlc_sd_internal_t
+struct vlc_sd_internal_
 {
     /* the playlist items for category and onelevel */
     playlist_item_t      *p_node;

@@ -5,7 +5,7 @@
  * $Id: f958e12cc4a0a4d5a2b19ea690867f4124877161 $
  *
  * Authors: Derk-Jan Hartman <hartman at videolan dot org>
- *          Rémi Denis-Courmont
+ *          Rémi Denis-Courmon
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ enum
 };
 
 typedef struct directory_t directory_t;
-struct directory_t
+struct directory_
 {
     directory_t *parent;
     DIR         *handle;
@@ -74,7 +74,7 @@ struct directory_t
 #endif
 };
 
-struct access_sys_t
+struct access_sys_
 {
     directory_t *current;
     char *ignored_exts;
@@ -195,7 +195,7 @@ error:
 }
 
 /*****************************************************************************
- * Close: close the target
+ * Close: close the targe
  *****************************************************************************/
 void DirClose( vlc_object_t * p_this )
 {

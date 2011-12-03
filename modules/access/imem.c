@@ -556,7 +556,7 @@ static int ControlDemux(demux_t *demux, int i_query, va_list args)
 }
 
 /**
- * It retreives data using the get() callback, sends them to es_out
+ * It retreives data using the get() callback, sends them to es_ou
  * and the release it using the release() callback.
  */
 static int Demux(demux_t *demux)

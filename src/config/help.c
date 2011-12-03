@@ -3,7 +3,7 @@
  *****************************************************************************
  * Copyright (C) 1998-2011 VLC authors and VideoLAN
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -51,7 +51,7 @@ static int ConsoleWidth (void);
  * Checks for help command line options such as --help or --version.
  * If one is found, print the corresponding text.
  * \return true if a command line options caused some help message to be
- * printed, false otherwise. 
+ * printed, false otherwise.
  */
 bool config_PrintHelp (vlc_object_t *obj)
 {
@@ -295,7 +295,7 @@ static void Usage (vlc_object_t *p_this, char const *psz_search)
     if (!list)
         return;
 
-    /* Ugly hack to make sure that the help options always come first
+    /* Ugly hack to make sure that the help options always come firs
      * (part 1) */
     if( !psz_search )
         Usage( p_this, "help" );
@@ -333,7 +333,7 @@ static void Usage (vlc_object_t *p_this, char const *psz_search)
         }
 
         b_help_module = !strcmp( "help", objname );
-        /* Ugly hack to make sure that the help options always come first
+        /* Ugly hack to make sure that the help options always come firs
          * (part 2) */
         if( !psz_search && b_help_module )
             continue;
@@ -606,7 +606,7 @@ static void Usage (vlc_object_t *p_this, char const *psz_search)
                 {
                     psz_word = psz_parser;
                     psz_parser = strchr( psz_word, ' ' );
-                    /* If no space was found, we reached the end of the text
+                    /* If no space was found, we reached the end of the tex
                      * block; otherwise, we skip the space we just found. */
                     psz_parser = psz_parser ? psz_parser + 1
                                             : psz_text + i_end;
@@ -618,7 +618,7 @@ static void Usage (vlc_object_t *p_this, char const *psz_search)
                  *  - we used less than 80% of the width and the word we are
                  *    going to wrap is longer than 40% of the width, and even
                  *    if the word would have fit in the next line. */
-                if( psz_word == psz_text
+                if( psz_word == psz_tex
              || ( (size_t)(psz_word - psz_text) < 80 * i_cur_width / 100
              && (size_t)(psz_parser - psz_word) > 40 * i_cur_width / 100 ) )
                 {
@@ -715,7 +715,7 @@ static void Usage (vlc_object_t *p_this, char const *psz_search)
 /*****************************************************************************
  * ListModules: list the available modules with their description
  *****************************************************************************
- * Print a list of all available modules (builtins and plugins) and a short
+ * Print a list of all available modules (builtins and plugins) and a shor
  * description for each one.
  *****************************************************************************/
 static void ListModules (vlc_object_t *p_this, bool b_verbose)

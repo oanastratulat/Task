@@ -51,7 +51,7 @@
 /*****************************************************************************
  * decoder_sys_t : FLAC decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     /*
      * Input/Output properties
@@ -572,7 +572,7 @@ static aout_buffer_t *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
 /*****************************************************************************
  * encoder_sys_t : flac encoder descriptor
  *****************************************************************************/
-struct encoder_sys_t
+struct encoder_sys_
 {
     /*
      * Input properties

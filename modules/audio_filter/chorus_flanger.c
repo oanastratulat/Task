@@ -48,7 +48,7 @@ static int  Open     ( vlc_object_t * );
 static void Close    ( vlc_object_t * );
 static block_t *DoWork( filter_t *, block_t * );
 
-struct filter_sys_t
+struct filter_sys_
 {
     /* TODO: Cleanup and optimise */
     int i_cumulative;
@@ -225,7 +225,7 @@ static inline void sanitize( float * f_value )
 
 /**
  * DoWork : delays and finds the value of the current frame
- * @param p_filter This filter object
+ * @param p_filter This filter objec
  * @param p_in_buf Input buffer
  * @return Output buffer
  */
@@ -314,7 +314,7 @@ static block_t *DoWork( filter_t *p_filter, block_t *p_in_buf )
 
 /**
  * Close: Destructor
- * @param p_this pointer to this filter object
+ * @param p_this pointer to this filter objec
  */
 static void Close( vlc_object_t *p_this )
 {

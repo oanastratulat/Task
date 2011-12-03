@@ -65,7 +65,7 @@ typedef enum
     SERVICE_DIGITAL_TELEVISION_AC_HD,
 } scan_service_type_t;
 
-typedef struct
+typedef struc
 {
     int  i_program;     /* program number (service id) */
     scan_configuration_t cfg;
@@ -83,7 +83,7 @@ typedef struct
 
 } scan_service_t;
 
-struct scan_t
+struct scan_
 {
     vlc_object_t *p_obj;
     struct dialog_progress_bar_t *p_dialog;
@@ -95,7 +95,7 @@ struct scan_t
     scan_service_t **pp_service;
 };
 
-struct scan_session_t
+struct scan_session_
 {
     vlc_object_t *p_obj;
 
@@ -435,7 +435,7 @@ static int ScanDvbNextExhaustive( scan_t *p_scan, scan_configuration_t *p_cfg, d
 static int ScanDvbTNextFast( scan_t *p_scan, scan_configuration_t *p_cfg, double *pf_pos )
 {
     static const int i_band_count = 2;
-    static const struct
+    static const struc
     {
         const char *psz_name;
         int i_min;
@@ -449,7 +449,7 @@ static int ScanDvbTNextFast( scan_t *p_scan, scan_configuration_t *p_cfg, double
     const int i_offset_count = 5;
     const int i_mhz = 1000000;
 
-    /* We will probe the whole band divided in all bandwidth possibility trying 
+    /* We will probe the whole band divided in all bandwidth possibility trying
      * i_offset_count offset around the position
      */
     for( ;; p_scan->i_index++ )
@@ -534,7 +534,7 @@ static int ScanDvbCNext( scan_t *p_scan, scan_configuration_t *p_cfg, double *pf
     if( p_scan->i_service )
         return VLC_EGENERIC;
 #else
-    /* fallback to old, so when we get one channe, use that
+    /* fallback to old, so when we get one channe, use tha
        symbolrate/modulation until bitter end
      */
     for( int i=0; i < p_scan->i_service; i++ )
@@ -568,7 +568,7 @@ static int ScanDvbCNext( scan_t *p_scan, scan_configuration_t *p_cfg, double *pf
             static const unsigned short symbolrates[] = {
              6900, 6875, 6950
              /* With DR_44 we can cover other symbolrates from NIT-info
-                as all channel-seed files have atleast one channel that
+                as all channel-seed files have atleast one channel tha
                 has one of these symbolrate
               */
 #ifndef _DVBPSI_DR_44_H_
@@ -832,7 +832,7 @@ static void NITCallBack( scan_session_t *p_session, dvbpsi_nit_t *p_nit )
             msg_Dbg( p_obj, "       * service_id %d", i_service_id );
             msg_Dbg( p_obj, "       * linkage_type %d", i_linkage_type );
         }
-        else 
+        else
         {
             msg_Dbg( p_obj, "   * dsc 0x%x", p_dsc->i_tag );
         }
@@ -1229,7 +1229,7 @@ bool scan_session_Push( scan_session_t *p_scan, block_t *p_block )
 
     block_Release( p_block );
 
-    return p_scan->p_pat && p_scan->p_sdt && 
+    return p_scan->p_pat && p_scan->p_sdt &&
 #ifdef DVBPSI_USE_NIT
         p_scan->p_nit;
 #else

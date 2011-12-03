@@ -3,9 +3,9 @@
  * @brief Shared memory frame buffer capture module for VLC media player
  */
 /*****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmont
+ * Copyright © 2011 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -115,7 +115,7 @@ static void sysv_detach (demux_sys_t *);
 #endif
 static void no_detach (demux_sys_t *);
 
-struct demux_sys_t
+struct demux_sys_
 {
     const void  *addr;
     size_t       length;
@@ -134,7 +134,7 @@ static int Open (vlc_object_t *obj)
     long pagesize = sysconf (_SC_PAGE_SIZE);
     if (pagesize == -1)
         return VLC_EGENERIC;
-    
+
     demux_sys_t *sys = malloc (sizeof (*sys));
     if (unlikely(sys == NULL))
         return VLC_ENOMEM;

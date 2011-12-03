@@ -93,14 +93,14 @@ vlc_module_end ()
 
 typedef struct media_es_t media_es_t;
 
-typedef struct
+typedef struc
 {
     media_es_t *p_media_es;
     int i_port;
 
 } rtsp_client_es_t;
 
-typedef struct
+typedef struc
 {
     char *psz_session;
 
@@ -112,7 +112,7 @@ typedef struct
 
 } rtsp_client_t;
 
-struct media_es_t
+struct media_es_
 {
     /* VoD server */
     vod_t *p_vod;
@@ -131,7 +131,7 @@ struct media_es_t
 
 };
 
-struct vod_media_t
+struct vod_media_
 {
     int id;
 
@@ -160,7 +160,7 @@ struct vod_media_t
     mtime_t i_length;
 };
 
-struct vod_sys_t
+struct vod_sys_
 {
     /* RTSP server */
     httpd_host_t *p_rtsp_host;
@@ -199,7 +199,7 @@ typedef enum
 } rtsp_cmd_type_t;
 
 /* */
-typedef struct
+typedef struc
 {
     int i_type;
     int i_media_id;

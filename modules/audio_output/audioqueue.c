@@ -43,7 +43,7 @@
  * This structure is part of the audio output thread descriptor.
  * It describes the specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_t
+struct aout_sys_
 {
     aout_packet_t packet;
     AudioQueueRef audioQueue;
@@ -95,13 +95,13 @@ static int Open ( vlc_object_t *p_this )
     deviceFormat.mReserved = 0;
 
     // Create a new output AudioQueue for the device.
-    status = AudioQueueNewOutput(&deviceFormat,         // Format
+    status = AudioQueueNewOutput(&deviceFormat,         // Forma
                                  AudioQueueCallback,    // Callback
                                  p_aout,                // User data, passed to the callback
                                  CFRunLoopGetMain(),    // RunLoop
                                  kCFRunLoopDefaultMode, // RunLoop mode
                                  0,                     // Flags ; must be zero (per documentation)...
-                                 &(p_sys->audioQueue)); // Output
+                                 &(p_sys->audioQueue)); // Outpu
 
     // This will be used for boosting the audio without the need of a mixer (floating-point conversion is expensive on ARM)
     // AudioQueueSetParameter(p_sys->audioQueue, kAudioQueueParam_Volume, 12.0); // Defaults to 1.0

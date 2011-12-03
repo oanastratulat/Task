@@ -1,9 +1,9 @@
 /*****************************************************************************
  * sdp.c: Fake input for sdp:// scheme
  *****************************************************************************
- * Copyright (C) 2010 Rémi Denis-Courmont
+ * Copyright (C) 2010 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -44,7 +44,7 @@ static ssize_t Read (access_t *, uint8_t *, size_t);
 static int Seek (access_t *, uint64_t);
 static int Control (access_t *, int, va_list);
 
-struct access_sys_t
+struct access_sys_
 {
     size_t length;
     char   data[0];
@@ -125,7 +125,7 @@ static int Control (access_t *access, int query, va_list args)
             *dp = DEFAULT_PTS_DELAY;
             return VLC_SUCCESS;
         }
-    
+
         case ACCESS_SET_PAUSE_STATE:
             return VLC_SUCCESS;
     }

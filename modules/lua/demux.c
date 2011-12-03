@@ -49,7 +49,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args );
 /*****************************************************************************
  * Demux specific functions
  *****************************************************************************/
-struct demux_sys_t
+struct demux_sys_
 {
     lua_State *L;
     char *psz_filename;

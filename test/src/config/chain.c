@@ -29,7 +29,7 @@
 #include <vlc_common.h>
 #include <vlc_configuration.h>
 
-typedef struct
+typedef struc
 {
     const char *psz_string;
     const char *psz_escaped;
@@ -71,13 +71,13 @@ static void test_config_StringUnEscape()
 }
 
 
-typedef struct
+typedef struc
 {
     const char *psz_name;
     const char *psz_value;
 }pair_t;
 
-typedef struct
+typedef struc
 {
     const char *psz_string;
     const char *psz_module;

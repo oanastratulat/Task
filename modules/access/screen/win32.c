@@ -33,7 +33,7 @@
 
 #include "screen.h"
 
-struct screen_data_t
+struct screen_data_
 {
     HDC hdc_src;
     HDC hdc_dst;
@@ -143,7 +143,7 @@ int screen_CloseCapture( demux_t *p_demux )
     return VLC_SUCCESS;
 }
 
-struct block_sys_t
+struct block_sys_
 {
     block_t self;
     HBITMAP hbmp;

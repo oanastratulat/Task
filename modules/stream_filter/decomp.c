@@ -1,9 +1,9 @@
 /*****************************************************************************
  * decomp.c : Decompression module for vlc
  *****************************************************************************
- * Copyright © 2008-2009 Rémi Denis-Courmont
+ * Copyright © 2008-2009 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -66,7 +66,7 @@ vlc_module_begin ()
     set_callbacks (OpenGzip, Close)
 vlc_module_end ()
 
-struct stream_sys_t
+struct stream_sys_
 {
     block_t      *peeked;
     uint64_t     offset;
@@ -371,7 +371,7 @@ static void Close (vlc_object_t *obj)
 
 
 /**
- * Detects gzip file format
+ * Detects gzip file forma
  */
 static int OpenGzip (vlc_object_t *obj)
 {
@@ -390,7 +390,7 @@ static int OpenGzip (vlc_object_t *obj)
 
 
 /**
- * Detects bzip2 file format
+ * Detects bzip2 file forma
  */
 static int OpenBzip2 (vlc_object_t *obj)
 {
@@ -410,7 +410,7 @@ static int OpenBzip2 (vlc_object_t *obj)
 }
 
 /**
- * Detects xz file format
+ * Detects xz file forma
  */
 static int OpenXZ (vlc_object_t *obj)
 {

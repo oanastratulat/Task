@@ -53,7 +53,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     block_t *p_block;
     void (*pf_parse)( decoder_t *, block_t * );

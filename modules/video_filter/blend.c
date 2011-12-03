@@ -94,7 +94,7 @@ static void BlendRGBAR16( filter_t *, picture_t *, const picture_t *,
 static void BlendRGBAR24( filter_t *, picture_t *, const picture_t *,
                           int, int, int, int, int );
 
-struct filter_sys_t
+struct filter_sys_
 {
     int i_blendcfg;
 };
@@ -114,7 +114,7 @@ typedef void (*BlendFunction)( filter_t *,
     { .src = fccSrc, .p_dst = VLC_CODEC_RGB_16,     .pf_blend = fctRgb16  }, \
     { .src = fccSrc, .p_dst = VLC_CODEC_RGB_24,     .pf_blend = fctRgb24  }
 
-static const struct
+static const struc
 {
     vlc_fourcc_t src;
     vlc_fourcc_t p_dst[16];
@@ -506,7 +506,7 @@ static void BlendYUVARV24( filter_t *p_filter,
           & 3) == 0) )
     {
         /*
-        ** if picture pixels are 32 bits long and lines addresses are 32 bit
+        ** if picture pixels are 32 bits long and lines addresses are 32 bi
         ** aligned, optimize rendering
         */
         uint32_t *p32_dst = (uint32_t *)p_dst;

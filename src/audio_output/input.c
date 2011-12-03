@@ -1,12 +1,12 @@
 /*****************************************************************************
- * input.c : internal management of input streams for the audio output
+ * input.c : internal management of input streams for the audio outpu
  *****************************************************************************
  * Copyright (C) 2002-2007 VLC authors and VideoLAN
  * $Id: 42b67b7b41177493a84fabab97a4744b28026fcc $
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -298,7 +298,7 @@ error:
 }
 
 /*****************************************************************************
- * aout_InputDelete : delete an input
+ * aout_InputDelete : delete an inpu
  *****************************************************************************
  * This function must be entered with the mixer lock.
  *****************************************************************************/
@@ -390,7 +390,7 @@ block_t *aout_InputPlay(audio_output_t *p_aout, aout_input_t *p_input,
     if ( start_date != VLC_TS_INVALID && start_date < now )
     {
         /* The decoder is _very_ late. This can only happen if the user
-         * pauses the stream (or if the decoder is buggy, which cannot
+         * pauses the stream (or if the decoder is buggy, which canno
          * happen :). */
         msg_Warn( p_aout, "computed PTS is out of range (%"PRId64"), "
                   "clearing out", now - start_date );

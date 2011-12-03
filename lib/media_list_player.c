@@ -6,7 +6,7 @@
  *
  * Authors: Pierre d'Herbemont <pdherbemont # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -52,7 +52,7 @@
  * to discriminate between callbacks and regular uses.
  */
 
-struct libvlc_media_list_player_t
+struct libvlc_media_list_player_
 {
     libvlc_event_manager_t *    p_event_manager;
     libvlc_instance_t *         p_libvlc_instance;
@@ -131,7 +131,7 @@ static inline libvlc_event_manager_t * mplayer_em(libvlc_media_list_player_t * p
  *  If looping is specified and the current item is the last list item in
  *  the list it will return the first item in the list.
  **************************************************************************/
-static libvlc_media_list_path_t
+static libvlc_media_list_path_
 get_next_path(libvlc_media_list_player_t * p_mlp, bool b_loop)
 {
     assert_locked(p_mlp);
@@ -209,7 +209,7 @@ get_next_path(libvlc_media_list_player_t * p_mlp, bool b_loop)
           Recommended usage is to set return value to the same path that was
           passed to the function (i.e. item = find_last_item(list, item); )
  **************************************************************************/
-static libvlc_media_list_path_t
+static libvlc_media_list_path_
 find_last_item( libvlc_media_list_t * p_mlist, libvlc_media_list_path_t current_item )
 {
     libvlc_media_list_t * p_sublist = libvlc_media_list_sublist_at_path(p_mlist, current_item);
@@ -240,7 +240,7 @@ find_last_item( libvlc_media_list_t * p_mlist, libvlc_media_list_path_t current_
  *  If looping is specified and the current item is the first list item in
  *  the list it will return the last descendant of the last item in the list.
  **************************************************************************/
-static libvlc_media_list_path_t
+static libvlc_media_list_path_
 get_previous_path(libvlc_media_list_player_t * p_mlp, bool b_loop)
 {
     assert_locked(p_mlp);
@@ -617,7 +617,7 @@ void libvlc_media_list_player_pause(libvlc_media_list_player_t * p_mlp)
 /**************************************************************************
  *        is_playing (Public)
  **************************************************************************/
-int
+in
 libvlc_media_list_player_is_playing(libvlc_media_list_player_t * p_mlp)
 {
     if (!p_mlp->p_mi)
@@ -632,7 +632,7 @@ libvlc_media_list_player_is_playing(libvlc_media_list_player_t * p_mlp)
 /**************************************************************************
  *        State (Public)
  **************************************************************************/
-libvlc_state_t
+libvlc_state_
 libvlc_media_list_player_get_state(libvlc_media_list_player_t * p_mlp)
 {
     if (!p_mlp->p_mi)

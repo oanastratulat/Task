@@ -118,7 +118,7 @@ static int VolumeChanged( vlc_object_t *, char const *,
 static int InputEvent( vlc_object_t *, char const *,
                        vlc_value_t, vlc_value_t, void * );
 
-struct intf_sys_t
+struct intf_sys_
 {
     int *pi_socket_listen;
     int i_socket;
@@ -567,7 +567,7 @@ static void Run( intf_thread_t *p_intf )
             psz_cmd++;
         }
 
-        /* Split psz_cmd at the first space and make sure that
+        /* Split psz_cmd at the first space and make sure tha
          * psz_arg is valid */
         psz_arg = strchr( psz_cmd, ' ' );
         if( psz_arg )
@@ -1084,7 +1084,7 @@ static int Input( vlc_object_t *p_this, char const *psz_cmd,
     }
     else if ( !strcmp( psz_cmd, "frame" ) )
     {
-	var_TriggerCallback( p_input, "frame-next" );
+ var_TriggerCallback( p_input, "frame-next" );
         i_error = VLC_SUCCESS;
     }
     else if( !strcmp( psz_cmd, "chapter" ) ||

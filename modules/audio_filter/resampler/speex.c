@@ -1,9 +1,9 @@
 /*****************************************************************************
  * speex.c : libspeex DSP resampler
  *****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmont
+ * Copyright © 2011 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -57,7 +57,7 @@ static int Open (vlc_object_t *obj)
     /* Will change rate */
     if (filter->fmt_in.audio.i_rate == filter->fmt_out.audio.i_rate
     /* Cannot convert format */
-     || filter->fmt_in.audio.i_format != filter->fmt_out.audio.i_format
+     || filter->fmt_in.audio.i_format != filter->fmt_out.audio.i_forma
     /* Cannot remix */
      || filter->fmt_in.audio.i_physical_channels
                                   != filter->fmt_out.audio.i_physical_channels

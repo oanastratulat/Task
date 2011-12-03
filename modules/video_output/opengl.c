@@ -34,7 +34,7 @@
 #include <vlc_opengl.h>
 
 #include "opengl.h"
-// Define USE_OPENGL_ES to the GL ES Version you want to select
+// Define USE_OPENGL_ES to the GL ES Version you want to selec
 
 #ifdef __APPLE__
 # define PFNGLGENPROGRAMSARBPROC              typeof(glGenProgramsARB)*

@@ -119,7 +119,7 @@ enum
                          and Gnome subtitles SubViewer 1.0 */
 };
 
-typedef struct
+typedef struc
 {
     int     i_line_count;
     int     i_line;
@@ -129,7 +129,7 @@ typedef struct
 static int  TextLoad( text_t *, stream_t *s );
 static void TextUnload( text_t * );
 
-typedef struct
+typedef struc
 {
     int64_t i_start;
     int64_t i_stop;
@@ -138,7 +138,7 @@ typedef struct
 } subtitle_t;
 
 
-struct demux_sys_t
+struct demux_sys_
 {
     int         i_type;
     text_t      txt;
@@ -155,7 +155,7 @@ struct demux_sys_t
     int64_t     i_length;
 
     /* */
-    struct
+    struc
     {
         bool b_inited;
 
@@ -163,7 +163,7 @@ struct demux_sys_t
         int i_time_resolution;
         int i_time_shift;
     } jss;
-    struct
+    struc
     {
         bool  b_inited;
 
@@ -190,7 +190,7 @@ static int  ParseRealText   ( demux_t *, subtitle_t *, int );
 static int  ParseDKS        ( demux_t *, subtitle_t *, int );
 static int  ParseSubViewer1 ( demux_t *, subtitle_t *, int );
 
-static const struct
+static const struc
 {
     const char *psz_type_name;
     int  i_type;
@@ -716,7 +716,7 @@ static void Fix( demux_t *p_demux )
     bool b_done;
 
     /* *** fix order (to be sure...) *** */
-    /* We suppose that there are near in order and this durty bubble sort
+    /* We suppose that there are near in order and this durty bubble sor
      * wont take too much time
      */
     do
@@ -968,7 +968,7 @@ static int  ParseSubRip( demux_t *p_demux, subtitle_t *p_subtitle,
                                  "%d:%d:%d,%d --> %d:%d:%d,%d",
                                  false );
 }
-/* ParseSubRipDot
+/* ParseSubRipDo
  * Special version for buggy file using '.' instead of ','
  */
 static int  ParseSubRipDot( demux_t *p_demux, subtitle_t *p_subtitle,
@@ -1010,14 +1010,14 @@ static int  ParseSSA( demux_t *p_demux, subtitle_t *p_subtitle,
             return VLC_EGENERIC;
 
         /* We expect (SSA2-4):
-         * Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+         * Format: Marked, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Tex
          * Dialogue: Marked=0,0:02:40.65,0:02:41.79,Wolf main,Cher,0000,0000,0000,,Et les enregistrements de ses ondes delta ?
          *
          * SSA-1 is similar but only has 8 commas up untill the subtitle text. Probably the Effect field is no present, but not 100 % sure.
          */
 
         /* For ASS:
-         * Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+         * Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Tex
          * Dialogue: Layer#,0:02:40.65,0:02:41.79,Wolf main,Cher,0000,0000,0000,,Et les enregistrements de ses ondes delta ?
          */
 
@@ -1074,7 +1074,7 @@ static int  ParseSSA( demux_t *p_demux, subtitle_t *p_subtitle,
 }
 
 /* ParseVplayer
- *  Format
+ *  Forma
  *      h:m:s:Line1|Line2|Line3....
  *  or
  *      h:m:s Line1|Line2|Line3....
@@ -1229,7 +1229,7 @@ static int  ParseSami( demux_t *p_demux, subtitle_t *p_subtitle, int i_idx )
 }
 
 /* ParseDVDSubtitle
- *  Format
+ *  Forma
  *      {T h1:m1:s1:c1
  *      Line1
  *      Line2
@@ -1308,7 +1308,7 @@ static int ParseDVDSubtitle( demux_t *p_demux, subtitle_t *p_subtitle,
 }
 
 /* ParseMPL2
- *  Format
+ *  Forma
  *     [n1][n2]Line1|Line2|Line3...
  *  where n1 and n2 are the video frame number (n2 can be empty)
  */

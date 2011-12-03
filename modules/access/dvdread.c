@@ -86,7 +86,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-struct demux_sys_t
+struct demux_sys_
 {
     /* DVDRead state */
     dvd_reader_t *p_dvdread;
@@ -485,7 +485,7 @@ static int Demux( demux_t *p_demux )
             return 0; /* EOF */
         }
 
-        /* FIXME: Ugly kludge: we send the pack block to the input for it
+        /* FIXME: Ugly kludge: we send the pack block to the input for i
          * sometimes has a zero scr and restart the sync */
         p_sys->i_cur_block++;
         p_sys->i_title_offset++;
@@ -794,7 +794,7 @@ static int DvdReadSetArea( demux_t *p_demux, int i_title, int i_chapter,
             p_pgc->cell_playback[p_sys->i_cur_cell].first_sector;
 
         /*
-         * Angle management
+         * Angle managemen
          */
         p_sys->i_angles = p_vmg->tt_srpt->title[i_title].nr_of_angles;
         if( p_sys->i_angle > p_sys->i_angles ) p_sys->i_angle = 1;
@@ -1143,7 +1143,7 @@ static void DvdReadHandleDSI( demux_t *p_demux, uint8_t *p_data )
     p_sys->i_cell_cur_time = (mtime_t) dvdtime_to_time( &p_sys->dsi_pack.dsi_gi.c_eltm, 0 );
 
     /*
-     * If we're not at the end of this cell, we can determine the next
+     * If we're not at the end of this cell, we can determine the nex
      * VOBU to display using the VOBU_SRI information section of the
      * DSI.  Using this value correctly follows the current angle,
      * avoiding the doubled scenes in The Matrix, and makes our life
@@ -1300,7 +1300,7 @@ static void DemuxTitles( demux_t *p_demux, int *pi_angle )
     seekpoint_t *s;
 
     /* Find out number of titles/chapters */
-#define tt_srpt p_sys->p_vmg_file->tt_srpt
+#define tt_srpt p_sys->p_vmg_file->tt_srp
 
     int32_t i_titles = tt_srpt->nr_of_srpts;
     msg_Dbg( p_demux, "number of titles: %d", i_titles );
@@ -1324,5 +1324,5 @@ static void DemuxTitles( demux_t *p_demux, int *pi_angle )
         TAB_APPEND( p_sys->i_titles, p_sys->titles, t );
     }
 
-#undef tt_srpt
+#undef tt_srp
 }

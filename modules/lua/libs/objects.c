@@ -93,7 +93,7 @@ static int vlclua_get_input( lua_State *L )
     return 1;
 }
 
-#undef vlclua_push_vlc_object
+#undef vlclua_push_vlc_objec
 int vlclua_push_vlc_object( lua_State *L, vlc_object_t *p_obj )
 {
     vlc_object_t **udata = (vlc_object_t **)

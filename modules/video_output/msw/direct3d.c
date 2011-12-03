@@ -87,7 +87,7 @@ static const vlc_fourcc_t d3d_subpicture_chromas[] = {
     0
 };
 
-struct picture_sys_t
+struct picture_sys_
 {
     LPDIRECT3DSURFACE9 surface;
     picture_t          *fallback;
@@ -109,7 +109,7 @@ static int  Direct3DOpen (vout_display_t *, video_format_t *);
 static void Direct3DClose(vout_display_t *);
 
 /* */
-typedef struct
+typedef struc
 {
     FLOAT       x,y,z;      // vertex untransformed position
     FLOAT       rhw;        // eye distance
@@ -267,8 +267,8 @@ static void Prepare(vout_display_t *vd, picture_t *picture, subpicture_t *subpic
 #else
     /* FIXME it is a bit ugly, we need the surface to be unlocked for
      * rendering.
-     *  The clean way would be to release the picture (and ensure that
-     * the vout doesn't keep a reference). But because of the vout
+     *  The clean way would be to release the picture (and ensure tha
+     * the vout doesn't keep a reference). But because of the vou
      * wrapper, we can't */
 
     Direct3DUnlockSurface(picture);
@@ -542,7 +542,7 @@ static int Direct3DFillPresentationParameters(vout_display_t *vd)
 
     /*
     ** Get the current desktop display mode, so we can set up a back
-    ** buffer of the same format
+    ** buffer of the same forma
     */
     D3DDISPLAYMODE d3ddm;
     HRESULT hr = IDirect3D9_GetAdapterDisplayMode(sys->d3dobj,
@@ -749,7 +749,7 @@ static int Direct3DCheckConversion(vout_display_t *vd,
                                       D3DRTYPE_SURFACE, src);
     if (SUCCEEDED(hr)) {
         /* test whether device can perform color-conversion
-        ** from that format to target format
+        ** from that format to target forma
         */
         hr = IDirect3D9_CheckDeviceFormatConversion(d3dobj,
                                                     D3DADAPTER_DEFAULT,
@@ -764,7 +764,7 @@ static int Direct3DCheckConversion(vout_display_t *vd,
     return VLC_SUCCESS;
 }
 
-typedef struct
+typedef struc
 {
     const char   *name;
     D3DFORMAT    format;    /* D3D format */
@@ -970,7 +970,7 @@ static int Direct3DCreateScene(vout_display_t *vd, const video_format_t *fmt)
     /*
      * Create a texture for use when rendering a scene
      * for performance reason, texture format is identical to backbuffer
-     * which would usually be a RGB format
+     * which would usually be a RGB forma
      */
     LPDIRECT3DTEXTURE9 d3dtex;
     hr = IDirect3DDevice9_CreateTexture(d3ddev,
@@ -1013,7 +1013,7 @@ static int Direct3DCreateScene(vout_display_t *vd, const video_format_t *fmt)
 
     sys->clear_scene = true;
 
-    // Texture coordinates outside the range [0.0, 1.0] are set
+    // Texture coordinates outside the range [0.0, 1.0] are se
     // to the texture color at 0.0 or 1.0, respectively.
     IDirect3DDevice9_SetSamplerState(d3ddev, 0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
     IDirect3DDevice9_SetSamplerState(d3ddev, 0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
@@ -1034,7 +1034,7 @@ static int Direct3DCreateScene(vout_display_t *vd, const video_format_t *fmt)
         IDirect3DDevice9_SetSamplerState(d3ddev, 0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
     }
 
-    // set maximum ambient light
+    // set maximum ambient ligh
     IDirect3DDevice9_SetRenderState(d3ddev, D3DRS_AMBIENT, D3DCOLOR_XRGB(255,255,255));
 
     // Turn off culling
@@ -1363,7 +1363,7 @@ static int Direct3DRenderRegion(vout_display_t *vd,
 /**
  * It renders the scene.
  *
- * This function is intented for higher end 3D cards, with pixel shader support
+ * This function is intented for higher end 3D cards, with pixel shader suppor
  * and at least 64 MiB of video RAM.
  */
 static void Direct3DRenderScene(vout_display_t *vd,

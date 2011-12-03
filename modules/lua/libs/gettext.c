@@ -40,7 +40,7 @@
 #include "../libs.h"
 
 /*****************************************************************************
- * Libvlc gettext support
+ * Libvlc gettext suppor
  *****************************************************************************/
 static int vlclua_gettext( lua_State *L )
 {

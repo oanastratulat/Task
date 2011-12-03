@@ -130,7 +130,7 @@ typedef struct scene_t {
 /*****************************************************************************
  * filter_sys_t: private data
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     image_handler_t *p_image;
     scene_t scene;

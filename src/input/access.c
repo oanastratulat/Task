@@ -6,7 +6,7 @@
  *
  * Author: Laurent Aimar <fenrir _AT_ videolan _DOT_ org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -35,7 +35,7 @@ static char *get_path(const char *location)
 {
     char *url, *path;
 
-    /* Prepending "file://" is a bit hackish. But then again, we do not want
+    /* Prepending "file://" is a bit hackish. But then again, we do not wan
      * to hard-code the list of schemes that use file paths in make_path().
      */
     if (asprintf(&url, "file://%s", location) == -1)

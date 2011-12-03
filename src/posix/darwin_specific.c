@@ -9,7 +9,7 @@
  *          Christophe Massiot <massiot@via.ecp.fr>
  *          Pierre d'Herbemont <pdherbemont@free.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -81,7 +81,7 @@ void system_Init(void)
         else
         {
             size_t len = strlen(psz_img_name);
-            /* Do we end by "VLC"? If so we are the legacy VLC.app that doesn't
+            /* Do we end by "VLC"? If so we are the legacy VLC.app that doesn'
              * link to VLCKit. */
             if( !strcmp( psz_img_name + len - 3, "VLC") )
             {

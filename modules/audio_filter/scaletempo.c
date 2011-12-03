@@ -61,7 +61,7 @@ vlc_module_begin ()
 vlc_module_end ()
 
 /*
- * Scaletempo works by producing audio in constant sized chunks (a "stride") but
+ * Scaletempo works by producing audio in constant sized chunks (a "stride") bu
  * consuming chunks proportional to the playback rate.
  *
  * Scaletempo then smooths the output by blending the end of one stride with
@@ -76,7 +76,7 @@ vlc_module_end ()
  * frame: a single set of samples, one for each channel
  * VLC uses these terms differently
  */
-struct filter_sys_t
+struct filter_sys_
 {
     /* Filter static config */
     double    scale;

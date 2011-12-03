@@ -6,7 +6,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -120,7 +120,7 @@ static vlc_object_t *p_helper = NULL;
 static unsigned long hIPCHelper;
 static HANDLE hIPCHelperReady;
 
-typedef struct
+typedef struc
 {
     int argc;
     int enqueue;

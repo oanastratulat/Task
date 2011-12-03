@@ -63,7 +63,7 @@ vlc_module_end ()
 #define VCD_BLOCKS_ONCE 20
 #define VCD_DATA_ONCE   (VCD_BLOCKS_ONCE * VCD_DATA_SIZE)
 
-struct access_sys_t
+struct access_sys_
 {
     vcddev_t    *vcddev;                            /* vcd device descriptor */
 

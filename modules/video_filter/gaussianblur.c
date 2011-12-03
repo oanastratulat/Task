@@ -84,12 +84,12 @@ static const char *const ppsz_filter_options[] = {
 #define DONT_USE_FLOATS
 
 #ifdef DONT_USE_FLOATS
-#   define type_t int
+#   define type_t in
 #else
-#   define type_t float
+#   define type_t floa
 #endif
 
-struct filter_sys_t
+struct filter_sys_
 {
     double f_sigma;
     int i_dim;

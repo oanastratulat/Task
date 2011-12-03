@@ -1,7 +1,7 @@
 /*****************************************************************************
  * smf.c : Standard MIDI File (.mid) demux module for vlc
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmont
+ * Copyright © 2007 Rémi Denis-Courmon
  * $Id: b688b5fef3d9b0eadbc6846368c08f9b81d8461d $
  *
  * This program is free software; you can redistribute it and/or modify
@@ -48,7 +48,7 @@ vlc_module_end ()
 static int Demux   (demux_t *);
 static int Control (demux_t *, int i_query, va_list args);
 
-typedef struct smf_track_t
+typedef struct smf_track_
 {
     int64_t  offset; /* Read offset in the file (stream_Tell) */
     int64_t  end;    /* End offset in the file */
@@ -58,7 +58,7 @@ typedef struct smf_track_t
 
 static int ReadDeltaTime (stream_t *s, mtrk_t *track);
 
-struct demux_sys_t
+struct demux_sys_
 {
     es_out_id_t *es;
     date_t       pts;

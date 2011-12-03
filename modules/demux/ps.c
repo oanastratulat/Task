@@ -76,7 +76,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-struct demux_sys_t
+struct demux_sys_
 {
     ps_psm_t    psm;
     ps_track_t  tk[PS_TK_COUNT];
@@ -388,7 +388,7 @@ static int Demux( demux_t *p_demux )
                 tk->b_seen = true;
             }
 
-            /* The popular VCD/SVCD subtitling WinSubMux does not
+            /* The popular VCD/SVCD subtitling WinSubMux does no
              * renumber the SCRs when merging subtitles into the PES */
             if( tk->b_seen &&
                 ( tk->fmt.i_codec == VLC_CODEC_OGT ||

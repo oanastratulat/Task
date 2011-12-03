@@ -160,7 +160,7 @@ static const char *const ppsz_filter_options[] = {
 * This structure is part of the video output thread descriptor.
 * It describes the Distort specific properties of an output thread.
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     vlc_mutex_t lock;
 
@@ -205,7 +205,7 @@ struct filter_sys_t
     void ( *drawingPixelFunction )( filter_sys_t *, picture_t *,
                                     uint8_t, uint8_t, uint8_t,
                                     int, int, bool );
-    struct
+    struc
     {
         uint8_t comp1;
         uint8_t comp2;
@@ -342,10 +342,10 @@ static void Destroy( vlc_object_t *p_this )
 
 
 /*****************************************************************************
-* Render: displays previously rendered output
+* Render: displays previously rendered outpu
 *****************************************************************************
 * This function send the currently rendered image to Distort image, waits
-* until it is displayed and switch the two rendering buffers, preparing next
+* until it is displayed and switch the two rendering buffers, preparing nex
 * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
@@ -604,7 +604,7 @@ static void FilterBall( filter_t *p_filter, picture_t *p_inpic,
 
     GaussianConvolution( p_converted, p_smooth );
 
-    /* Compute the picture Sobel gradient
+    /* Compute the picture Sobel gradien
        | -1 0 1 |     |  1  2  1 |
        | -2 0 2 | and |  0  0  0 |
        | -1 0 1 |     | -1 -2 -1 | */
@@ -681,7 +681,7 @@ static void FilterBall( filter_t *p_filter, picture_t *p_inpic,
             for( int j = y - p_sys->i_ballSize;
                  j <= y + p_sys->i_ballSize; j++ )
             {
-                /* Test the pixel if it is inside the disk and check we don't
+                /* Test the pixel if it is inside the disk and check we don'
                 write out the frame. */
                 if( ( i - x ) * ( i - x ) + ( j - y ) * ( j - y )
                     == p_sys->i_ballSize * p_sys->i_ballSize

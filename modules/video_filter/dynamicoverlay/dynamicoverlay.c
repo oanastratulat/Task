@@ -159,7 +159,7 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered output
+ * Render: displays previously rendered outpu
  *****************************************************************************
  * This function send the currently rendered image to adjust modified image,
  * waits until it is displayed and switch the two rendering buffers, preparing

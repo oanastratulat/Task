@@ -335,7 +335,7 @@ void UpdateRects(vout_display_t *vd,
     vout_display_sys_t *sys = vd->sys;
 #define rect_src sys->rect_src
 #define rect_src_clipped sys->rect_src_clipped
-#define rect_dest sys->rect_dest
+#define rect_dest sys->rect_des
 #define rect_dest_clipped sys->rect_dest_clipped
 
     RECT  rect;
@@ -478,7 +478,7 @@ void UpdateRects(vout_display_t *vd,
 #endif
 
 #ifdef MODULE_NAME_IS_directx
-    /* The destination coordinates need to be relative to the current
+    /* The destination coordinates need to be relative to the curren
      * directdraw primary surface (display) */
     rect_dest_clipped.left -= sys->rect_display.left;
     rect_dest_clipped.right -= sys->rect_display.left;
@@ -494,7 +494,7 @@ exit:
 
 #undef rect_src
 #undef rect_src_clipped
-#undef rect_dest
+#undef rect_des
 #undef rect_dest_clipped
 }
 

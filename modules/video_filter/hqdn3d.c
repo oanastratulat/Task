@@ -85,9 +85,9 @@ static const char *const filter_options[] = {
 };
 
 /*****************************************************************************
- * filter_sys_t
+ * filter_sys_
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     const vlc_chroma_description_t *chroma;
     int w[3], h[3];

@@ -58,7 +58,7 @@ static const uint32_t pi_channels_in[] =
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     dca_state_t * p_libdca; /* libdca internal structure */
     bool b_dynrng; /* see below */

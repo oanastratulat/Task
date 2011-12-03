@@ -7,7 +7,7 @@
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *          Laurent Aimar <fenrir@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -124,7 +124,7 @@ static void input_ChangeState( input_thread_t *p_input, int i_state ); /* TODO f
  * You need to call input_Start on it when you are done
  * adding callback on the variables/events you want to monitor.
  *
- * \param p_parent a vlc_object
+ * \param p_parent a vlc_objec
  * \param p_item an input item
  * \param psz_log an optional prefix for this input logs
  * \param p_resource an optional input ressource
@@ -137,7 +137,7 @@ input_thread_t *input_Create( vlc_object_t *p_parent,
     return Create( p_parent, p_item, psz_log, false, p_resource );
 }
 
-#undef input_CreateAndStart
+#undef input_CreateAndStar
 /**
  * Create a new input_thread_t and start it.
  *
@@ -162,7 +162,7 @@ input_thread_t *input_CreateAndStart( vlc_object_t *p_parent,
 /**
  * Initialize an input thread and run it until it stops by itself.
  *
- * \param p_parent a vlc_object
+ * \param p_parent a vlc_objec
  * \param p_item an input item
  * \return an error code, VLC_SUCCESS on success
  */
@@ -186,7 +186,7 @@ int input_Read( vlc_object_t *p_parent, input_item_t *p_item )
  * Initialize an input and initialize it to preparse the item
  * This function is blocking. It will only accept parsing regular files.
  *
- * \param p_parent a vlc_object_t
+ * \param p_parent a vlc_object_
  * \param p_item an input item
  * \return VLC_SUCCESS or an error
  */
@@ -212,7 +212,7 @@ int input_Preparse( vlc_object_t *p_parent, input_item_t *p_item )
  *
  * You must not start an already running input_thread_t.
  *
- * \param the input thread to start
+ * \param the input thread to star
  */
 int input_Start( input_thread_t *p_input )
 {
@@ -236,7 +236,7 @@ int input_Start( input_thread_t *p_input )
  * INPUT_EVENT_ABORT event.
  *
  * \param p_input the input thread to stop
- * \param b_abort true if the input has been aborted by a user request
+ * \param b_abort true if the input has been aborted by a user reques
  */
 void input_Stop( input_thread_t *p_input, bool b_abort )
 {
@@ -264,7 +264,7 @@ void input_Release( input_thread_t *p_input )
 }
 
 /**
- * Close an input
+ * Close an inpu
  *
  * It does not call input_Stop itself.
  */
@@ -1511,7 +1511,7 @@ static int ControlGetReducedIndexLocked( input_thread_t *p_input )
         }
         else
         {
-            /* TODO but that's not that important
+            /* TODO but that's not that importan
                 - merge SET_X with SET_X_CMD
                 - ignore SET_SEEKPOINT/SET_POSITION/SET_TIME before a SET_TITLE
                 - ignore SET_SEEKPOINT/SET_POSITION/SET_TIME before another among them
@@ -2184,7 +2184,7 @@ static bool Control( input_thread_t *p_input,
 }
 
 /*****************************************************************************
- * UpdateTitleSeekpoint
+ * UpdateTitleSeekpoin
  *****************************************************************************/
 static int UpdateTitleSeekpoint( input_thread_t *p_input,
                                  int i_title, int i_seekpoint )
@@ -2600,7 +2600,7 @@ static int InputSourceInit( input_thread_t *p_input,
     var_SetBool( p_input, "can-record", in->b_can_stream_record );
 #endif
 
-    /* get attachment
+    /* get attachmen
      * FIXME improve for b_preparsing: move it after GET_META and check psz_arturl */
     if( !p_input->b_preparsing )
     {
@@ -2891,7 +2891,7 @@ static void AppendAttachment( int *pi_attachment, input_attachment_t ***ppp_atta
 }
 /*****************************************************************************
  * InputGetExtraFiles
- *  Autodetect extra input list
+ *  Autodetect extra input lis
  *****************************************************************************/
 static void InputGetExtraFilesPattern( input_thread_t *p_input,
                                        int *pi_list, char ***pppsz_list,
@@ -2942,7 +2942,7 @@ static void InputGetExtraFiles( input_thread_t *p_input,
                                 int *pi_list, char ***pppsz_list,
                                 const char *psz_access, const char *psz_path )
 {
-    static const struct
+    static const struc
     {
         const char *psz_match;
         const char *psz_format;
@@ -3120,7 +3120,7 @@ static void MRLSections( const char *p,
 }
 
 /*****************************************************************************
- * input_AddSubtitles: add a subtitles file and enable it
+ * input_AddSubtitles: add a subtitles file and enable i
  *****************************************************************************/
 static void SubtitleAdd( input_thread_t *p_input, char *psz_subtitle, unsigned i_flags )
 {

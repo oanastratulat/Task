@@ -6,7 +6,7 @@
  *
  * Authors: Pierre d'Herbemont <pdherbemont # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -39,7 +39,7 @@
 #include "media_internal.h" // libvlc_media_new_from_input_item()
 #include "media_list_internal.h" // _libvlc_media_list_add_media()
 
-struct libvlc_media_discoverer_t
+struct libvlc_media_discoverer_
 {
     libvlc_event_manager_t * p_event_manager;
     libvlc_instance_t *      p_libvlc_instance;
@@ -318,7 +318,7 @@ libvlc_media_discoverer_event_manager( libvlc_media_discoverer_t * p_mdis )
 /**************************************************************************
  * running (Public)
  **************************************************************************/
-int
+in
 libvlc_media_discoverer_is_running( libvlc_media_discoverer_t * p_mdis )
 {
     return p_mdis->running;

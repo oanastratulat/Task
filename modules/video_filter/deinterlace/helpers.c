@@ -223,7 +223,7 @@ static inline int TestForMotionInBlock( uint8_t *p_pix_p, uint8_t *p_pix_c,
 
     /* Field motion thresholds.
 
-       Empirical value - works better in practice than the "4" that
+       Empirical value - works better in practice than the "4" tha
        would be consistent with the full-block threshold.
 
        Especially the opening scene of The Third ep. 1 (just after the OP)
@@ -321,7 +321,7 @@ void ComposeFrame( filter_t *p_filter, picture_t *p_outpic,
                    for each field. It can be used for general input when
                    the two input frames are different.
 
-                   The output is 4:2:2, but the input is 4:2:0. Thus the output
+                   The output is 4:2:2, but the input is 4:2:0. Thus the outpu
                    has twice the lines of the input, and each full chroma plane
                    in the input corresponds to a field chroma plane in the
                    output.
@@ -337,16 +337,16 @@ void ComposeFrame( filter_t *p_filter, picture_t *p_outpic,
             }
             else if( i_output_chroma == CC_SOURCE_TOP )
             {
-                /* Copy chroma of input top field. Ignore chroma of input
-                   bottom field. Input and output are both 4:2:0, so we just
+                /* Copy chroma of input top field. Ignore chroma of inpu
+                   bottom field. Input and output are both 4:2:0, so we jus
                    copy the whole plane. */
                 plane_CopyPixels( &p_outpic->p[i_out_plane],
                                   &p_inpic_top->p[i_plane] );
             }
             else if( i_output_chroma == CC_SOURCE_BOTTOM )
             {
-                /* Copy chroma of input bottom field. Ignore chroma of input
-                   top field. Input and output are both 4:2:0, so we just
+                /* Copy chroma of input bottom field. Ignore chroma of inpu
+                   top field. Input and output are both 4:2:0, so we jus
                    copy the whole plane. */
                 plane_CopyPixels( &p_outpic->p[i_out_plane],
                                   &p_inpic_bottom->p[i_plane] );

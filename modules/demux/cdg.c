@@ -54,7 +54,7 @@ vlc_module_end ()
 static int Demux  ( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-struct demux_sys_t
+struct demux_sys_
 {
     es_format_t     fmt;
     es_out_id_t     *p_es;

@@ -3,9 +3,9 @@
  * @brief List of application windows XCB module for VLC media player
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmont
+ * Copyright © 2009 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -57,7 +57,7 @@ vlc_module_begin ()
     VLC_SD_PROBE_SUBMODULE
 vlc_module_end ()
 
-struct services_discovery_sys_t
+struct services_discovery_sys_
 {
     xcb_connection_t *conn;
     vlc_thread_t      thread;
@@ -295,7 +295,7 @@ static int cmpapp (const void *a, const void *b)
     if (wa < wb)
         return -1;
     return 0;
-} 
+}
 
 static void UpdateApps (services_discovery_t *sd)
 {

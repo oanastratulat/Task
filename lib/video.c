@@ -10,7 +10,7 @@
  *          Jean-Paul Saman <jpsaman _at_ m2x _dot_ nl>
  *          Damien Fouilleul <damienf a_t videolan dot org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -136,7 +136,7 @@ void libvlc_video_set_mouse_input( libvlc_media_player_t *p_mi, unsigned on )
     var_SetBool (p_mi, "mouse-events", !!on);
 }
 
-int
+in
 libvlc_video_take_snapshot( libvlc_media_player_t *p_mi, unsigned num,
                             const char *psz_filepath,
                             unsigned int i_width, unsigned int i_height )
@@ -698,7 +698,7 @@ set_int( libvlc_media_player_t *p_mi, const char *restrict name,
 }
 
 
-static int
+static in
 get_int( libvlc_media_player_t *p_mi, const char *restrict name,
          const opt_t *restrict opt )
 {
@@ -744,7 +744,7 @@ set_float( libvlc_media_player_t *p_mi, const char *restrict name,
 }
 
 
-static float
+static floa
 get_float( libvlc_media_player_t *p_mi, const char *restrict name,
             const opt_t *restrict opt )
 {

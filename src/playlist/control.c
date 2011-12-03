@@ -1,5 +1,5 @@
 /*****************************************************************************
- * control.c : Handle control of the playlist & running through it
+ * control.c : Handle control of the playlist & running through i
  *****************************************************************************
  * Copyright (C) 1999-2004 VLC authors and VideoLAN
  * $Id: bf46a32b86c5bc5c09d739541a8c55671b01fff3 $
@@ -7,7 +7,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -41,7 +41,7 @@ static int PlaylistVAControl( playlist_t * p_playlist, int i_query, va_list args
 
 static vlc_mutex_t global_lock = VLC_STATIC_MUTEX;
 
-#undef pl_Get
+#undef pl_Ge
 playlist_t *pl_Get (vlc_object_t *obj)
 {
     playlist_t *pl;

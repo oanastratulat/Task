@@ -65,7 +65,7 @@ static const uint32_t pi_channels_in[] =
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     a52_state_t * p_liba52; /* liba52 internal structure */
     bool b_dynrng; /* see below */

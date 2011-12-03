@@ -2,11 +2,11 @@
  * block.c: Data blocks management functions
  *****************************************************************************
  * Copyright (C) 2003-2004 VLC authors and VideoLAN
- * Copyright (C) 2007-2009 Rémi Denis-Courmont
+ * Copyright (C) 2007-2009 Rémi Denis-Courmon
  *
  * Authors: Laurent Aimar <fenrir@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -45,7 +45,7 @@
 /**
  * Internal state for heap block.
   */
-struct block_sys_t
+struct block_sys_
 {
     block_t     self;
     size_t      i_allocated_buffer;
@@ -266,7 +266,7 @@ block_t *block_Realloc( block_t *p_block, ssize_t i_prebody, size_t i_body )
 }
 
 
-typedef struct
+typedef struc
 {
     block_t  self;
     void    *mem;
@@ -311,7 +311,7 @@ block_t *block_heap_Alloc (void *ptr, void *addr, size_t length)
 #ifdef HAVE_MMAP
 # include <sys/mman.h>
 
-typedef struct block_mmap_t
+typedef struct block_mmap_
 {
     block_t     self;
     void       *base_addr;
@@ -415,7 +415,7 @@ ssize_t pwrite(int fd, const void * buf, size_t size, off_t offset) {
  * constraints. Cancellation point.
  *
  * @param fd file descriptor to load from
- * @return a new block with the file content at p_buffer, and file length at
+ * @return a new block with the file content at p_buffer, and file length a
  * i_buffer (release it with block_Release()), or NULL upon error (see errno).
  */
 block_t *block_File (int fd)
@@ -491,7 +491,7 @@ block_t *block_File (int fd)
 /**
  * Internal state for block queues
  */
-struct block_fifo_t
+struct block_fifo_
 {
     vlc_mutex_t         lock;                         /* fifo data lock */
     vlc_cond_t          wait;      /**< Wait for data */
@@ -558,7 +558,7 @@ void block_FifoEmpty( block_fifo_t *p_fifo )
 /**
  * Wait until the FIFO gets below a certain size (if needed).
  *
- * Note that if more than one thread writes to the FIFO, you cannot assume that
+ * Note that if more than one thread writes to the FIFO, you cannot assume tha
  * the FIFO is actually below the requested size upon return (since another
  * thread could have refilled it already). This is typically not an issue, as
  * this function is meant for (relaxed) congestion control.

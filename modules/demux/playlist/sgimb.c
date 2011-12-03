@@ -34,7 +34,7 @@
  * Stream="xdma://host.name.tld/demo/a_very_cool.mpg"
  *     Not always present. xdma can be read as RTSP.
  * sgiMovieName=/demo/a_very_cool.mpg
- *     The path to the asset
+ *     The path to the asse
  * sgiAuxState=1|2
  *     AuxState=2 is always Video On Demand (so not Scheduled)
  *     Not present with Live streams
@@ -56,7 +56,7 @@
  * sgiDuration=378345000
  *     The duration of the to be received stream. Only present if stream is not Live.
  * sgiQTFileBegin
- * rtsptext
+ * rtsptex
  * rtsp://host.name.tld/demo/a_very_cool.mpg
  * sgiQTFileEnd
  *     Sometimes present. QT will recognize this as a RTSP reference file, if present.
@@ -70,7 +70,7 @@
  * sgiMulticastPort=1234
  *     The multicast port for the same Multicast feed.
  * sgiPacketSize=16384
- *     The packetsize of the UDP frames that Kasenna sends. They should have used a default
+ *     The packetsize of the UDP frames that Kasenna sends. They should have used a defaul
  *     that is a multiple of 188 (TS frame size). Most networks don't support more than 1500 anyways.
  *     Also, when you lose a frame of this size, imagecorruption is more likely then with smaller
  *     frames.
@@ -111,7 +111,7 @@
  *****************************************************************************/
 #define MAX_LINE 1024
 
-struct demux_sys_t
+struct demux_sys_
 {
     char        *psz_uri;       /* Stream= or sgiQTFileBegin rtsp link */
     char        *psz_server;    /* sgiNameServerHost= */

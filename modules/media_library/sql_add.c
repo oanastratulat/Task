@@ -33,7 +33,7 @@
 
 /**
  * @brief Add element to ML based on a ml_media_t (media ID ignored)
- * @param p_ml This media_library_t object
+ * @param p_ml This media_library_t objec
  * @param p_media media item to add in the DB. The media_id is ignored
  * @return VLC_SUCCESS or VLC_EGENERIC
  * @note This function is threadsafe
@@ -251,7 +251,7 @@ int AddPeople( media_library_t *p_ml, const char *psz_name,
 
 /**
  * @brief Add element to ML based on an Input Item
- * @param p_ml This media_library_t object
+ * @param p_ml This media_library_t objec
  * @param p_input input item to add
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
@@ -289,7 +289,7 @@ int AddInputItem( media_library_t *p_ml, input_item_t *p_input )
 /**
  * @brief Add element to ML based on a Playlist Item
  *
- * @param p_ml the media library object
+ * @param p_ml the media library objec
  * @param p_playlist_item playlist_item to add
  * @return VLC_SUCCESS or VLC_EGENERIC
  */

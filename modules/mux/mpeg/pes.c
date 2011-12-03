@@ -47,7 +47,7 @@
  *                                         (stream_id = PES_EXTENDED_STREAM_ID)
  *                     - 0xbd00 - 0xbdff : private_id = low 8 bits
  *                                         (stream_id = PES_PRIVATE_STREAM)
- * \param i_header_size length of padding data to insert into PES packet
+ * \param i_header_size length of padding data to insert into PES packe
  *                      header in bytes.
  */
 static inline int PESHeader( uint8_t *p_hdr, mtime_t i_pts, mtime_t i_dts,
@@ -148,7 +148,7 @@ static inline int PESHeader( uint8_t *p_hdr, mtime_t i_pts, mtime_t i_dts,
                 bits_write( &bits, 2, 0x00 ); // pes scrambling control
                 bits_write( &bits, 1, 0x00 ); // pes priority
                 bits_write( &bits, 1, b_data_alignment ); // data alignement indicator
-                bits_write( &bits, 1, 0x00 ); // copyright
+                bits_write( &bits, 1, 0x00 ); // copyrigh
                 bits_write( &bits, 1, 0x00 ); // original or copy
 
                 bits_write( &bits, 2, i_pts_dts ); // pts_dts flags
@@ -306,7 +306,7 @@ static inline int PESHeader( uint8_t *p_hdr, mtime_t i_pts, mtime_t i_dts,
  *                                         (stream_id = PES_EXTENDED_STREAM_ID)
  *                     - 0xbd00 - 0xbdff : private_id = low 8 bits
  *                                         (stream_id = PES_PRIVATE_STREAM)
- * \param i_header_size length of padding data to insert into PES packet
+ * \param i_header_size length of padding data to insert into PES packe
  *                      header in bytes.
  * \param i_max_pes_size maximum length of each pes packet payload.
  *                       if zero, uses default maximum.

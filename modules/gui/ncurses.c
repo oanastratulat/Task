@@ -167,19 +167,19 @@ static const struct { short f; short b; } color_pairs[] =
     [C_FOLDER]      = { COLOR_RED,      COLOR_BLACK },
 };
 
-struct dir_entry_t
+struct dir_entry_
 {
     bool        file;
     char        *path;
 };
 
-struct pl_item_t
+struct pl_item_
 {
     playlist_item_t *item;
     char            *display;
 };
 
-struct intf_sys_t
+struct intf_sys_
 {
     input_thread_t *p_input;
 
@@ -187,14 +187,14 @@ struct intf_sys_t
     bool            exit;
 
     int             box_type;
-    int             box_y;            // start of box content
+    int             box_y;            // start of box conten
     int             box_height;
     int             box_lines_total;  // number of lines in the box
     int             box_start;        // first line of box displayed
     int             box_idx;          // selected line
 
     msg_subscription_t  *sub;         // message bank subscription
-    struct
+    struc
     {
         int              type;
         msg_item_t      *item;
@@ -341,7 +341,7 @@ static void CheckIdx(intf_sys_t *sys)
 }
 
 /*****************************************************************************
- * Playlist
+ * Playlis
  *****************************************************************************/
 static void PlaylistDestroy(intf_sys_t *sys)
 {
@@ -658,7 +658,7 @@ static void mvnprintw(int y, int x, int w, const char *p_fmt, ...)
             for (j = i_char_len - 1; i_2nd_width < w - i_total_width; j--)
                 i_2nd_width += wcwidth(wide[j]);
 
-            /* we already have i_total_width columns filled, and we can't
+            /* we already have i_total_width columns filled, and we can'
              * have more than w columns */
             if (i_2nd_width > w - i_total_width)
                 j++;

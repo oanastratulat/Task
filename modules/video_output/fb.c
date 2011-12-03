@@ -577,7 +577,7 @@ static int OpenDisplay(vout_display_t *vd, bool force_resolution)
                                                sys->var_info.xres;
     sys->line_length = fix_info.line_length;
 
-    /* FIXME: if the image is full-size, it gets cropped on the left
+    /* FIXME: if the image is full-size, it gets cropped on the lef
      * because of the xres / xres_virtual slight difference */
     msg_Dbg(vd, "%ix%i (virtual %ix%i) (request %ix%i)",
             sys->var_info.xres, sys->var_info.yres,

@@ -50,7 +50,7 @@ static block_t *Convert( filter_t *, block_t * );
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     struct mad_stream mad_stream;
     struct mad_frame  mad_frame;

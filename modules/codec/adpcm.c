@@ -25,7 +25,7 @@
 /*****************************************************************************
  * Preamble
  *
- * Documentation: http://www.pcisys.net/~melanson/codecs/adpcm.txt
+ * Documentation: http://www.pcisys.net/~melanson/codecs/adpcm.tx
  *****************************************************************************/
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -65,7 +65,7 @@ enum adpcm_codec_e
     ADPCM_EA
 };
 
-struct decoder_sys_t
+struct decoder_sys_
 {
     enum adpcm_codec_e codec;
 

@@ -194,7 +194,7 @@ mediacontrol_display_text( mediacontrol_Instance *self,
     vlc_object_release( p_vout );
 }
 
-unsigned short
+unsigned shor
 mediacontrol_sound_get_volume( mediacontrol_Instance *self,
                                mediacontrol_Exception *exception )
 {
@@ -233,7 +233,7 @@ int mediacontrol_set_visual( mediacontrol_Instance *self,
     return true;
 }
 
-int
+in
 mediacontrol_get_rate( mediacontrol_Instance *self,
                mediacontrol_Exception *exception )
 {
@@ -255,7 +255,7 @@ mediacontrol_set_rate( mediacontrol_Instance *self,
     libvlc_media_player_set_rate( self->p_media_player, rate * 10 );
 }
 
-int
+in
 mediacontrol_get_fullscreen( mediacontrol_Instance *self,
                  mediacontrol_Exception *exception )
 {

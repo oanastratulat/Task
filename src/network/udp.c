@@ -2,14 +2,14 @@
  * udp.c:
  *****************************************************************************
  * Copyright (C) 2004-2006 VLC authors and VideoLAN
- * Copyright © 2006-2007 Rémi Denis-Courmont
+ * Copyright © 2006-2007 Rémi Denis-Courmon
  *
  * $Id: 813c1b717cd67d949e0189b65c091ca76f95ca9a $
  *
  * Authors: Laurent Aimar <fenrir@videolan.org>
  *          Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -117,7 +117,7 @@ static int net_SetupDgramSocket( vlc_object_t *p_obj, int fd, const struct addri
         struct sockaddr_in6 dumb =
         {
             .sin6_family = ptr->ai_addr->sa_family,
-            .sin6_port =  ((struct sockaddr_in *)(ptr->ai_addr))->sin_port
+            .sin6_port =  ((struct sockaddr_in *)(ptr->ai_addr))->sin_por
         };
 
         bind (fd, (struct sockaddr *)&dumb, ptr->ai_addrlen);
@@ -298,7 +298,7 @@ static unsigned var_GetIfIndex (vlc_object_t *obj)
  * IP-agnostic multicast join,
  * with fallback to old APIs, and fallback from SSM to ASM.
  */
-static int
+static in
 net_SourceSubscribe (vlc_object_t *obj, int fd,
                      const struct sockaddr *src, socklen_t srclen,
                      const struct sockaddr *grp, socklen_t grplen)
@@ -672,7 +672,7 @@ int net_OpenDgram( vlc_object_t *obj, const char *psz_bind, int i_bind,
 /**
  * net_SetCSCov:
  * Sets the send and receive checksum coverage of a socket:
- * @param fd socket
+ * @param fd socke
  * @param sendcov payload coverage of sent packets (bytes), -1 for full
  * @param recvcov minimum payload coverage of received packets, -1 for full
  */

@@ -1,9 +1,9 @@
 /*****************************************************************************
  * amem.c : virtual LibVLC audio output plugin
  *****************************************************************************
- * Copyright (C) 2011 Rémi Denis-Courmont
+ * Copyright (C) 2011 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -52,7 +52,7 @@ vlc_module_begin ()
 
 vlc_module_end ()
 
-struct aout_sys_t
+struct aout_sys_
 {
     void *opaque;
     void (*play) (void *opaque, const void *data, unsigned count, int64_t pts);

@@ -247,7 +247,7 @@ static void wma_window(WMADecodeContext *s, int32_t *in, int32_t *out)
     }
     /* Advance to the end of the current block and prepare to window it for the next block.
      * Since the window function needs to be reversed, we do it backwards starting with the
-     * last sample and moving towards the first
+     * last sample and moving towards the firs
      */
      out += s->block_len;
      in += s->block_len;
@@ -1327,7 +1327,7 @@ static int wma_decode_block(WMADecodeContext *s)
         int32_t (*coefs)[MAX_CHANNELS][BLOCK_MAX_SIZE]  = (s->coefs);
 
         /* nominal case for ms stereo: we do it before mdct */
-        /* no need to optimize this case because it should almost
+        /* no need to optimize this case because it should almos
            never happen */
         if (!s->channel_coded[0])
         {

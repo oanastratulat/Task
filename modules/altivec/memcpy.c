@@ -75,12 +75,12 @@ typedef unsigned long size_t;
 
 #if defined(CAN_COMPILE_C_ALTIVEC) || defined( __BUILD_ALTIVEC_ASM__ )
 
-#define vector_s16_t vector signed short
-#define vector_u16_t vector unsigned short
+#define vector_s16_t vector signed shor
+#define vector_u16_t vector unsigned shor
 #define vector_s8_t vector signed char
 #define vector_u8_t vector unsigned char
-#define vector_s32_t vector signed int
-#define vector_u32_t vector unsigned int
+#define vector_s32_t vector signed in
+#define vector_u32_t vector unsigned in
 #define MMREG_SIZE 16
 
 #define SMALL_MEMCPY(to, from, len)                                         \

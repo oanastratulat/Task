@@ -59,7 +59,7 @@
 /*****************************************************************************
  * decoder_sys_t : decoder descriptor
  *****************************************************************************/
-struct decoder_sys_t
+struct decoder_sys_
 {
     AVCODEC_COMMON_MEMBERS
 
@@ -149,7 +149,7 @@ static inline picture_t *ffmpeg_NewPictBuf( decoder_t *p_dec,
 
     if( !p_sys->p_va && GetVlcChroma( &p_dec->fmt_out.video, p_context->pix_fmt ) )
     {
-        /* we are doomed, but not really, because most codecs set their pix_fmt
+        /* we are doomed, but not really, because most codecs set their pix_fm
          * much later
          * FIXME does it make sense here ? */
         p_dec->fmt_out.video.i_chroma = VLC_CODEC_I420;
@@ -194,7 +194,7 @@ static inline picture_t *ffmpeg_NewPictBuf( decoder_t *p_dec,
 /*****************************************************************************
  * InitVideo: initialize the video decoder
  *****************************************************************************
- * the ffmpeg codec will be opened, some memory allocated. The vout is not yet
+ * the ffmpeg codec will be opened, some memory allocated. The vout is not ye
  * opened (done after the first decoded frame).
  *****************************************************************************/
 int InitVideoDec( decoder_t *p_dec, AVCodecContext *p_context,

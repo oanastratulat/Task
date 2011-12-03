@@ -6,7 +6,7 @@
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -399,7 +399,7 @@ const char * aout_FormatPrintChannels( const audio_sample_format_t * p_format )
     return "ERROR";
 }
 
-#undef aout_FormatPrint
+#undef aout_FormatPrin
 /**
  * Prints an audio sample format in a human-readable form.
  */
@@ -412,7 +412,7 @@ void aout_FormatPrint( vlc_object_t *obj, const char *psz_text,
              p_format->i_frame_length, p_format->i_bytes_per_frame );
 }
 
-#undef aout_FormatsPrint
+#undef aout_FormatsPrin
 /**
  * Prints two formats in a human-readable form
  */
@@ -435,7 +435,7 @@ void aout_FormatsPrint( vlc_object_t *obj, const char * psz_text,
  * before calling any of these functions.
  */
 
-#undef aout_FifoInit
+#undef aout_FifoIni
 /*****************************************************************************
  * aout_FifoInit : initialize the members of a FIFO
  *****************************************************************************/

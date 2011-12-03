@@ -57,13 +57,13 @@ vlc_module_begin ()
     set_callbacks( Open, Close )
 vlc_module_end ()
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     sout_description_data_t *data;
     mtime_t i_stream_start;
 };
 
-struct sout_stream_id_t
+struct sout_stream_id_
 {
 };
 
@@ -113,7 +113,7 @@ static sout_stream_id_t *Add( sout_stream_t *p_stream, es_format_t *p_fmt )
     es_format_t *p_fmt_copy;
 
     msg_Dbg( p_stream, "Adding a stream" );
- 
+
     p_fmt_copy = malloc(sizeof(es_format_t));
     es_format_Copy( p_fmt_copy, p_fmt );
 

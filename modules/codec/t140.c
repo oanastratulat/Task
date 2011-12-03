@@ -1,7 +1,7 @@
 /*****************************************************************************
  * t140.c : trivial T.140 text encoder
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmont
+ * Copyright © 2007 Rémi Denis-Courmon
  * $Id: 1a3fc2acdbd83f69919c199d741834ce965f7267 $
  *
  * This program is free software; you can redistribute it and/or modify

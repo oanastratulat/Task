@@ -57,7 +57,7 @@ void on_select_source_path(GtkWidget *widget, gpointer data) {
         strncat(uri, scheme, strlen(scheme));
         strncat(uri, path, strlen(path));
         g_free(path);
-        
+
         gtk_entry_set_text(GTK_ENTRY(source_entry), uri);
         free(uri);
     }
@@ -294,8 +294,8 @@ int main (int argc, char *argv[]) {
     // setup vlc
     vlcinst = libvlc_new(0, NULL);
     evtman = libvlc_vlm_get_event_manager(vlcinst);
-	libvlc_event_attach(evtman, libvlc_VlmMediaInstanceStatusEnd, on_end_vlc, NULL);
-	libvlc_event_attach(evtman, libvlc_VlmMediaInstanceStatusError, on_error_vlc, NULL);
+ libvlc_event_attach(evtman, libvlc_VlmMediaInstanceStatusEnd, on_end_vlc, NULL);
+ libvlc_event_attach(evtman, libvlc_VlmMediaInstanceStatusError, on_error_vlc, NULL);
 
     g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_widget_show_all(window);

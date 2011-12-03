@@ -1,7 +1,7 @@
 /*****************************************************************************
  * i420_yuy2.c : ARM NEONv1 YUV 4:2:0 to YUV :2:2 chroma conversion for VLC
  *****************************************************************************
- * Copyright (C) 2009 Rémi Denis-Courmont
+ * Copyright (C) 2009 Rémi Denis-Courmon
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

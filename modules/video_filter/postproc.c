@@ -97,7 +97,7 @@ static const char *const ppsz_filter_options[] = {
 /*****************************************************************************
  * filter_sys_t : libpostproc video postprocessing descriptor
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     /* Never changes after init */
     pp_context *pp_context;
@@ -273,7 +273,7 @@ static void ClosePostproc( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * PostprocPict
+ * PostprocPic
  *****************************************************************************/
 static picture_t *PostprocPict( filter_t *p_filter, picture_t *p_pic )
 {

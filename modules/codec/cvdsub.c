@@ -72,7 +72,7 @@ static void RenderImage( decoder_t *, block_t *, subpicture_region_t * );
 #define SUBTITLE_BLOCK_PARTIAL 1
 #define SUBTITLE_BLOCK_COMPLETE 2
 
-struct decoder_sys_t
+struct decoder_sys_
 {
   int      b_packetizer;
 
@@ -224,7 +224,7 @@ static block_t *Reassemble( decoder_t *p_dec, block_t *p_block )
     }
 
     /* From the scant data on the format, there is only only way known
-     * to detect the first packet in a subtitle.  The first packet
+     * to detect the first packet in a subtitle.  The first packe
      * seems to have a valid PTS while later packets for the same
      * image don't. */
     if( p_sys->i_state == SUBTITLE_BLOCK_EMPTY && p_block->i_pts <= VLC_TS_INVALID )
@@ -451,7 +451,7 @@ static void ParseMetaInfo( decoder_t *p_dec, block_t *p_spu  )
             break;
 
         case 0x47:
-            /* offset to start of even rows of interlaced image, we correct
+            /* offset to start of even rows of interlaced image, we correc
              * to make it relative to i_image_offset (usually 4) */
             p_sys->first_field_offset =
                 (p[2] << 8) + p[3] - p_sys->i_image_offset;
@@ -462,7 +462,7 @@ static void ParseMetaInfo( decoder_t *p_dec, block_t *p_spu  )
             break;
 
         case 0x4f:
-            /* offset to start of odd rows of interlaced image, we correct
+            /* offset to start of odd rows of interlaced image, we correc
              * to make it relative to i_image_offset (usually 4) */
             p_sys->second_field_offset =
                 (p[2] << 8) + p[3] - p_sys->i_image_offset;
@@ -482,7 +482,7 @@ static void ParseMetaInfo( decoder_t *p_dec, block_t *p_spu  )
 }
 
 /*****************************************************************************
- * DecodePacket: parse and decode an SPU packet
+ * DecodePacket: parse and decode an SPU packe
  *****************************************************************************
  * This function parses and decodes an SPU packet and, if valid, returns a
  * subpicture.
@@ -546,16 +546,16 @@ static subpicture_t *DecodePacket( decoder_t *p_dec, block_t *p_data )
  This part parses the subtitle graphical data and renders it.
 
  Image data comes interlaced and is run-length encoded (RLE). Each
- field is a four-bit nibbles that is further subdivided in a two-bit
+ field is a four-bit nibbles that is further subdivided in a two-bi
  repeat count and a two-bit color number - up to three pixels can be
- described in four bits.  What a 0 repeat count means is unknown.  It
+ described in four bits.  What a 0 repeat count means is unknown.  I
  might be used for RLE extension.  There is a special case of a 0
  repeat count though.  When the full nibble is zero, the rest of the
  line is filled with the color value in the next nibble.  It is
  unknown what happens if the color value is greater than three.  The
  rest seems to use a 4-entries palette.  It is not impossible that the
- fill-line complete case above is not as described and the zero repeat
- count means fill line.  The sample code never produces this, so it
+ fill-line complete case above is not as described and the zero repea
+ count means fill line.  The sample code never produces this, so i
  may be untested.
 
  However we'll transform this so that that the RLE is expanded and

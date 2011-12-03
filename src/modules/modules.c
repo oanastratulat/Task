@@ -8,9 +8,9 @@
  *          Ethan C. Baldridge <BaldridgeE@cadmus.com>
  *          Hans-Peter Jansen <hpj@urpla.net>
  *          Gildas Bazin <gbazin@videolan.org>
- *          Rémi Denis-Courmont
+ *          Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -142,7 +142,7 @@ const char *module_gettext (const module_t *m, const char *str)
 #endif
 }
 
-#undef module_start
+#undef module_star
 int module_start (vlc_object_t *obj, const module_t *m)
 {
    int (*activate) (vlc_object_t *) = m->pf_activate;
@@ -159,7 +159,7 @@ void module_stop (vlc_object_t *obj, const module_t *m)
         deactivate (obj);
 }
 
-typedef struct module_list_t
+typedef struct module_list_
 {
     module_t *p_module;
     int16_t  i_score;
@@ -187,7 +187,7 @@ static int modulecmp (const void *a, const void *b)
  * variable arguments passed to this function. This scheme is meant to
  * support arbitrary prototypes for the module entry point.
  *
- * \param p_this VLC object
+ * \param p_this VLC objec
  * \param psz_capability capability, i.e. class of module
  * \param psz_name name name of the module asked, if any
  * \param b_strict if true, do not fallback to plugin with a different name
@@ -291,7 +291,7 @@ module_t *vlc_module_load(vlc_object_t *p_this, const char *psz_capability,
                 name += strlen( name ) + 1;
             }
 
-            /* If we are in "strict" mode and we couldn't
+            /* If we are in "strict" mode and we couldn'
              * find the module in the list of provided shortcuts,
              * then kick the bastard out of here!!! */
             if( b_strict )

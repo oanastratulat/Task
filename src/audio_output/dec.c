@@ -6,7 +6,7 @@
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -42,7 +42,7 @@ static int ReplayGainCallback (vlc_object_t *, char const *,
                                vlc_value_t, vlc_value_t, void *);
 
 /**
- * Creates an audio output
+ * Creates an audio outpu
  */
 int aout_DecNew( audio_output_t *p_aout,
                  const audio_sample_format_t *p_format,
@@ -220,7 +220,7 @@ static void aout_CheckRestart (audio_output_t *aout)
 }
 
 /**
- * Marks the audio output for restart, to update any parameter of the output
+ * Marks the audio output for restart, to update any parameter of the outpu
  * plug-in (e.g. output device or channel mapping).
  */
 void aout_RequestRestart (audio_output_t *aout)
@@ -233,7 +233,7 @@ void aout_RequestRestart (audio_output_t *aout)
 
 /**
  * This function will safely mark aout input to be restarted as soon as
- * possible to take configuration changes into account
+ * possible to take configuration changes into accoun
  */
 void aout_InputRequestRestart (audio_output_t *aout)
 {
@@ -244,7 +244,7 @@ void aout_InputRequestRestart (audio_output_t *aout)
 
 
 /*
- * Buffer management
+ * Buffer managemen
  */
 
 /*****************************************************************************
@@ -374,8 +374,8 @@ bool aout_DecIsEmpty (audio_output_t *aout)
     end_date = date_Get (&owner->sync.date);
     empty = end_date == VLC_TS_INVALID || end_date <= now;
     if (empty)
-        /* The last PTS has elapsed already. So the underlying audio output
-         * buffer should be empty or almost. Thus draining should be fast
+        /* The last PTS has elapsed already. So the underlying audio outpu
+         * buffer should be empty or almost. Thus draining should be fas
          * and will not block the caller too long. */
         aout_OutputFlush (aout, true);
     aout_unlock (aout);
@@ -386,11 +386,11 @@ bool aout_DecIsEmpty (audio_output_t *aout)
  * Notifies the audio input of the drift from the requested audio
  * playback timestamp (@ref block_t.i_pts) to the anticipated playback time
  * as reported by the audio output hardware.
- * Depending on the drift amplitude, the input core may ignore the drift
+ * Depending on the drift amplitude, the input core may ignore the drif
  * trigger upsampling or downsampling, or even discard samples.
  * Future VLC versions may instead adjust the input decoding speed.
  *
- * The audio output plugin is responsible for estimating the ideal current
+ * The audio output plugin is responsible for estimating the ideal curren
  * playback time defined as follows:
  *  ideal time = buffer timestamp - (output latency + pending buffer duration)
  *
@@ -399,12 +399,12 @@ bool aout_DecIsEmpty (audio_output_t *aout)
  * Computing the estimated drift directly would probably be more intuitive.
  * However the use of an absolute time value does not introduce extra
  * measurement errors due to the CPU scheduling jitter and clock resolution.
- * Furthermore, the ideal while it is an abstract value, is easy for most
+ * Furthermore, the ideal while it is an abstract value, is easy for mos
  * audio output plugins to compute.
  * The following definition is equivalent but depends on the clock time:
- *  ideal time = real time + drift
+ *  ideal time = real time + drif
 
- * @note If aout_LatencyReport() is never called, the core will assume that
+ * @note If aout_LatencyReport() is never called, the core will assume tha
  * there is no drift.
  *
  * @param ideal estimated ideal time as defined above.

@@ -81,7 +81,7 @@ vlc_module_end ()
 static int Demux  ( demux_t * );
 static int Control( demux_t *, int, va_list );
 
-typedef struct
+typedef struc
 {
     vlc_fourcc_t i_codec;
     bool       b_use_word;
@@ -90,7 +90,7 @@ typedef struct
     int  (*pf_init)( demux_t *p_demux );
 } codec_t;
 
-struct demux_sys_t
+struct demux_sys_
 {
     codec_t codec;
 
@@ -117,7 +117,7 @@ struct demux_sys_t
     float   f_fps;
 
     /* Mpga specific */
-    struct
+    struc
     {
         int i_frames;
         int i_bytes;
@@ -158,7 +158,7 @@ static const codec_t p_codecs[] = {
 static int VideoInit( demux_t *p_demux );
 
 static const codec_t codec_m4v = {
-    VLC_CODEC_MP4V, false, "mp4 video", NULL,  VideoInit
+    VLC_CODEC_MP4V, false, "mp4 video", NULL,  VideoIni
 };
 
 /*****************************************************************************
@@ -780,7 +780,7 @@ static int MpgaInit( demux_t *p_demux )
         MpgaXingSkip( &p_xing, &i_xing, 100 );
     if( i_flags&0x08 )
     {
-        /* FIXME: doesn't return the right bitrage average, at least
+        /* FIXME: doesn't return the right bitrage average, at leas
            with some MP3's */
         p_sys->xing.i_bitrate_avg = MpgaXingGetDWBE( &p_xing, &i_xing, 0 );
         msg_Dbg( p_demux, "xing vbr value present (%d)",

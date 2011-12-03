@@ -80,7 +80,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Definitions of structures used by this plugin
  *****************************************************************************/
-struct demux_sys_t
+struct demux_sys_
 {
     int    frame_size;
 
@@ -98,7 +98,7 @@ struct demux_sys_t
 static int Demux( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-struct preset_t
+struct preset_
 {
     const char *psz_ext;
     int i_width;
@@ -384,7 +384,7 @@ valid:
                  (char*)&i_chroma );
         goto error;
     }
-    p_sys->frame_size = i_width * i_height
+    p_sys->frame_size = i_width * i_heigh
                         * p_sys->fmt_video.video.i_bits_per_pixel / 8;
     p_sys->p_es_video = es_out_Add( p_demux->out, &p_sys->fmt_video );
 

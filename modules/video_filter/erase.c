@@ -86,9 +86,9 @@ static const char *const ppsz_filter_options[] = {
 };
 
 /*****************************************************************************
- * filter_sys_t
+ * filter_sys_
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     int i_x;
     int i_y;
@@ -304,7 +304,7 @@ static void FilterErase( filter_t *p_filter, picture_t *p_inpic,
             else
             {
                 /* We're in the upper left corner. This sucks. We can't use
-                 * any previous value, so we'll use a dummy one. In most
+                 * any previous value, so we'll use a dummy one. In mos
                  * cases this dummy value will be fixed later on in the
                  * algorithm */
                 prev = 0xff;

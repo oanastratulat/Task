@@ -207,7 +207,7 @@ static inline float clip_unit( float f )
 }
 
 /* */
-typedef struct
+typedef struc
 {
     float f_black_crush;
     float f_black_level;
@@ -218,16 +218,16 @@ typedef struct
     float f_gamma;
 } panoramix_gamma_t;
 
-typedef struct
+typedef struc
 {
-    struct
+    struc
     {
         int i_left;
         int i_right;
         int i_top;
         int i_bottom;
     } black;
-    struct
+    struc
     {
         int i_left;
         int i_right;
@@ -236,7 +236,7 @@ typedef struct
     } attenuate;
 } panoramix_filter_t;
 
-typedef struct
+typedef struc
 {
     bool b_active;
     int  i_output;
@@ -259,7 +259,7 @@ typedef struct
 
 } panoramix_output_t;
 
-typedef struct
+typedef struc
 {
     vlc_fourcc_t i_chroma;
 
@@ -272,7 +272,7 @@ typedef struct
 
 } panoramix_chroma_t;
 
-struct video_splitter_sys_t
+struct video_splitter_sys_
 {
     const panoramix_chroma_t *p_chroma;
 

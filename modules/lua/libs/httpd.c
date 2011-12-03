@@ -56,7 +56,7 @@ static int vlclua_httpd_redirect_new( lua_State * );
 static int vlclua_httpd_redirect_delete( lua_State * );
 
 /*****************************************************************************
- * HTTPD Host
+ * HTTPD Hos
  *****************************************************************************/
 static const luaL_Reg vlclua_httpd_reg[] = {
     { "handler", vlclua_httpd_handler_new },
@@ -98,7 +98,7 @@ static int vlclua_httpd_host_delete( lua_State *L )
 /*****************************************************************************
  * HTTPd Handler
  *****************************************************************************/
-struct httpd_handler_sys_t
+struct httpd_handler_sys_
 {
     lua_State *L;
     int ref;
@@ -202,7 +202,7 @@ static int vlclua_httpd_handler_delete( lua_State *L )
 /*****************************************************************************
  * HTTPd File
  *****************************************************************************/
-struct httpd_file_sys_t
+struct httpd_file_sys_
 {
     lua_State *L;
     int ref;
@@ -290,7 +290,7 @@ static int vlclua_httpd_file_delete( lua_State *L )
 }
 
 /*****************************************************************************
- * HTTPd Redirect
+ * HTTPd Redirec
  *****************************************************************************/
 static int vlclua_httpd_redirect_new( lua_State *L )
 {

@@ -2,11 +2,11 @@
  * objects.c: vlc_object_t handling
  *****************************************************************************
  * Copyright (C) 2004-2008 VLC authors and VideoLAN
- * Copyright (C) 2006-2010 Rémi Denis-Courmont
+ * Copyright (C) 2006-2010 Rémi Denis-Courmon
  *
  * Authors: Samuel Hocevar <sam@zoy.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -202,7 +202,7 @@ void *vlc_object_create( vlc_object_t *p_this, size_t i_size )
 #undef vlc_object_set_destructor
 /**
  ****************************************************************************
- * Set the destructor of a vlc object
+ * Set the destructor of a vlc objec
  *
  * This function sets the destructor of the vlc object. It will be called
  * when the object is destroyed when the its refcount reaches 0.

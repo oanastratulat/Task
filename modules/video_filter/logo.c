@@ -121,7 +121,7 @@ vlc_module_end ()
  * Structure to hold the set of individual logo image names, times,
  * transparencies
  */
-typedef struct
+typedef struc
 {
     int i_delay;       /* -1 means use default delay */
     int i_alpha;       /* -1 means use default alpha */
@@ -132,7 +132,7 @@ typedef struct
 /**
  * Logo list structure.
  */
-typedef struct
+typedef struc
 {
     logo_t *p_logo;         /* the parsing's result */
     unsigned int i_count;   /* the number of logo images to be displayed */
@@ -150,7 +150,7 @@ typedef struct
 /**
  * Private logo data holder
  */
-struct filter_sys_t
+struct filter_sys_
 {
     filter_t *p_blend;
 

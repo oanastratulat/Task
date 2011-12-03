@@ -97,22 +97,22 @@ static const uint8_t ty_AC3AudioPacket[] = { 0x00, 0x00, 0x01, 0xbd };
  9/c0: audio packet header, AC-3 audio
  2/e0: video data continued
  6/e0: video packet header (PES header)
- 7/e0: video sequence header start
- 8/e0: video I-frame header start
- a/e0: video P-frame header start
- b/e0: video B-frame header start
- c/e0: video GOP header start
+ 7/e0: video sequence header star
+ 8/e0: video I-frame header star
+ a/e0: video P-frame header star
+ b/e0: video B-frame header star
+ c/e0: video GOP header star
  e/01: closed-caption data
  e/02: Extended data services data
  e/03: ipreview data ("thumbs up to record" signal)
- e/05: UK Teletext
+ e/05: UK Teletex
 */
 
 #define TIVO_PES_FILEID   ( 0xf5467abd )
 #define TIVO_PART_LENGTH  ( 0x20000000 )    /* 536,870,912 bytes */
 #define CHUNK_SIZE        ( 128 * 1024 )
 
-typedef struct
+typedef struc
 {
   long l_rec_size;
   uint8_t ex[2];
@@ -122,7 +122,7 @@ typedef struct
   uint64_t l_ty_pts;            /* TY PTS in the record header */
 } ty_rec_hdr_t;
 
-typedef struct
+typedef struc
 {
     uint64_t l_timestamp;
     uint8_t chunk_bitmask[8];
@@ -163,7 +163,7 @@ typedef enum
 
     XDS_MAX_CLASS_COUNT
 } xds_class_t;
-typedef struct
+typedef struc
 {
     bool b_started;
     int        i_data;
@@ -177,14 +177,14 @@ typedef enum
     XDS_META_PROGRAM_RATING_TPG,
     /* TODO add CA/CE rating */
 } xds_meta_program_rating_t;
-typedef struct
+typedef struc
 {
     char *psz_name;
     xds_meta_program_rating_t rating;
     char *psz_rating;
     /* Add the other fields once I have the samples */
 } xds_meta_program_t;
-typedef struct
+typedef struc
 {
     char *psz_channel_name;
     char *psz_channel_call_letter;
@@ -193,7 +193,7 @@ typedef struct
     xds_meta_program_t  current;
     xds_meta_program_t  future;
 } xds_meta_t;
-typedef struct
+typedef struc
 {
     /* Are we in XDS mode */
     bool b_xds;
@@ -212,7 +212,7 @@ typedef struct
 
 } xds_t;
 
-struct demux_sys_t
+struct demux_sys_
 {
   es_out_id_t *p_video;               /* ptr to video codec */
   es_out_id_t *p_audio;               /* holds either ac3 or mpeg codec ptr */
@@ -733,7 +733,7 @@ static int DemuxRecVideo( demux_t *p_demux, ty_rec_hdr_t *rec_hdr, block_t *p_bl
                    subrec_type);*/
         /* if it's a GOP header, make sure it's legal
          * (if we have enough data) */
-        /* Some ty files don't have this bit set
+        /* Some ty files don't have this bit se
          * and it causes problems */
         if (subrec_type == 0x0c && l_rec_size >= 6)
             p_block_in->p_buffer[5] |= 0x08;
@@ -744,9 +744,9 @@ static int DemuxRecVideo( demux_t *p_demux, ty_rec_hdr_t *rec_hdr, block_t *p_bl
             //p_sys->l_last_ty_pts_sync = p_sys->lastAudioPTS;
         } else {
             /* yes I know this is a cheap hack.  It's the timestamp
-               used for display and skipping fwd/back, so it
+               used for display and skipping fwd/back, so i
                doesn't have to be accurate to the millisecond.
-               I adjust it here by roughly one 1/30 sec.  Yes it
+               I adjust it here by roughly one 1/30 sec.  Yes i
                will be slightly off for UK streams, but it's OK.
              */
             p_sys->l_last_ty_pts += 35000000;
@@ -885,7 +885,7 @@ static int DemuxRecAudio( demux_t *p_demux, ty_rec_hdr_t *rec_hdr, block_t *p_bl
         /* S2 DTivo has AC3 packets with 2 padding bytes at end.  This is
          * not allowed in the AC3 spec and will cause problems.  So here
          * we try to trim things. */
-        /* Also, S1 DTivo has alternating short / long AC3 packets.  That
+        /* Also, S1 DTivo has alternating short / long AC3 packets.  Tha
          * is, one packet is short (incomplete) and the next packet has
          * the first one's missing data, plus all of its own.  Strange. */
         if (p_sys->audio_type == TIVO_AUDIO_AC3 &&
@@ -1134,11 +1134,11 @@ static void XdsStringUtf8( char dst[2*32+1], const uint8_t *p_src, int i_src )
         switch( p_src[i] )
         {
 #define E2( c, u1, u2 ) case c: dst[i_dst++] = u1; dst[i_dst++] = u2; break
-        E2( 0x2a, 0xc3,0xa1); // lowercase a, acute accent
-        E2( 0x5c, 0xc3,0xa9); // lowercase e, acute accent
-        E2( 0x5e, 0xc3,0xad); // lowercase i, acute accent
-        E2( 0x5f, 0xc3,0xb3); // lowercase o, acute accent
-        E2( 0x60, 0xc3,0xba); // lowercase u, acute accent
+        E2( 0x2a, 0xc3,0xa1); // lowercase a, acute accen
+        E2( 0x5c, 0xc3,0xa9); // lowercase e, acute accen
+        E2( 0x5e, 0xc3,0xad); // lowercase i, acute accen
+        E2( 0x5f, 0xc3,0xb3); // lowercase o, acute accen
+        E2( 0x60, 0xc3,0xba); // lowercase u, acute accen
         E2( 0x7b, 0xc3,0xa7); // lowercase c with cedilla
         E2( 0x7c, 0xc3,0xb7); // division symbol
         E2( 0x7d, 0xc3,0x91); // uppercase N tilde
@@ -1445,7 +1445,7 @@ static void DemuxDecodeXds( demux_t *p_demux, uint8_t d1, uint8_t d2 )
         {
             vlc_epg_AddEvent( p_epg, 0, 0, m->current.psz_name, NULL, NULL );
             //if( m->current.psz_rating )
-            //  TODO but VLC cannot yet handle rating per epg event
+            //  TODO but VLC cannot yet handle rating per epg even
             vlc_epg_SetCurrent( p_epg, 0 );
         }
         if( m->future.psz_name )

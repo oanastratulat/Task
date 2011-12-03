@@ -6,7 +6,7 @@
  * Authors: Laurent Aimar <fenrir@videolan.org>
  *          Jean-Baptiste Kempf <jb@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -33,7 +33,7 @@
 #include <vlc_es.h>
 #include <assert.h>
 
-typedef struct
+typedef struc
 {
     char p_class[4];
     char p_fourcc[4];
@@ -1797,7 +1797,7 @@ bool vlc_fourcc_IsYUV(vlc_fourcc_t fcc)
       .pixel_size = size, \
       .pixel_bits = bits }
 
-static const struct
+static const struc
 {
     vlc_fourcc_t             p_fourcc[6];
     vlc_chroma_description_t description;

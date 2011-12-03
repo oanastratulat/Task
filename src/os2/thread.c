@@ -8,10 +8,10 @@
  *          Samuel Hocevar <sam@zoy.org>
  *          Gildas Bazin <gbazin@netcourrier.com>
  *          Clément Sténac
- *          Rémi Denis-Courmont
+ *          Rémi Denis-Courmon
  *          Pierre Ynard
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -823,7 +823,7 @@ mtime_t mdate (void)
     return (d.quot * 1000000) + ((d.rem * 1000000) / freq);
 }
 
-#undef mwait
+#undef mwai
 void mwait (mtime_t deadline)
 {
     mtime_t delay;

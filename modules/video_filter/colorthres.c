@@ -96,7 +96,7 @@ static int FilterCallback( vlc_object_t *, char const *,
 /*****************************************************************************
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     int i_simthres;
     int i_satthres;
@@ -202,7 +202,7 @@ static bool IsSimilar( int u, int v,
     return length > i_satthres && (difflen2 * i_simthres < thres);
 }
 /*****************************************************************************
- * Render: displays previously rendered output
+ * Render: displays previously rendered outpu
  *****************************************************************************
  * This function send the currently rendered image to adjust modified image,
  * waits until it is displayed and switch the two rendering buffers, preparing

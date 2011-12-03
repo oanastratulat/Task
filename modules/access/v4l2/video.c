@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 /*
- * Sections based on the reference V4L2 capture example at
+ * Sections based on the reference V4L2 capture example a
  * http://v4l2spec.bytesex.org/spec/capture-example.html
  */
 
@@ -290,13 +290,13 @@ static const char *const psz_tuner_audio_modes_list_text[] = {
 #define V4L2_DEFAULT "/dev/video0"
 
 #ifdef HAVE_MAEMO
-# define DEFAULT_WIDTH	640
-# define DEFAULT_HEIGHT	492
+# define DEFAULT_WIDTH 640
+# define DEFAULT_HEIGHT 492
 #endif
 
 #ifndef DEFAULT_WIDTH
-# define DEFAULT_WIDTH	(-1)
-# define DEFAULT_HEIGHT	(-1)
+# define DEFAULT_WIDTH (-1)
+# define DEFAULT_HEIGHT (-1)
 #endif
 
 vlc_module_begin ()
@@ -460,7 +460,7 @@ vlc_module_end ()
 
 static block_t* ProcessVideoFrame( vlc_object_t *p_demux, uint8_t *p_frame, size_t );
 
-static const struct
+static const struc
 {
     unsigned int i_v4l2;
     vlc_fourcc_t i_fourcc;
@@ -874,7 +874,7 @@ static int InitVideo( vlc_object_t *p_obj, int i_fd, demux_sys_t *p_sys,
         return -1;
     }
 
-    /* Now, enumerate all the video inputs. This is useless at the moment
+    /* Now, enumerate all the video inputs. This is useless at the momen
        since we have no way to present that info to the user except with
        debug messages */
     if( cap.capabilities & V4L2_CAP_VIDEO_CAPTURE )

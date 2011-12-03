@@ -99,7 +99,7 @@ static const char *const ppsz_filter_options[] = {
     "u", "v", "ut", "vt", NULL
 };
 
-struct filter_sys_t
+struct filter_sys_
 {
     vlc_mutex_t lock;
     int i_u, i_v, i_ut, i_vt;

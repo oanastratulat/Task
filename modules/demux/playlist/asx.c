@@ -1,5 +1,5 @@
 /*****************************************************************************
- * asx.c : ASX playlist format import
+ * asx.c : ASX playlist format impor
  *****************************************************************************
  * Copyright (C) 2005-2006 the VideoLAN team
  * $Id: 03bac21fe73d80ffda0798ca0664c565484336c6 $
@@ -39,7 +39,7 @@
 #include "playlist.h"
 #include <vlc_meta.h>
 
-struct demux_sys_t
+struct demux_sys_
 {
     char    *psz_prefix;
     char    *psz_data;

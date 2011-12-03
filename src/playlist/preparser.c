@@ -7,7 +7,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -37,7 +37,7 @@
 /*****************************************************************************
  * Structures/definitions
  *****************************************************************************/
-struct playlist_preparser_t
+struct playlist_preparser_
 {
     playlist_t          *p_playlist;
     playlist_fetcher_t  *p_fetcher;
@@ -152,7 +152,7 @@ static void Art( playlist_preparser_t *p_preparser, input_item_t *p_item )
     bool b_fetch = false;
     /* If we haven't retrieved enough meta, add to secondary queue
      * which will run the "meta fetchers".
-     * This only checks for meta, not for art
+     * This only checks for meta, not for ar
      * \todo don't do this for things we won't get meta for, like vids
      */
 

@@ -2,13 +2,13 @@
  * httpd.c
  *****************************************************************************
  * Copyright (C) 2004-2006 VLC authors and VideoLAN
- * Copyright © 2004-2007 Rémi Denis-Courmont
+ * Copyright © 2004-2007 Rémi Denis-Courmon
  * $Id: 6a881e27c044945e16cbe44515e716cee599d4b4 $
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
  *          Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -69,7 +69,7 @@
 static void httpd_ClientClean( httpd_client_t *cl );
 
 /* each host run in his own thread */
-struct httpd_host_t
+struct httpd_host_
 {
     VLC_COMMON_MEMBERS
 
@@ -100,7 +100,7 @@ struct httpd_host_t
 };
 
 
-struct httpd_url_t
+struct httpd_url_
 {
     httpd_host_t *host;
 
@@ -111,7 +111,7 @@ struct httpd_url_t
     char      *psz_password;
     vlc_acl_t *p_acl;
 
-    struct
+    struc
     {
         httpd_callback_t     cb;
         httpd_callback_sys_t *p_sys;
@@ -142,7 +142,7 @@ enum
     HTTPD_CLIENT_STREAM,    /* regulary get data from cb */
 };
 
-struct httpd_client_t
+struct httpd_client_
 {
     httpd_url_t *url;
 
@@ -173,7 +173,7 @@ struct httpd_client_t
 /*****************************************************************************
  * Various functions
  *****************************************************************************/
-static const struct
+static const struc
 {
     const char psz_ext[8];
     const char *psz_mime;
@@ -248,7 +248,7 @@ static const char *httpd_MimeFromUrl( const char *psz_url )
 }
 
 
-typedef struct
+typedef struc
 {
     unsigned   i_code;
     const char psz_reason[36];
@@ -363,9 +363,9 @@ static size_t httpd_HtmlError (char **body, int code, const char *url)
 
 
 /*****************************************************************************
- * High Level Functions: httpd_file_t
+ * High Level Functions: httpd_file_
  *****************************************************************************/
-struct httpd_file_t
+struct httpd_file_
 {
     httpd_url_t *url;
 
@@ -377,7 +377,7 @@ struct httpd_file_t
 
 };
 
-static int
+static in
 httpd_FileCallBack( httpd_callback_sys_t *p_sys, httpd_client_t *cl,
                     httpd_message_t *answer, const httpd_message_t *query )
 {
@@ -494,7 +494,7 @@ httpd_file_sys_t *httpd_FileDelete( httpd_file_t *file )
 /*****************************************************************************
  * High Level Functions: httpd_handler_t (for CGIs)
  *****************************************************************************/
-struct httpd_handler_t
+struct httpd_handler_
 {
     httpd_url_t *url;
 
@@ -503,7 +503,7 @@ struct httpd_handler_t
 
 };
 
-static int
+static in
 httpd_HandlerCallBack( httpd_callback_sys_t *p_sys, httpd_client_t *cl,
                        httpd_message_t *answer, const httpd_message_t *query )
 {
@@ -624,9 +624,9 @@ httpd_handler_sys_t *httpd_HandlerDelete( httpd_handler_t *handler )
 }
 
 /*****************************************************************************
- * High Level Functions: httpd_redirect_t
+ * High Level Functions: httpd_redirect_
  *****************************************************************************/
-struct httpd_redirect_t
+struct httpd_redirect_
 {
     httpd_url_t *url;
     char        *psz_dst;
@@ -692,9 +692,9 @@ void httpd_RedirectDelete( httpd_redirect_t *rdir )
 }
 
 /*****************************************************************************
- * High Level Funtions: httpd_stream_t
+ * High Level Funtions: httpd_stream_
  *****************************************************************************/
-struct httpd_stream_t
+struct httpd_stream_
 {
     vlc_mutex_t lock;
     httpd_url_t *url;
@@ -1018,7 +1018,7 @@ httpd_host_t *vlc_rtsp_HostNew( vlc_object_t *p_this )
     return httpd_HostCreate( p_this, "rtsp-host", "rtsp-port", NULL );
 }
 
-static struct httpd_t
+static struct httpd_
 {
     vlc_mutex_t  mutex;
 
@@ -1043,7 +1043,7 @@ static httpd_host_t *httpd_HostCreate( vlc_object_t *p_this,
         host = httpd.host[i];
 
         /* cannot mix TLS and non-TLS hosts */
-        if( host->port != port
+        if( host->port != por
          || (host->p_tls != NULL) != (p_tls != NULL) )
             continue;
 
@@ -1452,7 +1452,7 @@ ssize_t httpd_NetSend (httpd_client_t *cl, const uint8_t *p, size_t i_len)
 }
 
 
-static const struct
+static const struc
 {
     const char name[16];
     int  i_type;
@@ -2397,7 +2397,7 @@ static void* httpd_HostThread( void *data )
             assert( pufd < &ufd[sizeof(ufd) / sizeof(ufd[0])] );
 
             if( cl->fd != pufd->fd )
-                continue; // we were not waiting for this client
+                continue; // we were not waiting for this clien
             ++nfd;
             if( pufd->revents == 0 )
                 continue; // no event received

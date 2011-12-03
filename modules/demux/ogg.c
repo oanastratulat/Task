@@ -67,13 +67,13 @@ vlc_module_end ()
  *****************************************************************************/
 
 /* OggDS headers for the new header format (used in ogm files) */
-typedef struct
+typedef struc
 {
     ogg_int32_t width;
     ogg_int32_t height;
 } stream_header_video_t;
 
-typedef struct
+typedef struc
 {
     ogg_int16_t channels;
     ogg_int16_t padding;
@@ -81,7 +81,7 @@ typedef struct
     ogg_int32_t avgbytespersec;
 } stream_header_audio_t;
 
-typedef struct
+typedef struc
 {
     char        streamtype[8];
     char        subtype[4];
@@ -250,7 +250,7 @@ static int Demux( demux_t * p_demux )
      * While this is fine for Vorbis and Theora, which are continuous codecs, which means
      * the second page will arrive real quick, this is not fine for Kate, whose second
      * data page will typically arrive much later.
-     * This means it is now possible to seek right at the start of a stream where the last
+     * This means it is now possible to seek right at the start of a stream where the las
      * logical stream is Kate, without having to wait for the second data page to unblock
      * the first one, which is the one that triggers the 'no more headers to backup' code.
      * And, as we all know, seeking without having backed up all headers is bad, since the
@@ -428,7 +428,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
 
         case DEMUX_SET_POSITION:
             /* forbid seeking if we haven't initialized all logical bitstreams yet;
-               if we allowed, some headers would not get backed up and decoder init
+               if we allowed, some headers would not get backed up and decoder ini
                would fail, making that logical stream unusable */
             if( p_sys->i_bos > 0 )
             {
@@ -1302,7 +1302,7 @@ static int Ogg_FindLogicalStreams( demux_t *p_demux )
 
 
             /* This is the first data page, which means we are now finished
-             * with the initial pages. We just need to store it in the relevant
+             * with the initial pages. We just need to store it in the relevan
              * bitstream. */
             for( i_stream = 0; i_stream < p_ogg->i_streams; i_stream++ )
             {
@@ -1427,7 +1427,7 @@ static void Ogg_EndOfStream( demux_t *p_demux )
 }
 
 /**
- * This function delete and release all data associated to a logical_stream_t
+ * This function delete and release all data associated to a logical_stream_
  */
 static void Ogg_LogicalStreamDelete( demux_t *p_demux, logical_stream_t *p_stream )
 {

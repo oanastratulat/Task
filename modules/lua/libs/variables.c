@@ -278,7 +278,7 @@ static int vlclua_libvlc_command( lua_State *L )
     return vlclua_push_ret( L, i_ret );
 }
 
-#undef vlclua_var_toggle_or_set
+#undef vlclua_var_toggle_or_se
 int vlclua_var_toggle_or_set( lua_State *L, vlc_object_t *p_obj,
                               const char *psz_name )
 {
@@ -319,7 +319,7 @@ static inline const void *luaL_checklightuserdata( lua_State *L, int narg )
     return lua_topointer( L, narg );
 }
 
-typedef struct
+typedef struc
 {
     int i_index;
     int i_type;

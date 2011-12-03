@@ -35,7 +35,7 @@
 #endif
 
 /*
- * Function used to retrieve an intf_thread_t object from a GtkWidget
+ * Function used to retrieve an intf_thread_t object from a GtkWidge
  */
 static intf_thread_t *get_intf_from_widget( GtkWidget *widget )
 {

@@ -8,7 +8,7 @@
  *          Laurent Aimar <fenrir@via.ecp.fr>
  *          Eric Petit <titer@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -63,7 +63,7 @@ static char *sout_stream_url_to_chain( bool, const char * );
  *
  */
 
-typedef struct
+typedef struc
 {
     char *psz_access;
     char *psz_way;
@@ -155,7 +155,7 @@ void sout_DeleteInstance( sout_instance_t * p_sout )
 }
 
 /*****************************************************************************
- * Packetizer/Input
+ * Packetizer/Inpu
  *****************************************************************************/
 sout_packetizer_input_t *sout_InputNew( sout_instance_t *p_sout,
                                         es_format_t *p_fmt )
@@ -243,7 +243,7 @@ int sout_InputSendBuffer( sout_packetizer_input_t *p_input,
 
 #undef sout_AccessOutNew
 /*****************************************************************************
- * sout_AccessOutNew: allocate a new access out
+ * sout_AccessOutNew: allocate a new access ou
  *****************************************************************************/
 sout_access_out_t *sout_AccessOutNew( vlc_object_t *p_sout,
                                       const char *psz_access, const char *psz_name )
@@ -283,7 +283,7 @@ sout_access_out_t *sout_AccessOutNew( vlc_object_t *p_sout,
     return p_access;
 }
 /*****************************************************************************
- * sout_AccessDelete: delete an access out
+ * sout_AccessDelete: delete an access ou
  *****************************************************************************/
 void sout_AccessOutDelete( sout_access_out_t *p_access )
 {

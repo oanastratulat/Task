@@ -69,7 +69,7 @@ typedef struct avi_stream_s
 
     mtime_t i_duration;       // in µs
 
-    int     i_frames;        // total frame count
+    int     i_frames;        // total frame coun
     int64_t i_totalsize;    // total stream size
 
     float   f_fps;
@@ -97,7 +97,7 @@ typedef struct avi_idx1_s
     avi_idx1_entry_t *entry;
 } avi_idx1_t;
 
-struct sout_mux_sys_t
+struct sout_mux_sys_
 {
     bool b_write_header;
 

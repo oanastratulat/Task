@@ -84,7 +84,7 @@ static int FilterCallback( vlc_object_t *, char const *,
 /*****************************************************************************
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
-struct filter_sys_t
+struct filter_sys_
 {
     int i_level;
     vlc_mutex_t lock;
@@ -156,10 +156,10 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered output
+ * Render: displays previously rendered outpu
  *****************************************************************************
  * This function send the currently rendered image to Posterize image, waits
- * until it is displayed and switch the two rendering buffers, preparing next
+ * until it is displayed and switch the two rendering buffers, preparing nex
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )

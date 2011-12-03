@@ -56,7 +56,7 @@
 #define QUEUE_MAX 50
 
 /* Keeps track of metadata to be submitted */
-typedef struct audioscrobbler_song_t
+typedef struct audioscrobbler_song_
 {
     char        *psz_a;             /**< track artist     */
     char        *psz_t;             /**< track title      */
@@ -68,7 +68,7 @@ typedef struct audioscrobbler_song_t
     mtime_t     i_start;            /**< playing start    */
 } audioscrobbler_song_t;
 
-struct intf_sys_t
+struct intf_sys_
 {
     audioscrobbler_song_t   p_queue[QUEUE_MAX]; /**< songs not submitted yet*/
     int                     i_songs;            /**< number of songs        */
@@ -464,7 +464,7 @@ static void Close(vlc_object_t *p_this)
 
 
 /*****************************************************************************
- * ParseURL : Split an http:// URL into host, file, and port
+ * ParseURL : Split an http:// URL into host, file, and por
  *
  * Example: "62.216.251.205:80/protocol_1.2"
  *      will be split into "62.216.251.205", 80, "protocol_1.2"
@@ -588,7 +588,7 @@ static int Handshake(intf_thread_t *p_this)
 
     /* generates a md5 hash of :
      * - md5 hash of the password, plus
-     * - timestamp in clear text
+     * - timestamp in clear tex
      */
     InitMD5(&p_struct_md5);
     AddMD5(&p_struct_md5, (uint8_t*) psz_password_md5, 32);
@@ -904,7 +904,7 @@ static void Run(intf_thread_t *p_intf)
             "%s\r\n"
             "\r\n",
             p_sys->psz_submit_file, strlen(psz_submit),
-            p_sys->psz_submit_host, psz_submit
+            p_sys->psz_submit_host, psz_submi
        );
 
         free(psz_submit);

@@ -76,7 +76,7 @@ static int               Send  (sout_stream_t *, sout_stream_id_t *, block_t *);
 
 static void* Command(void *);
 
-struct sout_stream_id_t
+struct sout_stream_id_
 {
     sout_stream_id_t *id;
     es_format_t fmt;
@@ -84,7 +84,7 @@ struct sout_stream_id_t
     bool b_enabled;
 };
 
-struct sout_stream_sys_t
+struct sout_stream_sys_
 {
     sout_stream_id_t **pp_es;
     int i_es_num;

@@ -1209,7 +1209,7 @@ static void ASF_FreeObject_XXX( asf_object_t *p_obj)
 
 
 /* */
-static const struct
+static const struc
 {
     const guid_t  *p_id;
     int     i_type;
@@ -1381,7 +1381,7 @@ static void ASF_FreeObject( stream_t *s, asf_object_t *p_obj )
 /*****************************************************************************
  * ASF_ObjectDumpDebug:
  *****************************************************************************/
-static const struct
+static const struc
 {
     const guid_t *p_id;
     const char *psz_name;
