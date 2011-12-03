@@ -3,7 +3,7 @@
  * @brief X C Bindings VLC module common header
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmon
+ * Copyright © 2009 Rémi Denis-Courmont
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -43,26 +43,26 @@ int ProcessKeyEvent (key_handler_t *, xcb_generic_event_t *);
 
 /* common.c */
 struct vout_window_t *GetWindow (vout_display_t *obj,
-           xcb_connection_t **restrict pconn,
-           const xcb_screen_t **restrict pscreen,
-           uint8_t *restrict pdepth);
+                                 xcb_connection_t **restrict pconn,
+                                 const xcb_screen_t **restrict pscreen,
+                                 uint8_t *restrict pdepth);
 int GetWindowSize (struct vout_window_t *wnd, xcb_connection_t *conn,
-       unsigned *restrict width, unsigned *restrict height);
+                   unsigned *restrict width, unsigned *restrict height);
 bool CheckSHM (vlc_object_t *obj, xcb_connection_t *conn);
 xcb_cursor_t CreateBlankCursor (xcb_connection_t *, const xcb_screen_t *);
 void RegisterMouseEvents (vlc_object_t *, xcb_connection_t *, xcb_window_t);
 
 int CheckError (vout_display_t *, xcb_connection_t *conn,
-      const char *str, xcb_void_cookie_t);
+                const char *str, xcb_void_cookie_t);
 
 /* FIXME
  * maybe it would be better to split this header in 2 */
 #include <xcb/shm.h>
-struct picture_sys_
+struct picture_sys_t
 {
-  xcb_shm_seg_t segment;
+    xcb_shm_seg_t segment;
 };
 int PictureResourceAlloc (vout_display_t *vd, picture_resource_t *res, size_t size,
-          xcb_connection_t *conn, bool attach);
+                          xcb_connection_t *conn, bool attach);
 void PictureResourceFree (picture_resource_t *res, xcb_connection_t *conn);
 

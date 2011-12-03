@@ -1,5 +1,5 @@
 /*
- * AtmoLiveView.h:  this effect outputs colors as result of a picture conten
+ * AtmoLiveView.h:  this effect outputs colors as result of a picture content
  * (most complex effect) see thread.c of the linux version - to fully understand
  * what happes here..
  *
@@ -13,7 +13,7 @@
 #include "AtmoDefs.h"
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-# include <windows.h>
+#   include <windows.h>
 #endif
 
 #include "AtmoThread.h"
@@ -27,11 +27,11 @@ protected:
 	virtual DWORD Execute(void);
 
 protected:
-  CAtmoDynData *m_pAtmoDynData;
+    CAtmoDynData *m_pAtmoDynData;
 
 public:
-  CAtmoLiveView(CAtmoDynData *pAtmoDynData);
-  virtual ~CAtmoLiveView(void);
+    CAtmoLiveView(CAtmoDynData *pAtmoDynData);
+    virtual ~CAtmoLiveView(void);
 };
 
 #endif

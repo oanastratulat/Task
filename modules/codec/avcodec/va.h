@@ -26,36 +26,36 @@
 
 typedef struct vlc_va_t vlc_va_t;
 struct vlc_va_t {
-  char *description;
+    char *description;
 
-  int  (*setup)(vlc_va_t *, void **hw, vlc_fourcc_t *output,
-      int width, int height);
-  int  (*get)(vlc_va_t *, AVFrame *frame);
-  void (*release)(vlc_va_t *, AVFrame *frame);
-  int  (*extract)(vlc_va_t *, picture_t *dst, AVFrame *src);
-  void (*close)(vlc_va_t *);
+    int  (*setup)(vlc_va_t *, void **hw, vlc_fourcc_t *output,
+                  int width, int height);
+    int  (*get)(vlc_va_t *, AVFrame *frame);
+    void (*release)(vlc_va_t *, AVFrame *frame);
+    int  (*extract)(vlc_va_t *, picture_t *dst, AVFrame *src);
+    void (*close)(vlc_va_t *);
 };
 
 static inline int vlc_va_Setup(vlc_va_t *va, void **hw, vlc_fourcc_t *output,
-            int width, int height)
+                                int width, int height)
 {
-  return va->setup(va, hw, output, width, height);
+    return va->setup(va, hw, output, width, height);
 }
 static inline int vlc_va_Get(vlc_va_t *va, AVFrame *frame)
 {
-  return va->get(va, frame);
+    return va->get(va, frame);
 }
 static inline void vlc_va_Release(vlc_va_t *va, AVFrame *frame)
 {
-  va->release(va, frame);
+    va->release(va, frame);
 }
 static inline int vlc_va_Extract(vlc_va_t *va, picture_t *dst, AVFrame *src)
 {
-  return va->extract(va, dst, src);
+    return va->extract(va, dst, src);
 }
 static inline void vlc_va_Delete(vlc_va_t *va)
 {
-  va->close(va);
+    va->close(va);
 }
 
 vlc_va_t *vlc_va_NewVaapi(vlc_object_t *obj, int codec_id);

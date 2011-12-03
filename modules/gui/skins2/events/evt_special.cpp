@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 902d66cf9f890302eed437ef65d9b3ea049a49ca $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,22 +25,22 @@
 #include "evt_special.hpp"
 
 
-const string EvtSpecial::getAsString() cons
+const string EvtSpecial::getAsString() const
 {
-  string event = "special";
+    string event = "special";
 
-  // Add the action
-  if( m_action == kShow )
-    event += ":show";
-  else if( m_action == kHide )
-    event += ":hide";
-  else if( m_action == kEnable )
-    event += ":enable";
-  else if( m_action == kDisable )
-    event += ":disable";
-  else
-    msg_Warn( getIntf(), "unknown action type" );
+    // Add the action
+    if( m_action == kShow )
+        event += ":show";
+    else if( m_action == kHide )
+        event += ":hide";
+    else if( m_action == kEnable )
+        event += ":enable";
+    else if( m_action == kDisable )
+        event += ":disable";
+    else
+        msg_Warn( getIntf(), "unknown action type" );
 
-  return event;
+    return event;
 }
 

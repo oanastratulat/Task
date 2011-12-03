@@ -48,48 +48,48 @@ static void Close( vlc_object_t * );
 
 #define ALL_TEXT N_("Force selection of all streams")
 #define ALL_LONGTEXT N_( \
-  "MMS streams can contain several elementary streams, with different " \
-  "bitrates. You can choose to select all of them." )
+    "MMS streams can contain several elementary streams, with different " \
+    "bitrates. You can choose to select all of them." )
 
 #define BITRATE_TEXT N_( "Maximum bitrate" )
 #define BITRATE_LONGTEXT N_( \
-  "Select the stream with the maximum bitrate under that limit."  )
+    "Select the stream with the maximum bitrate under that limit."  )
 
 #define PROXY_TEXT N_("HTTP proxy")
 #define PROXY_LONGTEXT N_( \
-  "HTTP proxy to be used It must be of the form " \
-  "http://[user[:pass]@]myproxy.mydomain:myport/ ; " \
-  "if empty, the http_proxy environment variable will be tried." )
+    "HTTP proxy to be used It must be of the form " \
+    "http://[user[:pass]@]myproxy.mydomain:myport/ ; " \
+    "if empty, the http_proxy environment variable will be tried." )
 
 #define TIMEOUT_TEXT N_("TCP/UDP timeout (ms)")
 #define TIMEOUT_LONGTEXT N_("Amount of time (in ms) to wait before aborting network reception of data. Note that there will be 10 retries before completely giving up.")
 
 vlc_module_begin ()
-  set_shortname( "MMS" )
-  set_description( N_("Microsoft Media Server (MMS) input") )
-  set_capability( "access", -1 )
-  set_category( CAT_INPUT )
-  set_subcategory( SUBCAT_INPUT_ACCESS )
+    set_shortname( "MMS" )
+    set_description( N_("Microsoft Media Server (MMS) input") )
+    set_capability( "access", -1 )
+    set_category( CAT_INPUT )
+    set_subcategory( SUBCAT_INPUT_ACCESS )
 
-  add_integer( "mms-timeout", 5000, TIMEOUT_TEXT, TIMEOUT_LONGTEXT,
-       true )
+    add_integer( "mms-timeout", 5000, TIMEOUT_TEXT, TIMEOUT_LONGTEXT,
+                 true )
 
-  add_bool( "mms-all", false, ALL_TEXT, ALL_LONGTEXT, true )
-  add_integer( "mms-maxbitrate", 0, BITRATE_TEXT, BITRATE_LONGTEXT ,
-       false )
-  add_string( "mmsh-proxy", NULL, PROXY_TEXT, PROXY_LONGTEXT,
-        false )
+    add_bool( "mms-all", false, ALL_TEXT, ALL_LONGTEXT, true )
+    add_integer( "mms-maxbitrate", 0, BITRATE_TEXT, BITRATE_LONGTEXT ,
+                 false )
+    add_string( "mmsh-proxy", NULL, PROXY_TEXT, PROXY_LONGTEXT,
+                    false )
 
-  add_shortcut( "mms", "mmsu", "mmst", "mmsh", "http" )
-  set_callbacks( Open, Close )
+    add_shortcut( "mms", "mmsu", "mmst", "mmsh", "http" )
+    set_callbacks( Open, Close )
 vlc_module_end ()
 
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct access_sys_
+struct access_sys_t
 {
-  int i_proto;
+    int i_proto;
 };
 
 /*****************************************************************************
@@ -97,35 +97,35 @@ struct access_sys_
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {
-  access_t *p_access = (access_t*)p_this;
+    access_t *p_access = (access_t*)p_this;
 
-  /* use specified method */
-  if( *p_access->psz_access )
-  {
-    if( !strncmp( p_access->psz_access, "mmsu", 4 ) )
+    /* use specified method */
+    if( *p_access->psz_access )
     {
-    return  MMSTUOpen ( p_access );
+        if( !strncmp( p_access->psz_access, "mmsu", 4 ) )
+        {
+            return  MMSTUOpen ( p_access );
+        }
+        else if( !strncmp( p_access->psz_access, "mmst", 4 ) )
+        {
+            return  MMSTUOpen ( p_access );
+        }
+        else if( !strncmp( p_access->psz_access, "mmsh", 4 ) ||
+                 !strncmp( p_access->psz_access, "http", 4 ) )
+        {
+            return  MMSHOpen ( p_access );
+        }
     }
-    else if( !strncmp( p_access->psz_access, "mmst", 4 ) )
-    {
-    return  MMSTUOpen ( p_access );
-    }
-    else if( !strncmp( p_access->psz_access, "mmsh", 4 ) ||
-       !strncmp( p_access->psz_access, "http", 4 ) )
-    {
-    return  MMSHOpen ( p_access );
-    }
-  }
 
-  if( MMSTUOpen ( p_access ) )
-  {
-    if( p_access->b_die )
-    return VLC_EGENERIC;
+    if( MMSTUOpen ( p_access ) )
+    {
+        if( p_access->b_die )
+            return VLC_EGENERIC;
 
-    /* try mmsh if mmstu failed */
-    return  MMSHOpen ( p_access );
-  }
-  return VLC_SUCCESS;
+        /* try mmsh if mmstu failed */
+        return  MMSHOpen ( p_access );
+    }
+    return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -133,16 +133,16 @@ static int Open( vlc_object_t *p_this )
  *****************************************************************************/
 static void Close( vlc_object_t *p_this )
 {
-  access_t   *p_access = (access_t*)p_this;
-  access_sys_t *p_sys = p_access->p_sys;
+    access_t     *p_access = (access_t*)p_this;
+    access_sys_t *p_sys = p_access->p_sys;
 
-  if( ( p_sys->i_proto == MMS_PROTO_TCP ) ||
-    ( p_sys->i_proto == MMS_PROTO_UDP ) )
-  {
-   MMSTUClose ( p_access );
-  }
-  else if( p_sys->i_proto == MMS_PROTO_HTTP )
-  {
-   MMSHClose ( p_access );
-  }
+    if( ( p_sys->i_proto == MMS_PROTO_TCP ) ||
+        ( p_sys->i_proto == MMS_PROTO_UDP ) )
+    {
+         MMSTUClose ( p_access );
+    }
+    else if( p_sys->i_proto == MMS_PROTO_HTTP )
+    {
+         MMSHClose ( p_access );
+    }
 }

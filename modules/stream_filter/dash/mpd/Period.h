@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,24 +33,24 @@
 
 namespace dash
 {
-  namespace mpd
-  {
-    class Period
+    namespace mpd
     {
-    public:
-      Period    (std::map<std::string, std::string> attributes);
-      virtual ~Period ();
+        class Period
+        {
+            public:
+                Period          (std::map<std::string, std::string> attributes);
+                virtual ~Period ();
 
-      std::vector<Group *>  getGroups ();
-      void        addGroup  (Group *group);
+                std::vector<Group *>    getGroups   ();
+                void                    addGroup    (Group *group);
 
-    private:
-      std::map<std::string, std::string>  attributes;
-      std::vector<Group *>      groups;
+            private:
+                std::map<std::string, std::string>  attributes;
+                std::vector<Group *>                groups;
 
 
-    };
-  }
+        };
+    }
 }
 
 #endif /* PERIOD_H_ */

@@ -39,8 +39,8 @@
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-static int  Create  ( vlc_object_t * );
-static void Destroy   ( vlc_object_t * );
+static int  Create      ( vlc_object_t * );
+static void Destroy     ( vlc_object_t * );
 
 static picture_t *Filter( filter_t *, picture_t * );
 static void VerticalMirror( picture_t *, picture_t *, int plane, bool );
@@ -53,7 +53,7 @@ static void RV32VerticalMirror( picture_t *, picture_t *, int plane, bool );
 static void YUV422Mirror2Pixels( uint8_t *, uint8_t *, bool );
 
 static const char *const ppsz_filter_options[] = {
-  "split", "direction", NULL
+    "split", "direction", NULL
 };
 
 /*****************************************************************************
@@ -61,7 +61,7 @@ static const char *const ppsz_filter_options[] = {
  *****************************************************************************/
 #define ORIENTATION_TEXT N_("Mirror orientation")
 #define ORIENTATION_LONGTEXT N_("Defines orientation of the mirror splitting. \
-  Can be vertical or horizontal" )
+    Can be vertical or horizontal" )
 static const int pi_orientation_values[] = { 0, 1 };
 static const char *const ppsz_orientation_descriptions[] = {
   N_("Vertical"), N_("Horizontal") };
@@ -75,36 +75,36 @@ static const char *const ppsz_direction_descriptions[] = {
 #define CFG_PREFIX "mirror-"
 
 vlc_module_begin ()
-  set_description( N_("Mirror video filter") )
-  set_shortname( N_("Mirror video" ))
-  set_help( N_("Splits video in two same parts, like in a mirror") )
-  set_category( CAT_VIDEO )
-  set_subcategory( SUBCAT_VIDEO_VFILTER )
-  set_capability( "video filter2", 0 )
-  add_integer( CFG_PREFIX "split", 0, ORIENTATION_TEXT,
-      ORIENTATION_LONGTEXT, false )
-    change_integer_list( pi_orientation_values,
-          ppsz_orientation_descriptions )
-  add_integer( CFG_PREFIX "direction", 0, DIRECTION_TEXT,
-      DIRECTION_LONGTEXT, false )
-    change_integer_list( pi_direction_values, ppsz_direction_descriptions )
-  set_callbacks( Create, Destroy )
+    set_description( N_("Mirror video filter") )
+    set_shortname( N_("Mirror video" ))
+    set_help( N_("Splits video in two same parts, like in a mirror") )
+    set_category( CAT_VIDEO )
+    set_subcategory( SUBCAT_VIDEO_VFILTER )
+    set_capability( "video filter2", 0 )
+    add_integer( CFG_PREFIX "split", 0, ORIENTATION_TEXT,
+                ORIENTATION_LONGTEXT, false )
+        change_integer_list( pi_orientation_values,
+                            ppsz_orientation_descriptions )
+    add_integer( CFG_PREFIX "direction", 0, DIRECTION_TEXT,
+                DIRECTION_LONGTEXT, false )
+        change_integer_list( pi_direction_values, ppsz_direction_descriptions )
+    set_callbacks( Create, Destroy )
 vlc_module_end ()
 
 /*****************************************************************************
  * callback prototypes
  *****************************************************************************/
 static int FilterCallback( vlc_object_t *, char const *,
-         vlc_value_t, vlc_value_t, void * );
+                           vlc_value_t, vlc_value_t, void * );
 
 /*****************************************************************************
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
-  int i_split;
-  int i_direction;
-  vlc_mutex_t lock;
+    int i_split;
+    int i_direction;
+    vlc_mutex_t lock;
 };
 
 /*****************************************************************************
@@ -114,50 +114,50 @@ struct filter_sys_
  *****************************************************************************/
 static int Create( vlc_object_t *p_this )
 {
-  filter_t *p_filter = (filter_t *)p_this;
-  filter_sys_t *p_sys;
+    filter_t *p_filter = (filter_t *)p_this;
+    filter_sys_t *p_sys;
 
-  switch( p_filter->fmt_in.video.i_chroma )
-  {
-    CASE_PLANAR_YUV_SQUARE
-    break;
-    CASE_PACKED_YUV_422
-    break;
-    case VLC_CODEC_RGB24:
-    case VLC_CODEC_RGB32:
-    break;
+    switch( p_filter->fmt_in.video.i_chroma )
+    {
+        CASE_PLANAR_YUV_SQUARE
+            break;
+        CASE_PACKED_YUV_422
+            break;
+        case VLC_CODEC_RGB24:
+        case VLC_CODEC_RGB32:
+            break;
 
-    default:
-    msg_Err( p_filter, "Unsupported input chroma (%4.4s)",
-       (char*)&(p_filter->fmt_in.video.i_chroma) );
-    return VLC_EGENERIC;
-  }
+        default:
+            msg_Err( p_filter, "Unsupported input chroma (%4.4s)",
+                     (char*)&(p_filter->fmt_in.video.i_chroma) );
+            return VLC_EGENERIC;
+    }
 
-  if( p_filter->fmt_in.video.i_chroma != p_filter->fmt_out.video.i_chroma )
-  {
-    msg_Err( p_filter, "Input and output chromas don't match" );
-    return VLC_EGENERIC;
-  }
+    if( p_filter->fmt_in.video.i_chroma != p_filter->fmt_out.video.i_chroma )
+    {
+        msg_Err( p_filter, "Input and output chromas don't match" );
+        return VLC_EGENERIC;
+    }
 
-  /* Allocate structure */
-  p_sys = p_filter->p_sys = malloc( sizeof( filter_sys_t ) );
-  if( p_filter->p_sys == NULL )
-    return VLC_ENOMEM;
+    /* Allocate structure */
+    p_sys = p_filter->p_sys = malloc( sizeof( filter_sys_t ) );
+    if( p_filter->p_sys == NULL )
+        return VLC_ENOMEM;
 
-  config_ChainParse( p_filter, CFG_PREFIX, ppsz_filter_options,
-         p_filter->p_cfg );
-  p_sys->i_split = var_CreateGetIntegerCommand( p_filter, CFG_PREFIX "split" );
-  p_sys->i_direction = var_CreateGetIntegerCommand( p_filter,
-                  CFG_PREFIX "direction" );
+    config_ChainParse( p_filter, CFG_PREFIX, ppsz_filter_options,
+                       p_filter->p_cfg );
+    p_sys->i_split = var_CreateGetIntegerCommand( p_filter, CFG_PREFIX "split" );
+    p_sys->i_direction = var_CreateGetIntegerCommand( p_filter,
+                                                    CFG_PREFIX "direction" );
 
-  vlc_mutex_init( &p_sys->lock );
+    vlc_mutex_init( &p_sys->lock );
 
-  var_AddCallback( p_filter, CFG_PREFIX "split", FilterCallback, NULL );
-  var_AddCallback( p_filter, CFG_PREFIX "direction", FilterCallback, NULL );
+    var_AddCallback( p_filter, CFG_PREFIX "split", FilterCallback, NULL );
+    var_AddCallback( p_filter, CFG_PREFIX "direction", FilterCallback, NULL );
 
-  p_filter->pf_video_filter = Filter;
+    p_filter->pf_video_filter = Filter;
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -167,53 +167,53 @@ static int Create( vlc_object_t *p_this )
  *****************************************************************************/
 static void Destroy( vlc_object_t *p_this )
 {
-  filter_t *p_filter = (filter_t *)p_this;
+    filter_t *p_filter = (filter_t *)p_this;
 
-  var_DelCallback( p_filter, CFG_PREFIX "split", FilterCallback, NULL );
-  var_DelCallback( p_filter, CFG_PREFIX "direction", FilterCallback, NULL );
+    var_DelCallback( p_filter, CFG_PREFIX "split", FilterCallback, NULL );
+    var_DelCallback( p_filter, CFG_PREFIX "direction", FilterCallback, NULL );
 
-  vlc_mutex_destroy( &p_filter->p_sys->lock );
-  free( p_filter->p_sys );
+    vlc_mutex_destroy( &p_filter->p_sys->lock );
+    free( p_filter->p_sys );
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************
  * This function send the currently rendered image to Mirror image, waits
- * until it is displayed and switch the two rendering buffers, preparing nex
+ * until it is displayed and switch the two rendering buffers, preparing next
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
 {
-  picture_t *p_outpic;
-  bool b_vertical_split, b_left_to_right;
-  int i_index;
+    picture_t *p_outpic;
+    bool b_vertical_split, b_left_to_right;
+    int i_index;
 
-  if( !p_pic ) return NULL;
+    if( !p_pic ) return NULL;
 
-  filter_sys_t *p_sys = p_filter->p_sys;
-  vlc_mutex_lock( &p_sys->lock );
-  b_vertical_split = p_sys->i_split == 0 ? true : false;
-  b_left_to_right = p_sys->i_direction == 0 ? true : false;
-  vlc_mutex_unlock( &p_sys->lock );
+    filter_sys_t *p_sys = p_filter->p_sys;
+    vlc_mutex_lock( &p_sys->lock );
+    b_vertical_split = p_sys->i_split == 0 ? true : false;
+    b_left_to_right = p_sys->i_direction == 0 ? true : false;
+    vlc_mutex_unlock( &p_sys->lock );
 
-  p_outpic = filter_NewPicture( p_filter );
-  if( !p_outpic )
-  {
-    msg_Warn( p_filter, "can't get output picture" );
-    picture_Release( p_pic );
-    return NULL;
-  }
+    p_outpic = filter_NewPicture( p_filter );
+    if( !p_outpic )
+    {
+        msg_Warn( p_filter, "can't get output picture" );
+        picture_Release( p_pic );
+        return NULL;
+    }
 
-  for( i_index = 0 ; i_index < p_pic->i_planes ; i_index++ )
-  {
-    if ( b_vertical_split )
-    VerticalMirror( p_pic, p_outpic, i_index, b_left_to_right );
-    else
-    HorizontalMirror( p_pic, p_outpic, i_index, b_left_to_right );
-  }
+    for( i_index = 0 ; i_index < p_pic->i_planes ; i_index++ )
+    {
+        if ( b_vertical_split )
+            VerticalMirror( p_pic, p_outpic, i_index, b_left_to_right );
+        else
+            HorizontalMirror( p_pic, p_outpic, i_index, b_left_to_right );
+    }
 
-  return CopyInfoAndRelease( p_outpic, p_pic );
+    return CopyInfoAndRelease( p_outpic, p_pic );
 }
 
 /*****************************************************************************
@@ -223,32 +223,32 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
  * mirroring depending on the input format.
  *****************************************************************************/
 static void VerticalMirror( picture_t *p_pic, picture_t *p_outpic, int i_plane,
-         bool b_left_to_right )
+                           bool b_left_to_right )
 {
-  switch( p_pic->format.i_chroma )
-  {
-    CASE_PLANAR_YUV_SQUARE
-    PlanarVerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right );
-    break;
-    case VLC_CODEC_YUYV:
-    case VLC_CODEC_YVYU:
-    YUV422VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right,
-           true );
-    break;
-    case VLC_CODEC_UYVY:
-    case VLC_CODEC_CYUV:
-    YUV422VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right,
-           false );
-    break;
-    case VLC_CODEC_RGB24:
-    RV24VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right );
-    break;
-    case VLC_CODEC_RGB32:
-    RV32VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right );
-    break;
-    default:
-    assert( false );
-  }
+    switch( p_pic->format.i_chroma )
+    {
+        CASE_PLANAR_YUV_SQUARE
+            PlanarVerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right );
+            break;
+        case VLC_CODEC_YUYV:
+        case VLC_CODEC_YVYU:
+            YUV422VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right,
+                                 true );
+            break;
+        case VLC_CODEC_UYVY:
+        case VLC_CODEC_CYUV:
+            YUV422VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right,
+                                 false );
+            break;
+        case VLC_CODEC_RGB24:
+            RV24VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right );
+            break;
+        case VLC_CODEC_RGB32:
+            RV32VerticalMirror( p_pic, p_outpic, i_plane, b_left_to_right );
+            break;
+        default:
+            assert( false );
+    }
 }
 
 /*****************************************************************************
@@ -259,46 +259,46 @@ static void VerticalMirror( picture_t *p_pic, picture_t *p_outpic, int i_plane,
  * This function works for planar formats only.
  *****************************************************************************/
 static void PlanarVerticalMirror( picture_t *p_pic, picture_t *p_outpic,
-           int i_plane, bool b_left_to_right )
+                                 int i_plane, bool b_left_to_right )
 {
-  uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
+    uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
 
-  p_in = p_pic->p[i_plane].p_pixels;
-  p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
-    * p_pic->p[i_plane].i_pitch;
-  p_out = p_outpic->p[i_plane].p_pixels;
+    p_in = p_pic->p[i_plane].p_pixels;
+    p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
+        * p_pic->p[i_plane].i_pitch;
+    p_out = p_outpic->p[i_plane].p_pixels;
 
-  while( p_in < p_in_end ) {
-    p_line_start = p_in;
-    p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
-    while( p_in < p_line_end )
-    {
-    /* are we in the left part of the line */
-    if ( p_in < p_line_start + ( p_line_end - p_line_start ) / 2 )
-    {
-      if ( b_left_to_right )
-        *p_out = *p_in;
-      else
-        *p_out = *( p_line_end - ( p_in - p_line_start ) );
+    while( p_in < p_in_end ) {
+        p_line_start = p_in;
+        p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
+        while( p_in < p_line_end )
+        {
+            /* are we in the left part of the line */
+            if ( p_in < p_line_start + ( p_line_end - p_line_start ) / 2 )
+            {
+                if ( b_left_to_right )
+                    *p_out = *p_in;
+                else
+                    *p_out = *( p_line_end - ( p_in - p_line_start ) );
+            }
+            else
+            {
+                if ( b_left_to_right )
+                    *p_out = *( p_line_start + ( p_line_end - p_in ) );
+                else
+                    *p_out = *p_in;
+            }
+            p_in++;
+            p_out++;
+        }
+        p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
+        p_out += p_outpic->p[i_plane].i_pitch
+            - p_outpic->p[i_plane].i_visible_pitch;
     }
-    else
-    {
-      if ( b_left_to_right )
-        *p_out = *( p_line_start + ( p_line_end - p_in ) );
-      else
-        *p_out = *p_in;
-    }
-    p_in++;
-    p_out++;
-    }
-    p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
-    p_out += p_outpic->p[i_plane].i_pitch
-    - p_outpic->p[i_plane].i_visible_pitch;
-  }
 }
 
 /*****************************************************************************
- * YUV422VerticalMirror: Mirrors vertically image byte by byte for YUV422 forma
+ * YUV422VerticalMirror: Mirrors vertically image byte by byte for YUV422 format
  *****************************************************************************
  * This function mirrors image vertically. It iterates for all lines in
  * image and for every line, it iterates for 4-byte chucks, properly mirroring
@@ -306,62 +306,62 @@ static void PlanarVerticalMirror( picture_t *p_pic, picture_t *p_outpic,
  * This function works only for YUV422 packed formats.
  *****************************************************************************/
 static void YUV422VerticalMirror( picture_t *p_pic, picture_t *p_outpic,
-           int i_plane, bool b_left_to_right,
-           bool b_y_is_odd )
+                                 int i_plane, bool b_left_to_right,
+                                 bool b_y_is_odd )
 {
-  uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
+    uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
 
-  p_in = p_pic->p[i_plane].p_pixels;
-  p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
-    * p_pic->p[i_plane].i_pitch;
-  p_out = p_outpic->p[i_plane].p_pixels;
+    p_in = p_pic->p[i_plane].p_pixels;
+    p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
+        * p_pic->p[i_plane].i_pitch;
+    p_out = p_outpic->p[i_plane].p_pixels;
 
-  while( p_in < p_in_end )
-  {
-    p_line_start = p_in;
-    p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
-    while( p_in < p_line_end )
+    while( p_in < p_in_end )
     {
-    /* are we in the left part of the line */
-    if ( p_in < p_line_start + ( p_line_end - p_line_start ) / 2 )
-    {
-      if ( b_left_to_right )
-      {
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-      }
-      else
-      {
-        uint8_t *p_start = p_line_end - ( p_in - p_line_start );
-        YUV422Mirror2Pixels( p_out, p_start, b_y_is_odd );
-        p_in += 4;
-        p_out += 4;
-      }
+        p_line_start = p_in;
+        p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
+        while( p_in < p_line_end )
+        {
+            /* are we in the left part of the line */
+            if ( p_in < p_line_start + ( p_line_end - p_line_start ) / 2 )
+            {
+                if ( b_left_to_right )
+                {
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                }
+                else
+                {
+                    uint8_t *p_start = p_line_end - ( p_in - p_line_start );
+                    YUV422Mirror2Pixels( p_out, p_start, b_y_is_odd );
+                    p_in += 4;
+                    p_out += 4;
+                }
+            }
+            else
+            {
+                if ( b_left_to_right )
+                {
+                    uint8_t *p_start = p_line_end - ( p_in - p_line_start );
+                    YUV422Mirror2Pixels( p_out, p_start, b_y_is_odd );
+                    p_in += 4;
+                    p_out += 4;
+                }
+                else
+                {
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                }
+            }
+        }
+        p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
+        p_out += p_outpic->p[i_plane].i_pitch
+            - p_outpic->p[i_plane].i_visible_pitch;
     }
-    else
-    {
-      if ( b_left_to_right )
-      {
-        uint8_t *p_start = p_line_end - ( p_in - p_line_start );
-        YUV422Mirror2Pixels( p_out, p_start, b_y_is_odd );
-        p_in += 4;
-        p_out += 4;
-      }
-      else
-      {
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-      }
-    }
-    }
-    p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
-    p_out += p_outpic->p[i_plane].i_pitch
-    - p_outpic->p[i_plane].i_visible_pitch;
-  }
 }
 
 /*****************************************************************************
@@ -373,153 +373,153 @@ static void YUV422VerticalMirror( picture_t *p_pic, picture_t *p_outpic,
  * component positions are preserved.
  *****************************************************************************/
 static void YUV422Mirror2Pixels( uint8_t* p_dst, uint8_t *p_src,
-            bool b_y_is_odd )
+                                bool b_y_is_odd )
 {
-  if ( b_y_is_odd )
-  {
-    /* swap Y components */
-    *p_dst = *( p_src + 2 );
-    *( p_dst + 2 ) = *p_src;
-    /* copy Cb and Cr components */
-    *( p_dst + 1 ) = *( p_src + 1 );
-    *( p_dst + 3 ) = *( p_src + 3 );
-  }
-  else{
-    /* swap Y components */
-    *( p_dst + 1 )= *( p_src + 3 );
-    *( p_dst + 3 ) = *( p_src + 1);
-    /* copy Cb and Cr components */
-    *p_dst = *( p_src + 2 );
-    *( p_dst + 2 ) = *p_src;
-  }
+    if ( b_y_is_odd )
+    {
+        /* swap Y components */
+        *p_dst = *( p_src + 2 );
+        *( p_dst + 2 ) = *p_src;
+        /* copy Cb and Cr components */
+        *( p_dst + 1 ) = *( p_src + 1 );
+        *( p_dst + 3 ) = *( p_src + 3 );
+    }
+    else{
+        /* swap Y components */
+        *( p_dst + 1 )= *( p_src + 3 );
+        *( p_dst + 3 ) = *( p_src + 1);
+        /* copy Cb and Cr components */
+        *p_dst = *( p_src + 2 );
+        *( p_dst + 2 ) = *p_src;
+    }
 }
 
 /*****************************************************************************
- * RV24VerticalMirror: Mirrors vertically image byte by byte for RV24 forma
+ * RV24VerticalMirror: Mirrors vertically image byte by byte for RV24 format
  *****************************************************************************
  * This function mirrors image vertically. It iterates for all lines in
  * image and for every line, it iterates for 3-byte chunks.
  * This function works only for RV24 formats.
  *****************************************************************************/
 static void RV24VerticalMirror( picture_t *p_pic, picture_t *p_outpic,
-           int i_plane, bool b_left_to_right )
+                                 int i_plane, bool b_left_to_right )
 {
-  uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
+    uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
 
-  p_in = p_pic->p[i_plane].p_pixels;
-  p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
-    * p_pic->p[i_plane].i_pitch;
-  p_out = p_outpic->p[i_plane].p_pixels;
+    p_in = p_pic->p[i_plane].p_pixels;
+    p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
+        * p_pic->p[i_plane].i_pitch;
+    p_out = p_outpic->p[i_plane].p_pixels;
 
-  while( p_in < p_in_end )
-  {
-    p_line_start = p_in;
-    p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
-    while( p_in < p_line_end )
+    while( p_in < p_in_end )
     {
-    /* are we in the left part of the line */
-    if ( p_in < p_line_start + ( p_line_end - p_line_start ) / 2 )
-    {
-      if ( b_left_to_right )
-      {
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-      }
-      else
-      {
-        uint8_t *p_pixel = p_line_end - ( p_in - p_line_start );
-        p_in += 3;
-        *p_out++ = *p_pixel++;
-        *p_out++ = *p_pixel++;
-        *p_out++ = *p_pixel++;
-      }
+        p_line_start = p_in;
+        p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
+        while( p_in < p_line_end )
+        {
+            /* are we in the left part of the line */
+            if ( p_in < p_line_start + ( p_line_end - p_line_start ) / 2 )
+            {
+                if ( b_left_to_right )
+                {
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                }
+                else
+                {
+                    uint8_t *p_pixel = p_line_end - ( p_in - p_line_start );
+                    p_in += 3;
+                    *p_out++ = *p_pixel++;
+                    *p_out++ = *p_pixel++;
+                    *p_out++ = *p_pixel++;
+                }
+            }
+            else
+            {
+                if ( b_left_to_right )
+                {
+                    uint8_t *p_pixel = p_line_end - ( p_in - p_line_start );
+                    p_in += 3;
+                    *p_out++ = *p_pixel++;
+                    *p_out++ = *p_pixel++;
+                    *p_out++ = *p_pixel++;
+                }
+                else
+                {
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                    *p_out++ = *p_in++;
+                }
+            }
+        }
+        p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
+        p_out += p_outpic->p[i_plane].i_pitch
+            - p_outpic->p[i_plane].i_visible_pitch;
     }
-    else
-    {
-      if ( b_left_to_right )
-      {
-        uint8_t *p_pixel = p_line_end - ( p_in - p_line_start );
-        p_in += 3;
-        *p_out++ = *p_pixel++;
-        *p_out++ = *p_pixel++;
-        *p_out++ = *p_pixel++;
-      }
-      else
-      {
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-        *p_out++ = *p_in++;
-      }
-    }
-    }
-    p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
-    p_out += p_outpic->p[i_plane].i_pitch
-    - p_outpic->p[i_plane].i_visible_pitch;
-  }
 }
 
 /*****************************************************************************
- * RV32VerticalMirror: Mirrors vertically image byte by byte for RV32 forma
+ * RV32VerticalMirror: Mirrors vertically image byte by byte for RV32 format
  *****************************************************************************
  * This function mirrors image vertically. It iterates for all lines in
  * image and for every line, it iterates for 4-byte chunks as 32-bit pointers.
  * This function works only for RV32 formats.
  *****************************************************************************/
 static void RV32VerticalMirror( picture_t *p_pic, picture_t *p_outpic,
-           int i_plane, bool b_left_to_right )
+                                 int i_plane, bool b_left_to_right )
 {
-  uint8_t *p_in, *p_in_end, *p_out;
+    uint8_t *p_in, *p_in_end, *p_out;
 
-  p_in = p_pic->p[i_plane].p_pixels;
-  p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
-    * p_pic->p[i_plane].i_pitch;
-  p_out = p_outpic->p[i_plane].p_pixels;
+    p_in = p_pic->p[i_plane].p_pixels;
+    p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
+        * p_pic->p[i_plane].i_pitch;
+    p_out = p_outpic->p[i_plane].p_pixels;
 
-  while( p_in < p_in_end )
-  {
-    uint32_t *p_in32, *p_out32, *p_line_start32, *p_line_end32;
-    p_in32 = (uint32_t*) p_in;
-    p_out32 = (uint32_t*) p_out;
-    p_line_start32 = p_in32;
-    p_line_end32 = (uint32_t*) ( p_in + p_pic->p[i_plane].i_visible_pitch) ;
+    while( p_in < p_in_end )
+    {
+        uint32_t *p_in32, *p_out32, *p_line_start32, *p_line_end32;
+        p_in32 = (uint32_t*) p_in;
+        p_out32 = (uint32_t*) p_out;
+        p_line_start32 = p_in32;
+        p_line_end32 = (uint32_t*) ( p_in + p_pic->p[i_plane].i_visible_pitch) ;
 
-    while( p_in32 < p_line_end32 )
-    {
-    /* are we in the left part of the line */
-    if ( p_in32 < p_line_start32 + ( p_line_end32 - p_line_start32 ) / 2 )
-    {
-      if ( b_left_to_right )
-      {
-        *p_out32++ = *p_in32++;
-      }
-      else
-      {
-        uint32_t *p_pixel32 = p_line_end32 - ( p_in32 - p_line_start32 );
-        p_in32++;
-        *p_out++ = *p_pixel32;
-      }
+        while( p_in32 < p_line_end32 )
+        {
+            /* are we in the left part of the line */
+            if ( p_in32 < p_line_start32 + ( p_line_end32 - p_line_start32 ) / 2 )
+            {
+                if ( b_left_to_right )
+                {
+                    *p_out32++ = *p_in32++;
+                }
+                else
+                {
+                    uint32_t *p_pixel32 = p_line_end32 - ( p_in32 - p_line_start32 );
+                    p_in32++;
+                    *p_out++ = *p_pixel32;
+                }
+            }
+            else
+            {
+                if ( b_left_to_right )
+                {
+                    uint32_t *p_pixel32 = p_line_end32 - ( p_in32 - p_line_start32 );
+                    p_in32++;
+                    *p_out++ = *p_pixel32;
+                }
+                else
+                {
+                    *p_out32++ = *p_in32++;
+                }
+            }
+        }
+        p_in = (uint8_t*) p_in32;
+        p_out = (uint8_t*) p_out32;
+        p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
+        p_out += p_outpic->p[i_plane].i_pitch
+            - p_outpic->p[i_plane].i_visible_pitch;
     }
-    else
-    {
-      if ( b_left_to_right )
-      {
-        uint32_t *p_pixel32 = p_line_end32 - ( p_in32 - p_line_start32 );
-        p_in32++;
-        *p_out++ = *p_pixel32;
-      }
-      else
-      {
-        *p_out32++ = *p_in32++;
-      }
-    }
-    }
-    p_in = (uint8_t*) p_in32;
-    p_out = (uint8_t*) p_out32;
-    p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
-    p_out += p_outpic->p[i_plane].i_pitch
-    - p_outpic->p[i_plane].i_visible_pitch;
-  }
 }
 
 /*****************************************************************************
@@ -531,83 +531,83 @@ static void RV32VerticalMirror( picture_t *p_pic, picture_t *p_outpic,
  * This function works both for planar, packed and RV24 formats.
  *****************************************************************************/
 static void HorizontalMirror( picture_t *p_pic, picture_t *p_outpic, int i_plane,
-           bool b_top_to_bottom )
+                             bool b_top_to_bottom )
 {
-  uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
+    uint8_t *p_in, *p_in_end, *p_line_start, *p_line_end, *p_out;
 
-  int i_curr_line = 0;
-  int i_max_lines = p_pic->p[i_plane].i_visible_lines;
+    int i_curr_line = 0;
+    int i_max_lines = p_pic->p[i_plane].i_visible_lines;
 
-  p_in = p_pic->p[i_plane].p_pixels;
-  p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
-    * p_pic->p[i_plane].i_pitch;
-  p_out = p_outpic->p[i_plane].p_pixels;
+    p_in = p_pic->p[i_plane].p_pixels;
+    p_in_end = p_in + p_pic->p[i_plane].i_visible_lines
+        * p_pic->p[i_plane].i_pitch;
+    p_out = p_outpic->p[i_plane].p_pixels;
 
-  while( p_in < p_in_end )
-  {
-    p_line_start = p_in;
-    p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
-    while( p_in < p_line_end )
+    while( p_in < p_in_end )
     {
-    uint8_t *p_inverse_line;
-    /* are we in the upper part of the picture */
-    if ( i_curr_line < i_max_lines/2 )
-    {
-      if ( b_top_to_bottom )
-      {
-        *p_out = *p_in;
-      }
-      else
-      {
-        /* determines line inverse to current line */
-        p_inverse_line = p_pic->p[i_plane].p_pixels +
-        ( i_max_lines - i_curr_line - 1 ) * p_pic->p[i_plane].i_pitch;
-        *p_out = *( p_inverse_line + ( p_in - p_line_start ) );
-      }
+        p_line_start = p_in;
+        p_line_end = p_in + p_pic->p[i_plane].i_visible_pitch;
+        while( p_in < p_line_end )
+        {
+            uint8_t *p_inverse_line;
+            /* are we in the upper part of the picture */
+            if ( i_curr_line < i_max_lines/2 )
+            {
+                if ( b_top_to_bottom )
+                {
+                    *p_out = *p_in;
+                }
+                else
+                {
+                    /* determines line inverse to current line */
+                    p_inverse_line = p_pic->p[i_plane].p_pixels +
+                        ( i_max_lines - i_curr_line - 1 ) * p_pic->p[i_plane].i_pitch;
+                    *p_out = *( p_inverse_line + ( p_in - p_line_start ) );
+                }
+            }
+            else
+            {
+                if ( b_top_to_bottom )
+                {
+                    /* determines line inverse to current line */
+                    p_inverse_line = p_pic->p[i_plane].p_pixels +
+                        ( i_max_lines - i_curr_line - 1 ) * p_pic->p[i_plane].i_pitch;
+                    *p_out = *( p_inverse_line + ( p_in - p_line_start ) );
+                }
+                else
+                {
+                    *p_out = *p_in;
+                }
+            }
+            p_in++;
+            p_out++;
+        }
+        i_curr_line++;
+        p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
+        p_out += p_outpic->p[i_plane].i_pitch
+            - p_outpic->p[i_plane].i_visible_pitch;
     }
-    else
-    {
-      if ( b_top_to_bottom )
-      {
-        /* determines line inverse to current line */
-        p_inverse_line = p_pic->p[i_plane].p_pixels +
-        ( i_max_lines - i_curr_line - 1 ) * p_pic->p[i_plane].i_pitch;
-        *p_out = *( p_inverse_line + ( p_in - p_line_start ) );
-      }
-      else
-      {
-        *p_out = *p_in;
-      }
-    }
-    p_in++;
-    p_out++;
-    }
-    i_curr_line++;
-    p_in += p_pic->p[i_plane].i_pitch - p_pic->p[i_plane].i_visible_pitch;
-    p_out += p_outpic->p[i_plane].i_pitch
-    - p_outpic->p[i_plane].i_visible_pitch;
-  }
 }
 
 static int FilterCallback ( vlc_object_t *p_this, char const *psz_var,
-          vlc_value_t oldval, vlc_value_t newval, void *p_data )
+                            vlc_value_t oldval, vlc_value_t newval, void *p_data )
 {
-  (void)oldval;  (void)p_data;
-  filter_t *p_filter = (filter_t*)p_this;
-  filter_sys_t *p_sys = p_filter->p_sys;
+    (void)oldval;    (void)p_data;
+    filter_t *p_filter = (filter_t*)p_this;
+    filter_sys_t *p_sys = p_filter->p_sys;
 
-  if( !strcmp( psz_var, CFG_PREFIX "split" ) )
-  {
-    vlc_mutex_lock( &p_sys->lock );
-    p_sys->i_split = newval.i_int;
-    vlc_mutex_unlock( &p_sys->lock );
-  }
-  else /* CFG_PREFIX "direction" */
-  {
-    vlc_mutex_lock( &p_sys->lock );
-    p_sys->i_direction = newval.i_int;
-    vlc_mutex_unlock( &p_sys->lock );
-  }
+    if( !strcmp( psz_var, CFG_PREFIX "split" ) )
+    {
+        vlc_mutex_lock( &p_sys->lock );
+        p_sys->i_split = newval.i_int;
+        vlc_mutex_unlock( &p_sys->lock );
+    }
+    else /* CFG_PREFIX "direction" */
+    {
+        vlc_mutex_lock( &p_sys->lock );
+        p_sys->i_direction = newval.i_int;
+        vlc_mutex_unlock( &p_sys->lock );
+    }
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }

@@ -25,7 +25,7 @@
  * Preamble
  *****************************************************************************/
 #ifndef  _GNU_SOURCE
-# define  _GNU_SOURCE
+#   define  _GNU_SOURCE
 #endif
 
 #ifdef HAVE_CONFIG_H
@@ -34,8 +34,8 @@
 
 #include <vlc_common.h>
 
-#include <lua.h>    /* Low level lua C API */
-#include <lauxlib.h>  /* Higher level C API */
+#include <lua.h>        /* Low level lua C API */
+#include <lauxlib.h>    /* Higher level C API */
 
 #include "../vlc.h"
 #include "../libs.h"
@@ -45,78 +45,78 @@
  *****************************************************************************/
 static int vlclua_config_get( lua_State *L )
 {
-  vlc_object_t * p_this = vlclua_get_this( L );
-  const char *psz_name = luaL_checkstring( L, 1 );
-  switch( config_GetType( p_this, psz_name ) )
-  {
-    case VLC_VAR_STRING:
+    vlc_object_t * p_this = vlclua_get_this( L );
+    const char *psz_name = luaL_checkstring( L, 1 );
+    switch( config_GetType( p_this, psz_name ) )
     {
-    char *psz = config_GetPsz( p_this, psz_name );
-    lua_pushstring( L, psz );
-    free( psz );
-    break;
+        case VLC_VAR_STRING:
+        {
+            char *psz = config_GetPsz( p_this, psz_name );
+            lua_pushstring( L, psz );
+            free( psz );
+            break;
+        }
+
+        case VLC_VAR_INTEGER:
+            lua_pushinteger( L, config_GetInt( p_this, psz_name ) );
+            break;
+
+        case VLC_VAR_BOOL:
+            lua_pushboolean( L, config_GetInt( p_this, psz_name ) );
+            break;
+
+        case VLC_VAR_FLOAT:
+            lua_pushnumber( L, config_GetFloat( p_this, psz_name ) );
+            break;
+
+        default:
+            return vlclua_error( L );
+
     }
-
-    case VLC_VAR_INTEGER:
-    lua_pushinteger( L, config_GetInt( p_this, psz_name ) );
-    break;
-
-    case VLC_VAR_BOOL:
-    lua_pushboolean( L, config_GetInt( p_this, psz_name ) );
-    break;
-
-    case VLC_VAR_FLOAT:
-    lua_pushnumber( L, config_GetFloat( p_this, psz_name ) );
-    break;
-
-    default:
-    return vlclua_error( L );
-
-  }
-  return 1;
+    return 1;
 }
 
 static int vlclua_config_set( lua_State *L )
 {
-  vlc_object_t *p_this = vlclua_get_this( L );
-  const char *psz_name = luaL_checkstring( L, 1 );
-  switch( config_GetType( p_this, psz_name ) )
-  {
-    case VLC_VAR_STRING:
-    config_PutPsz( p_this, psz_name, luaL_checkstring( L, 2 ) );
-    break;
+    vlc_object_t *p_this = vlclua_get_this( L );
+    const char *psz_name = luaL_checkstring( L, 1 );
+    switch( config_GetType( p_this, psz_name ) )
+    {
+        case VLC_VAR_STRING:
+            config_PutPsz( p_this, psz_name, luaL_checkstring( L, 2 ) );
+            break;
 
-    case VLC_VAR_INTEGER:
-    config_PutInt( p_this, psz_name, luaL_checkint( L, 2 ) );
-    break;
+        case VLC_VAR_INTEGER:
+            config_PutInt( p_this, psz_name, luaL_checkint( L, 2 ) );
+            break;
 
-    case VLC_VAR_BOOL:
-    config_PutInt( p_this, psz_name, luaL_checkboolean( L, 2 ) );
-    break;
+        case VLC_VAR_BOOL:
+            config_PutInt( p_this, psz_name, luaL_checkboolean( L, 2 ) );
+            break;
 
-    case VLC_VAR_FLOAT:
-    config_PutFloat( p_this, psz_name,
-           luaL_checknumber( L, 2 ) );
-    break;
+        case VLC_VAR_FLOAT:
+            config_PutFloat( p_this, psz_name,
+                             luaL_checknumber( L, 2 ) );
+            break;
 
-    default:
-    return vlclua_error( L );
-  }
-  return 0;
+        default:
+            return vlclua_error( L );
+    }
+    return 0;
 }
 
 /*****************************************************************************
  *
  *****************************************************************************/
 static const luaL_Reg vlclua_config_reg[] = {
-  { "get", vlclua_config_get },
-  { "set", vlclua_config_set },
-  { NULL, NULL }
+    { "get", vlclua_config_get },
+    { "set", vlclua_config_set },
+    { NULL, NULL }
 };
 
 void luaopen_config( lua_State *L )
 {
-  lua_newtable( L );
-  luaL_register( L, NULL, vlclua_config_reg );
-  lua_setfield( L, -2, "config" );
+    lua_newtable( L );
+    luaL_register( L, NULL, vlclua_config_reg );
+    lua_setfield( L, -2, "config" );
 }

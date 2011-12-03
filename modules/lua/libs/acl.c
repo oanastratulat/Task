@@ -25,7 +25,7 @@
  * Preamble
  *****************************************************************************/
 #ifndef  _GNU_SOURCE
-# define  _GNU_SOURCE
+#   define  _GNU_SOURCE
 #endif
 
 #ifdef HAVE_CONFIG_H
@@ -35,8 +35,8 @@
 #include <vlc_common.h>
 #include <vlc_acl.h>
 
-#include <lua.h>    /* Low level lua C API */
-#include <lauxlib.h>  /* Higher level C API */
+#include <lua.h>        /* Low level lua C API */
+#include <lauxlib.h>    /* Higher level C API */
 
 #include "../vlc.h"
 #include "../libs.h"
@@ -53,95 +53,95 @@ static int vlclua_acl_add_net( lua_State * );
 static int vlclua_acl_load_file( lua_State * );
 
 static const luaL_Reg vlclua_acl_reg[] = {
-  { "check", vlclua_acl_check },
-  { "duplicate", vlclua_acl_duplicate },
-  { "add_host", vlclua_acl_add_host },
-  { "add_net", vlclua_acl_add_net },
-  { "load_file", vlclua_acl_load_file },
-  { NULL, NULL }
+    { "check", vlclua_acl_check },
+    { "duplicate", vlclua_acl_duplicate },
+    { "add_host", vlclua_acl_add_host },
+    { "add_net", vlclua_acl_add_net },
+    { "load_file", vlclua_acl_load_file },
+    { NULL, NULL }
 };
 
 static int vlclua_acl_create( lua_State *L )
 {
-  vlc_object_t *p_this = vlclua_get_this( L );
-  bool b_allow = luaL_checkboolean( L, 1 );
-  vlc_acl_t *p_acl = ACL_Create( p_this, b_allow );
-  return vlclua_acl_create_inner( L, p_acl );
+    vlc_object_t *p_this = vlclua_get_this( L );
+    bool b_allow = luaL_checkboolean( L, 1 );
+    vlc_acl_t *p_acl = ACL_Create( p_this, b_allow );
+    return vlclua_acl_create_inner( L, p_acl );
 }
 
 static int vlclua_acl_create_inner( lua_State *L, vlc_acl_t *p_acl )
 {
-  if( !p_acl )
-    return luaL_error( L, "ACL creation failed." );
+    if( !p_acl )
+        return luaL_error( L, "ACL creation failed." );
 
-  vlc_acl_t **pp_acl = lua_newuserdata( L, sizeof( vlc_acl_t * ) );
-  *pp_acl = p_acl;
+    vlc_acl_t **pp_acl = lua_newuserdata( L, sizeof( vlc_acl_t * ) );
+    *pp_acl = p_acl;
 
-  if( luaL_newmetatable( L, "acl" ) )
-  {
-    lua_newtable( L );
-    luaL_register( L, NULL, vlclua_acl_reg );
-    lua_setfield( L, -2, "__index" );
-    lua_pushcfunction( L, vlclua_acl_delete );
-    lua_setfield( L, -2, "__gc" );
-  }
+    if( luaL_newmetatable( L, "acl" ) )
+    {
+        lua_newtable( L );
+        luaL_register( L, NULL, vlclua_acl_reg );
+        lua_setfield( L, -2, "__index" );
+        lua_pushcfunction( L, vlclua_acl_delete );
+        lua_setfield( L, -2, "__gc" );
+    }
 
-  lua_setmetatable( L, -2 );
-  return 1;
+    lua_setmetatable( L, -2 );
+    return 1;
 }
 
 static int vlclua_acl_delete( lua_State *L )
 {
-  vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
-  ACL_Destroy( *pp_acl );
-  return 0;
+    vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
+    ACL_Destroy( *pp_acl );
+    return 0;
 }
 
 static int vlclua_acl_check( lua_State *L )
 {
-  vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
-  const char *psz_ip = luaL_checkstring( L, 2 );
-  lua_pushinteger( L, ACL_Check( *pp_acl, psz_ip ) );
-  return 1;
+    vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
+    const char *psz_ip = luaL_checkstring( L, 2 );
+    lua_pushinteger( L, ACL_Check( *pp_acl, psz_ip ) );
+    return 1;
 }
 
 static int vlclua_acl_duplicate( lua_State *L )
 {
-  vlc_object_t *p_this = vlclua_get_this( L );
-  vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
-  vlc_acl_t *p_acl_new = ACL_Duplicate( p_this, *pp_acl );
-  return vlclua_acl_create_inner( L, p_acl_new );
+    vlc_object_t *p_this = vlclua_get_this( L );
+    vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
+    vlc_acl_t *p_acl_new = ACL_Duplicate( p_this, *pp_acl );
+    return vlclua_acl_create_inner( L, p_acl_new );
 }
 
 static int vlclua_acl_add_host( lua_State *L )
 {
-  vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
-  const char *psz_ip = luaL_checkstring( L, 2 );
-  bool b_allow = luaL_checkboolean( L, 3 );
-  lua_pushinteger( L, ACL_AddHost( *pp_acl, psz_ip, b_allow ) );
-  return 1;
+    vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
+    const char *psz_ip = luaL_checkstring( L, 2 );
+    bool b_allow = luaL_checkboolean( L, 3 );
+    lua_pushinteger( L, ACL_AddHost( *pp_acl, psz_ip, b_allow ) );
+    return 1;
 }
 
 static int vlclua_acl_add_net( lua_State *L )
 {
-  vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
-  const char *psz_ip = luaL_checkstring( L, 2 );
-  int i_len = luaL_checkint( L, 3 );
-  bool b_allow = luaL_checkboolean( L, 4 );
-  lua_pushinteger( L, ACL_AddNet( *pp_acl, psz_ip, i_len, b_allow ) );
-  return 1;
+    vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
+    const char *psz_ip = luaL_checkstring( L, 2 );
+    int i_len = luaL_checkint( L, 3 );
+    bool b_allow = luaL_checkboolean( L, 4 );
+    lua_pushinteger( L, ACL_AddNet( *pp_acl, psz_ip, i_len, b_allow ) );
+    return 1;
 }
 
 static int vlclua_acl_load_file( lua_State *L )
 {
-  vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
-  const char *psz_path = luaL_checkstring( L, 2 );
-  lua_pushinteger( L, ACL_LoadFile( *pp_acl, psz_path ) );
-  return 1;
+    vlc_acl_t **pp_acl = (vlc_acl_t**)luaL_checkudata( L, 1, "acl" );
+    const char *psz_path = luaL_checkstring( L, 2 );
+    lua_pushinteger( L, ACL_LoadFile( *pp_acl, psz_path ) );
+    return 1;
 }
 
 void luaopen_acl( lua_State *L )
 {
-  lua_pushcfunction( L, vlclua_acl_create );
-  lua_setfield( L, -2, "acl" );
+    lua_pushcfunction( L, vlclua_acl_create );
+    lua_setfield( L, -2, "acl" );
 }

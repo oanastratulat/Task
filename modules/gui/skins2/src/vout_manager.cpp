@@ -33,156 +33,156 @@
 
 VoutManager *VoutManager::instance( intf_thread_t *pIntf )
 {
-  if( pIntf->p_sys->p_voutManager == NULL )
-  {
-    pIntf->p_sys->p_voutManager = new VoutManager( pIntf );
-  }
+    if( pIntf->p_sys->p_voutManager == NULL )
+    {
+        pIntf->p_sys->p_voutManager = new VoutManager( pIntf );
+    }
 
-  return pIntf->p_sys->p_voutManager;
+    return pIntf->p_sys->p_voutManager;
 }
 
 
 void VoutManager::destroy( intf_thread_t *pIntf )
 {
-  delete pIntf->p_sys->p_voutManager;
-  pIntf->p_sys->p_voutManager = NULL;
+    delete pIntf->p_sys->p_voutManager;
+    pIntf->p_sys->p_voutManager = NULL;
 }
 
 
 VoutManager::VoutManager( intf_thread_t *pIntf ): SkinObject( pIntf ),
-   m_pCtrlVideoVec(), m_pCtrlVideoVecBackup(), m_SavedWndVec(),
-   m_pVoutMainWindow( NULL ), m_pFscWindow( NULL )
+     m_pCtrlVideoVec(), m_pCtrlVideoVecBackup(), m_SavedWndVec(),
+     m_pVoutMainWindow( NULL ), m_pFscWindow( NULL )
 {
-  m_pVoutMainWindow = new VoutMainWindow( getIntf() );
+    m_pVoutMainWindow = new VoutMainWindow( getIntf() );
 
-  OSFactory *pOsFactory = OSFactory::instance( getIntf() );
-  int width = pOsFactory->getScreenWidth();
-  int height = pOsFactory->getScreenHeight();
+    OSFactory *pOsFactory = OSFactory::instance( getIntf() );
+    int width = pOsFactory->getScreenWidth();
+    int height = pOsFactory->getScreenHeight();
 
-  m_pVoutMainWindow->move( 0, 0 );
-  m_pVoutMainWindow->resize( width, height );
+    m_pVoutMainWindow->move( 0, 0 );
+    m_pVoutMainWindow->resize( width, height );
 
-  VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
-  rFullscreen.addObserver( this );
+    VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
+    rFullscreen.addObserver( this );
 }
 
 
 VoutManager::~VoutManager( )
 {
-  VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
-  rFullscreen.delObserver( this );
+    VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
+    rFullscreen.delObserver( this );
 
-  delete m_pVoutMainWindow;
+    delete m_pVoutMainWindow;
 }
 
 
 void VoutManager::registerCtrlVideo( CtrlVideo* p_CtrlVideo )
 {
-  m_pCtrlVideoVec.push_back( p_CtrlVideo );
+    m_pCtrlVideoVec.push_back( p_CtrlVideo );
 }
 
 
 void VoutManager::registerFSC( FscWindow* p_Win )
 {
-  m_pFscWindow = p_Win;
+    m_pFscWindow = p_Win;
 }
 
 
 void VoutManager::saveVoutConfig( )
 {
-  // Save width/height to be consistent across themes
-  // and detach Video Controls
-  vector<SavedWnd>::iterator it;
-  for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
-  {
-    if( (*it).pCtrlVideo )
+    // Save width/height to be consistent across themes
+    // and detach Video Controls
+    vector<SavedWnd>::iterator it;
+    for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
     {
-    // detach vout thread from VideoControl
-    (*it).pCtrlVideo->detachVoutWindow( );
+        if( (*it).pCtrlVideo )
+        {
+            // detach vout thread from VideoControl
+            (*it).pCtrlVideo->detachVoutWindow( );
 
-    // memorize width/height before VideoControl is destroyed
-    (*it).width = (*it).pCtrlVideo->getPosition()->getWidth();
-    (*it).height = (*it).pCtrlVideo->getPosition()->getHeight();
-    (*it).pCtrlVideo = NULL;
-   }
-  }
+            // memorize width/height before VideoControl is destroyed
+            (*it).width = (*it).pCtrlVideo->getPosition()->getWidth();
+            (*it).height = (*it).pCtrlVideo->getPosition()->getHeight();
+            (*it).pCtrlVideo = NULL;
+       }
+    }
 
-  // Create a backup copy and reset original for new theme
-  m_pCtrlVideoVecBackup = m_pCtrlVideoVec;
-  m_pCtrlVideoVec.clear();
+    // Create a backup copy and reset original for new theme
+    m_pCtrlVideoVecBackup = m_pCtrlVideoVec;
+    m_pCtrlVideoVec.clear();
 }
 
 
 void VoutManager::restoreVoutConfig( bool b_success )
 {
-  if( !b_success )
-  {
-    // loading new theme failed, restoring previous theme
-    m_pCtrlVideoVec = m_pCtrlVideoVecBackup;
-  }
-
-  // reattach vout(s) to Video Controls
-  vector<SavedWnd>::iterator it;
-  for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
-  {
-    CtrlVideo* pCtrlVideo = getBestCtrlVideo();
-    if( pCtrlVideo )
+    if( !b_success )
     {
-    pCtrlVideo->attachVoutWindow( (*it).pVoutWindow );
-     (*it).pCtrlVideo = pCtrlVideo;
+        // loading new theme failed, restoring previous theme
+        m_pCtrlVideoVec = m_pCtrlVideoVecBackup;
     }
-  }
+
+    // reattach vout(s) to Video Controls
+    vector<SavedWnd>::iterator it;
+    for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
+    {
+        CtrlVideo* pCtrlVideo = getBestCtrlVideo();
+        if( pCtrlVideo )
+        {
+            pCtrlVideo->attachVoutWindow( (*it).pVoutWindow );
+           (*it).pCtrlVideo = pCtrlVideo;
+        }
+    }
 }
 
 
 void VoutManager::discardVout( CtrlVideo* pCtrlVideo )
 {
-  vector<SavedWnd>::iterator it;
-  for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
-  {
-    if( (*it).pCtrlVideo == pCtrlVideo )
+    vector<SavedWnd>::iterator it;
+    for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
     {
-    // detach vout thread from VideoControl
-    (*it).pCtrlVideo->detachVoutWindow( );
-    (*it).width = (*it).pCtrlVideo->getPosition()->getWidth();
-    (*it).height = (*it).pCtrlVideo->getPosition()->getHeight();
-    (*it).pCtrlVideo = NULL;
-    break;
+        if( (*it).pCtrlVideo == pCtrlVideo )
+        {
+            // detach vout thread from VideoControl
+            (*it).pCtrlVideo->detachVoutWindow( );
+            (*it).width = (*it).pCtrlVideo->getPosition()->getWidth();
+            (*it).height = (*it).pCtrlVideo->getPosition()->getHeight();
+            (*it).pCtrlVideo = NULL;
+            break;
+        }
     }
-  }
 }
 
 
 void VoutManager::requestVout( CtrlVideo* pCtrlVideo )
 {
-  vector<SavedWnd>::iterator it;
-  for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
-  {
-    if( (*it).pCtrlVideo == NULL )
+    vector<SavedWnd>::iterator it;
+    for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
     {
-    pCtrlVideo->attachVoutWindow( (*it).pVoutWindow,
-              (*it).width, (*it).height );
-    (*it).pCtrlVideo = pCtrlVideo;
-    break;
+        if( (*it).pCtrlVideo == NULL )
+        {
+            pCtrlVideo->attachVoutWindow( (*it).pVoutWindow,
+                                          (*it).width, (*it).height );
+            (*it).pCtrlVideo = pCtrlVideo;
+            break;
+        }
     }
-  }
 }
 
 
 CtrlVideo* VoutManager::getBestCtrlVideo( )
 {
-  // try to find an unused useable VideoControl
+    // try to find an unused useable VideoControl
 
-  vector<CtrlVideo*>::const_iterator it;
-  for( it = m_pCtrlVideoVec.begin(); it != m_pCtrlVideoVec.end(); ++it )
-  {
-    if( (*it)->isUseable() && !(*it)->isUsed() )
+    vector<CtrlVideo*>::const_iterator it;
+    for( it = m_pCtrlVideoVec.begin(); it != m_pCtrlVideoVec.end(); ++it )
     {
-    return (*it);
+        if( (*it)->isUseable() && !(*it)->isUsed() )
+        {
+            return (*it);
+        }
     }
-  }
 
-  return NULL;
+    return NULL;
 }
 
 
@@ -192,154 +192,154 @@ CtrlVideo* VoutManager::getBestCtrlVideo( )
 
 void VoutManager::acceptWnd( vout_window_t* pWnd, int width, int height )
 {
-  // Creation of a dedicated Window per vout thread
-  VoutWindow* pVoutWindow = new VoutWindow( getIntf(), pWnd, width, height,
-               (GenericWindow*) m_pVoutMainWindow );
+    // Creation of a dedicated Window per vout thread
+    VoutWindow* pVoutWindow = new VoutWindow( getIntf(), pWnd, width, height,
+                                         (GenericWindow*) m_pVoutMainWindow );
 
-  // try to find a video Control within the theme
-  CtrlVideo* pCtrlVideo = getBestCtrlVideo();
-  if( pCtrlVideo )
-  {
-    // A Video Control is available
-    // directly attach vout thread to i
-    pCtrlVideo->attachVoutWindow( pVoutWindow );
-  }
-  else
-  {
-    pVoutWindow->setCtrlVideo( NULL );
-  }
+    // try to find a video Control within the theme
+    CtrlVideo* pCtrlVideo = getBestCtrlVideo();
+    if( pCtrlVideo )
+    {
+        // A Video Control is available
+        // directly attach vout thread to it
+        pCtrlVideo->attachVoutWindow( pVoutWindow );
+    }
+    else
+    {
+        pVoutWindow->setCtrlVideo( NULL );
+    }
 
-  // save vout characteristics
-  m_SavedWndVec.push_back( SavedWnd( pWnd, pVoutWindow, pCtrlVideo ) );
+    // save vout characteristics
+    m_SavedWndVec.push_back( SavedWnd( pWnd, pVoutWindow, pCtrlVideo ) );
 
-  msg_Dbg( pWnd, "New vout : Ctrl = %p, w x h = %dx%d",
-        pCtrlVideo, width, height );
+    msg_Dbg( pWnd, "New vout : Ctrl = %p, w x h = %dx%d",
+                    pCtrlVideo, width, height );
 }
 
 
 void VoutManager::releaseWnd( vout_window_t* pWnd )
 {
-  // remove vout thread from savedVec
-  vector<SavedWnd>::iterator it;
-  for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
-  {
-    if( (*it).pWnd == pWnd )
+    // remove vout thread from savedVec
+    vector<SavedWnd>::iterator it;
+    for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
     {
-    msg_Dbg( getIntf(), "vout released vout=%p, VideoCtrl=%p",
-           pWnd, (*it).pCtrlVideo );
+        if( (*it).pWnd == pWnd )
+        {
+            msg_Dbg( getIntf(), "vout released vout=%p, VideoCtrl=%p",
+                             pWnd, (*it).pCtrlVideo );
 
-    // if a video control was being used, detach from i
-    if( (*it).pCtrlVideo )
-    {
-      (*it).pCtrlVideo->detachVoutWindow( );
+            // if a video control was being used, detach from it
+            if( (*it).pCtrlVideo )
+            {
+                (*it).pCtrlVideo->detachVoutWindow( );
+            }
+
+            // remove resources
+            delete (*it).pVoutWindow;
+            m_SavedWndVec.erase( it );
+            break;
+        }
     }
 
-    // remove resources
-    delete (*it).pVoutWindow;
-    m_SavedWndVec.erase( it );
-    break;
-    }
-  }
-
-  // force fullscreen to false so that user regains control
-  VlcProc::instance( getIntf() )->setFullscreenVar( false );
+    // force fullscreen to false so that user regains control
+    VlcProc::instance( getIntf() )->setFullscreenVar( false );
 }
 
 
 void VoutManager::setSizeWnd( vout_window_t *pWnd, int width, int height )
 {
- msg_Dbg( pWnd, "setSize (%dx%d) received from vout thread",
-      width, height );
+   msg_Dbg( pWnd, "setSize (%dx%d) received from vout thread",
+                  width, height );
 
- vector<SavedWnd>::iterator it;
- for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
- {
-   if( (*it).pWnd == pWnd )
+   vector<SavedWnd>::iterator it;
+   for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
    {
-     VoutWindow* pVoutWindow = (*it).pVoutWindow;
+       if( (*it).pWnd == pWnd )
+       {
+           VoutWindow* pVoutWindow = (*it).pVoutWindow;
 
-     pVoutWindow->setOriginalWidth( width );
-     pVoutWindow->setOriginalHeight( height );
+           pVoutWindow->setOriginalWidth( width );
+           pVoutWindow->setOriginalHeight( height );
 
-     CtrlVideo* pCtrlVideo = pVoutWindow->getCtrlVideo();
-     if( pCtrlVideo )
-     {
-     pCtrlVideo->resizeControl( width, height );
-     }
-     break;
+           CtrlVideo* pCtrlVideo = pVoutWindow->getCtrlVideo();
+           if( pCtrlVideo )
+           {
+               pCtrlVideo->resizeControl( width, height );
+           }
+           break;
+       }
    }
- }
 }
 
 
 void VoutManager::setFullscreenWnd( vout_window_t *pWnd, bool b_fullscreen )
 {
-  msg_Dbg( pWnd, "setFullscreen (%i) received from vout thread",
-       b_fullscreen );
+    msg_Dbg( pWnd, "setFullscreen (%i) received from vout thread",
+                   b_fullscreen );
 
-  // reconfigure the fullscreen window (multiple screens)
-  if( b_fullscreen )
-  {
-    vector<SavedWnd>::iterator it;
-    for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
+    // reconfigure the fullscreen window (multiple screens)
+    if( b_fullscreen )
     {
-    if( (*it).pWnd == pWnd )
-    {
-      VoutWindow* pVoutWindow = it->pVoutWindow;
-      configureFullscreen( *pVoutWindow );
+        vector<SavedWnd>::iterator it;
+        for( it = m_SavedWndVec.begin(); it != m_SavedWndVec.end(); ++it )
+        {
+            if( (*it).pWnd == pWnd )
+            {
+                VoutWindow* pVoutWindow = it->pVoutWindow;
+                configureFullscreen( *pVoutWindow );
+            }
+            break;
+        }
     }
-    break;
-    }
-  }
 
-  // set fullscreen
-  VlcProc::instance( getIntf() )->setFullscreenVar( b_fullscreen );
+    // set fullscreen
+    VlcProc::instance( getIntf() )->setFullscreenVar( b_fullscreen );
 }
 
 
 void VoutManager::onUpdate( Subject<VarBool> &rVariable, void *arg )
 {
-  (void)arg;
-  VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
-  if( &rVariable == &rFullscreen )
-  {
-    if( rFullscreen.get() )
-    m_pVoutMainWindow->show();
-    else
-    m_pVoutMainWindow->hide();
-  }
+    (void)arg;
+    VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
+    if( &rVariable == &rFullscreen )
+    {
+        if( rFullscreen.get() )
+            m_pVoutMainWindow->show();
+        else
+            m_pVoutMainWindow->hide();
+    }
 }
 
 
 void VoutManager::configureFullscreen( VoutWindow& rWindow )
 {
-  int numScr = var_InheritInteger( getIntf(), "qt-fullscreen-screennumber" );
-  int x0 = m_pVoutMainWindow->getTop();
-  int y0 = m_pVoutMainWindow->getLeft();
+    int numScr = var_InheritInteger( getIntf(), "qt-fullscreen-screennumber" );
+    int x0 = m_pVoutMainWindow->getTop();
+    int y0 = m_pVoutMainWindow->getLeft();
 
-  int x, y, w, h;
-  if( numScr >= 0 )
-  {
-    // select screen requested by user
-    OSFactory *pOsFactory = OSFactory::instance( getIntf() );
-    pOsFactory->getMonitorInfo( numScr, &x, &y, &w, &h );
-  }
-  else
-  {
-    // select screen where display is already occurring
-    rWindow.getMonitorInfo( &x, &y, &w, &h );
-  }
-
-  if( x != x0 || y != y0 )
-  {
-    // move and resize fullscreen
-    m_pVoutMainWindow->move( x, y );
-    m_pVoutMainWindow->resize( w, h );
-
-    // ensure the fs controller is also moved
-    if( m_pFscWindow )
+    int x, y, w, h;
+    if( numScr >= 0 )
     {
-    m_pFscWindow->moveTo( x, y, w, h );
+        // select screen requested by user
+        OSFactory *pOsFactory = OSFactory::instance( getIntf() );
+        pOsFactory->getMonitorInfo( numScr, &x, &y, &w, &h );
     }
-  }
+    else
+    {
+        // select screen where display is already occurring
+        rWindow.getMonitorInfo( &x, &y, &w, &h );
+    }
+
+    if( x != x0 || y != y0 )
+    {
+        // move and resize fullscreen
+        m_pVoutMainWindow->move( x, y );
+        m_pVoutMainWindow->resize( w, h );
+
+        // ensure the fs controller is also moved
+        if( m_pFscWindow )
+        {
+            m_pFscWindow->moveTo( x, y, w, h );
+        }
+    }
 }

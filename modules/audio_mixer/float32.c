@@ -45,11 +45,11 @@ static void DoWork( audio_mixer_t *, aout_buffer_t *, float );
  * Module descriptor
  *****************************************************************************/
 vlc_module_begin ()
-  set_category( CAT_AUDIO )
-  set_subcategory( SUBCAT_AUDIO_MISC )
-  set_description( N_("Float32 audio mixer") )
-  set_capability( "audio mixer", 10 )
-  set_callbacks( Create, NULL )
+    set_category( CAT_AUDIO )
+    set_subcategory( SUBCAT_AUDIO_MISC )
+    set_description( N_("Float32 audio mixer") )
+    set_capability( "audio mixer", 10 )
+    set_callbacks( Create, NULL )
 vlc_module_end ()
 
 /**
@@ -57,27 +57,27 @@ vlc_module_end ()
  */
 static int Create( vlc_object_t *p_this )
 {
-  audio_mixer_t *p_mixer = (audio_mixer_t *)p_this;
+    audio_mixer_t *p_mixer = (audio_mixer_t *)p_this;
 
-  if (p_mixer->format != VLC_CODEC_FL32)
-    return -1;
+    if (p_mixer->format != VLC_CODEC_FL32)
+        return -1;
 
-  p_mixer->mix = DoWork;
-  return 0;
+    p_mixer->mix = DoWork;
+    return 0;
 }
 
 /**
  * Mixes a new output buffer
  */
 static void DoWork( audio_mixer_t * p_mixer, aout_buffer_t *p_buffer,
-        float f_multiplier )
+                    float f_multiplier )
 {
-  if( f_multiplier == 1.0 )
-    return; /* nothing to do */
+    if( f_multiplier == 1.0 )
+        return; /* nothing to do */
 
-  float *p = (float *)p_buffer->p_buffer;
-  for( size_t i = p_buffer->i_buffer / sizeof(float); i > 0; i-- )
-    *(p++) *= f_multiplier;
+    float *p = (float *)p_buffer->p_buffer;
+    for( size_t i = p_buffer->i_buffer / sizeof(float); i > 0; i-- )
+        *(p++) *= f_multiplier;
 
-  (void) p_mixer;
+    (void) p_mixer;
 }

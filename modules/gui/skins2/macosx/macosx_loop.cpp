@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: ab46ae913c9e329127a90026ed7f4098a7620cc3 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,27 +29,27 @@
 #include "../events/evt_refresh.hpp"
 
 static pascal OSStatus WinEventHandler( EventHandlerCallRef handler,
-              EventRef event, void *data )
+                                        EventRef event, void *data )
 {
-  GenericWindow *pWin = (GenericWindow*)data;
-  intf_thread_t *pIntf = pWin->getIntf();
+    GenericWindow *pWin = (GenericWindow*)data;
+    intf_thread_t *pIntf = pWin->getIntf();
 
-  //fprintf(stderr, "event\n" );
-  UInt32 evclass = GetEventClass( event );
-  UInt32 evkind = GetEventKind( event );
+    //fprintf(stderr, "event\n" );
+    UInt32 evclass = GetEventClass( event );
+    UInt32 evkind = GetEventKind( event );
 
-  switch( evclass )
-  {
-  case kEventClassWindow:
-    EvtRefresh evt( pIntf, 0, 0, -1, -1);
-    pWin->processEvent( evt );
-    break;
-  }
+    switch( evclass )
+    {
+    case kEventClassWindow:
+        EvtRefresh evt( pIntf, 0, 0, -1, -1);
+        pWin->processEvent( evt );
+        break;
+    }
 }
 
 
 MacOSXLoop::MacOSXLoop( intf_thread_t *pIntf ):
-  OSLoop( pIntf ), m_exit( false )
+    OSLoop( pIntf ), m_exit( false )
 {
 }
 
@@ -61,48 +61,48 @@ MacOSXLoop::~MacOSXLoop()
 
 OSLoop *MacOSXLoop::instance( intf_thread_t *pIntf )
 {
-  if( pIntf->p_sys->p_osLoop == NULL )
-  {
-    OSLoop *pOsLoop = new MacOSXLoop( pIntf );
-    pIntf->p_sys->p_osLoop = pOsLoop;
-  }
-  return pIntf->p_sys->p_osLoop;
+    if( pIntf->p_sys->p_osLoop == NULL )
+    {
+        OSLoop *pOsLoop = new MacOSXLoop( pIntf );
+        pIntf->p_sys->p_osLoop = pOsLoop;
+    }
+    return pIntf->p_sys->p_osLoop;
 }
 
 
 void MacOSXLoop::destroy( intf_thread_t *pIntf )
 {
-  delete pIntf->p_sys->p_osLoop;
-  pIntf->p_sys->p_osLoop = NULL;
+    delete pIntf->p_sys->p_osLoop;
+    pIntf->p_sys->p_osLoop = NULL;
 }
 
 
 void MacOSXLoop::run()
 {
-  // Main event loop
-  while( !m_exit )
-  {
-    sleep(1);
-  }
+    // Main event loop
+    while( !m_exit )
+    {
+        sleep(1);
+    }
 }
 
 
 void MacOSXLoop::exit()
 {
-  m_exit = true;
+    m_exit = true;
 }
 
 
 void MacOSXLoop::registerWindow( GenericWindow &rGenWin, WindowRef win )
 {
-  // Create the event handler
-  EventTypeSpec evList[] = {
-    { kEventClassWindow, kEventWindowUpdate },
-    { kEventClassMouse, kEventMouseMoved }
-  };
-  EventHandlerUPP handler = NewEventHandlerUPP( WinEventHandler );
-  InstallWindowEventHandler( win, handler, GetEventTypeCount( evList ),
-           evList, &rGenWin, NULL );
+    // Create the event handler
+    EventTypeSpec evList[] = {
+        { kEventClassWindow, kEventWindowUpdate },
+        { kEventClassMouse, kEventMouseMoved }
+    };
+    EventHandlerUPP handler = NewEventHandlerUPP( WinEventHandler );
+    InstallWindowEventHandler( win, handler, GetEventTypeCount( evList ),
+                               evList, &rGenWin, NULL );
 }
 
 #endif

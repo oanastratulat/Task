@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 759ff6a6e5d37fa65d3ee7b67145aa3b6eb8f616 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,117 +28,117 @@
 
 
 AsyncQueue::AsyncQueue( intf_thread_t *pIntf ): SkinObject( pIntf ),
-  m_cmdFlush( this )
+    m_cmdFlush( this )
 {
-  // Initialize the mutex
-  vlc_mutex_init( &m_lock );
+    // Initialize the mutex
+    vlc_mutex_init( &m_lock );
 
-  // Create a timer
-  OSFactory *pOsFactory = OSFactory::instance( pIntf );
-  m_pTimer = pOsFactory->createOSTimer( m_cmdFlush );
+    // Create a timer
+    OSFactory *pOsFactory = OSFactory::instance( pIntf );
+    m_pTimer = pOsFactory->createOSTimer( m_cmdFlush );
 
-  // Flush the queue every 10 ms
-  m_pTimer->start( 10, false );
+    // Flush the queue every 10 ms
+    m_pTimer->start( 10, false );
 }
 
 
 AsyncQueue::~AsyncQueue()
 {
-  delete( m_pTimer );
-  vlc_mutex_destroy( &m_lock );
+    delete( m_pTimer );
+    vlc_mutex_destroy( &m_lock );
 }
 
 
 AsyncQueue *AsyncQueue::instance( intf_thread_t *pIntf )
 {
-  if( ! pIntf->p_sys->p_queue )
-  {
-    AsyncQueue *pQueue;
-    pQueue = new AsyncQueue( pIntf );
-    if( pQueue )
+    if( ! pIntf->p_sys->p_queue )
     {
-     // Initialization succeeded
-     pIntf->p_sys->p_queue = pQueue;
-    }
-   }
-   return pIntf->p_sys->p_queue;
+        AsyncQueue *pQueue;
+        pQueue = new AsyncQueue( pIntf );
+        if( pQueue )
+        {
+             // Initialization succeeded
+             pIntf->p_sys->p_queue = pQueue;
+        }
+     }
+     return pIntf->p_sys->p_queue;
 }
 
 
 void AsyncQueue::destroy( intf_thread_t *pIntf )
 {
-  delete pIntf->p_sys->p_queue;
-  pIntf->p_sys->p_queue = NULL;
+    delete pIntf->p_sys->p_queue;
+    pIntf->p_sys->p_queue = NULL;
 }
 
 
 void AsyncQueue::push( const CmdGenericPtr &rcCommand, bool removePrev )
 {
-  vlc_mutex_lock( &m_lock );
+    vlc_mutex_lock( &m_lock );
 
-  if( removePrev )
-  {
-    // Remove the commands of the same type
-    remove( rcCommand.get()->getType(), rcCommand );
-  }
-  m_cmdList.push_back( rcCommand );
+    if( removePrev )
+    {
+        // Remove the commands of the same type
+        remove( rcCommand.get()->getType(), rcCommand );
+    }
+    m_cmdList.push_back( rcCommand );
 
-  vlc_mutex_unlock( &m_lock );
+    vlc_mutex_unlock( &m_lock );
 }
 
 
 void AsyncQueue::remove( const string &rType, const CmdGenericPtr &rcCommand )
 {
-  cmdList_t::iterator it;
-  for( it = m_cmdList.begin(); it != m_cmdList.end(); /* nothing */ )
-  {
-    // Remove the command if it is of the given type and the command
-    // doesn't disagree. Note trickery to avoid skipping entries
-    // while maintaining iterator validity.
-
-    if( (*it).get()->getType() == rType &&
-    rcCommand.get()->checkRemove( (*it).get() ) )
+    cmdList_t::iterator it;
+    for( it = m_cmdList.begin(); it != m_cmdList.end(); /* nothing */ )
     {
-    cmdList_t::iterator itNew = it;
-    ++itNew;
-    m_cmdList.erase( it );
-    it = itNew;
+        // Remove the command if it is of the given type and the command
+        // doesn't disagree. Note trickery to avoid skipping entries
+        // while maintaining iterator validity.
+
+        if( (*it).get()->getType() == rType &&
+            rcCommand.get()->checkRemove( (*it).get() ) )
+        {
+            cmdList_t::iterator itNew = it;
+            ++itNew;
+            m_cmdList.erase( it );
+            it = itNew;
+        }
+        else ++it;
     }
-    else ++it;
-  }
 }
 
 
 void AsyncQueue::flush()
 {
-  while (true)
-  {
-    vlc_mutex_lock( &m_lock );
-
-    if( m_cmdList.size() > 0 )
+    while (true)
     {
-    // Pop the first command from the queue
-    CmdGenericPtr cCommand = m_cmdList.front();
-    m_cmdList.pop_front();
+        vlc_mutex_lock( &m_lock );
 
-    // Unlock the mutex to avoid deadlocks if another thread wants to
-    // enqueue/remove a command while this one is processed
-    vlc_mutex_unlock( &m_lock );
+        if( m_cmdList.size() > 0 )
+        {
+            // Pop the first command from the queue
+            CmdGenericPtr cCommand = m_cmdList.front();
+            m_cmdList.pop_front();
 
-    // Execute the command
-    cCommand.get()->execute();
+            // Unlock the mutex to avoid deadlocks if another thread wants to
+            // enqueue/remove a command while this one is processed
+            vlc_mutex_unlock( &m_lock );
+
+            // Execute the command
+            cCommand.get()->execute();
+        }
+        else
+        {
+            vlc_mutex_unlock( &m_lock );
+            break;
+        }
     }
-    else
-    {
-    vlc_mutex_unlock( &m_lock );
-    break;
-    }
-  }
 }
 
 
 void AsyncQueue::CmdFlush::execute()
 {
-  // Flush the queue
-  m_pParent->flush();
+    // Flush the queue
+    m_pParent->flush();
 }

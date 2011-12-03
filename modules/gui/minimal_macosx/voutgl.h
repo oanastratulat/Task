@@ -5,10 +5,10 @@
  * $Id: 3e51ea08c9d4fb2031e9eddbd383795f8ede7d30 $
  *
  * Authors: Colin Delacroix <colin@zoy.org>
- *    Florian G. Pflug <fgp@phlo.org>
- *    Jon Lech Johansen <jon-vl@nanocrew.net>
- *    Eric Petit <titer@m0k.org>
- *    Benjamin Pracht <bigben at videolan dot org>
+ *          Florian G. Pflug <fgp@phlo.org>
+ *          Jon Lech Johansen <jon-vl@nanocrew.net>
+ *          Eric Petit <titer@m0k.org>
+ *          Benjamin Pracht <bigben at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,22 +29,22 @@
 #import "VLCOpenGLVoutView.h"
 #import "voutagl.h"
 
-struct vout_sys_
+struct vout_sys_t
 {
-  NSAutoreleasePool * o_pool;
-  VLCOpenGLVoutView * o_glview;
-  bool      b_saved_frame;
-  NSRect      s_frame;
-  bool      b_got_frame;
+    NSAutoreleasePool * o_pool;
+    VLCOpenGLVoutView * o_glview;
+    bool                b_saved_frame;
+    NSRect              s_frame;
+    bool                b_got_frame;
 
-  /* Mozilla plugin-related variables */
-  bool      b_embedded;
-  AGLContext    agl_ctx;
-  AGLDrawable   agl_drawable;
-  int       i_offx, i_offy;
-  int       i_width, i_height;
-  WindowRef     theWindow;
-  WindowGroupRef  winGroup;
-  bool      b_clipped_out;
-  Rect      clipBounds, viewBounds;
+    /* Mozilla plugin-related variables */
+    bool                b_embedded;
+    AGLContext          agl_ctx;
+    AGLDrawable         agl_drawable;
+    int                 i_offx, i_offy;
+    int                 i_width, i_height;
+    WindowRef           theWindow;
+    WindowGroupRef      winGroup;
+    bool                b_clipped_out;
+    Rect                clipBounds, viewBounds;
 };

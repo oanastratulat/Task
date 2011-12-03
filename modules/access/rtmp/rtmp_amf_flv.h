@@ -28,98 +28,98 @@ typedef struct rtmp_body_t rtmp_body_t;
 typedef struct rtmp_control_thread_t rtmp_control_thread_t;
 typedef void (*rtmp_handler_t)( rtmp_control_thread_t *p_thread, rtmp_packet_t *rtmp_packet );
 
-struct rtmp_packet_
+struct rtmp_packet_t
 {
-  int length_header;
-  int stream_index;
-  uint32_t timestamp;
-  uint32_t timestamp_relative;
-  int32_t length_encoded;
-  int32_t length_body;
-  uint8_t content_type;
-  uint32_t src_dst;
-  rtmp_body_t *body;
+    int length_header;
+    int stream_index;
+    uint32_t timestamp;
+    uint32_t timestamp_relative;
+    int32_t length_encoded;
+    int32_t length_body;
+    uint8_t content_type;
+    uint32_t src_dst;
+    rtmp_body_t *body;
 };
 
-struct rtmp_body_
+struct rtmp_body_t
 {
-  int32_t length_body; /* without interchunk headers */
-  int32_t length_buffer;
-  uint8_t *body;
+    int32_t length_body; /* without interchunk headers */
+    int32_t length_buffer;
+    uint8_t *body;
 };
 
-struct rtmp_control_thread_
+struct rtmp_control_thread_t
 {
-  VLC_COMMON_MEMBERS
+    VLC_COMMON_MEMBERS
 
-  int fd;
-  bool b_error;
+    int fd;
+    bool b_error;
 
-  vlc_url_t url;
-  char *psz_application;
-  char *psz_media;
+    vlc_url_t url;
+    char *psz_application;
+    char *psz_media;
 
-  char *psz_swf_url;
-  char *psz_page_url;
+    char *psz_swf_url;
+    char *psz_page_url;
 
-  block_fifo_t *p_fifo_input;
-  block_fifo_t *p_empty_blocks;
+    block_fifo_t *p_fifo_input;
+    block_fifo_t *p_empty_blocks;
 
-  vlc_mutex_t lock;
-  vlc_cond_t  wait;
-  vlc_thread_t thread;
+    vlc_mutex_t lock;
+    vlc_cond_t  wait;
+    vlc_thread_t thread;
 
-  int result_connect;
-  int result_publish;
-  int result_play;
-  int result_stop;
+    int result_connect;
+    int result_publish;
+    int result_play;
+    int result_stop;
 
-  double stream_client_id;
-  double stream_server_id;
+    double stream_client_id;
+    double stream_server_id;
 
-  char *psz_publish;
+    char *psz_publish;
 
-  /* Rebuild FLV variables (access) */
-  int has_audio;
-  int has_video;
-  int metadata_received;
-  uint8_t metadata_stereo;
-  uint8_t metadata_samplesize;
-  uint32_t metadata_samplerate;
-  uint8_t metadata_audiocodecid;
-  uint8_t metadata_videocodecid;
-  uint8_t metadata_frametype;
-  int first_media_packet;
-  uint32_t flv_tag_previous_tag_size;
+    /* Rebuild FLV variables (access) */
+    int has_audio;
+    int has_video;
+    int metadata_received;
+    uint8_t metadata_stereo;
+    uint8_t metadata_samplesize;
+    uint32_t metadata_samplerate;
+    uint8_t metadata_audiocodecid;
+    uint8_t metadata_videocodecid;
+    uint8_t metadata_frametype;
+    int first_media_packet;
+    uint32_t flv_tag_previous_tag_size;
 
-  /* Vars for rebuilding FLV (access_output) */
-  rtmp_body_t *flv_body;
-  uint8_t flv_content_type;
-  uint32_t flv_length_body;
-  uint32_t flv_timestamp;
+    /* Vars for rebuilding FLV (access_output) */
+    rtmp_body_t *flv_body;
+    uint8_t flv_content_type;
+    uint32_t flv_length_body;
+    uint32_t flv_timestamp;
 
-  /* vars for channel state */
-  uint32_t chunk_size_recv;
-  uint32_t chunk_size_send;
-  rtmp_packet_t rtmp_headers_recv[64]; /* RTMP_HEADER_STREAM_MAX */
-  rtmp_packet_t rtmp_headers_send[64];
+    /* vars for channel state */
+    uint32_t chunk_size_recv;
+    uint32_t chunk_size_send;
+    rtmp_packet_t rtmp_headers_recv[64]; /* RTMP_HEADER_STREAM_MAX */
+    rtmp_packet_t rtmp_headers_send[64];
 
-  rtmp_handler_t rtmp_handler[21]; /* index by RTMP_CONTENT_TYPE */
+    rtmp_handler_t rtmp_handler[21]; /* index by RTMP_CONTENT_TYPE */
 
-  /* Pointer to base module object (later needs to casted) */
-  void *p_base_object;
+    /* Pointer to base module object (later needs to casted) */
+    void *p_base_object;
 };
 
-struct access_sys_
+struct access_sys_t
 {
-  int active;
+    int active;
 
-  /* vars for reading from fifo */
-  block_t *flv_packet;
-  int read_packet;
+    /* vars for reading from fifo */
+    block_t *flv_packet;
+    int read_packet;
 
-  /* thread for filtering and handling control messages */
-  rtmp_control_thread_t *p_thread;
+    /* thread for filtering and handling control messages */
+    rtmp_control_thread_t *p_thread;
 };
 
 /*****************************************************************************

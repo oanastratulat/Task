@@ -5,7 +5,7 @@
  * $Id: a29b4dcf6a5b728a89858b28ce40597bc69faeec $
  *
  * Authors: Jon Lech Johansen <jon-vl@nanocrew.net>
- *    Felix Paul Kühne <fkuehne at videolan dot org>
+ *          Felix Paul Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,9 +59,9 @@
 
 @interface VLCWindow : NSWindow <NSWindowDelegate>
 {
-  BOOL b_canBecomeKeyWindow;
-  BOOL b_isset_canBecomeKeyWindow;
-  NSViewAnimation *animation;
+    BOOL b_canBecomeKeyWindow;
+    BOOL b_isset_canBecomeKeyWindow;
+    NSViewAnimation *animation;
 }
 
 - (void)setCanBecomeKeyWindow: (BOOL)canBecomeKey;

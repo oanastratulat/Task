@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -30,74 +30,74 @@
 using namespace dash::mpd;
 using namespace dash::exception;
 
-MPD::MPD  (const AttributesMap& attributes) : attributes( attributes ),
-  programInfo( NULL )
+MPD::MPD    (const AttributesMap& attributes) : attributes( attributes ),
+    programInfo( NULL )
 {
 }
 
-MPD::~MPD ()
+MPD::~MPD   ()
 {
-  for(size_t i = 0; i < this->periods.size(); i++)
-    delete(this->periods.at(i));
+    for(size_t i = 0; i < this->periods.size(); i++)
+        delete(this->periods.at(i));
 
-  for(size_t i = 0; i < this->baseUrls.size(); i++)
-    delete(this->baseUrls.at(i));
+    for(size_t i = 0; i < this->baseUrls.size(); i++)
+        delete(this->baseUrls.at(i));
 
-  delete(this->programInfo);
+    delete(this->programInfo);
 }
 
-const std::vector<Period*>&  MPD::getPeriods     () cons
+const std::vector<Period*>&    MPD::getPeriods             () const
 {
-  return this->periods;
+    return this->periods;
 }
 
-const std::vector<BaseUrl*>& MPD::getBaseUrls    () cons
+const std::vector<BaseUrl*>&   MPD::getBaseUrls            () const
 {
-  return this->baseUrls;
+    return this->baseUrls;
 }
 
-const std::string&     MPD::getMinBufferTime   () const throw(AttributeNotPresentException)
+const std::string&             MPD::getMinBufferTime       () const throw(AttributeNotPresentException)
 {
-  AttributesMap::const_iterator   it = this->attributes.find("minBufferTime");
-  if( it == this->attributes.end())
-    throw AttributeNotPresentException();
+    AttributesMap::const_iterator     it = this->attributes.find("minBufferTime");
+    if( it == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return it->second;
+    return it->second;
 }
 
-const std::string&     MPD::getType      () const throw(AttributeNotPresentException)
+const std::string&             MPD::getType                () const throw(AttributeNotPresentException)
 {
-  AttributesMap::const_iterator   it = this->attributes.find( "type" );
-  if( it == this->attributes.end() )
-    throw AttributeNotPresentException();
+    AttributesMap::const_iterator     it = this->attributes.find( "type" );
+    if( it == this->attributes.end() )
+        throw AttributeNotPresentException();
 
-  return it->second;
+    return it->second;
 }
-const std::string&     MPD::getDuration    () const throw(AttributeNotPresentException)
+const std::string&             MPD::getDuration            () const throw(AttributeNotPresentException)
 {
-  AttributesMap::const_iterator   it = this->attributes.find("mediaPresentationDuration");
+    AttributesMap::const_iterator     it = this->attributes.find("mediaPresentationDuration");
 
-  if( it == this->attributes.end())
-    throw AttributeNotPresentException();
+    if( it == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return it->second;
+    return it->second;
 }
-ProgramInformation*   MPD::getProgramInformation  () throw(ElementNotPresentException)
+ProgramInformation*     MPD::getProgramInformation  () throw(ElementNotPresentException)
 {
-  if(this->programInfo == NULL)
-    throw ElementNotPresentException();
+    if(this->programInfo == NULL)
+        throw ElementNotPresentException();
 
-  return this->programInfo;
+    return this->programInfo;
 }
-void        MPD::addBaseUrl     (BaseUrl *url)
+void                    MPD::addBaseUrl             (BaseUrl *url)
 {
-  this->baseUrls.push_back(url);
+    this->baseUrls.push_back(url);
 }
-void        MPD::addPeriod      (Period *period)
+void                    MPD::addPeriod              (Period *period)
 {
-  this->periods.push_back(period);
+    this->periods.push_back(period);
 }
-void        MPD::setProgramInformation  (ProgramInformation *progInfo)
+void                    MPD::setProgramInformation  (ProgramInformation *progInfo)
 {
-  this->programInfo = progInfo;
+    this->programInfo = progInfo;
 }

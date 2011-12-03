@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 445a3a2824696f19a90709c0b8f841b63549923c $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,179 +30,179 @@
 
 
 GenericWindow::GenericWindow( intf_thread_t *pIntf, int left, int top,
-          bool dragDrop, bool playOnDrop,
-          GenericWindow *pParent, WindowType_t type ):
-  SkinObject( pIntf ), m_left( left ), m_top( top ), m_width( 0 ),
-  m_height( 0 ), m_pVarVisible( NULL )
+                              bool dragDrop, bool playOnDrop,
+                              GenericWindow *pParent, WindowType_t type ):
+    SkinObject( pIntf ), m_left( left ), m_top( top ), m_width( 0 ),
+    m_height( 0 ), m_pVarVisible( NULL )
 {
-  // Get the OSFactory
-  OSFactory *pOsFactory = OSFactory::instance( getIntf() );
+    // Get the OSFactory
+    OSFactory *pOsFactory = OSFactory::instance( getIntf() );
 
-  // Get the parent OSWindow, if any
-  OSWindow *pOSParent = NULL;
-  if( pParent )
-  {
-    pOSParent = pParent->m_pOsWindow;
-  }
+    // Get the parent OSWindow, if any
+    OSWindow *pOSParent = NULL;
+    if( pParent )
+    {
+        pOSParent = pParent->m_pOsWindow;
+    }
 
-  // Create an OSWindow to handle OS specific processing
-  m_pOsWindow = pOsFactory->createOSWindow( *this, dragDrop, playOnDrop,
-                pOSParent, type );
+    // Create an OSWindow to handle OS specific processing
+    m_pOsWindow = pOsFactory->createOSWindow( *this, dragDrop, playOnDrop,
+                                              pOSParent, type );
 
-  // Create the visibility variable and register it in the manager
-  m_pVarVisible = new VarBoolImpl( pIntf );
-  VarManager::instance( pIntf )->registerVar( VariablePtr( m_pVarVisible ) );
+    // Create the visibility variable and register it in the manager
+    m_pVarVisible = new VarBoolImpl( pIntf );
+    VarManager::instance( pIntf )->registerVar( VariablePtr( m_pVarVisible ) );
 
-  // Observe the visibility variable
-  m_pVarVisible->addObserver( this );
+    // Observe the visibility variable
+    m_pVarVisible->addObserver( this );
 }
 
 
 GenericWindow::~GenericWindow()
 {
-  m_pVarVisible->delObserver( this );
+    m_pVarVisible->delObserver( this );
 
-  delete m_pOsWindow;
+    delete m_pOsWindow;
 }
 
 
 void GenericWindow::processEvent( EvtRefresh &rEvtRefresh )
 {
-  // Refresh the given area
-  refresh( rEvtRefresh.getXStart(), rEvtRefresh.getYStart(),
-     rEvtRefresh.getWidth(), rEvtRefresh.getHeight() );
+    // Refresh the given area
+    refresh( rEvtRefresh.getXStart(), rEvtRefresh.getYStart(),
+             rEvtRefresh.getWidth(), rEvtRefresh.getHeight() );
 }
 
 
-void GenericWindow::show() cons
+void GenericWindow::show() const
 {
-  m_pVarVisible->set( true );
+    m_pVarVisible->set( true );
 }
 
 
-void GenericWindow::hide() cons
+void GenericWindow::hide() const
 {
-  m_pVarVisible->set( false );
+    m_pVarVisible->set( false );
 }
 
 
 void GenericWindow::move( int left, int top )
 {
-  // Update the window coordinates
-  m_left = left;
-  m_top = top;
+    // Update the window coordinates
+    m_left = left;
+    m_top = top;
 
-  if( m_pOsWindow && isVisible() )
-    m_pOsWindow->moveResize( left, top, m_width, m_height );
+    if( m_pOsWindow && isVisible() )
+        m_pOsWindow->moveResize( left, top, m_width, m_height );
 }
 
 
 void GenericWindow::resize( int width, int height )
 {
-  // don't try when value is 0 (may crash)
-  if( !width || !height )
-    return;
+    // don't try when value is 0 (may crash)
+    if( !width || !height )
+        return;
 
-  // Update the window size
-  m_width = width;
-  m_height = height;
+    // Update the window size
+    m_width = width;
+    m_height = height;
 
-  if( m_pOsWindow && isVisible() )
-    m_pOsWindow->moveResize( m_left, m_top, width, height );
+    if( m_pOsWindow && isVisible() )
+        m_pOsWindow->moveResize( m_left, m_top, width, height );
 }
 
 
-void GenericWindow::raise() cons
+void GenericWindow::raise() const
 {
-  if( m_pOsWindow )
-    m_pOsWindow->raise();
+    if( m_pOsWindow )
+        m_pOsWindow->raise();
 }
 
 
 void GenericWindow::setOpacity( uint8_t value )
 {
-  m_pOsWindow->setOpacity( value );
+    m_pOsWindow->setOpacity( value );
 }
 
 
-void GenericWindow::toggleOnTop( bool onTop ) cons
+void GenericWindow::toggleOnTop( bool onTop ) const
 {
-  if( m_pOsWindow )
-    m_pOsWindow->toggleOnTop( onTop );
+    if( m_pOsWindow )
+        m_pOsWindow->toggleOnTop( onTop );
 }
 
 
 void GenericWindow::onUpdate( Subject<VarBool> &rVariable, void* arg )
 {
-  (void)rVariable; (void)arg;
-  if (&rVariable == m_pVarVisible )
-  {
-    if( m_pVarVisible->get() )
+    (void)rVariable; (void)arg;
+    if (&rVariable == m_pVarVisible )
     {
-    innerShow();
+        if( m_pVarVisible->get() )
+        {
+            innerShow();
+        }
+        else
+        {
+            innerHide();
+        }
     }
-    else
-    {
-    innerHide();
-    }
-  }
 }
 
 
 void GenericWindow::innerShow()
 {
-  if( m_pOsWindow )
-  {
-    m_pOsWindow->show();
-    m_pOsWindow->moveResize( m_left, m_top, m_width, m_height );
-  }
+    if( m_pOsWindow )
+    {
+        m_pOsWindow->show();
+        m_pOsWindow->moveResize( m_left, m_top, m_width, m_height );
+    }
 }
 
 
 void GenericWindow::innerHide()
 {
-  if( m_pOsWindow )
-  {
-    m_pOsWindow->hide();
-  }
+    if( m_pOsWindow )
+    {
+        m_pOsWindow->hide();
+    }
 }
 
-vlc_wnd_type GenericWindow::getOSHandle() cons
+vlc_wnd_type GenericWindow::getOSHandle() const
 {
-  return m_pOsWindow->getOSHandle();
+    return m_pOsWindow->getOSHandle();
 }
 
 
 void GenericWindow::setParent( GenericWindow* pParent, int x, int y, int w, int h )
 {
-  // Update the window size and position
-  m_left = x;
-  m_top = y;
-  m_width  = ( w > 0 ) ? w : m_width;
-  m_height = ( h > 0 ) ? h : m_height;
+    // Update the window size and position
+    m_left = x;
+    m_top = y;
+    m_width  = ( w > 0 ) ? w : m_width;
+    m_height = ( h > 0 ) ? h : m_height;
 
-  vlc_wnd_type handle = pParent ? pParent->getOSHandle() : 0;
-  m_pOsWindow->reparent( handle, m_left, m_top, m_width, m_height );
+    vlc_wnd_type handle = pParent ? pParent->getOSHandle() : 0;
+    m_pOsWindow->reparent( handle, m_left, m_top, m_width, m_height );
 }
 
 
 void GenericWindow::invalidateRect( int left, int top, int width, int height )
 {
-  if( m_pOsWindow )
-  {
-    // tell the OS we invalidate a window client area
-    bool b_supported =
-    m_pOsWindow->invalidateRect( left, top, width, height );
+    if( m_pOsWindow )
+    {
+        // tell the OS we invalidate a window client area
+        bool b_supported =
+            m_pOsWindow->invalidateRect( left, top, width, height );
 
-    // if not supported, directly refresh the area
-    if( !b_supported )
-    refresh( left, top, width, height );
-  }
+        // if not supported, directly refresh the area
+        if( !b_supported )
+            refresh( left, top, width, height );
+    }
 }
 
 
-void GenericWindow::getMonitorInfo( int* x, int* y, int* width, int* height ) cons
+void GenericWindow::getMonitorInfo( int* x, int* y, int* width, int* height ) const
 {
-  OSFactory *pOsFactory = OSFactory::instance( getIntf() );
-  pOsFactory->getMonitorInfo( *this, x, y, width, height );
+    OSFactory *pOsFactory = OSFactory::instance( getIntf() );
+    pOsFactory->getMonitorInfo( *this, x, y, width, height );
 }

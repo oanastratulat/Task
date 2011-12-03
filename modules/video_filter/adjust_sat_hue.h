@@ -4,8 +4,8 @@
  * Copyright (C) 2011 VideoLAN
  *
  * Authors: Simon Latapie <garf@via.ecp.fr>
- *    Antoine Cellerier <dionoea -at- videolan d0t org>
- *    Martin Briza <gamajun@seznam.cz> (SSE)
+ *          Antoine Cellerier <dionoea -at- videolan d0t org>
+ *          Martin Briza <gamajun@seznam.cz> (SSE)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,22 +42,22 @@
  * Basic C compiler generated function for planar format, i_sat > 256
  */
 int planar_sat_hue_clip_C( picture_t * p_pic, picture_t * p_outpic,
-         int i_sin, int i_cos, int i_sat, int i_x, int i_y );
+                           int i_sin, int i_cos, int i_sat, int i_x, int i_y );
 
 /**
  * Basic C compiler generated function for planar format, i_sat <= 256
  */
 int planar_sat_hue_C( picture_t * p_pic, picture_t * p_outpic,
-        int i_sin, int i_cos, int i_sat, int i_x, int i_y );
+                      int i_sin, int i_cos, int i_sat, int i_x, int i_y );
 
 /**
  * Basic C compiler generated function for packed format, i_sat > 256
  */
 int packed_sat_hue_clip_C( picture_t * p_pic, picture_t * p_outpic,
-         int i_sin, int i_cos, int i_sat, int i_x, int i_y );
+                           int i_sin, int i_cos, int i_sat, int i_x, int i_y );
 
 /**
  * Basic C compiler generated function for packed format, i_sat <= 256
  */
 int packed_sat_hue_C( picture_t * p_pic, picture_t * p_outpic,
-        int i_sin, int i_cos, int i_sat, int i_x, int i_y );
+                      int i_sin, int i_cos, int i_sat, int i_x, int i_y );

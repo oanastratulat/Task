@@ -38,30 +38,30 @@ extern "C" {
 /** The OMX_API and OMX_APIENTRY are platform specific definitions used
  *  to declare OMX function prototypes.  They are modified to meet the
  *  requirements for a particular platform */
-#ifdef __SYMBIAN32__ 
-# ifdef __OMX_EXPORTS
-#   define OMX_API __declspec(dllexport)
-# else
-#   ifdef _WIN32
-#     define OMX_API __declspec(dllexport) 
+#ifdef __SYMBIAN32__   
+#   ifdef __OMX_EXPORTS
+#       define OMX_API __declspec(dllexport)
 #   else
-#     define OMX_API __declspec(dllimport)
+#       ifdef _WIN32
+#           define OMX_API __declspec(dllexport) 
+#       else
+#           define OMX_API __declspec(dllimport)
+#       endif
 #   endif
-# endif
 #else
-# ifdef _WIN32
-#  ifdef __OMX_EXPORTS
-#    define OMX_API __declspec(dllexport)
-#  else
-#    define OMX_API __declspec(dllimport)
-#  endif
-# else
-#  ifdef __OMX_EXPORTS
-#    define OMX_API
-#  else
-#    define OMX_API extern
-#  endif
-# endif
+#   ifdef _WIN32
+#      ifdef __OMX_EXPORTS
+#          define OMX_API __declspec(dllexport)
+#      else
+#          define OMX_API __declspec(dllimport)
+#      endif
+#   else
+#      ifdef __OMX_EXPORTS
+#          define OMX_API
+#      else
+#          define OMX_API extern
+#      endif
+#   endif
 #endif
 
 #ifndef OMX_APIENTRY
@@ -69,24 +69,24 @@ extern "C" {
 #endif 
 
 /** OMX_IN is used to identify inputs to an OMX function.  This designation 
-  will also be used in the case of a pointer that points to a parameter 
-  that is used as an output. */
+    will also be used in the case of a pointer that points to a parameter 
+    that is used as an output. */
 #ifndef OMX_IN
 #define OMX_IN
 #endif
 
 /** OMX_OUT is used to identify outputs from an OMX function.  This 
-  designation will also be used in the case of a pointer that points 
-  to a parameter that is used as an input. */
+    designation will also be used in the case of a pointer that points 
+    to a parameter that is used as an input. */
 #ifndef OMX_OUT
 #define OMX_OUT
 #endif
 
 
 /** OMX_INOUT is used to identify parameters that may be either inputs or
-  outputs from an OMX function at the same time.  This designation will 
-  also be used in the case of a pointer that  points to a parameter that 
-  is used both as an input and an output. */
+    outputs from an OMX function at the same time.  This designation will 
+    also be used in the case of a pointer that  points to a parameter that 
+    is used both as an input and an output. */
 #ifndef OMX_INOUT
 #define OMX_INOUT
 #endif
@@ -149,10 +149,10 @@ typedef signed long OMX_S32;
 
 
 /* Users with compilers that cannot accept the "long long" designation should
- define the OMX_SKIP64BIT macro.  It should be noted that this may cause 
- some components to fail to compile if the component was written to require
- 64 bit integral types.  However, these components would NOT compile anyway
- since the compiler does not support the way the component was written.
+   define the OMX_SKIP64BIT macro.  It should be noted that this may cause 
+   some components to fail to compile if the component was written to require
+   64 bit integral types.  However, these components would NOT compile anyway
+   since the compiler does not support the way the component was written.
 */
 #ifndef OMX_SKIP64BIT
 #ifdef __SYMBIAN32__
@@ -164,11 +164,11 @@ typedef signed long long OMX_S64;
 
 #elif defined(WIN32)
 
-/** OMX_U64 is a 64 bit unsigned quantity that is 64 bit word aligned */ 
+/** OMX_U64 is a 64 bit unsigned quantity that is 64 bit word aligned */   
 typedef unsigned __int64  OMX_U64;
 
 /** OMX_S64 is a 64 bit signed quantity that is 64 bit word aligned */
-typedef signed __int64  OMX_S64;
+typedef signed   __int64  OMX_S64;
 
 #else /* WIN32 */
 
@@ -183,86 +183,86 @@ typedef signed long long OMX_S64;
 
 
 /** The OMX_BOOL type is intended to be used to represent a true or a false 
-  value when passing parameters to and from the OMX core and components.  The
-  OMX_BOOL is a 32 bit quantity and is aligned on a 32 bit word boundary.
+    value when passing parameters to and from the OMX core and components.  The
+    OMX_BOOL is a 32 bit quantity and is aligned on a 32 bit word boundary.
  */
 typedef enum OMX_BOOL {
-  OMX_FALSE = 0,
-  OMX_TRUE = !OMX_FALSE,
-  OMX_BOOL_MAX = 0x7FFFFFFF
+    OMX_FALSE = 0,
+    OMX_TRUE = !OMX_FALSE,
+    OMX_BOOL_MAX = 0x7FFFFFFF
 } OMX_BOOL; 
  
 /** The OMX_PTR type is intended to be used to pass pointers between the OMX
-  applications and the OMX Core and components.  This is a 32 bit pointer and
-  is aligned on a 32 bit boundary.
+    applications and the OMX Core and components.  This is a 32 bit pointer and
+    is aligned on a 32 bit boundary.
  */
 typedef void* OMX_PTR;
 
 /** The OMX_STRING type is intended to be used to pass "C" type strings between
-  the application and the core and component.  The OMX_STRING type is a 32 
-  bit pointer to a zero terminated string.  The  pointer is word aligned and 
-  the string is byte aligned.  
+    the application and the core and component.  The OMX_STRING type is a 32 
+    bit pointer to a zero terminated string.  The  pointer is word aligned and 
+    the string is byte aligned.  
  */
 typedef char* OMX_STRING;
 
 /** The OMX_BYTE type is intended to be used to pass arrays of bytes such as
-  buffers between the application and the component and core.  The OMX_BYTE 
-  type is a 32 bit pointer to a zero terminated string.  The  pointer is word
-  aligned and the string is byte aligned.
+    buffers between the application and the component and core.  The OMX_BYTE 
+    type is a 32 bit pointer to a zero terminated string.  The  pointer is word
+    aligned and the string is byte aligned.
  */
 typedef unsigned char* OMX_BYTE;
 
 /** OMX_UUIDTYPE is a very long unique identifier to uniquely identify
-  at runtime.  This identifier should be generated by a component in a way
-  that guarantees that every instance of the identifier running on the system
-  is unique. */
+    at runtime.  This identifier should be generated by a component in a way
+    that guarantees that every instance of the identifier running on the system
+    is unique. */
 typedef unsigned char OMX_UUIDTYPE[128];
 
 /** The OMX_DIRTYPE enumeration is used to indicate if a port is an input or
-  an output port.  This enumeration is common across all component types.  
+    an output port.  This enumeration is common across all component types.    
  */
 typedef enum OMX_DIRTYPE
 {
-  OMX_DirInput,      /**< Port is an input port */
-  OMX_DirOutput,     /**< Port is an output port */
-  OMX_DirMax = 0x7FFFFFFF
+    OMX_DirInput,              /**< Port is an input port */
+    OMX_DirOutput,             /**< Port is an output port */
+    OMX_DirMax = 0x7FFFFFFF
 } OMX_DIRTYPE;
 
 /** The OMX_ENDIANTYPE enumeration is used to indicate the bit ordering 
-  for numerical data (i.e. big endian, or little endian).  
+    for numerical data (i.e. big endian, or little endian).    
  */
 typedef enum OMX_ENDIANTYPE
 {
-  OMX_EndianBig, /**< big endian */
-  OMX_EndianLittle, /**< little endian */
-  OMX_EndianMax = 0x7FFFFFFF
+    OMX_EndianBig, /**< big endian */
+    OMX_EndianLittle, /**< little endian */
+    OMX_EndianMax = 0x7FFFFFFF
 } OMX_ENDIANTYPE;
 
 
 /** The OMX_NUMERICALDATATYPE enumeration is used to indicate if data 
-  is signed or unsigned
+    is signed or unsigned
  */
 typedef enum OMX_NUMERICALDATATYPE
 {
-  OMX_NumericalDataSigned, /**< signed data */
-  OMX_NumericalDataUnsigned, /**< unsigned data */
-  OMX_NumercialDataMax = 0x7FFFFFFF
+    OMX_NumericalDataSigned, /**< signed data */
+    OMX_NumericalDataUnsigned, /**< unsigned data */
+    OMX_NumercialDataMax = 0x7FFFFFFF
 } OMX_NUMERICALDATATYPE;
 
 
 /** Unsigned bounded value type */
 typedef struct OMX_BU32 {
-  OMX_U32 nValue; /**< actual value */
-  OMX_U32 nMin; /**< minimum for value (i.e. nValue >= nMin) */
-  OMX_U32 nMax; /**< maximum for value (i.e. nValue <= nMax) */
+    OMX_U32 nValue; /**< actual value */
+    OMX_U32 nMin;   /**< minimum for value (i.e. nValue >= nMin) */
+    OMX_U32 nMax;   /**< maximum for value (i.e. nValue <= nMax) */
 } OMX_BU32;
 
 
 /** Signed bounded value type */
 typedef struct OMX_BS32 {
-  OMX_S32 nValue; /**< actual value */
-  OMX_S32 nMin; /**< minimum for value (i.e. nValue >= nMin) */
-  OMX_S32 nMax; /**< maximum for value (i.e. nValue <= nMax) */
+    OMX_S32 nValue; /**< actual value */
+    OMX_S32 nMin;   /**< minimum for value (i.e. nValue >= nMin) */
+    OMX_S32 nMax;   /**< maximum for value (i.e. nValue <= nMax) */
 } OMX_BS32;
 
 
@@ -283,25 +283,25 @@ typedef OMX_S64 OMX_TICKS;
 #else
 typedef struct OMX_TICKS
 {
-  OMX_U32 nLowPart;  /** low bits of the signed 64 bit tick value */
-  OMX_U32 nHighPart; /** high bits of the signed 64 bit tick value */
+    OMX_U32 nLowPart;    /** low bits of the signed 64 bit tick value */
+    OMX_U32 nHighPart;   /** high bits of the signed 64 bit tick value */
 } OMX_TICKS;
 #endif
 #define OMX_TICKS_PER_SECOND 1000000
 
 /** Define the public interface for the OMX Handle.  The core will not use
-  this value internally, but the application should only use this value.
+    this value internally, but the application should only use this value.
  */
 typedef void* OMX_HANDLETYPE;
 
 typedef struct OMX_MARKTYPE
 {
-  OMX_HANDLETYPE hMarkTargetComponent; /**< The component that will 
-                generate a mark event upon 
-                processing the mark. */
-  OMX_PTR pMarkData; /**< Application specific data associated with 
-          the mark sent on a mark event to disambiguate 
-          this mark from others. */
+    OMX_HANDLETYPE hMarkTargetComponent;   /**< The component that will 
+                                                generate a mark event upon 
+                                                processing the mark. */
+    OMX_PTR pMarkData;   /**< Application specific data associated with 
+                              the mark sent on a mark event to disambiguate 
+                              this mark from others. */
 } OMX_MARKTYPE;
 
 
@@ -315,28 +315,28 @@ typedef void* OMX_NATIVE_DEVICETYPE;
 typedef void* OMX_NATIVE_WINDOWTYPE;
 
 /** The OMX_VERSIONTYPE union is used to specify the version for
-  a structure or component.  For a component, the version is entirely
-  specified by the component vendor.  Components doing the same function
-  from different vendors may or may not have the same version.  For 
-  structures, the version shall be set by the entity that allocates the
-  structure.  For structures specified in the OMX 1.1 specification, the
-  value of the version shall be set to 1.1.0.0 in all cases.  Access to the
-  OMX_VERSIONTYPE can be by a single 32 bit access (e.g. by nVersion) or
-  by accessing one of the structure elements to, for example, check only
-  the Major revision.
+    a structure or component.  For a component, the version is entirely
+    specified by the component vendor.  Components doing the same function
+    from different vendors may or may not have the same version.  For 
+    structures, the version shall be set by the entity that allocates the
+    structure.  For structures specified in the OMX 1.1 specification, the
+    value of the version shall be set to 1.1.0.0 in all cases.  Access to the
+    OMX_VERSIONTYPE can be by a single 32 bit access (e.g. by nVersion) or
+    by accessing one of the structure elements to, for example, check only
+    the Major revision.
  */
 typedef union OMX_VERSIONTYPE
 {
-  struct
-  {
-    OMX_U8 nVersionMajor; /**< Major version accessor element */
-    OMX_U8 nVersionMinor; /**< Minor version accessor element */
-    OMX_U8 nRevision;   /**< Revision version accessor element */
-    OMX_U8 nStep;     /**< Step version accessor element */
-  } s;
-  OMX_U32 nVersion;     /**< 32 bit value to make accessing the
-            version easily done in a single word
-            size copy/compare operation */
+    struct
+    {
+        OMX_U8 nVersionMajor;   /**< Major version accessor element */
+        OMX_U8 nVersionMinor;   /**< Minor version accessor element */
+        OMX_U8 nRevision;       /**< Revision version accessor element */
+        OMX_U8 nStep;           /**< Step version accessor element */
+    } s;
+    OMX_U32 nVersion;           /**< 32 bit value to make accessing the
+                                    version easily done in a single word
+                                    size copy/compare operation */
 } OMX_VERSIONTYPE;
 
 #ifdef __cplusplus

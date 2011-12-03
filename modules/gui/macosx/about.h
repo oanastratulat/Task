@@ -5,7 +5,7 @@
  * $Id: 9580c6e77de7f836c9345588ce87d60933af0275 $
  *
  * Authors: Derk-Jan Hartman <thedj@users.sourceforge.net>
- *    Felix Paul Kühne <fkuehne -at- videolan.org>
+ *          Felix Paul Kühne <fkuehne -at- videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,35 +27,35 @@
 /*****************************************************************************
  * VLAboutBox interface
  *****************************************************************************/
-@interface VLAboutBox : NSObjec
+@interface VLAboutBox : NSObject
 {
-  /* main about panel and stuff related to its views */
-  IBOutlet id o_about_window;
-  IBOutlet id o_name_version_field;
-  IBOutlet id o_revision_field;
-  IBOutlet id o_copyright_field;
-  IBOutlet id o_credits_textview;
-  IBOutlet id o_credits_scrollview;
-  IBOutlet id o_gpl_btn;
-  IBOutlet id o_name_field;
+    /* main about panel and stuff related to its views */
+    IBOutlet id o_about_window;
+    IBOutlet id o_name_version_field;
+    IBOutlet id o_revision_field;
+    IBOutlet id o_copyright_field;
+    IBOutlet id o_credits_textview;
+    IBOutlet id o_credits_scrollview;
+    IBOutlet id o_gpl_btn;
+    IBOutlet id o_name_field;
 
-  NSTimer *o_scroll_timer;
-  float f_current;
-  float f_end;
-  NSTimeInterval i_start;
-  BOOL b_restart;
-  BOOL b_isSetUp;
+    NSTimer *o_scroll_timer;
+    float f_current;
+    float f_end;
+    NSTimeInterval i_start;
+    BOOL b_restart;
+    BOOL b_isSetUp;
+    
+    /* generic help window */
+    IBOutlet id o_help_window;
+    IBOutlet WebView *o_help_web_view; //we may _not_ use id here because of method name collisions
+    IBOutlet id o_help_bwd_btn;
+    IBOutlet id o_help_fwd_btn;
+    IBOutlet id o_help_home_btn;
 
-  /* generic help window */
-  IBOutlet id o_help_window;
-  IBOutlet WebView *o_help_web_view; //we may _not_ use id here because of method name collisions
-  IBOutlet id o_help_bwd_btn;
-  IBOutlet id o_help_fwd_btn;
-  IBOutlet id o_help_home_btn;
-
-  /* licence window */
-  IBOutlet id o_gpl_window;
-  IBOutlet id o_gpl_field;
+    /* licence window */
+    IBOutlet id o_gpl_window;
+    IBOutlet id o_gpl_field;
 }
 
 + (VLAboutBox *)sharedInstance;

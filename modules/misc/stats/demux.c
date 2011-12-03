@@ -4,7 +4,7 @@
  * Copyright (C) 2001-2008 the VideoLAN team
  *
  * Authors: Samuel Hocevar <sam@zoy.org>
- *    Pierre d'Herbemont <pdherbemont@videolan.org>
+ *          Pierre d'Herbemont <pdherbemont@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,12 +42,12 @@
  *****************************************************************************/
 
 
-struct demux_sys_
+struct demux_sys_t
 {
-  es_format_t   fmt;
-  es_out_id_t   *p_es;
+    es_format_t     fmt;
+    es_out_id_t     *p_es;
 
-  date_t    pts;
+    date_t          pts;
 };
 
 static int Demux( demux_t * );
@@ -59,34 +59,34 @@ static int DemuxControl( demux_t *, int, va_list );
  *****************************************************************************/
 int OpenDemux ( vlc_object_t *p_this )
 {
-  demux_t *p_demux = (demux_t*)p_this;
-  demux_sys_t *p_sys;
+    demux_t *p_demux = (demux_t*)p_this;
+    demux_sys_t *p_sys;
 
-  p_demux->p_sys = NULL;
+    p_demux->p_sys = NULL;
 
-  /* Only when selected */
-  if( *p_demux->psz_demux == '\0' )
-    return VLC_EGENERIC;
+    /* Only when selected */
+    if( *p_demux->psz_demux == '\0' )
+        return VLC_EGENERIC;
 
-  msg_Dbg( p_demux, "Init Stat demux" );
+    msg_Dbg( p_demux, "Init Stat demux" );
 
-  p_demux->pf_demux = Demux;
-  p_demux->pf_control = DemuxControl;
+    p_demux->pf_demux   = Demux;
+    p_demux->pf_control = DemuxControl;
 
-  p_demux->p_sys = p_sys = malloc( sizeof( demux_sys_t ) );
-  if( !p_demux->p_sys )
-    return VLC_ENOMEM;
+    p_demux->p_sys = p_sys = malloc( sizeof( demux_sys_t ) );
+    if( !p_demux->p_sys )
+        return VLC_ENOMEM;
 
-  date_Init( &p_sys->pts, 1, 1 );
-  date_Set( &p_sys->pts, 1 );
+    date_Init( &p_sys->pts, 1, 1 );
+    date_Set( &p_sys->pts, 1 );
 
-  es_format_Init( &p_sys->fmt, VIDEO_ES, VLC_FOURCC('s','t','a','t') );
-  p_sys->fmt.video.i_width = 720;
-  p_sys->fmt.video.i_height= 480;
+    es_format_Init( &p_sys->fmt, VIDEO_ES, VLC_FOURCC('s','t','a','t') );
+    p_sys->fmt.video.i_width = 720;
+    p_sys->fmt.video.i_height= 480;
 
-  p_sys->p_es = es_out_Add( p_demux->out, &p_sys->fmt );
+    p_sys->p_es = es_out_Add( p_demux->out, &p_sys->fmt );
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -94,11 +94,11 @@ int OpenDemux ( vlc_object_t *p_this )
  *****************************************************************************/
 void CloseDemux ( vlc_object_t *p_this )
 {
-  demux_t *p_demux = (demux_t*)p_this;
+    demux_t *p_demux = (demux_t*)p_this;
 
-  msg_Dbg( p_demux, "Closing Stat demux" );
+    msg_Dbg( p_demux, "Closing Stat demux" );
 
-  free( p_demux->p_sys );
+    free( p_demux->p_sys );
 }
 
 /*****************************************************************************
@@ -106,27 +106,27 @@ void CloseDemux ( vlc_object_t *p_this )
  *****************************************************************************/
 static int Demux( demux_t *p_demux )
 {
-  demux_sys_t *p_sys = p_demux->p_sys;
+    demux_sys_t *p_sys = p_demux->p_sys;
 
-  block_t * p_block = stream_Block( p_demux->s, kBufferSize );
+    block_t * p_block = stream_Block( p_demux->s, kBufferSize );
 
-  if( !p_block ) return 1;
+    if( !p_block ) return 1;
 
-  p_block->i_dts = p_block->i_pts =
-    date_Increment( &p_sys->pts, kBufferSize );
+    p_block->i_dts = p_block->i_pts =
+        date_Increment( &p_sys->pts, kBufferSize );
 
-  msg_Dbg( p_demux, "demux got %d ms offset", (int)(mdate() - *(mtime_t *)p_block->p_buffer) / 1000 );
+    msg_Dbg( p_demux, "demux got %d ms offset", (int)(mdate() - *(mtime_t *)p_block->p_buffer) / 1000 );
 
-  //es_out_Control( p_demux->out, ES_OUT_SET_PCR, p_block->i_pts );
+    //es_out_Control( p_demux->out, ES_OUT_SET_PCR, p_block->i_pts );
 
-  es_out_Send( p_demux->out, p_sys->p_es, p_block );
+    es_out_Send( p_demux->out, p_sys->p_es, p_block );
 
-  return 1;
+    return 1;
 }
 
 static int DemuxControl( demux_t *p_demux, int i_query, va_list args )
 {
-  return demux_vaControlHelper( p_demux->s,
-             0, 0, 0, 1,
-             i_query, args );
+    return demux_vaControlHelper( p_demux->s,
+                                   0, 0, 0, 1,
+                                   i_query, args );
 }

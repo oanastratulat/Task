@@ -26,28 +26,28 @@
 
 
 @interface VLCTrackSynchronization : NSObject {
-  /* generic */
-  IBOutlet id o_window;
-  intf_thread_t *p_intf;
-  IBOutlet id o_reset_btn;
+    /* generic */
+    IBOutlet id o_window;
+    intf_thread_t *p_intf;
+    IBOutlet id o_reset_btn;
 
-  /* Audio / Video */
-  IBOutlet id o_av_lbl;
-  IBOutlet id o_av_advance_lbl;
-  IBOutlet id o_av_minus_btn;
-  IBOutlet id o_av_plus_btn;
-  IBOutlet id o_av_value_fld;
+    /* Audio / Video */
+    IBOutlet id o_av_lbl;
+    IBOutlet id o_av_advance_lbl;
+    IBOutlet id o_av_minus_btn;
+    IBOutlet id o_av_plus_btn;
+    IBOutlet id o_av_value_fld;
 
-  /* Subtitles / Video */
-  IBOutlet id o_sv_lbl;
-  IBOutlet id o_sv_advance_lbl;
-  IBOutlet id o_sv_advance_minus_btn;
-  IBOutlet id o_sv_advance_plus_btn;
-  IBOutlet id o_sv_advance_value_fld;
-  IBOutlet id o_sv_speed_lbl;
-  IBOutlet id o_sv_speed_minus_btn;
-  IBOutlet id o_sv_speed_plus_btn;
-  IBOutlet id o_sv_speed_value_fld;
+    /* Subtitles / Video */
+    IBOutlet id o_sv_lbl;
+    IBOutlet id o_sv_advance_lbl;
+    IBOutlet id o_sv_advance_minus_btn;
+    IBOutlet id o_sv_advance_plus_btn;
+    IBOutlet id o_sv_advance_value_fld;
+    IBOutlet id o_sv_speed_lbl;
+    IBOutlet id o_sv_speed_minus_btn;
+    IBOutlet id o_sv_speed_plus_btn;
+    IBOutlet id o_sv_speed_value_fld;
 }
 
 /* generic */

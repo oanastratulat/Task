@@ -39,69 +39,69 @@
 /*****************************************************************************
  * decoder_sys_t : omxil decoder descriptor
  *****************************************************************************/
-typedef struct OmxPor
+typedef struct OmxPort
 {
-  bool b_valid;
-  OMX_U32 i_port_index;
-  OMX_HANDLETYPE omx_handle;
-  OMX_PARAM_PORTDEFINITIONTYPE definition;
-  es_format_t *p_fmt;
+    bool b_valid;
+    OMX_U32 i_port_index;
+    OMX_HANDLETYPE omx_handle;
+    OMX_PARAM_PORTDEFINITIONTYPE definition;
+    es_format_t *p_fmt;
 
-  unsigned int i_frame_size;
-  unsigned int i_frame_stride;
-  unsigned int i_frame_stride_chroma_div;
+    unsigned int i_frame_size;
+    unsigned int i_frame_stride;
+    unsigned int i_frame_stride_chroma_div;
 
-  unsigned int i_buffers;
-  OMX_BUFFERHEADERTYPE **pp_buffers;
+    unsigned int i_buffers;
+    OMX_BUFFERHEADERTYPE **pp_buffers;
 
-  struct fifo_
-  {
-  vlc_mutex_t   lock;
-  vlc_cond_t    wait;
+    struct fifo_t
+    {
+      vlc_mutex_t         lock;
+      vlc_cond_t          wait;
 
-  OMX_BUFFERHEADERTYPE *p_first;
-  OMX_BUFFERHEADERTYPE **pp_last;
+      OMX_BUFFERHEADERTYPE *p_first;
+      OMX_BUFFERHEADERTYPE **pp_last;
 
-  int offset;
+      int offset;
 
-  } fifo;
+    } fifo;
 
-  OmxFormatParam format_param;
+    OmxFormatParam format_param;
 
-  OMX_BOOL b_reconfigure;
-  OMX_BOOL b_direct;
-  OMX_BOOL b_flushed;
+    OMX_BOOL b_reconfigure;
+    OMX_BOOL b_direct;
+    OMX_BOOL b_flushed;
 
 } OmxPort;
 
-struct decoder_sys_
+struct decoder_sys_t
 {
-  OMX_HANDLETYPE omx_handle;
+    OMX_HANDLETYPE omx_handle;
 
-  bool b_enc;
-  bool b_init;
-  vlc_mutex_t lock;
+    bool b_enc;
+    bool b_init;
+    vlc_mutex_t lock;
 
-  char psz_component[OMX_MAX_STRINGNAME_SIZE];
-  char ppsz_components[MAX_COMPONENTS_LIST_SIZE][OMX_MAX_STRINGNAME_SIZE];
-  unsigned int components;
+    char psz_component[OMX_MAX_STRINGNAME_SIZE];
+    char ppsz_components[MAX_COMPONENTS_LIST_SIZE][OMX_MAX_STRINGNAME_SIZE];
+    unsigned int components;
 
-  struct OmxEvent *p_events;
-  struct OmxEvent **pp_last_event;
+    struct OmxEvent *p_events;
+    struct OmxEvent **pp_last_event;
 
-  vlc_mutex_t mutex;
-  vlc_cond_t cond;
+    vlc_mutex_t mutex;
+    vlc_cond_t cond;
 
-  OmxPort *p_ports;
-  unsigned int ports;
-  OmxPort in;
-  OmxPort out;
+    OmxPort *p_ports;
+    unsigned int ports;
+    OmxPort in;
+    OmxPort out;
 
-  bool b_error;
+    bool b_error;
 
-  date_t end_date;
+    date_t end_date;
 
-  int i_nal_size_length; /* Length of the NAL size field for H264 */
+    int i_nal_size_length; /* Length of the NAL size field for H264 */
 
-  OMX_BUFFERHEADERTYPE sentinel_buffer;
+    OMX_BUFFERHEADERTYPE sentinel_buffer;
 };

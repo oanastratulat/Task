@@ -24,13 +24,13 @@
 #ifndef _MMS_BUFFER_H_
 #define _MMS_BUFFER_H_ 1
 
-typedef struc
+typedef struct
 {
-  uint8_t *p_data;  // pointer on data
-  int   i_data;   // number of bytes set in p_data
+    uint8_t *p_data;    // pointer on data
+    int     i_data;     // number of bytes set in p_data
 
-  // private
-  int  i_size;   // size of p_data memory allocated
+    // private
+    int    i_size;     // size of p_data memory allocated
 } var_buffer_t;
 
 /*****************************************************************************
@@ -47,13 +47,13 @@ void var_buffer_addUTF16( var_buffer_t *p_buf, const char *p_str );
 void var_buffer_free( var_buffer_t *p_buf );
 
 
-void  var_buffer_initread( var_buffer_t *p_buf, void *p_data, int i_data );
-uint8_t var_buffer_get8 ( var_buffer_t *p_buf );
+void      var_buffer_initread( var_buffer_t *p_buf, void *p_data, int i_data );
+uint8_t   var_buffer_get8 ( var_buffer_t *p_buf );
 uint16_t  var_buffer_get16( var_buffer_t *p_buf );
 uint32_t  var_buffer_get32( var_buffer_t *p_buf );
 uint64_t  var_buffer_get64( var_buffer_t *p_buf );
-int   var_buffer_getmemory ( var_buffer_t *p_buf, void *p_mem, int64_t i_mem );
-int   var_buffer_readempty( var_buffer_t *p_buf );
-void  var_buffer_getguid( var_buffer_t *p_buf, guid_t *p_guid );
+int       var_buffer_getmemory ( var_buffer_t *p_buf, void *p_mem, int64_t i_mem );
+int       var_buffer_readempty( var_buffer_t *p_buf );
+void      var_buffer_getguid( var_buffer_t *p_buf, guid_t *p_guid );
 
 #endif

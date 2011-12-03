@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: fe9cbecc63f980ea90807a82617bcd68c41c6a2e $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,21 +25,21 @@
 #include "evt_scroll.hpp"
 
 
-const string EvtScroll::getAsString() cons
+const string EvtScroll::getAsString() const
 {
-  string event = "scroll";
+    string event = "scroll";
 
-  // Add the direction
-  if( m_direction == kUp )
-    event += ":up";
-  else if( m_direction == kDown )
-    event += ":down";
-  else
-    msg_Warn( getIntf(), "unknown scrolling direction" );
+    // Add the direction
+    if( m_direction == kUp )
+        event += ":up";
+    else if( m_direction == kDown )
+        event += ":down";
+    else
+        msg_Warn( getIntf(), "unknown scrolling direction" );
 
-  // Add the modifier
-  addModifier( event );
+    // Add the modifier
+    addModifier( event );
 
-  return event;
+    return event;
 }
 

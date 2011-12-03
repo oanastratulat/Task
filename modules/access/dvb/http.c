@@ -47,65 +47,65 @@
 
 #include "dvb.h"
 
-struct httpd_file_sys_
+struct httpd_file_sys_t
 {
-  access_t   *p_access;
-  httpd_file_t   *p_file;
+    access_t         *p_access;
+    httpd_file_t     *p_file;
 };
 
 static int HttpCallback( httpd_file_sys_t *p_args,
-         httpd_file_t *p_file,
-         uint8_t *_p_request,
-         uint8_t **_pp_data, int *pi_data );
+                         httpd_file_t *p_file,
+                         uint8_t *_p_request,
+                         uint8_t **_pp_data, int *pi_data );
 
 /*****************************************************************************
  * HTTPOpen: Start the internal HTTP server
  *****************************************************************************/
 int HTTPOpen( access_t *p_access )
 {
-  access_sys_t *p_sys = p_access->p_sys;
-  char    *psz_user = NULL, *psz_password = NULL;
-  char    psz_tmp[10];
-  httpd_file_sys_t *f;
+    access_sys_t *p_sys = p_access->p_sys;
+    char          *psz_user = NULL, *psz_password = NULL;
+    char          psz_tmp[10];
+    httpd_file_sys_t *f;
 
-  vlc_mutex_init( &p_sys->httpd_mutex );
-  vlc_cond_init( &p_sys->httpd_cond );
-  p_sys->b_request_frontend_info = p_sys->b_request_mmi_info = false;
-  p_sys->i_httpd_timeout = 0;
+    vlc_mutex_init( &p_sys->httpd_mutex );
+    vlc_cond_init( &p_sys->httpd_cond );
+    p_sys->b_request_frontend_info = p_sys->b_request_mmi_info = false;
+    p_sys->i_httpd_timeout = 0;
 
-  p_sys->p_httpd_host = vlc_http_HostNew( VLC_OBJECT(p_access) );
-  if ( p_sys->p_httpd_host == NULL )
-  {
-    return VLC_EGENERIC;
-  }
-  free( psz_address );
+    p_sys->p_httpd_host = vlc_http_HostNew( VLC_OBJECT(p_access) );
+    if ( p_sys->p_httpd_host == NULL )
+    {
+        return VLC_EGENERIC;
+    }
+    free( psz_address );
 
-  psz_user = var_GetNonEmptyString( p_access, "dvb-http-user" );
-  psz_password = var_GetNonEmptyString( p_access, "dvb-http-password" );
+    psz_user = var_GetNonEmptyString( p_access, "dvb-http-user" );
+    psz_password = var_GetNonEmptyString( p_access, "dvb-http-password" );
 
-  /* Declare an index.html file. */
-  f = malloc( sizeof(httpd_file_sys_t) );
-  f->p_access = p_access;
-  f->p_file = httpd_FileNew( p_sys->p_httpd_host, "/index.html",
-           "text/html; charset=UTF-8",
-           psz_user, psz_password, NULL,
-           HttpCallback, f );
+    /* Declare an index.html file. */
+    f = malloc( sizeof(httpd_file_sys_t) );
+    f->p_access = p_access;
+    f->p_file = httpd_FileNew( p_sys->p_httpd_host, "/index.html",
+                               "text/html; charset=UTF-8",
+                               psz_user, psz_password, NULL,
+                               HttpCallback, f );
 
-  free( psz_user );
-  free( psz_password );
+    free( psz_user );
+    free( psz_password );
 
-  if ( f->p_file == NULL )
-  {
-    free( f );
-    p_sys->p_httpd_file = NULL;
-    return VLC_EGENERIC;
-  }
+    if ( f->p_file == NULL )
+    {
+        free( f );
+        p_sys->p_httpd_file = NULL;
+        return VLC_EGENERIC;
+    }
 
-  p_sys->p_httpd_file = f;
-  p_sys->p_httpd_redir = httpd_RedirectNew( p_sys->p_httpd_host,
-                "/index.html", "/" );
+    p_sys->p_httpd_file = f;
+    p_sys->p_httpd_redir = httpd_RedirectNew( p_sys->p_httpd_host,
+                                              "/index.html", "/" );
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -113,162 +113,162 @@ int HTTPOpen( access_t *p_access )
  *****************************************************************************/
 void HTTPClose( access_t *p_access )
 {
-  access_sys_t *p_sys = p_access->p_sys;
+    access_sys_t *p_sys = p_access->p_sys;
 
-  if ( p_sys->p_httpd_host != NULL )
-  {
-    if ( p_sys->p_httpd_file != NULL )
+    if ( p_sys->p_httpd_host != NULL )
     {
-    /* Unlock the thread if it is stuck in HttpCallback */
-    vlc_mutex_lock( &p_sys->httpd_mutex );
-    if ( p_sys->b_request_frontend_info )
-    {
-      p_sys->b_request_frontend_info = false;
-      p_sys->psz_frontend_info = strdup("");
-    }
-    if ( p_sys->b_request_mmi_info )
-    {
-      p_sys->b_request_mmi_info = false;
-      p_sys->psz_mmi_info = strdup("");
-    }
-    vlc_cond_signal( &p_sys->httpd_cond );
-    vlc_mutex_unlock( &p_sys->httpd_mutex );
+        if ( p_sys->p_httpd_file != NULL )
+        {
+            /* Unlock the thread if it is stuck in HttpCallback */
+            vlc_mutex_lock( &p_sys->httpd_mutex );
+            if ( p_sys->b_request_frontend_info )
+            {
+                p_sys->b_request_frontend_info = false;
+                p_sys->psz_frontend_info = strdup("");
+            }
+            if ( p_sys->b_request_mmi_info )
+            {
+                p_sys->b_request_mmi_info = false;
+                p_sys->psz_mmi_info = strdup("");
+            }
+            vlc_cond_signal( &p_sys->httpd_cond );
+            vlc_mutex_unlock( &p_sys->httpd_mutex );
 
-    httpd_FileDelete( p_sys->p_httpd_file->p_file );
-    httpd_RedirectDelete( p_sys->p_httpd_redir );
+            httpd_FileDelete( p_sys->p_httpd_file->p_file );
+            httpd_RedirectDelete( p_sys->p_httpd_redir );
+        }
+
+        httpd_HostDelete( p_sys->p_httpd_host );
     }
 
-    httpd_HostDelete( p_sys->p_httpd_host );
-  }
-
-  vlc_mutex_destroy( &p_sys->httpd_mutex );
-  vlc_cond_destroy( &p_sys->httpd_cond );
+    vlc_mutex_destroy( &p_sys->httpd_mutex );
+    vlc_cond_destroy( &p_sys->httpd_cond );
 }
 
 
 static const char *psz_constant_header =
-  "<html>\n"
-  "<head><title>VLC DVB monitoring interface</title></head>\n"
-  "<body><a href=\"index.html\">Reload this page</a>\n"
-  "<h1>CAM info</h1>\n";
+    "<html>\n"
+    "<head><title>VLC DVB monitoring interface</title></head>\n"
+    "<body><a href=\"index.html\">Reload this page</a>\n"
+    "<h1>CAM info</h1>\n";
 
 static const char *psz_constant_middle =
-  "<hr><h1>Frontend Info</h1>\n";
+    "<hr><h1>Frontend Info</h1>\n";
 
 static const char *psz_constant_footer =
-  "</body></html>\n";
+    "</body></html>\n";
 
 /****************************************************************************
  * HttpCallback: Return the index.html file
  ****************************************************************************/
 static int HttpCallback( httpd_file_sys_t *p_args,
-         httpd_file_t *p_file,
-         uint8_t *_psz_request,
-         uint8_t **_pp_data, int *pi_data )
+                         httpd_file_t *p_file,
+                         uint8_t *_psz_request,
+                         uint8_t **_pp_data, int *pi_data )
 {
-  VLC_UNUSED(p_file);
-  access_sys_t *p_sys = p_args->p_access->p_sys;
-  char *psz_request = (char *)_psz_request;
-  char **pp_data = (char **)_pp_data;
+    VLC_UNUSED(p_file);
+    access_sys_t *p_sys = p_args->p_access->p_sys;
+    char *psz_request = (char *)_psz_request;
+    char **pp_data = (char **)_pp_data;
 
-  vlc_mutex_lock( &p_sys->httpd_mutex );
+    vlc_mutex_lock( &p_sys->httpd_mutex );
 
-  p_sys->i_httpd_timeout = mdate() + INT64_C(3000000); /* 3 s */
-  p_sys->psz_request = psz_request;
-  p_sys->b_request_frontend_info = true;
-  if ( p_sys->p_cam != NULL )
-  {
-    p_sys->b_request_mmi_info = true;
-  }
-  else
-  {
-    p_sys->psz_mmi_info = strdup( "No available CAM interface\n" );
-  }
+    p_sys->i_httpd_timeout = mdate() + INT64_C(3000000); /* 3 s */
+    p_sys->psz_request = psz_request;
+    p_sys->b_request_frontend_info = true;
+    if ( p_sys->p_cam != NULL )
+    {
+        p_sys->b_request_mmi_info = true;
+    }
+    else
+    {
+        p_sys->psz_mmi_info = strdup( "No available CAM interface\n" );
+    }
 
-  do
-  {
-    vlc_cond_wait( &p_sys->httpd_cond, &p_sys->httpd_mutex );
-  }
-  while ( p_sys->b_request_frontend_info || p_sys->b_request_mmi_info );
+    do
+    {
+        vlc_cond_wait( &p_sys->httpd_cond, &p_sys->httpd_mutex );
+    }
+    while ( p_sys->b_request_frontend_info || p_sys->b_request_mmi_info );
 
-  p_sys->i_httpd_timeout = 0;
-  vlc_mutex_unlock( &p_sys->httpd_mutex );
+    p_sys->i_httpd_timeout = 0;
+    vlc_mutex_unlock( &p_sys->httpd_mutex );
 
-  *pi_data = strlen( psz_constant_header )
-      + strlen( p_sys->psz_mmi_info )
-      + strlen( psz_constant_middle )
-      + strlen( p_sys->psz_frontend_info )
-      + strlen( psz_constant_footer ) + 1;
-  *pp_data = malloc( *pi_data );
+    *pi_data = strlen( psz_constant_header )
+                + strlen( p_sys->psz_mmi_info )
+                + strlen( psz_constant_middle )
+                + strlen( p_sys->psz_frontend_info )
+                + strlen( psz_constant_footer ) + 1;
+    *pp_data = malloc( *pi_data );
 
-  sprintf( *pp_data, "%s%s%s%s%s", psz_constant_header,
-     p_sys->psz_mmi_info, psz_constant_middle,
-     p_sys->psz_frontend_info, psz_constant_footer );
-  free( p_sys->psz_frontend_info );
-  free( p_sys->psz_mmi_info );
+    sprintf( *pp_data, "%s%s%s%s%s", psz_constant_header,
+             p_sys->psz_mmi_info, psz_constant_middle,
+             p_sys->psz_frontend_info, psz_constant_footer );
+    free( p_sys->psz_frontend_info );
+    free( p_sys->psz_mmi_info );
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 /****************************************************************************
- * HTTPExtractValue: Extract a GET variable from psz_reques
+ * HTTPExtractValue: Extract a GET variable from psz_request
  ****************************************************************************/
 const char *HTTPExtractValue( const char *psz_uri, const char *psz_name,
-        char *psz_value, int i_value_max )
+                        char *psz_value, int i_value_max )
 {
-  const char *p = psz_uri;
+    const char *p = psz_uri;
 
-  while( (p = strstr( p, psz_name )) )
-  {
-    /* Verify that we are dealing with a post/get argument */
-    if( (p == psz_uri || *(p - 1) == '&' || *(p - 1) == '\n')
-      && p[strlen(psz_name)] == '=' )
-    break;
-    p++;
-  }
-
-  if( p )
-  {
-    int i_len;
-
-    p += strlen( psz_name );
-    if( *p == '=' ) p++;
-
-    if( strchr( p, '&' ) )
+    while( (p = strstr( p, psz_name )) )
     {
-    i_len = strchr( p, '&' ) - p;
+        /* Verify that we are dealing with a post/get argument */
+        if( (p == psz_uri || *(p - 1) == '&' || *(p - 1) == '\n')
+              && p[strlen(psz_name)] == '=' )
+            break;
+        p++;
+    }
+
+    if( p )
+    {
+        int i_len;
+
+        p += strlen( psz_name );
+        if( *p == '=' ) p++;
+
+        if( strchr( p, '&' ) )
+        {
+            i_len = strchr( p, '&' ) - p;
+        }
+        else
+        {
+            /* for POST method */
+            if( strchr( p, '\n' ) )
+            {
+                i_len = strchr( p, '\n' ) - p;
+                if( i_len && *(p+i_len-1) == '\r' ) i_len--;
+            }
+            else
+            {
+                i_len = strlen( p );
+            }
+        }
+        i_len = __MIN( i_value_max - 1, i_len );
+        if( i_len > 0 )
+        {
+            strncpy( psz_value, p, i_len );
+            psz_value[i_len] = '\0';
+        }
+        else
+        {
+            strncpy( psz_value, "", i_value_max );
+        }
+        p += i_len;
     }
     else
     {
-    /* for POST method */
-    if( strchr( p, '\n' ) )
-    {
-      i_len = strchr( p, '\n' ) - p;
-      if( i_len && *(p+i_len-1) == '\r' ) i_len--;
+        strncpy( psz_value, "", i_value_max );
     }
-    else
-    {
-      i_len = strlen( p );
-    }
-    }
-    i_len = __MIN( i_value_max - 1, i_len );
-    if( i_len > 0 )
-    {
-    strncpy( psz_value, p, i_len );
-    psz_value[i_len] = '\0';
-    }
-    else
-    {
-    strncpy( psz_value, "", i_value_max );
-    }
-    p += i_len;
-  }
-  else
-  {
-    strncpy( psz_value, "", i_value_max );
-  }
 
-  return p;
+    return p;
 }
 
 #endif /* ENABLE_HTTPD */

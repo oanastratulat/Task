@@ -5,8 +5,8 @@
  * $Id: 0c0eaba8bc6aa394cba93aff70e41871de86eaaa $
  *
  * Authors: Jon Lech Johansen <jon-vl@nanocrew.net>
- *    Christophe Massiot <massiot@via.ecp.fr>
- *    Derk-Jan Hartman <thedj@users.sourceforge.net>
+ *          Christophe Massiot <massiot@via.ecp.fr>
+ *          Derk-Jan Hartman <thedj@users.sourceforge.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,61 +26,61 @@
 /*****************************************************************************
  * VLCOutput interface
  *****************************************************************************/
-@interface VLCOutput : NSObjec
+@interface VLCOutput : NSObject
 {
-  IBOutlet id o_open_panel;
-  IBOutlet id o_output_ckbox;
-  IBOutlet id o_output_settings;
-  IBOutlet id o_output_sheet;
-  IBOutlet id o_btn_ok;
+    IBOutlet id o_open_panel;
+    IBOutlet id o_output_ckbox;
+    IBOutlet id o_output_settings;
+    IBOutlet id o_output_sheet;
+    IBOutlet id o_btn_ok;
 
-  IBOutlet id o_options_lbl;
-  IBOutlet id o_display;
-  IBOutlet id o_method;
-  IBOutlet id o_file_field;
-  IBOutlet id o_dump_chkbox;
-  IBOutlet id o_btn_browse;
-  IBOutlet id o_stream_address;
-  IBOutlet id o_stream_address_lbl;
-  IBOutlet id o_stream_port;
-  IBOutlet id o_stream_port_stp;
-  IBOutlet id o_stream_port_lbl;
-  IBOutlet id o_stream_ttl;
-  IBOutlet id o_stream_ttl_stp;
-  IBOutlet id o_stream_ttl_lbl;
-  IBOutlet id o_stream_type;
-  IBOutlet id o_stream_type_lbl;
+    IBOutlet id o_options_lbl;
+    IBOutlet id o_display;
+    IBOutlet id o_method;
+    IBOutlet id o_file_field;
+    IBOutlet id o_dump_chkbox;
+    IBOutlet id o_btn_browse;
+    IBOutlet id o_stream_address;
+    IBOutlet id o_stream_address_lbl;
+    IBOutlet id o_stream_port;
+    IBOutlet id o_stream_port_stp;
+    IBOutlet id o_stream_port_lbl;
+    IBOutlet id o_stream_ttl;
+    IBOutlet id o_stream_ttl_stp;
+    IBOutlet id o_stream_ttl_lbl;
+    IBOutlet id o_stream_type;
+    IBOutlet id o_stream_type_lbl;
 
-  IBOutlet id o_mux_lbl;
-  IBOutlet id o_mux_selector;
+    IBOutlet id o_mux_lbl;
+    IBOutlet id o_mux_selector;
 
-  IBOutlet id o_transcode_audio_bitrate;
-  IBOutlet id o_transcode_audio_bitrate_lbl;
-  IBOutlet id o_transcode_audio_channels;
-  IBOutlet id o_transcode_audio_channels_lbl;
-  IBOutlet id o_transcode_audio_chkbox;
-  IBOutlet id o_transcode_audio_selector;
-  IBOutlet id o_transcode_lbl;
-  IBOutlet id o_transcode_video_bitrate;
-  IBOutlet id o_transcode_video_bitrate_lbl;
-  IBOutlet id o_transcode_video_scale;
-  IBOutlet id o_transcode_video_scale_lbl;
-  IBOutlet id o_transcode_video_chkbox;
-  IBOutlet id o_transcode_video_selector;
+    IBOutlet id o_transcode_audio_bitrate;
+    IBOutlet id o_transcode_audio_bitrate_lbl;
+    IBOutlet id o_transcode_audio_channels;
+    IBOutlet id o_transcode_audio_channels_lbl;
+    IBOutlet id o_transcode_audio_chkbox;
+    IBOutlet id o_transcode_audio_selector;
+    IBOutlet id o_transcode_lbl;
+    IBOutlet id o_transcode_video_bitrate;
+    IBOutlet id o_transcode_video_bitrate_lbl;
+    IBOutlet id o_transcode_video_scale;
+    IBOutlet id o_transcode_video_scale_lbl;
+    IBOutlet id o_transcode_video_chkbox;
+    IBOutlet id o_transcode_video_selector;
 
-  IBOutlet id o_misc_lbl;
-  IBOutlet id o_sap_chkbox;
-  IBOutlet id o_channel_name;
-  IBOutlet id o_channel_name_lbl;
+    IBOutlet id o_misc_lbl;
+    IBOutlet id o_sap_chkbox;
+    IBOutlet id o_channel_name;
+    IBOutlet id o_channel_name_lbl;
 
-  IBOutlet id o_sdp_url;
-  IBOutlet id o_sdp_url_lbl;
-  IBOutlet id o_rtsp_chkbox;
-  IBOutlet id o_http_chkbox;
-  IBOutlet id o_file_chkbox;
+    IBOutlet id o_sdp_url;
+    IBOutlet id o_sdp_url_lbl;
+    IBOutlet id o_rtsp_chkbox;
+    IBOutlet id o_http_chkbox;
+    IBOutlet id o_file_chkbox;
 
-  NSArray *o_mrl;
-  NSString *o_transcode;
+    NSArray *o_mrl;
+    NSString *o_transcode;
 }
 
 - (void)setMRL:(NSArray *)o_mrl_string;

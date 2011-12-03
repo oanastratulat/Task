@@ -25,13 +25,13 @@
 
 
 @interface VLCProgressPanel : NSPanel {
-  BOOL _isCancelled;
+    BOOL _isCancelled;
 
-  IBOutlet NSProgressIndicator * _progressBar;
-  IBOutlet NSTextField *_titleField;
-  IBOutlet NSTextField *_messageField;
-  IBOutlet NSButton *_cancelButton;
-  IBOutlet NSImageView *_iconView;
+    IBOutlet NSProgressIndicator * _progressBar;
+    IBOutlet NSTextField *_titleField;
+    IBOutlet NSTextField *_messageField;
+    IBOutlet NSButton *_cancelButton;
+    IBOutlet NSImageView *_iconView;
 }
 - (void)createContentView;
 

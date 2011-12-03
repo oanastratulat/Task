@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 54cc640129563cbe7416f900e6ecd068580ab487 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,10 +29,10 @@
 
 void CmdOnTop::execute()
 {
-  getIntf()->p_sys->p_theme->getWindowManager().toggleOnTop();
+    getIntf()->p_sys->p_theme->getWindowManager().toggleOnTop();
 }
 
 void CmdSetOnTop::execute()
 {
-  getIntf()->p_sys->p_theme->getWindowManager().setOnTop( m_ontop );
+    getIntf()->p_sys->p_theme->getWindowManager().setOnTop( m_ontop );
 }

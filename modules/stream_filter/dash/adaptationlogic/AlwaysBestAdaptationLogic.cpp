@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,54 +33,54 @@ using namespace dash::http;
 using namespace dash::mpd;
 using namespace dash::exception;
 
-AlwaysBestAdaptationLogic::AlwaysBestAdaptationLogic  (IMPDManager *mpdManager) : AbstractAdaptationLogic(mpdManager)
+AlwaysBestAdaptationLogic::AlwaysBestAdaptationLogic    (IMPDManager *mpdManager) : AbstractAdaptationLogic(mpdManager)
 {
-  this->mpdManager  = mpdManager;
-  this->count   = 0;
-  this->initSchedule();
+    this->mpdManager    = mpdManager;
+    this->count         = 0;
+    this->initSchedule();
 }
-AlwaysBestAdaptationLogic::~AlwaysBestAdaptationLogic ()
+AlwaysBestAdaptationLogic::~AlwaysBestAdaptationLogic   ()
 {
 }
 
 Chunk*  AlwaysBestAdaptationLogic::getNextChunk () throw(EOFException)
 {
-  if(this->schedule.size() == 0)
-    throw EOFException();
+    if(this->schedule.size() == 0)
+        throw EOFException();
 
-  if(this->count == this->schedule.size())
-    throw EOFException();
+    if(this->count == this->schedule.size())
+        throw EOFException();
 
-  for(size_t i = 0; i < this->schedule.size(); i++)
-  {
-    if(this->count == i)
+    for(size_t i = 0; i < this->schedule.size(); i++)
     {
-    Chunk *chunk = new Chunk();
-    chunk->setUrl(this->schedule.at(i)->getSourceUrl());
-    this->count++;
-    return chunk;
+        if(this->count == i)
+        {
+            Chunk *chunk = new Chunk();
+            chunk->setUrl(this->schedule.at(i)->getSourceUrl());
+            this->count++;
+            return chunk;
+        }
     }
-  }
-  return NULL;
+    return NULL;
 }
-void  AlwaysBestAdaptationLogic::initSchedule ()
+void    AlwaysBestAdaptationLogic::initSchedule ()
 {
-  if(this->mpdManager != NULL)
-  {
-    std::vector<Period *> periods = this->mpdManager->getPeriods();
-
-    for(size_t i = 0; i < periods.size(); i++)
+    if(this->mpdManager != NULL)
     {
-    Representation *best = this->mpdManager->getBestRepresentation(periods.at(i));
+        std::vector<Period *> periods = this->mpdManager->getPeriods();
 
-    if(best != NULL)
-    {
-      std::vector<ISegment *> segments = this->mpdManager->getSegments(best);
-      for(size_t j = 0; j < segments.size(); j++)
-      {
-        this->schedule.push_back(segments.at(j));
-      }
+        for(size_t i = 0; i < periods.size(); i++)
+        {
+            Representation *best = this->mpdManager->getBestRepresentation(periods.at(i));
+
+            if(best != NULL)
+            {
+                std::vector<ISegment *> segments = this->mpdManager->getSegments(best);
+                for(size_t j = 0; j < segments.size(); j++)
+                {
+                    this->schedule.push_back(segments.at(j));
+                }
+            }
+        }
     }
-    }
-  }
 }

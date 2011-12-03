@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -29,20 +29,20 @@
 
 namespace dash
 {
-  namespace mpd
-  {
-    class BaseUrl
+    namespace mpd
     {
-    public:
-    BaseUrl   (const std::string& url) : url(url) {}
-      virtual ~BaseUrl()      {}
+        class BaseUrl
+        {
+            public:
+            BaseUrl         (const std::string& url) : url(url) {}
+                virtual ~BaseUrl()                  {}
 
-      const std::string& getUrl() const { return this->url; }
+                const std::string& getUrl() const { return this->url; }
 
-    private:
-      std::string url;
-    };
-  }
+            private:
+                std::string url;
+        };
+    }
 }
 
 #endif /* BASEURL_H_ */

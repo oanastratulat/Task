@@ -26,8 +26,8 @@
 #import <vlc_interface.h>
 
 @interface VLCCoreInteraction : NSObject {
-  int i_currentPlaybackRate;
-  BOOL b_lockAspectRatio;
+    int i_currentPlaybackRate;
+    BOOL b_lockAspectRatio;
 }
 + (VLCCoreInteraction *)sharedInstance;
 
@@ -47,8 +47,8 @@
 - (int)durationOfCurrentPlaylistItem;
 - (NSURL*)URLOfCurrentPlaylistItem;
 - (NSString*)nameOfCurrentPlaylistItem;
-- (void)forward;    //LEGACY SUPPORT
-- (void)backward;   //LEGACY SUPPORT
+- (void)forward;        //LEGACY SUPPORT
+- (void)backward;       //LEGACY SUPPORT
 - (void)forwardExtraShort;
 - (void)backwardExtraShort;
 - (void)forwardShort;

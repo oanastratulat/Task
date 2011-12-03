@@ -18,7 +18,7 @@
 #if defined(_ATMO_VLC_PLUGIN_)
 CAtmoInput::CAtmoInput(CAtmoDynData *pAtmoDynData) : CThread(pAtmoDynData->getAtmoFilter())
 {
-  m_pAtmoDynData   = pAtmoDynData;
+  m_pAtmoDynData         = pAtmoDynData;
   m_pAtmoColorCalculator = new CAtmoColorCalculator(pAtmoDynData->getAtmoConfig());
 }
 #else

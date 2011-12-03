@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -32,26 +32,26 @@ using namespace dash::xml;
 using namespace dash::mpd;
 using namespace dash::exception;
 
-AbstractAdaptationLogic::AbstractAdaptationLogic  (IMPDManager *mpdManager)
+AbstractAdaptationLogic::AbstractAdaptationLogic    (IMPDManager *mpdManager)
 {
-  this->bpsAvg    = 0;
-  this->bpsLastChunk  = 0;
-  this->mpdManager  = mpdManager;
+    this->bpsAvg        = 0;
+    this->bpsLastChunk  = 0;
+    this->mpdManager    = mpdManager;
 }
-AbstractAdaptationLogic::~AbstractAdaptationLogic ()
+AbstractAdaptationLogic::~AbstractAdaptationLogic   ()
 {
 }
 
-void AbstractAdaptationLogic::downloadRateChanged  (long bpsAvg, long bpsLastChunk)
+void AbstractAdaptationLogic::downloadRateChanged    (long bpsAvg, long bpsLastChunk)
 {
-  this->bpsAvg    = bpsAvg;
-  this->bpsLastChunk  = bpsLastChunk;
+    this->bpsAvg        = bpsAvg;
+    this->bpsLastChunk  = bpsLastChunk;
 }
-long AbstractAdaptationLogic::getBpsAvg      ()
+long AbstractAdaptationLogic::getBpsAvg              ()
 {
-  return this->bpsAvg;
+    return this->bpsAvg;
 }
-long AbstractAdaptationLogic::getBpsLastChunk    ()
+long AbstractAdaptationLogic::getBpsLastChunk        ()
 {
-  return this->bpsLastChunk;
+    return this->bpsLastChunk;
 }

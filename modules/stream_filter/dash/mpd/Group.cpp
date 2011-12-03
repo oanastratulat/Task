@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -27,144 +27,144 @@
 using namespace dash::mpd;
 using namespace dash::exception;
 
-Group::Group  (std::map<std::string, std::string>  attributes)
+Group::Group    (std::map<std::string, std::string>  attributes)
 {
-  this->attributes    = attributes;
-  this->contentProtection = NULL;
-  this->accessibility   = NULL;
-  this->viewpoint   = NULL;
-  this->rating    = NULL;
+    this->attributes        = attributes;
+    this->contentProtection = NULL;
+    this->accessibility     = NULL;
+    this->viewpoint         = NULL;
+    this->rating            = NULL;
 }
-Group::~Group ()
+Group::~Group   ()
 {
-  for(size_t i = 1; i < this->representations.size(); i++)
-    delete(this->representations.at(i));
+    for(size_t i = 1; i < this->representations.size(); i++)
+        delete(this->representations.at(i));
 
-  delete(this->contentProtection);
-  delete(this->rating);
-  delete(this->viewpoint);
-  delete(this->accessibility);
+    delete(this->contentProtection);
+    delete(this->rating);
+    delete(this->viewpoint);
+    delete(this->accessibility);
 }
 
-std::string       Group::getWidth       () throw(AttributeNotPresentException)
+std::string                     Group::getWidth                 () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("width") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("width") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["width"];
+    return this->attributes["width"];
 }
-std::string       Group::getNumberOfChannels  () throw(AttributeNotPresentException)
+std::string                     Group::getNumberOfChannels      () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("numberOfChannels") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("numberOfChannels") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["numberOfChannels"];
+    return this->attributes["numberOfChannels"];
 }
-std::string       Group::getLang      () throw(AttributeNotPresentException)
+std::string                     Group::getLang                  () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("lang") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("lang") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["lang"];
+    return this->attributes["lang"];
 }
-std::string       Group::getParY      () throw(AttributeNotPresentException)
+std::string                     Group::getParY                  () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("pary") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("pary") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["pary"];
+    return this->attributes["pary"];
 }
-std::string       Group::getParX      () throw(AttributeNotPresentException)
+std::string                     Group::getParX                  () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("parx") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("parx") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["parx"];
+    return this->attributes["parx"];
 }
-std::string       Group::getSamplingRate    () throw(AttributeNotPresentException)
+std::string                     Group::getSamplingRate          () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("samplingRate") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("samplingRate") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["samplingRate"];
+    return this->attributes["samplingRate"];
 }
-std::string       Group::getMimeType      () throw(AttributeNotPresentException)
+std::string                     Group::getMimeType              () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("mimeType") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("mimeType") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["mimeType"];
+    return this->attributes["mimeType"];
 }
-std::string       Group::getSubSegmentAlignment () throw(AttributeNotPresentException)
+std::string                     Group::getSubSegmentAlignment   () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("subsegmentAlignmentFlag") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("subsegmentAlignmentFlag") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["subsegmentAlignmentFlag"];
+    return this->attributes["subsegmentAlignmentFlag"];
 }
-std::string       Group::getFrameRate     () throw(AttributeNotPresentException)
+std::string                     Group::getFrameRate             () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("frameRate") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("frameRate") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["frameRate"];
+    return this->attributes["frameRate"];
 }
-std::string       Group::getHeight      () throw(AttributeNotPresentException)
+std::string                     Group::getHeight                () throw(AttributeNotPresentException)
 {
-  if(this->attributes.find("height") == this->attributes.end())
-    throw AttributeNotPresentException();
+    if(this->attributes.find("height") == this->attributes.end())
+        throw AttributeNotPresentException();
 
-  return this->attributes["height"];
+    return this->attributes["height"];
 }
-Viewpoint*        Group::getViewpoint     () throw(ElementNotPresentException)
+Viewpoint*                      Group::getViewpoint             () throw(ElementNotPresentException)
 {
-  if(this->viewpoint == NULL)
-    throw ElementNotPresentException();
+    if(this->viewpoint == NULL)
+        throw ElementNotPresentException();
 
-  return this->viewpoint;
+    return this->viewpoint;
 }
-Rating*         Group::getRating      () throw(ElementNotPresentException)
+Rating*                         Group::getRating                () throw(ElementNotPresentException)
 {
-  if(this->rating == NULL)
-    throw ElementNotPresentException();
+    if(this->rating == NULL)
+        throw ElementNotPresentException();
 
-  return this->rating;
+    return this->rating;
 }
-Accessibility*      Group::getAccessibility   () throw(ElementNotPresentException)
+Accessibility*                  Group::getAccessibility         () throw(ElementNotPresentException)
 {
-  if(this->accessibility == NULL)
-    throw ElementNotPresentException();
+    if(this->accessibility == NULL)
+        throw ElementNotPresentException();
 
-  return this->accessibility;
+    return this->accessibility;
 }
-ContentProtection*      Group::getContentProtection   () throw(ElementNotPresentException)
+ContentProtection*              Group::getContentProtection     () throw(ElementNotPresentException)
 {
-  if(this->contentProtection == NULL)
-    throw ElementNotPresentException();
+    if(this->contentProtection == NULL)
+        throw ElementNotPresentException();
 
-  return this->contentProtection;
+    return this->contentProtection;
 }
-std::vector<Representation*>  Group::getRepresentations   ()
+std::vector<Representation*>    Group::getRepresentations       ()
 {
-  return this->representations;
+    return this->representations;
 }
-void          Group::addRepresentation    (Representation *rep)
+void                            Group::addRepresentation        (Representation *rep)
 {
-  this->representations.push_back(rep);
+    this->representations.push_back(rep);
 }
-void          Group::setRating      (Rating *rating)
+void                            Group::setRating                (Rating *rating)
 {
-  this->rating = rating;
+    this->rating = rating;
 }
-void          Group::setContentProtection   (ContentProtection *protection)
+void                            Group::setContentProtection     (ContentProtection *protection)
 {
-  this->contentProtection = protection;
+    this->contentProtection = protection;
 }
-void          Group::setAccessibility   (Accessibility *accessibility)
+void                            Group::setAccessibility         (Accessibility *accessibility)
 {
-  this->accessibility = accessibility;
+    this->accessibility = accessibility;
 }
-void          Group::setViewpoint     (Viewpoint *viewpoint)
+void                            Group::setViewpoint             (Viewpoint *viewpoint)
 {
-  this->viewpoint = viewpoint;
+    this->viewpoint = viewpoint;
 }

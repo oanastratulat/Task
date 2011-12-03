@@ -24,7 +24,7 @@
 /****************************************************************************
  * XXX:
  *  Definitions and data duplicated from asf demuxers but I want access
- * and demux plugins to be independen
+ * and demux plugins to be independent
  *
  ****************************************************************************/
 
@@ -33,32 +33,32 @@
 
 #include "../../demux/asf/libasf_guid.h"
 
-#define ASF_STREAM_VIDEO  0x0001
-#define ASF_STREAM_AUDIO  0x0002
+#define ASF_STREAM_VIDEO    0x0001
+#define ASF_STREAM_AUDIO    0x0002
 #define ASF_STREAM_UNKNOWN  0xffff
 
-typedef struc
+typedef struct
 {
-  int i_cat;  /* ASF_STREAM_VIDEO, ASF_STREAM_AUDIO */
-  int i_bitrate;  /* -1 if unknown */
-  int i_selected;
+    int i_cat;      /* ASF_STREAM_VIDEO, ASF_STREAM_AUDIO */
+    int i_bitrate;  /* -1 if unknown */
+    int i_selected;
 } asf_stream_t;
 
-typedef struc
+typedef struct
 {
-  int64_t  i_file_size;
-  int64_t  i_data_packets_count;
-  int32_t  i_min_data_packet_size;
+    int64_t      i_file_size;
+    int64_t      i_data_packets_count;
+    int32_t      i_min_data_packet_size;
 
-  asf_stream_t stream[128];
+    asf_stream_t stream[128];
 
 } asf_header_t;
 
 
-void  GenerateGuid  ( guid_t * );
-void  asf_HeaderParse ( asf_header_t *, uint8_t *, int );
+void  GenerateGuid      ( guid_t * );
+void  asf_HeaderParse   ( asf_header_t *, uint8_t *, int );
 void  asf_StreamSelect  ( asf_header_t *,
-          int i_bitrate_max, bool b_all, bool b_audio,
-          bool b_video );
+                              int i_bitrate_max, bool b_all, bool b_audio,
+                              bool b_video );
 
 #endif

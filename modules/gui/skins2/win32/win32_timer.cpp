@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: afe15509553092840b144c58b402f8d3351e5d1d $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,51 +29,51 @@
 
 
 void CALLBACK CallbackTimer( HWND hwnd, UINT uMsg,
-           UINT_PTR idEvent, DWORD dwTime )
+                             UINT_PTR idEvent, DWORD dwTime )
 {
-  (void)hwnd; (void)uMsg; (void)dwTime;
-  Win32Timer *pTimer = (Win32Timer*)idEvent;
-  if( pTimer != NULL )
-  {
-    pTimer->execute();
-  }
+    (void)hwnd; (void)uMsg; (void)dwTime;
+    Win32Timer *pTimer = (Win32Timer*)idEvent;
+    if( pTimer != NULL )
+    {
+        pTimer->execute();
+    }
 }
 
 
 Win32Timer::Win32Timer( intf_thread_t *pIntf, CmdGeneric &rCmd, HWND hWnd ):
-  OSTimer( pIntf ), m_rCommand( rCmd ), m_hWnd( hWnd )
+    OSTimer( pIntf ), m_rCommand( rCmd ), m_hWnd( hWnd )
 {
 }
 
 
 Win32Timer::~Win32Timer()
 {
-  stop();
+    stop();
 }
 
 
 void Win32Timer::start( int delay, bool oneShot )
 {
-  m_interval = delay;
-  m_oneShot = oneShot;
-  SetTimer( m_hWnd, (UINT_PTR)this, m_interval, (TIMERPROC)CallbackTimer );
+    m_interval = delay;
+    m_oneShot = oneShot;
+    SetTimer( m_hWnd, (UINT_PTR)this, m_interval, (TIMERPROC)CallbackTimer );
 }
 
 
 void Win32Timer::stop()
 {
-  KillTimer( m_hWnd, (UINT_PTR)this );
+    KillTimer( m_hWnd, (UINT_PTR)this );
 }
 
 
 void Win32Timer::execute()
 {
-  // Execute the callback
-  m_rCommand.execute();
+    // Execute the callback
+    m_rCommand.execute();
 
-  // Stop the timer if requested
-  if( m_oneShot )
-    stop();
+    // Stop the timer if requested
+    if( m_oneShot )
+        stop();
 }
 
 #endif

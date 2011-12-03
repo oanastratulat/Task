@@ -24,20 +24,20 @@ class CAtmoDynData;
 class CAtmoInput : public CThread {
 
 protected:
-  CAtmoDynData   *m_pAtmoDynData;
-  CAtmoColorCalculator *m_pAtmoColorCalculator;
+    CAtmoDynData         *m_pAtmoDynData;
+    CAtmoColorCalculator *m_pAtmoColorCalculator;
 
 public:
-  CAtmoInput(CAtmoDynData *pAtmoDynData);
-  virtual ~CAtmoInput(void);
+    CAtmoInput(CAtmoDynData *pAtmoDynData);
+    virtual ~CAtmoInput(void);
 
-  // Opens the input-device.
-  // Returns true if the input-device was opened successfully.
-  virtual ATMO_BOOL Open(void) { return ATMO_FALSE; }
+    // Opens the input-device.
+    // Returns true if the input-device was opened successfully.
+    virtual ATMO_BOOL Open(void) { return ATMO_FALSE; }
 
-  // Closes the input-device.
-  // Returns true if the input-device was closed successfully.
-  virtual ATMO_BOOL Close(void) { return ATMO_FALSE; }
+    // Closes the input-device.
+    // Returns true if the input-device was closed successfully.
+    virtual ATMO_BOOL Close(void) { return ATMO_FALSE; }
 
 };
 

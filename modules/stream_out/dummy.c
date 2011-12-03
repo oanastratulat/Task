@@ -37,21 +37,21 @@
 /*****************************************************************************
  * Exported prototypes
  *****************************************************************************/
-static int  Open  ( vlc_object_t * );
-static void   Close ( vlc_object_t * );
+static int      Open    ( vlc_object_t * );
+static void     Close   ( vlc_object_t * );
 
 static sout_stream_id_t *Add ( sout_stream_t *, es_format_t * );
-static int     Del ( sout_stream_t *, sout_stream_id_t * );
-static int     Send( sout_stream_t *, sout_stream_id_t *, block_t* );
+static int               Del ( sout_stream_t *, sout_stream_id_t * );
+static int               Send( sout_stream_t *, sout_stream_id_t *, block_t* );
 
 /*****************************************************************************
  * Module descriptor
  *****************************************************************************/
 vlc_module_begin ()
-  set_description( N_("Dummy stream output") )
-  set_capability( "sout stream", 50 )
-  add_shortcut( "dummy", "drop" )
-  set_callbacks( Open, Close )
+    set_description( N_("Dummy stream output") )
+    set_capability( "sout stream", 50 )
+    add_shortcut( "dummy", "drop" )
+    set_callbacks( Open, Close )
 vlc_module_end ()
 
 /*****************************************************************************
@@ -59,15 +59,15 @@ vlc_module_end ()
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {
-  sout_stream_t *p_stream = (sout_stream_t*)p_this;
+    sout_stream_t *p_stream = (sout_stream_t*)p_this;
 
-  p_stream->pf_add  = Add;
-  p_stream->pf_del  = Del;
-  p_stream->pf_send = Send;
+    p_stream->pf_add    = Add;
+    p_stream->pf_del    = Del;
+    p_stream->pf_send   = Send;
 
-  p_stream->p_sys   = NULL;
+    p_stream->p_sys     = NULL;
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -75,28 +75,28 @@ static int Open( vlc_object_t *p_this )
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {
-  (void)p_this;
+    (void)p_this;
 }
 
 static sout_stream_id_t *Add( sout_stream_t *p_stream, es_format_t *p_fmt )
 {
-  VLC_UNUSED(p_stream); VLC_UNUSED(p_fmt);
-  return malloc( 1 );
+    VLC_UNUSED(p_stream); VLC_UNUSED(p_fmt);
+    return malloc( 1 );
 }
 
 static int Del( sout_stream_t *p_stream, sout_stream_id_t *id )
 {
-  VLC_UNUSED(p_stream);
-  free( id );
+    VLC_UNUSED(p_stream);
+    free( id );
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 static int Send( sout_stream_t *p_stream, sout_stream_id_t *id,
-       block_t *p_buffer )
+                 block_t *p_buffer )
 {
-  (void)p_stream; (void)id;
-  block_ChainRelease( p_buffer );
-  return VLC_SUCCESS;
+    (void)p_stream; (void)id;
+    block_ChainRelease( p_buffer );
+    return VLC_SUCCESS;
 }
 

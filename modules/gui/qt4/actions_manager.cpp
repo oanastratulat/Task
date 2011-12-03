@@ -5,7 +5,7 @@
  * $Id: 7cca07727f4a40fd55b0ce4c39d8aab75d53633d $
  *
  * Authors: Jean-Baptiste Kempf <jb@videolan.org>
- *    Ilkka Ollakka <ileoo@videolan.org>
+ *          Ilkka Ollakka <ileoo@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,80 +39,80 @@
 ActionsManager * ActionsManager::instance = NULL;
 
 ActionsManager::ActionsManager( intf_thread_t * _p_i, QObject *_parent )
-     : QObject( _parent )
+               : QObject( _parent )
 {
-  p_intf = _p_i;
+    p_intf = _p_i;
 }
 
 ActionsManager::~ActionsManager(){}
 
 void ActionsManager::doAction( int id_action )
 {
-  switch( id_action )
-  {
-    case PLAY_ACTION:
-    play(); break;
-    case STOP_ACTION:
-    THEMIM->stop(); break;
-    case OPEN_ACTION:
-    THEDP->openDialog(); break;
-    case PREVIOUS_ACTION:
-    THEMIM->prev(); break;
-    case NEXT_ACTION:
-    THEMIM->next(); break;
-    case SLOWER_ACTION:
-    THEMIM->getIM()->slower(); break;
-    case FASTER_ACTION:
-    THEMIM->getIM()->faster(); break;
-    case FULLSCREEN_ACTION:
-    fullscreen(); break;
-    case EXTENDED_ACTION:
-    THEDP->extendedDialog(); break;
-    case PLAYLIST_ACTION:
-    playlist(); break;
-    case SNAPSHOT_ACTION:
-    snapshot(); break;
-    case RECORD_ACTION:
-    record(); break;
-    case FRAME_ACTION:
-    frame(); break;
-    case ATOB_ACTION:
-    THEMIM->getIM()->setAtoB(); break;
-    case REVERSE_ACTION:
-    THEMIM->getIM()->reverse(); break;
-    case SKIP_BACK_ACTION:
-    skipBackward();
-    break;
-    case SKIP_FW_ACTION:
-    skipForward();
-    break;
-    case QUIT_ACTION:
-    THEDP->quit();  break;
-    case RANDOM_ACTION:
-    THEMIM->toggleRandom(); break;
-    case INFO_ACTION:
-    THEDP->mediaInfoDialog(); break;
-    case OPEN_SUB_ACTION:
-    THEDP->loadSubtitlesFile(); break;
-    case FULLWIDTH_ACTION:
-    if( p_intf->p_sys->p_mi )
-      p_intf->p_sys->p_mi->getFullscreenControllerWidget()->toggleFullwidth();
-    break;
-    default:
-    msg_Dbg( p_intf, "Action: %i", id_action );
-    break;
-  }
+    switch( id_action )
+    {
+        case PLAY_ACTION:
+            play(); break;
+        case STOP_ACTION:
+            THEMIM->stop(); break;
+        case OPEN_ACTION:
+            THEDP->openDialog(); break;
+        case PREVIOUS_ACTION:
+            THEMIM->prev(); break;
+        case NEXT_ACTION:
+            THEMIM->next(); break;
+        case SLOWER_ACTION:
+            THEMIM->getIM()->slower(); break;
+        case FASTER_ACTION:
+            THEMIM->getIM()->faster(); break;
+        case FULLSCREEN_ACTION:
+            fullscreen(); break;
+        case EXTENDED_ACTION:
+            THEDP->extendedDialog(); break;
+        case PLAYLIST_ACTION:
+            playlist(); break;
+        case SNAPSHOT_ACTION:
+            snapshot(); break;
+        case RECORD_ACTION:
+            record(); break;
+        case FRAME_ACTION:
+            frame(); break;
+        case ATOB_ACTION:
+            THEMIM->getIM()->setAtoB(); break;
+        case REVERSE_ACTION:
+            THEMIM->getIM()->reverse(); break;
+        case SKIP_BACK_ACTION:
+            skipBackward();
+            break;
+        case SKIP_FW_ACTION:
+            skipForward();
+            break;
+        case QUIT_ACTION:
+            THEDP->quit();  break;
+        case RANDOM_ACTION:
+            THEMIM->toggleRandom(); break;
+        case INFO_ACTION:
+            THEDP->mediaInfoDialog(); break;
+        case OPEN_SUB_ACTION:
+            THEDP->loadSubtitlesFile(); break;
+        case FULLWIDTH_ACTION:
+            if( p_intf->p_sys->p_mi )
+                p_intf->p_sys->p_mi->getFullscreenControllerWidget()->toggleFullwidth();
+            break;
+        default:
+            msg_Dbg( p_intf, "Action: %i", id_action );
+            break;
+    }
 }
 
 void ActionsManager::play()
 {
-  if( THEPL->current.i_size == 0 )
-  {
-    /* The playlist is empty, open a file requester */
-    THEDP->openFileDialog();
-    return;
-  }
-  THEMIM->togglePlayPause();
+    if( THEPL->current.i_size == 0 )
+    {
+        /* The playlist is empty, open a file requester */
+        THEDP->openFileDialog();
+        return;
+    }
+    THEMIM->togglePlayPause();
 }
 
 /**
@@ -123,82 +123,82 @@ void ActionsManager::play()
  */
 void ActionsManager::fullscreen()
 {
-  bool fs = var_ToggleBool( THEPL, "fullscreen" );
-  vout_thread_t *p_vout = THEMIM->getVout();
-  if( p_vout)
-  {
-    var_SetBool( p_vout, "fullscreen", fs );
-    vlc_object_release( p_vout );
-  }
+    bool fs = var_ToggleBool( THEPL, "fullscreen" );
+    vout_thread_t *p_vout = THEMIM->getVout();
+    if( p_vout)
+    {
+        var_SetBool( p_vout, "fullscreen", fs );
+        vlc_object_release( p_vout );
+    }
 }
 
 void ActionsManager::snapshot()
 {
-  vout_thread_t *p_vout = THEMIM->getVout();
-  if( p_vout )
-  {
-    var_TriggerCallback( p_vout, "video-snapshot" );
-    vlc_object_release( p_vout );
-  }
+    vout_thread_t *p_vout = THEMIM->getVout();
+    if( p_vout )
+    {
+        var_TriggerCallback( p_vout, "video-snapshot" );
+        vlc_object_release( p_vout );
+    }
 }
 
 void ActionsManager::playlist()
 {
-  if( p_intf->p_sys->p_mi ) p_intf->p_sys->p_mi->togglePlaylist();
+    if( p_intf->p_sys->p_mi ) p_intf->p_sys->p_mi->togglePlaylist();
 }
 
 void ActionsManager::record()
 {
-  input_thread_t *p_input = THEMIM->getInput();
-  if( p_input )
-  {
-    /* This method won't work fine if the stream can't be cut anywhere */
-    var_ToggleBool( p_input, "record" );
-#if 0
-    else
+    input_thread_t *p_input = THEMIM->getInput();
+    if( p_input )
     {
-    /* 'record' access-filter is not loaded, we open Save dialog */
-    input_item_t *p_item = input_GetItem( p_input );
-    if( !p_item )
-      return;
+        /* This method won't work fine if the stream can't be cut anywhere */
+        var_ToggleBool( p_input, "record" );
+#if 0
+        else
+        {
+            /* 'record' access-filter is not loaded, we open Save dialog */
+            input_item_t *p_item = input_GetItem( p_input );
+            if( !p_item )
+                return;
 
-    char *psz = input_item_GetURI( p_item );
-    if( psz )
-      THEDP->streamingDialog( NULL, qfu(psz), true );
-    }
+            char *psz = input_item_GetURI( p_item );
+            if( psz )
+                THEDP->streamingDialog( NULL, qfu(psz), true );
+        }
 #endif
-  }
+    }
 }
 
 void ActionsManager::frame()
 {
-  input_thread_t *p_input = THEMIM->getInput();
-  if( p_input )
-    var_TriggerCallback( p_input, "frame-next" );
+    input_thread_t *p_input = THEMIM->getInput();
+    if( p_input )
+        var_TriggerCallback( p_input, "frame-next" );
 }
 
 void ActionsManager::toggleMuteAudio()
 {
-   aout_ToggleMute( THEPL, NULL );
+     aout_ToggleMute( THEPL, NULL );
 }
 
 void ActionsManager::AudioUp()
 {
-  aout_VolumeUp( THEPL, 1, NULL );
+    aout_VolumeUp( THEPL, 1, NULL );
 }
 
 void ActionsManager::AudioDown()
 {
-  aout_VolumeDown( THEPL, 1, NULL );
+    aout_VolumeDown( THEPL, 1, NULL );
 }
 
 void ActionsManager::skipForward()
 {
-  THEMIM->getIM()->jumpFwd();
+    THEMIM->getIM()->jumpFwd();
 }
 
 void ActionsManager::skipBackward()
 {
-  THEMIM->getIM()->jumpBwd();
+    THEMIM->getIM()->jumpBwd();
 }
 

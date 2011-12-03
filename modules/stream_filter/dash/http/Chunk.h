@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -30,28 +30,28 @@
 
 namespace dash
 {
-  namespace http
-  {
-    class Chunk
+    namespace http
     {
-    public:
-      Chunk     ();
+        class Chunk
+        {
+            public:
+                Chunk           ();
 
-      int       getEndByte  () const;
-      int       getStartByte  () const;
-      const std::string&  getUrl    () const;
-      void      setEndByte  (int endByte);
-      void      setStartByte  (int startByte);
-      void      setUrl    (const std::string& url);
+                int                 getEndByte      () const;
+                int                 getStartByte    () const;
+                const std::string&  getUrl          () const;
+                void                setEndByte      (int endByte);
+                void                setStartByte    (int startByte);
+                void                setUrl          (const std::string& url);
 
-    private:
-      std::string       url;
-      std::vector<std::string>  optionalUrls;
-      int         startByte;
-      int         endByte;
+            private:
+                std::string                 url;
+                std::vector<std::string>    optionalUrls;
+                int                         startByte;
+                int                         endByte;
 
-    };
-  }
+        };
+    }
 }
 
 #endif /* CHUNK_H_ */

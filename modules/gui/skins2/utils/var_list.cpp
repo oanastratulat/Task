@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 37770df55413b80727e0c9bbf5561b447b3b4423 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@ const string VarList::m_type = "list";
 
 VarList::VarList( intf_thread_t *pIntf ): Variable( pIntf )
 {
-  // Create the position variable
-  m_cPosition = VariablePtr( new VarPercent( pIntf ) );
-  getPositionVar().set( 1.0 );
+    // Create the position variable
+    m_cPosition = VariablePtr( new VarPercent( pIntf ) );
+    getPositionVar().set( 1.0 );
 }
 
 
@@ -43,69 +43,69 @@ VarList::~VarList()
 
 void VarList::add( const UStringPtr &rcString )
 {
-  m_list.push_back( Elem_t( rcString ) );
-  notify();
+    m_list.push_back( Elem_t( rcString ) );
+    notify();
 }
 
 
 void VarList::delSelected()
 {
-  Iterator it = begin();
-  while( it != end() )
-  {
-    if( (*it).m_selected )
+    Iterator it = begin();
+    while( it != end() )
     {
-    Iterator oldIt = it;
-    it++;
-    m_list.erase( oldIt );
+        if( (*it).m_selected )
+        {
+            Iterator oldIt = it;
+            it++;
+            m_list.erase( oldIt );
+        }
+        else
+        {
+            it++;
+        }
     }
-    else
-    {
-    it++;
-    }
-  }
-  notify();
+    notify();
 }
 
 
 void VarList::clear()
 {
-  m_list.clear();
+    m_list.clear();
 }
 
 
 VarList::Iterator VarList::operator[]( int n )
 {
-  Iterator it = begin();
-  for( int i = 0; i < n; i++ )
-  {
-    if( it != end() )
+    Iterator it = begin();
+    for( int i = 0; i < n; i++ )
     {
-    it++;
+        if( it != end() )
+        {
+            it++;
+        }
+        else
+        {
+            break;
+        }
     }
-    else
-    {
-    break;
-    }
-  }
-  return it;
+    return it;
 }
 
 
-VarList::ConstIterator VarList::operator[]( int n ) cons
+VarList::ConstIterator VarList::operator[]( int n ) const
 {
-  ConstIterator it = begin();
-  for( int i = 0; i < n; i++ )
-  {
-    if( it != end() )
+    ConstIterator it = begin();
+    for( int i = 0; i < n; i++ )
     {
-    it++;
+        if( it != end() )
+        {
+            it++;
+        }
+        else
+        {
+            break;
+        }
     }
-    else
-    {
-    break;
-    }
-  }
-  return it;
+    return it;
 }
 

@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,30 +33,30 @@
 
 namespace dash
 {
-  namespace mpd
-  {
-    class ProgramInformation
+    namespace mpd
     {
-    public:
-      ProgramInformation    (std::map<std::string, std::string> attr);
-      virtual ~ProgramInformation ();
+        class ProgramInformation
+        {
+            public:
+                ProgramInformation          (std::map<std::string, std::string> attr);
+                virtual ~ProgramInformation ();
 
-      std::string getMoreInformationUrl () throw(dash::exception::AttributeNotPresentException);
-      std::string getTitle      () throw(dash::exception::ElementNotPresentException);
-      std::string getSource     () throw(dash::exception::ElementNotPresentException);
-      std::string getCopyright    () throw(dash::exception::ElementNotPresentException);
+                std::string getMoreInformationUrl   () throw(dash::exception::AttributeNotPresentException);
+                std::string getTitle                () throw(dash::exception::ElementNotPresentException);
+                std::string getSource               () throw(dash::exception::ElementNotPresentException);
+                std::string getCopyright            () throw(dash::exception::ElementNotPresentException);
 
-      void setTitle   (std::string title);
-      void setSource  (std::string source);
-      void setCopyright (std::string copyright);
+                void setTitle       (std::string title);
+                void setSource      (std::string source);
+                void setCopyright   (std::string copyright);
 
-    private:
-      std::map<std::string, std::string>  attributes;
-      std::string         title;
-      std::string         source;
-      std::string         copyright;
-    };
-  }
+            private:
+                std::map<std::string, std::string>  attributes;
+                std::string                         title;
+                std::string                         source;
+                std::string                         copyright;
+        };
+    }
 }
 
 #endif /* PROGRAMINFORMATION_H_ */

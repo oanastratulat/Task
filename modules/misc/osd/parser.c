@@ -47,17 +47,17 @@ static void osd_parser_Close( vlc_object_t *p_this );
  *****************************************************************************/
 vlc_module_begin ()
 
-  add_submodule ()
-    set_description( N_("OSD configuration importer") )
-    add_shortcut( "import-osd" )
-    set_capability( "osd parser", 0)
-    set_callbacks( osd_parser_simpleOpen, osd_parser_Close )
+    add_submodule ()
+        set_description( N_("OSD configuration importer") )
+        add_shortcut( "import-osd" )
+        set_capability( "osd parser", 0)
+        set_callbacks( osd_parser_simpleOpen, osd_parser_Close )
 
-  add_submodule ()
-    set_description( N_("XML OSD configuration importer") )
-    add_shortcut( "import-osd-xml" )
-    set_capability( "osd parser", 0)
-    set_callbacks( osd_parser_xmlOpen, osd_parser_Close )
+    add_submodule ()
+        set_description( N_("XML OSD configuration importer") )
+        add_shortcut( "import-osd-xml" )
+        set_capability( "osd parser", 0)
+        set_callbacks( osd_parser_xmlOpen, osd_parser_Close )
 
 vlc_module_end ()
 
@@ -67,7 +67,7 @@ vlc_module_end ()
 
 void osd_parser_Close ( vlc_object_t *p_this )
 {
-  osd_menu_t *p_menu = (osd_menu_t *) p_this;
-  if( p_menu )
-    osd_MenuFree( p_menu );
+    osd_menu_t *p_menu = (osd_menu_t *) p_this;
+    if( p_menu )
+        osd_MenuFree( p_menu );
 }

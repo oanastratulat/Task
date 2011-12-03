@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 297485c2b0fa9514f5ce58cc9675c630a5f00b42 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,37 +34,37 @@
 
 OSFactory *OSFactory::instance( intf_thread_t *pIntf )
 {
-  if( ! pIntf->p_sys->p_osFactory )
-  {
-    OSFactory *pOsFactory;
+    if( ! pIntf->p_sys->p_osFactory )
+    {
+        OSFactory *pOsFactory;
 #ifdef X11_SKINS
-    pOsFactory = new X11Factory( pIntf );
+        pOsFactory = new X11Factory( pIntf );
 #elif defined WIN32_SKINS
-    pOsFactory = new Win32Factory( pIntf );
+        pOsFactory = new Win32Factory( pIntf );
 #elif defined MACOSX_SKINS
-    pOsFactory = new MacOSXFactory( pIntf );
+        pOsFactory = new MacOSXFactory( pIntf );
 #else
 #error "No OSFactory implementation !"
 #endif
 
-    if( pOsFactory->init() )
-    {
-    // Initialization succeeded
-    pIntf->p_sys->p_osFactory = pOsFactory;
+        if( pOsFactory->init() )
+        {
+            // Initialization succeeded
+            pIntf->p_sys->p_osFactory = pOsFactory;
+        }
+        else
+        {
+            // Initialization failed
+            delete pOsFactory;
+        }
     }
-    else
-    {
-    // Initialization failed
-    delete pOsFactory;
-    }
-  }
-  return pIntf->p_sys->p_osFactory;
+    return pIntf->p_sys->p_osFactory;
 }
 
 
 void OSFactory::destroy( intf_thread_t *pIntf )
 {
-  delete pIntf->p_sys->p_osFactory;
-  pIntf->p_sys->p_osFactory = NULL;
+    delete pIntf->p_sys->p_osFactory;
+    pIntf->p_sys->p_osFactory = NULL;
 }
 

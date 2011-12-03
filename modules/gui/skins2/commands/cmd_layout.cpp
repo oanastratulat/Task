@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 19214cb1afe39e7694c16b6d0dc51d0dd904a5ad $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,13 +29,13 @@
 
 
 CmdLayout::CmdLayout( intf_thread_t *pIntf, TopWindow &rWindow,
-        GenericLayout &rLayout )
-  : CmdGeneric( pIntf ), m_rWindow( rWindow ), m_rLayout( rLayout ) { }
+                      GenericLayout &rLayout )
+    : CmdGeneric( pIntf ), m_rWindow( rWindow ), m_rLayout( rLayout ) { }
 
 
 void CmdLayout::execute()
 {
-  Theme *p_theme = getIntf()->p_sys->p_theme;
-  if( p_theme )
-    p_theme->getWindowManager().setActiveLayout( m_rWindow, m_rLayout );
+    Theme *p_theme = getIntf()->p_sys->p_theme;
+    if( p_theme )
+        p_theme->getWindowManager().setActiveLayout( m_rWindow, m_rLayout );
 }

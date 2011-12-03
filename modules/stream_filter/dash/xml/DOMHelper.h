@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -32,19 +32,19 @@
 
 namespace dash
 {
-  namespace xml
-  {
-    class DOMHelper
+    namespace xml
     {
-    public:
-      static std::vector<Node *> getElementByTagName  (Node *root, const std::string& name, bool selfContain);
-      static std::vector<Node *> getChildElementByTagName (Node *root, const std::string& name);
-      static Node*     getFirstChildElementByName( Node *root, const std::string& name );
+        class DOMHelper
+        {
+            public:
+                static std::vector<Node *> getElementByTagName      (Node *root, const std::string& name, bool selfContain);
+                static std::vector<Node *> getChildElementByTagName (Node *root, const std::string& name);
+                static Node*               getFirstChildElementByName( Node *root, const std::string& name );
 
-    private:
-      static void getElementsByTagName(Node *root, const std::string& name, std::vector<Node *> *elements, bool selfContain);
-    };
-  }
+            private:
+                static void getElementsByTagName(Node *root, const std::string& name, std::vector<Node *> *elements, bool selfContain);
+        };
+    }
 }
 
 #endif /* DOMHELPER_H_ */

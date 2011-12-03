@@ -5,7 +5,7 @@
  * $Id: 2740f9daf71320e938f959ef33994027c5906219 $
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
- *    Jean-Baptiste Kempf <jb@videolan.org>
+ *          Jean-Baptiste Kempf <jb@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,104 +37,104 @@
 #include <vlc_modules.h>
 
 ExtendedDialog::ExtendedDialog( intf_thread_t *_p_intf )
-     : QVLCDialog( (QWidget*)_p_intf->p_sys->p_mi, _p_intf )
+               : QVLCDialog( (QWidget*)_p_intf->p_sys->p_mi, _p_intf )
 {
 #ifdef __APPLE__
-  setWindowFlags( Qt::Drawer );
+    setWindowFlags( Qt::Drawer );
 #else
-  setWindowFlags( Qt::Tool );
+    setWindowFlags( Qt::Tool );
 #endif
 
-  setWindowOpacity( var_InheritFloat( p_intf, "qt-opacity" ) );
-  setWindowTitle( qtr( "Adjustments and Effects" ) );
-  setWindowRole( "vlc-extended" );
+    setWindowOpacity( var_InheritFloat( p_intf, "qt-opacity" ) );
+    setWindowTitle( qtr( "Adjustments and Effects" ) );
+    setWindowRole( "vlc-extended" );
 
-  QVBoxLayout *layout = new QVBoxLayout( this );
-  layout->setContentsMargins( 0, 2, 0, 1 );
-  layout->setSpacing( 3 );
+    QVBoxLayout *layout = new QVBoxLayout( this );
+    layout->setContentsMargins( 0, 2, 0, 1 );
+    layout->setSpacing( 3 );
 
-  mainTabW = new QTabWidget( this );
+    mainTabW = new QTabWidget( this );
 
-  /* AUDIO effects */
-  QWidget *audioWidget = new QWidget;
-  QHBoxLayout *audioLayout = new QHBoxLayout( audioWidget );
-  QTabWidget *audioTab = new QTabWidget( audioWidget );
+    /* AUDIO effects */
+    QWidget *audioWidget = new QWidget;
+    QHBoxLayout *audioLayout = new QHBoxLayout( audioWidget );
+    QTabWidget *audioTab = new QTabWidget( audioWidget );
 
-  equal = new Equalizer( p_intf, audioTab );
-  audioTab->addTab( equal, qtr( "Graphic Equalizer" ) );
+    equal = new Equalizer( p_intf, audioTab );
+    audioTab->addTab( equal, qtr( "Graphic Equalizer" ) );
 
-  Compressor *compres = new Compressor( p_intf, audioTab );
-  audioTab->addTab( compres, qtr( "Compressor" ) );
+    Compressor *compres = new Compressor( p_intf, audioTab );
+    audioTab->addTab( compres, qtr( "Compressor" ) );
 
-  Spatializer *spatial = new Spatializer( p_intf, audioTab );
-  audioTab->addTab( spatial, qtr( "Spatializer" ) );
-  audioLayout->addWidget( audioTab );
+    Spatializer *spatial = new Spatializer( p_intf, audioTab );
+    audioTab->addTab( spatial, qtr( "Spatializer" ) );
+    audioLayout->addWidget( audioTab );
 
-  mainTabW->addTab( audioWidget, qtr( "Audio Effects" ) );
+    mainTabW->addTab( audioWidget, qtr( "Audio Effects" ) );
 
-  /* Video Effects */
-  QWidget *videoWidget = new QWidget;
-  QHBoxLayout *videoLayout = new QHBoxLayout( videoWidget );
-  QTabWidget *videoTab = new QTabWidget( videoWidget );
+    /* Video Effects */
+    QWidget *videoWidget = new QWidget;
+    QHBoxLayout *videoLayout = new QHBoxLayout( videoWidget );
+    QTabWidget *videoTab = new QTabWidget( videoWidget );
 
-  videoEffect = new ExtVideo( p_intf, videoTab );
-  videoLayout->addWidget( videoTab );
-  videoTab->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Maximum );
+    videoEffect = new ExtVideo( p_intf, videoTab );
+    videoLayout->addWidget( videoTab );
+    videoTab->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Maximum );
 
-  mainTabW->addTab( videoWidget, qtr( "Video Effects" ) );
+    mainTabW->addTab( videoWidget, qtr( "Video Effects" ) );
 
-  syncW = new SyncControls( p_intf, videoTab );
-  mainTabW->addTab( syncW, qtr( "Synchronization" ) );
+    syncW = new SyncControls( p_intf, videoTab );
+    mainTabW->addTab( syncW, qtr( "Synchronization" ) );
 
-  if( module_exists( "v4l2" ) )
-  {
-    ExtV4l2 *v4l2 = new ExtV4l2( p_intf, mainTabW );
-    mainTabW->addTab( v4l2, qtr( "v4l2 controls" ) );
-  }
+    if( module_exists( "v4l2" ) )
+    {
+        ExtV4l2 *v4l2 = new ExtV4l2( p_intf, mainTabW );
+        mainTabW->addTab( v4l2, qtr( "v4l2 controls" ) );
+    }
 
-  layout->addWidget( mainTabW );
+    layout->addWidget( mainTabW );
 
-  QDialogButtonBox *closeButtonBox = new QDialogButtonBox( Qt::Horizontal, this );
-  closeButtonBox->addButton(
-    new QPushButton( qtr("&Close"), this ), QDialogButtonBox::RejectRole );
-  layout->addWidget( closeButtonBox );
-  CONNECT( closeButtonBox, rejected(), this, close() );
+    QDialogButtonBox *closeButtonBox = new QDialogButtonBox( Qt::Horizontal, this );
+    closeButtonBox->addButton(
+        new QPushButton( qtr("&Close"), this ), QDialogButtonBox::RejectRole );
+    layout->addWidget( closeButtonBox );
+    CONNECT( closeButtonBox, rejected(), this, close() );
 
-  /* Restore geometry or move this dialog on the left pane of the MI */
-  if( !restoreGeometry( getSettings()->value("EPanel/geometry").toByteArray() ) )
-  {
-    resize( QSize( 400, 280 ) );
+    /* Restore geometry or move this dialog on the left pane of the MI */
+    if( !restoreGeometry( getSettings()->value("EPanel/geometry").toByteArray() ) )
+    {
+        resize( QSize( 400, 280 ) );
 
-    MainInterface *p_mi = p_intf->p_sys->p_mi;
-    if( p_mi && p_mi->x() > 50 )
-    move( ( p_mi->x() - frameGeometry().width() - 10 ), p_mi->y() );
-    else
-    move ( 450 , 0 );
-  }
+        MainInterface *p_mi = p_intf->p_sys->p_mi;
+        if( p_mi && p_mi->x() > 50 )
+            move( ( p_mi->x() - frameGeometry().width() - 10 ), p_mi->y() );
+        else
+            move ( 450 , 0 );
+    }
 
-  CONNECT( THEMIM->getIM(), playingStatusChanged( int ), this, changedItem( int ) );
+    CONNECT( THEMIM->getIM(), playingStatusChanged( int ), this, changedItem( int ) );
 }
 
 ExtendedDialog::~ExtendedDialog()
 {
-  getSettings()->setValue("Epanel/geometry", saveGeometry());
+    getSettings()->setValue("Epanel/geometry", saveGeometry());
 }
 
 void ExtendedDialog::showTab( int i )
 {
-  mainTabW->setCurrentIndex( i );
-  show();
+    mainTabW->setCurrentIndex( i );
+    show();
 }
 
 int ExtendedDialog::currentTab()
 {
-  return mainTabW->currentIndex();
+    return mainTabW->currentIndex();
 }
 
 void ExtendedDialog::changedItem( int i_status )
 {
-  if( i_status != END_S ) return;
-  syncW->clean();
-  videoEffect->clean();
-  equal->clean();
+    if( i_status != END_S ) return;
+    syncW->clean();
+    videoEffect->clean();
+    equal->clean();
 }

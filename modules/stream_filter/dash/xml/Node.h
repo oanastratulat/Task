@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -32,33 +32,33 @@
 
 namespace dash
 {
-  namespace xml
-  {
-    class Node
+    namespace xml
     {
-    public:
-      Node    ();
-      virtual ~Node ();
+        class Node
+        {
+            public:
+                Node            ();
+                virtual ~Node   ();
 
-      const std::vector<Node *>&    getSubNodes   () const;
-      void            addSubNode    (Node *node);
-      const std::string&      getName     () const;
-      void            setName     (const std::string& name);
-      void            addAttribute    (const std::string& key, const std::string& value);
-      const std::string&      getAttributeValue (const std::string& key) const;
-      std::vector<std::string>    getAttributeKeys  () const;
-      bool            hasText     () const;
-      const std::string&      getText     () const;
-      const std::map<std::string, std::string>& getAttributes () const;
+                const std::vector<Node *>&          getSubNodes         () const;
+                void                                addSubNode          (Node *node);
+                const std::string&                  getName             () const;
+                void                                setName             (const std::string& name);
+                void                                addAttribute        (const std::string& key, const std::string& value);
+                const std::string&                  getAttributeValue   (const std::string& key) const;
+                std::vector<std::string>            getAttributeKeys    () const;
+                bool                                hasText             () const;
+                const std::string&                  getText             () const;
+                const std::map<std::string, std::string>& getAttributes () const;
 
-    private:
-      static const std::string    EmptyString;
-      std::vector<Node *>       subNodes;
-      std::map<std::string, std::string>  attributes;
-      std::string         name;
+            private:
+                static const std::string            EmptyString;
+                std::vector<Node *>                 subNodes;
+                std::map<std::string, std::string>  attributes;
+                std::string                         name;
 
-    };
-  }
+        };
+    }
 }
 
 #endif /* NODE_H_ */

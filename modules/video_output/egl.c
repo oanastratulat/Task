@@ -3,9 +3,9 @@
  * @brief EGL OpenGL extension module
  */
 /*****************************************************************************
- * Copyright © 2010-2011 Rémi Denis-Courmon
+ * Copyright © 2010-2011 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -43,28 +43,28 @@ static int OpenGL (vlc_object_t *);
 static void Close (vlc_object_t *);
 
 vlc_module_begin ()
-  set_shortname (N_("EGL"))
-  set_description (N_("EGL extension for OpenGL"))
-  set_category (CAT_VIDEO)
-  set_subcategory (SUBCAT_VIDEO_VOUT)
-  set_capability ("opengl", 50)
-  set_callbacks (OpenGL, Close)
+    set_shortname (N_("EGL"))
+    set_description (N_("EGL extension for OpenGL"))
+    set_category (CAT_VIDEO)
+    set_subcategory (SUBCAT_VIDEO_VOUT)
+    set_capability ("opengl", 50)
+    set_callbacks (OpenGL, Close)
 
-  add_submodule ()
-  set_capability ("opengl es2", 50)
-  set_callbacks (OpenGLES2, Close)
+    add_submodule ()
+    set_capability ("opengl es2", 50)
+    set_callbacks (OpenGLES2, Close)
 
-  add_submodule ()
-  set_capability ("opengl es", 50)
-  set_callbacks (OpenGLES, Close)
+    add_submodule ()
+    set_capability ("opengl es", 50)
+    set_callbacks (OpenGLES, Close)
 
 vlc_module_end ()
 
-typedef struct vlc_gl_sys_
+typedef struct vlc_gl_sys_t
 {
-  EGLDisplay display;
-  EGLSurface surface;
-  EGLContext context;
+    EGLDisplay display;
+    EGLSurface surface;
+    EGLContext context;
 } vlc_gl_sys_t;
 
 /* OpenGL callbacks */
@@ -74,32 +74,32 @@ static void *GetSymbol(vlc_gl_t *, const char *);
 
 static bool CheckAPI (EGLDisplay dpy, const char *api)
 {
-  const char *apis = eglQueryString (dpy, EGL_CLIENT_APIS);
-  size_t apilen = strlen (api);
+    const char *apis = eglQueryString (dpy, EGL_CLIENT_APIS);
+    size_t apilen = strlen (api);
 
-  /* Cannot use strtok_r() on constant string... */
-  do
-  {
-    while (*apis == ' ')
-    apis++;
-    if (!strncmp (apis, api, apilen)
-    && (memchr (" ", apis[apilen], 2) != NULL))
-    return true;
+    /* Cannot use strtok_r() on constant string... */
+    do
+    {
+        while (*apis == ' ')
+            apis++;
+        if (!strncmp (apis, api, apilen)
+          && (memchr (" ", apis[apilen], 2) != NULL))
+            return true;
 
-    apis = strchr (apis, ' ');
-  }
-  while (apis != NULL);
+        apis = strchr (apis, ' ');
+    }
+    while (apis != NULL);
 
-  return false;
+    return false;
 }
 
 struct gl_api
 {
- const char name[10];
- EGLenum  api;
- EGLint   min_minor;
- EGLint   render_bit;
- EGLint   attr[3];
+   const char name[10];
+   EGLenum    api;
+   EGLint     min_minor;
+   EGLint     render_bit;
+   EGLint     attr[3];
 };
 
 /**
@@ -107,160 +107,160 @@ struct gl_api
  */
 static int Open (vlc_object_t *obj, const struct gl_api *api)
 {
-  vlc_gl_t *gl = (vlc_gl_t *)obj;
+    vlc_gl_t *gl = (vlc_gl_t *)obj;
 
 #ifdef __unix__
-  /* EGL can only use the default X11 display */
-  if (gl->surface->display.x11 != NULL)
-    return VLC_EGENERIC;
-  if (!vlc_xlib_init (obj))
-    return VLC_EGENERIC;
+    /* EGL can only use the default X11 display */
+    if (gl->surface->display.x11 != NULL)
+        return VLC_EGENERIC;
+    if (!vlc_xlib_init (obj))
+        return VLC_EGENERIC;
 #endif
 
-  /* Initialize EGL display */
-  /* TODO: support various display types */
-  EGLDisplay dpy = eglGetDisplay (EGL_DEFAULT_DISPLAY);
-  if (dpy == EGL_NO_DISPLAY)
-    return VLC_EGENERIC;
+    /* Initialize EGL display */
+    /* TODO: support various display types */
+    EGLDisplay dpy = eglGetDisplay (EGL_DEFAULT_DISPLAY);
+    if (dpy == EGL_NO_DISPLAY)
+        return VLC_EGENERIC;
 
-  vlc_gl_sys_t *sys = malloc (sizeof (*sys));
-  if (unlikely(sys == NULL))
-    return VLC_ENOMEM;
-  gl->sys = sys;
-  sys->display = dpy;
+    vlc_gl_sys_t *sys = malloc (sizeof (*sys));
+    if (unlikely(sys == NULL))
+        return VLC_ENOMEM;
+    gl->sys = sys;
+    sys->display = dpy;
 
-  EGLint major, minor;
-  if (eglInitialize (dpy, &major, &minor) != EGL_TRUE)
-  {
-    /* No need to call eglTerminate() in this case */
-    free (sys);
-    return VLC_EGENERIC;
-  }
+    EGLint major, minor;
+    if (eglInitialize (dpy, &major, &minor) != EGL_TRUE)
+    {
+        /* No need to call eglTerminate() in this case */
+        free (sys);
+        return VLC_EGENERIC;
+    }
 
-  if (major != 1 || minor < api->min_minor || !CheckAPI (dpy, api->name))
-    goto error;
+    if (major != 1 || minor < api->min_minor || !CheckAPI (dpy, api->name))
+        goto error;
 
-  msg_Dbg (obj, "EGL version %s by %s", eglQueryString (dpy, EGL_VERSION),
-     eglQueryString (dpy, EGL_VENDOR));
-  {
-    const char *ext = eglQueryString (dpy, EGL_EXTENSIONS);
-    if (*ext)
-    msg_Dbg (obj, " extensions: %s", ext);
-  }
+    msg_Dbg (obj, "EGL version %s by %s", eglQueryString (dpy, EGL_VERSION),
+             eglQueryString (dpy, EGL_VENDOR));
+    {
+        const char *ext = eglQueryString (dpy, EGL_EXTENSIONS);
+        if (*ext)
+            msg_Dbg (obj, " extensions: %s", ext);
+    }
 
-  const EGLint conf_attr[] = {
-    EGL_RED_SIZE, 5,
-    EGL_GREEN_SIZE, 5,
-    EGL_BLUE_SIZE, 5,
-    EGL_RENDERABLE_TYPE, api->render_bit,
-    EGL_NONE
-  };
-  EGLConfig cfgv[1];
-  EGLint cfgc;
+    const EGLint conf_attr[] = {
+        EGL_RED_SIZE, 5,
+        EGL_GREEN_SIZE, 5,
+        EGL_BLUE_SIZE, 5,
+        EGL_RENDERABLE_TYPE, api->render_bit,
+        EGL_NONE
+    };
+    EGLConfig cfgv[1];
+    EGLint cfgc;
 
-  if (eglChooseConfig (dpy, conf_attr, cfgv, 1, &cfgc) != EGL_TRUE
-   || cfgc == 0)
-    goto error;
+    if (eglChooseConfig (dpy, conf_attr, cfgv, 1, &cfgc) != EGL_TRUE
+     || cfgc == 0)
+        goto error;
 
-  /* Create a drawing surface */
+    /* Create a drawing surface */
 #if defined (WIN32)
-  EGLNativeWindowType win = gl->surface->handle.hwnd;
+    EGLNativeWindowType win = gl->surface->handle.hwnd;
 #elif defined (__unix__)
-  EGLNativeWindowType win = gl->surface->handle.xid;
+    EGLNativeWindowType win = gl->surface->handle.xid;
 #endif
 
-  EGLSurface surface = eglCreateWindowSurface (dpy, cfgv[0], win, NULL);
-  if (surface == EGL_NO_SURFACE)
-  {
-    msg_Err (obj, "cannot create EGL window surface");
-    goto error;
-  }
-  sys->surface = surface;
+    EGLSurface surface = eglCreateWindowSurface (dpy, cfgv[0], win, NULL);
+    if (surface == EGL_NO_SURFACE)
+    {
+        msg_Err (obj, "cannot create EGL window surface");
+        goto error;
+    }
+    sys->surface = surface;
 
-  if (eglBindAPI (api->api) != EGL_TRUE)
-  {
-    msg_Err (obj, "cannot bind EGL API");
-    goto error;
-  }
+    if (eglBindAPI (api->api) != EGL_TRUE)
+    {
+        msg_Err (obj, "cannot bind EGL API");
+        goto error;
+    }
 
-  EGLContext ctx = eglCreateContext (dpy, cfgv[0], EGL_NO_CONTEXT,
-             api->attr);
-  if (ctx == EGL_NO_CONTEXT)
-  {
-    msg_Err (obj, "cannot create EGL context");
-    goto error;
-  }
-  sys->context = ctx;
+    EGLContext ctx = eglCreateContext (dpy, cfgv[0], EGL_NO_CONTEXT,
+                                       api->attr);
+    if (ctx == EGL_NO_CONTEXT)
+    {
+        msg_Err (obj, "cannot create EGL context");
+        goto error;
+    }
+    sys->context = ctx;
 
-  /* Initialize OpenGL callbacks */
-  gl->sys = sys;
-  gl->makeCurrent = MakeCurrent;
-  gl->swap = SwapBuffers;
-  gl->getProcAddress = GetSymbol;
-  gl->lock = NULL;
-  gl->unlock = NULL;
-  return VLC_SUCCESS;
+    /* Initialize OpenGL callbacks */
+    gl->sys = sys;
+    gl->makeCurrent = MakeCurrent;
+    gl->swap = SwapBuffers;
+    gl->getProcAddress = GetSymbol;
+    gl->lock = NULL;
+    gl->unlock = NULL;
+    return VLC_SUCCESS;
 
 error:
-  Close (obj);
-  return VLC_EGENERIC;
+    Close (obj);
+    return VLC_EGENERIC;
 }
 
 static int OpenGLES2 (vlc_object_t *obj)
 {
-  static const struct gl_api api = {
-    "OpenGL_ES", EGL_OPENGL_ES_API, 3, EGL_OPENGL_ES2_BIT,
-    { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE },
-  };
-  return Open (obj, &api);
+    static const struct gl_api api = {
+        "OpenGL_ES", EGL_OPENGL_ES_API, 3, EGL_OPENGL_ES2_BIT,
+        { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE },
+    };
+    return Open (obj, &api);
 }
 
 static int OpenGLES (vlc_object_t *obj)
 {
-  static const struct gl_api api = {
-    "OpenGL_ES", EGL_OPENGL_ES_API, 0, EGL_OPENGL_ES_BIT,
-    { EGL_CONTEXT_CLIENT_VERSION, 1, EGL_NONE },
-  };
-  return Open (obj, &api);
+    static const struct gl_api api = {
+        "OpenGL_ES", EGL_OPENGL_ES_API, 0, EGL_OPENGL_ES_BIT,
+        { EGL_CONTEXT_CLIENT_VERSION, 1, EGL_NONE },
+    };
+    return Open (obj, &api);
 }
 
 static int OpenGL (vlc_object_t *obj)
 {
-  static const struct gl_api api = {
-    "OpenGL", EGL_OPENGL_API, 4, EGL_OPENGL_BIT,
-    { EGL_NONE },
-  };
-  return Open (obj, &api);
+    static const struct gl_api api = {
+        "OpenGL", EGL_OPENGL_API, 4, EGL_OPENGL_BIT,
+        { EGL_NONE },
+    };
+    return Open (obj, &api);
 }
 
 static void Close (vlc_object_t *obj)
 {
-  vlc_gl_t *gl = (vlc_gl_t *)obj;
-  vlc_gl_sys_t *sys = gl->sys;
+    vlc_gl_t *gl = (vlc_gl_t *)obj;
+    vlc_gl_sys_t *sys = gl->sys;
 
-  eglTerminate (sys->display);
-  free (sys);
+    eglTerminate (sys->display);
+    free (sys);
 }
 
 static int MakeCurrent (vlc_gl_t *gl)
 {
-  vlc_gl_sys_t *sys = gl->sys;
+    vlc_gl_sys_t *sys = gl->sys;
 
-  if (eglMakeCurrent (sys->display, sys->surface, sys->surface,
-        sys->context) != EGL_TRUE)
-    return VLC_EGENERIC;
-  return VLC_SUCCESS;
+    if (eglMakeCurrent (sys->display, sys->surface, sys->surface,
+                        sys->context) != EGL_TRUE)
+        return VLC_EGENERIC;
+    return VLC_SUCCESS;
 }
 
 static void SwapBuffers (vlc_gl_t *gl)
 {
-  vlc_gl_sys_t *sys = gl->sys;
+    vlc_gl_sys_t *sys = gl->sys;
 
-  eglSwapBuffers (sys->display, sys->surface);
+    eglSwapBuffers (sys->display, sys->surface);
 }
 
 static void *GetSymbol(vlc_gl_t *gl, const char *procname)
 {
-  (void) gl;
-  return (void *)eglGetProcAddress (procname);
+    (void) gl;
+    return (void *)eglGetProcAddress (procname);
 }

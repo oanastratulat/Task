@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: f83de1a1452a0f2a7f8657b45425b47c4fd5ffd5 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,10 +30,10 @@
 
 void CmdSetEqualizer::execute()
 {
-  playlist_t* pPlaylist = getIntf()->p_sys->p_playlist;
+    playlist_t* pPlaylist = getIntf()->p_sys->p_playlist;
 
-  aout_EnableFilter( pPlaylist, "equalizer", m_enable );
-  VlcProc::instance( getIntf() )->update_equalizer();
+    aout_EnableFilter( pPlaylist, "equalizer", m_enable );
+    VlcProc::instance( getIntf() )->update_equalizer();
 }
 
 

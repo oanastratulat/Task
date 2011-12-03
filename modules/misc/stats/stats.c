@@ -4,7 +4,7 @@
  * Copyright (C) 2000-2008 the VideoLAN team
  *
  * Authors: Samuel Hocevar <sam@zoy.org>
- *    Pierre d'Herbemont <pdherbemont@videolan.org>
+ *          Pierre d'Herbemont <pdherbemont@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 
 /* Example usage:
  *  $ vlc movie.avi --sout="#transcode{aenc=dummy,venc=stats}:\
- *          std{access=http,mux=dummy,dst=0.0.0.0:8081}"
+ *                          std{access=http,mux=dummy,dst=0.0.0.0:8081}"
  *  $ vlc -vvv http://127.0.0.1:8081 --demux=stats --vout=stats --codec=stats
  */
 
@@ -45,22 +45,22 @@
  *****************************************************************************/
 
 vlc_module_begin ()
-  set_shortname( N_("Stats"))
-  set_description( N_("Stats encoder function") )
-  set_capability( "encoder", 0 )
-  add_shortcut( "stats" )
-  set_callbacks( OpenEncoder, CloseEncoder )
-  add_submodule ()
-    set_section( N_( "Stats decoder" ), NULL )
-    set_description( N_("Stats decoder function") )
-    set_capability( "decoder", 0 )
+    set_shortname( N_("Stats"))
+    set_description( N_("Stats encoder function") )
+    set_capability( "encoder", 0 )
     add_shortcut( "stats" )
-    set_callbacks( OpenDecoder, CloseDecoder )
-  add_submodule ()
-    set_section( N_( "Stats demux" ), NULL )
-    set_description( N_("Stats demux function") )
-    set_capability( "demux", 0 )
-    add_shortcut( "stats" )
-    set_callbacks( OpenDemux, CloseDemux )
+    set_callbacks( OpenEncoder, CloseEncoder )
+    add_submodule ()
+        set_section( N_( "Stats decoder" ), NULL )
+        set_description( N_("Stats decoder function") )
+        set_capability( "decoder", 0 )
+        add_shortcut( "stats" )
+        set_callbacks( OpenDecoder, CloseDecoder )
+    add_submodule ()
+        set_section( N_( "Stats demux" ), NULL )
+        set_description( N_("Stats demux function") )
+        set_capability( "demux", 0 )
+        add_shortcut( "stats" )
+        set_callbacks( OpenDemux, CloseDemux )
 vlc_module_end ()
 

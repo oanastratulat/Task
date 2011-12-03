@@ -5,7 +5,7 @@
  *
  * Originally distributed under LPGL 2.1 (or later) by the Wine project.
  *
- * Modified for use with MPlayer, detailed CVS changelog a
+ * Modified for use with MPlayer, detailed CVS changelog at
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  *
  * File now distributed as part of VLC media player with no modifications.
@@ -81,23 +81,23 @@ static void init_registry(void);
 
 
 static void create_registry(void){
-  if(regs)
-  {
+    if(regs)
+    {
 	printf("Logic error: create_registry() called with existing registry\n");
 	save_registry();
 	return;
-  }
-  regs=(struct reg_value*)malloc(3*sizeof(struct reg_value));
-  regs[0].type=regs[1].type=DIR;
-  regs[0].name=(char*)malloc(5);
-  strcpy(regs[0].name, "HKLM");
-  regs[1].name=(char*)malloc(5);
-  strcpy(regs[1].name, "HKCU");
-  regs[0].value=regs[1].value=NULL;
-  regs[0].len=regs[1].len=0;
-  reg_size=2;
-  head = 0;
-  save_registry();
+    }
+    regs=(struct reg_value*)malloc(3*sizeof(struct reg_value));
+    regs[0].type=regs[1].type=DIR;
+    regs[0].name=(char*)malloc(5);
+    strcpy(regs[0].name, "HKLM");
+    regs[1].name=(char*)malloc(5);
+    strcpy(regs[1].name, "HKCU");
+    regs[0].value=regs[1].value=NULL;
+    regs[0].len=regs[1].len=0;
+    reg_size=2;
+    head = 0;
+    save_registry();
 }
 
 static void open_registry(void)
@@ -113,9 +113,9 @@ static void open_registry(void)
 	fd = open(localregpathname, O_RDONLY);
 	if (fd == -1)
 	{
-	  printf("Creating new registry\n");
-	  create_registry();
-	  return;
+	    printf("Creating new registry\n");
+	    create_registry();
+	    return;
 	}
 	read(fd, &reg_size, 4);
 	regs=(struct reg_value*)malloc(reg_size*sizeof(struct reg_value));
@@ -136,7 +136,7 @@ static void open_registry(void)
 		regs[i].value=(char*)malloc(regs[i].len+1);
 		if(regs[i].value==NULL)
 		{
-		    free(regs[i].name);
+		        free(regs[i].name);
 			reg_size=i+1;
 			goto error;
 		}
@@ -156,14 +156,14 @@ static void save_registry(void)
 	fd = open(localregpathname, O_WRONLY | O_CREAT, 00666);
 	if (fd == -1)
 	{
-	  printf("Failed to open registry file '%s' for writing.\n",
-		 localregpathname);
-	  return;
+	    printf("Failed to open registry file '%s' for writing.\n",
+		   localregpathname);
+	    return;
 	}
 	write(fd, &reg_size, 4);
 	for(i=0; i<reg_size; i++)
 	{
-	    unsigned len=strlen(regs[i].name);
+	        unsigned len=strlen(regs[i].name);
 		write(fd, &regs[i].type, 4);
 		write(fd, &len, 4);
 		write(fd, regs[i].name, len);
@@ -175,30 +175,30 @@ static void save_registry(void)
 
 void free_registry(void)
 {
-  reg_handle_t* t = head;
-  while (t)
-  {
+    reg_handle_t* t = head;
+    while (t)
+    {
 	reg_handle_t* f = t;
 	free(t->name);
 	t=t->prev;
-    free(f);
-  }
-  head = 0;
-  if (regs)
-  {
-    int i;
+        free(f);
+    }
+    head = 0;
+    if (regs)
+    {
+        int i;
 	for(i=0; i<reg_size; i++)
 	{
-	  free(regs[i].name);
-	  free(regs[i].value);
+	    free(regs[i].name);
+	    free(regs[i].value);
 	}
 	free(regs);
 	regs = 0;
-  }
+    }
 
-  if (localregpathname != regpathname)
+    if (localregpathname != regpathname)
 	free(localregpathname);
-  localregpathname = 0;
+    localregpathname = 0;
 }
 
 
@@ -267,7 +267,7 @@ static char* build_keyname(long key, const char* subkey)
 {
 	char* full_name;
 	reg_handle_t* t;
-    if((t=find_handle(key))==NULL)
+        if((t=find_handle(key))==NULL)
 	{
 		TRACE("Invalid key\n");
 		return NULL;
@@ -295,7 +295,7 @@ static struct reg_value* insert_reg_value(int handle, const char* name, int type
 	//creating new value in registry
 	{
 		if(regs==NULL)
-		  create_registry();
+		    create_registry();
 		regs=(struct reg_value*)realloc(regs, sizeof(struct reg_value)*(reg_size+1));
 		//regs=(struct reg_value*)my_realloc(regs, sizeof(struct reg_value)*(reg_size+1));
 		v=regs+reg_size;
@@ -304,8 +304,8 @@ static struct reg_value* insert_reg_value(int handle, const char* name, int type
 	else
 	//replacing old one
 	{
-	  free(v->value);
-	  free(v->name);
+	    free(v->value);
+	    free(v->name);
 	}
 	TRACE("RegInsert '%s'  %p  v:%d  len:%d\n", name, value, *(int*)value, len);
 	v->type=type;
@@ -314,7 +314,7 @@ static struct reg_value* insert_reg_value(int handle, const char* name, int type
 	memcpy(v->value, value, len);
 	v->name=(char*)malloc(strlen(fullname)+1);
 	strcpy(v->name, fullname);
-    free(fullname);
+        free(fullname);
 	save_registry();
 	return v;
 }
@@ -330,24 +330,24 @@ static void init_registry(void)
 	localregpathname = regpathname;
 #else
 	// regpathname is an external pointer
-    //
+        //
 	// registry.c is holding its own internal pointer
 	// localregpathname  - which is being allocate/deallocated
 
 	if (localregpathname == NULL)
 	{
-    const char* pthn = regpathname;
-	  if (!regpathname)
-	  {
+            const char* pthn = regpathname;
+	    if (!regpathname)
+	    {
 		// avifile - for now reading data from user's home
 		struct passwd* pwent;
 		pwent = getpwuid(geteuid());
-      pthn = pwent->pw_dir;
-	  }
+                pthn = pwent->pw_dir;
+	    }
 
-	  localregpathname = (char*)malloc(strlen(pthn)+20);
-	  strcpy(localregpathname, pthn);
-	  strcat(localregpathname, "/.registry");
+	    localregpathname = (char*)malloc(strlen(pthn)+20);
+	    strcpy(localregpathname, pthn);
+	    strcat(localregpathname, "/.registry");
 	}
 #endif
 
@@ -360,7 +360,7 @@ static reg_handle_t* find_handle_2(long key, const char* subkey)
 {
 	char* full_name;
 	reg_handle_t* t;
-    if((t=find_handle(key))==NULL)
+        if((t=find_handle(key))==NULL)
 	{
 		TRACE("Invalid key\n");
 		return (reg_handle_t*)-1;
@@ -378,13 +378,13 @@ static reg_handle_t* find_handle_2(long key, const char* subkey)
 
 long __stdcall RegOpenKeyExA(long key, const char* subkey, long reserved, long access, int* newkey)
 {
-  char* full_name;
-  reg_handle_t* t;
-  struct reg_value* v;
-  TRACE("Opening key %s\n", subkey);
+    char* full_name;
+    reg_handle_t* t;
+    struct reg_value* v;
+    TRACE("Opening key %s\n", subkey);
 
-  if(!regs)
-    init_registry()
+    if(!regs)
+        init_registry()
 ;
 /*	t=find_handle_2(key, subkey);
 
@@ -394,158 +394,158 @@ long __stdcall RegOpenKeyExA(long key, const char* subkey, long reserved, long a
 	if(t==(reg_handle_t*)-1)
 		return -1;
 */
-  full_name=build_keyname(key, subkey);
-  if(!full_name)
-    return -1;
-  TRACE("Opening key Fullname %s\n", full_name);
-  v=find_value_by_name(full_name);
+    full_name=build_keyname(key, subkey);
+    if(!full_name)
+        return -1;
+    TRACE("Opening key Fullname %s\n", full_name);
+    v=find_value_by_name(full_name);
 
-  t=insert_handle(generate_handle(), full_name);
-  *newkey=t->handle;
-  free(full_name);
+    t=insert_handle(generate_handle(), full_name);
+    *newkey=t->handle;
+    free(full_name);
 
-  return 0;
+    return 0;
 }
 long __stdcall RegCloseKey(long key)
 {
-  reg_handle_t *handle;
-  if(key==(long)HKEY_LOCAL_MACHINE)
+    reg_handle_t *handle;
+    if(key==(long)HKEY_LOCAL_MACHINE)
 	return 0;
-  if(key==(long)HKEY_CURRENT_USER)
+    if(key==(long)HKEY_CURRENT_USER)
 	return 0;
-  handle=find_handle(key);
-  if(handle==NULL)
+    handle=find_handle(key);
+    if(handle==NULL)
 	return 0;
-  if(handle->prev)
+    if(handle->prev)
 	handle->prev->next=handle->next;
-  if(handle->next)
+    if(handle->next)
 	handle->next->prev=handle->prev;
-  free(handle->name);
-  if(handle==head)
+    free(handle->name);
+    if(handle==head)
 	head=head->prev;
-  free(handle);
-  return 1;
+    free(handle);
+    return 1;
 }
 
 long __stdcall RegQueryValueExA(long key, const char* value, int* reserved, int* type, int* data, int* count)
 {
-  struct reg_value* t;
-  char* c;
-  TRACE("Querying value %s\n", value);
-  if(!regs)
+    struct reg_value* t;
+    char* c;
+    TRACE("Querying value %s\n", value);
+    if(!regs)
 	init_registry();
 
-  c=build_keyname(key, value);
-  if (!c)
+    c=build_keyname(key, value);
+    if (!c)
 	return 1;
-  t=find_value_by_name(c);
-  free(c);
-  if (t==NULL)
+    t=find_value_by_name(c);
+    free(c);
+    if (t==NULL)
 	return 2;
-  if (type)
+    if (type)
 	*type=t->type;
-  if (data)
-  {
+    if (data)
+    {
 	memcpy(data, t->value, (t->len<*count)?t->len:*count);
 	TRACE("returning %d bytes: %d\n", t->len, *(int*)data);
-  }
-  if(*count<t->len)
-  {
+    }
+    if(*count<t->len)
+    {
 	*count=t->len;
 	return ERROR_MORE_DATA;
-  }
-  else
-  {
+    }
+    else
+    {
 	*count=t->len;
-  }
-  return 0;
+    }
+    return 0;
 }
 long __stdcall RegCreateKeyExA(long key, const char* name, long reserved,
-		   void* classs, long options, long security,
-		   void* sec_attr, int* newkey, int* status)
+		     void* classs, long options, long security,
+		     void* sec_attr, int* newkey, int* status)
 {
-  reg_handle_t* t;
-  char* fullname;
-  struct reg_value* v;
-  //    TRACE("Creating/Opening key %s\n", name);
-  if(!regs)
+    reg_handle_t* t;
+    char* fullname;
+    struct reg_value* v;
+    //        TRACE("Creating/Opening key %s\n", name);
+    if(!regs)
 	init_registry();
 
-  fullname=build_keyname(key, name);
-  if (!fullname)
+    fullname=build_keyname(key, name);
+    if (!fullname)
 	return 1;
-  TRACE("Creating/Opening key %s\n", fullname);
-  v=find_value_by_name(fullname);
-  if(v==NULL)
-  {
+    TRACE("Creating/Opening key %s\n", fullname);
+    v=find_value_by_name(fullname);
+    if(v==NULL)
+    {
 	int qw=45708;
 	v=insert_reg_value(key, name, DIR, &qw, 4);
 	if (status) *status=REG_CREATED_NEW_KEY;
 	//		return 0;
-  }
+    }
 
-  t=insert_handle(generate_handle(), fullname);
-  *newkey=t->handle;
-  free(fullname);
-  return 0;
+    t=insert_handle(generate_handle(), fullname);
+    *newkey=t->handle;
+    free(fullname);
+    return 0;
 }
 
 /*
 LONG RegEnumValue(
-  HKEY hKey,      // handle to key to query
-  DWORD dwIndex,    // index of value to query
-  LPTSTR lpValueName,   // address of buffer for value string
+  HKEY hKey,              // handle to key to query
+  DWORD dwIndex,          // index of value to query
+  LPTSTR lpValueName,     // address of buffer for value string
   LPDWORD lpcbValueName,  // address for size of value buffer
-  LPDWORD lpReserved,   // reserved
-  LPDWORD lpType,   // address of buffer for type code
-  LPBYTE lpData,    // address of buffer for value data
-  LPDWORD lpcbData    // address for size of data buffer
+  LPDWORD lpReserved,     // reserved
+  LPDWORD lpType,         // address of buffer for type code
+  LPBYTE lpData,          // address of buffer for value data
+  LPDWORD lpcbData        // address for size of data buffer
 );
 */
 
 long __stdcall RegEnumValueA(HKEY hkey, DWORD index, LPSTR value, LPDWORD val_count,
-		 LPDWORD reserved, LPDWORD type, LPBYTE data, LPDWORD count)
+		   LPDWORD reserved, LPDWORD type, LPBYTE data, LPDWORD count)
 {
-  // currenly just made to support MSZH & ZLIB
-  //printf("Reg Enum 0x%x %d  %s %d data: %p %d  %d >%s<\n", hkey, index,
-  //   value, *val_count, data, *count, reg_size, data);
-  reg_handle_t* t = find_handle(hkey);
-  if (t && index < 10)
-  {
+    // currenly just made to support MSZH & ZLIB
+    //printf("Reg Enum 0x%x %d  %s %d   data: %p %d  %d >%s<\n", hkey, index,
+    //       value, *val_count, data, *count, reg_size, data);
+    reg_handle_t* t = find_handle(hkey);
+    if (t && index < 10)
+    {
 	struct reg_value* v=find_value_by_name(t->name);
 	if (v)
 	{
-	  memcpy(data, v->value, (v->len < *count) ? v->len : *count);
-	  if(*count < v->len)
+	    memcpy(data, v->value, (v->len < *count) ? v->len : *count);
+	    if(*count < v->len)
 		*count = v->len;
-	  if (type)
+	    if (type)
 		*type = v->type;
-	  //printf("Found handle  %s\n", v->name);
-	  return 0;
+	    //printf("Found handle  %s\n", v->name);
+	    return 0;
 	}
-  }
-  return ERROR_NO_MORE_ITEMS;
+    }
+    return ERROR_NO_MORE_ITEMS;
 }
 
 long __stdcall RegSetValueExA(long key, const char* name, long v1, long v2, const void* data, long size)
 {
-  struct reg_value* t;
-  char* c;
-  TRACE("Request to set value %s %d\n", name, *(const int*)data);
-  if(!regs)
+    struct reg_value* t;
+    char* c;
+    TRACE("Request to set value %s %d\n", name, *(const int*)data);
+    if(!regs)
 	init_registry();
 
-  c=build_keyname(key, name);
-  if(c==NULL)
+    c=build_keyname(key, name);
+    if(c==NULL)
 	return 1;
-  insert_reg_value(key, name, v2, data, size);
-  free(c);
-  return 0;
+    insert_reg_value(key, name, v2, data, size);
+    free(c);
+    return 0;
 }
 
 long __stdcall RegEnumKeyExA(HKEY hKey, DWORD dwIndex, LPSTR lpName, LPDWORD lpcbName,
-		 LPDWORD lpReserved, LPSTR lpClass, LPDWORD lpcbClass,
-		 LPFILETIME lpftLastWriteTime)
+		   LPDWORD lpReserved, LPSTR lpClass, LPDWORD lpcbClass,
+		   LPFILETIME lpftLastWriteTime)
 {
-  return ERROR_NO_MORE_ITEMS;
+    return ERROR_NO_MORE_ITEMS;
 }

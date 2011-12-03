@@ -38,13 +38,13 @@ struct picture_t;
  * and applies a process to recreate the bottom field.
  *
  * If a 8x8 block is classified as :
- * - progressive: it applies a small blend (1,6,1)
- * - interlaced:
- *  * in the MMX version: we do a ME between the 2 fields, if there is a
- *  good match we use MC to recreate the bottom field (with a small
- *  blend (1,6,1) )
- *  * otherwise: it recreates the bottom field by an edge oriented
- *  interpolation.
+ *   - progressive: it applies a small blend (1,6,1)
+ *   - interlaced:
+ *    * in the MMX version: we do a ME between the 2 fields, if there is a
+ *      good match we use MC to recreate the bottom field (with a small
+ *      blend (1,6,1) )
+ *    * otherwise: it recreates the bottom field by an edge oriented
+ *      interpolation.
  *
  * @param[in] p_pic Input frame.
  * @param[out] p_outpic Output frame. Must be allocated by caller.

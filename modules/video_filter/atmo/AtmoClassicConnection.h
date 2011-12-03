@@ -1,6 +1,6 @@
 /*
  * AtmoCom.h: Class for communication with the serial hardware of Atmo Light,
- * opens and configures the serial por
+ * opens and configures the serial port
  *
  * See the README.txt file for copyright information and how to reach the author(s).
  *
@@ -14,53 +14,53 @@
 #include "AtmoConfig.h"
 
 #if defined(WIN32)
-# include <windows.h>
+#   include <windows.h>
 #endif
 
 
 class CAtmoClassicConnection : public CAtmoConnection {
-  private:
-    HANDLE m_hComport;
+    private:
+        HANDLE m_hComport;
 
 #if defined(WIN32)
-    DWORD  m_dwLastWin32Error;
-  public:
-    DWORD getLastError() { return m_dwLastWin32Error; }
+        DWORD  m_dwLastWin32Error;
+    public:
+        DWORD getLastError() { return m_dwLastWin32Error; }
 #endif
 
-  public:
-   CAtmoClassicConnection(CAtmoConfig *cfg);
-   virtual ~CAtmoClassicConnection(void);
+    public:
+       CAtmoClassicConnection(CAtmoConfig *cfg);
+       virtual ~CAtmoClassicConnection(void);
 
-  	 virtual ATMO_BOOL OpenConnection();
+  	   virtual ATMO_BOOL OpenConnection();
 
-   virtual void CloseConnection();
+       virtual void CloseConnection();
 
-   virtual ATMO_BOOL isOpen(void);
+       virtual ATMO_BOOL isOpen(void);
 
-   virtual ATMO_BOOL SendData(pColorPacket data);
+       virtual ATMO_BOOL SendData(pColorPacket data);
 
-   virtual ATMO_BOOL HardwareWhiteAdjust(int global_gamma,
-               int global_contrast,
-               int contrast_red,
-               int contrast_green,
-               int contrast_blue,
-               int gamma_red,
-               int gamma_green,
-               int gamma_blue,
-               ATMO_BOOL storeToEeprom);
+       virtual ATMO_BOOL HardwareWhiteAdjust(int global_gamma,
+                                             int global_contrast,
+                                             int contrast_red,
+                                             int contrast_green,
+                                             int contrast_blue,
+                                             int gamma_red,
+                                             int gamma_green,
+                                             int gamma_blue,
+                                             ATMO_BOOL storeToEeprom);
 
-   virtual int getNumChannels() { return 5; }
+       virtual int getNumChannels() { return 5; }
 
 
-   virtual const char *getDevicePath() { return "atmo"; }
+       virtual const char *getDevicePath() { return "atmo"; }
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-   virtual char *getChannelName(int ch);
-   virtual ATMO_BOOL ShowConfigDialog(HINSTANCE hInst, HWND parent, CAtmoConfig *cfg);
+       virtual char *getChannelName(int ch);
+       virtual ATMO_BOOL ShowConfigDialog(HINSTANCE hInst, HWND parent, CAtmoConfig *cfg);
 #endif
 
-   virtual ATMO_BOOL CreateDefaultMapping(CAtmoChannelAssignment *ca);
+       virtual ATMO_BOOL CreateDefaultMapping(CAtmoChannelAssignment *ca);
 };
 
 #endif

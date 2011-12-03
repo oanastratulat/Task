@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -31,24 +31,24 @@
 
 namespace dash
 {
-  namespace logic
-  {
-    class IAdaptationLogic : public IDownloadRateObserver
+    namespace logic
     {
-    public:
+        class IAdaptationLogic : public IDownloadRateObserver
+        {
+            public:
 
-      enum LogicType
-      {
-        Default,
-        AlwaysBest,
-        AlwaysLowest,
-        RateBased,
-      };
+                enum LogicType
+                {
+                    Default,
+                    AlwaysBest,
+                    AlwaysLowest,
+                    RateBased,
+                };
 
-      virtual dash::http::Chunk* getNextChunk() throw(dash::exception::EOFException) = 0;
+                virtual dash::http::Chunk* getNextChunk() throw(dash::exception::EOFException) = 0;
 
-    };
-  }
+        };
+    }
 }
 
 #endif /* IADAPTATIONLOGIC_H_ */

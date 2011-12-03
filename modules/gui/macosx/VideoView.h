@@ -5,16 +5,16 @@
  * $Id: 635da1643537857407c83aedaf0b6cb7ca83c6dc $
  *
  * Authors: Derk-Jan Hartman <hartman at videolan dot org>
- *    Eric Petit <titer@m0k.org>
- *    Benjamin Pracht <bigben at videolan dot org>
- *    Pierre d'Herbemont <pdherbemont # videolan org>
- *    Felix Paul Kühne <fkuehne at videolan dot org>
+ *          Eric Petit <titer@m0k.org>
+ *          Benjamin Pracht <bigben at videolan dot org>
+ *          Pierre d'Herbemont <pdherbemont # videolan org>
+ *          Felix Paul Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -30,8 +30,8 @@
  *****************************************************************************/
 @interface VLCVoutView : NSView
 {
-  NSView * o_view;
+    NSView * o_view;
 
-  id      o_window;
+    id              o_window;
 }
 @end

@@ -26,21 +26,21 @@
 /*****************************************************************************
  * VLCPrefs interface
  *****************************************************************************/
-@interface VLCPrefs : NSObjec
+@interface VLCPrefs : NSObject
 {
-  intf_thread_t *p_intf;
-  VLCTreeMainItem * _rootTreeItem;
-  NSView *o_empty_view;
-  NSMutableDictionary *o_save_prefs;
+    intf_thread_t *p_intf;
+    VLCTreeMainItem * _rootTreeItem;
+    NSView *o_empty_view;
+    NSMutableDictionary *o_save_prefs;
 
-  IBOutlet id o_prefs_window;
-  IBOutlet id o_title;
-  IBOutlet id o_tree;
-  IBOutlet id o_prefs_view;
-  IBOutlet id o_save_btn;
-  IBOutlet id o_cancel_btn;
-  IBOutlet id o_reset_btn;
-  IBOutlet id o_showBasic_btn;
+    IBOutlet id o_prefs_window;
+    IBOutlet id o_title;
+    IBOutlet id o_tree;
+    IBOutlet id o_prefs_view;
+    IBOutlet id o_save_btn;
+    IBOutlet id o_cancel_btn;
+    IBOutlet id o_reset_btn;
+    IBOutlet id o_showBasic_btn;
 }
 
 + (VLCPrefs *)sharedInstance;

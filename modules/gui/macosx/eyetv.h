@@ -24,10 +24,10 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface VLCEyeTVController : NSObjec
+@interface VLCEyeTVController : NSObject
 {
-  BOOL b_eyeTVactive;
-  BOOL b_deviceConnected;
+    BOOL b_eyeTVactive;
+    BOOL b_deviceConnected;
 }
 - (void)globalNotificationReceived: (NSNotification *)theNotification;
 - (BOOL)isEyeTVrunning;

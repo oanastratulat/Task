@@ -5,7 +5,7 @@
  * $Id: cbc60d84a45a1467203fbdd8552e5214d54257b1 $
  *
  * Authors: Antoine Cellerier <dionoea at videolan tod org>
- *    Pierre d'Herbemont <pdherbemont # videolan.org>
+ *          Pierre d'Herbemont <pdherbemont # videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 int vlclua_var_toggle_or_set( lua_State *, vlc_object_t *, const char * );
 
 #define vlclua_var_toggle_or_set( a, b, c ) \
-    vlclua_var_toggle_or_set( a, VLC_OBJECT( b ), c )
+        vlclua_var_toggle_or_set( a, VLC_OBJECT( b ), c )
 
 #endif
 

@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 877461b6b3fe76d4e8c594a8c18adf48226acd77 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,17 +33,17 @@
 
 void CmdAddItem::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( !pPlaylist )
-    return;
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( !pPlaylist )
+        return;
 
-  char* psz_uri = make_URI(  m_name.c_str(), NULL );
-  if( !psz_uri )
-    return;
+    char* psz_uri = make_URI(  m_name.c_str(), NULL );
+    if( !psz_uri )
+        return;
 
-  playlist_Add( pPlaylist, psz_uri, NULL,
-      m_playNow ? PLAYLIST_APPEND | PLAYLIST_GO : PLAYLIST_APPEND,
-      PLAYLIST_END, true, false );
+    playlist_Add( pPlaylist, psz_uri, NULL,
+                  m_playNow ? PLAYLIST_APPEND | PLAYLIST_GO : PLAYLIST_APPEND,
+                  PLAYLIST_END, true, false );
 
-  free( psz_uri );
+    free( psz_uri );
 }

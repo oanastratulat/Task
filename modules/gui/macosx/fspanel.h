@@ -5,7 +5,7 @@
  * $Id: 878509d9d3886536e3f3678e6f0915ae3821838f $
  *
  * Authors: Jérôme Decoodt <djc at videolan dot org>
- *    Felix Paul Kühne <fkuehne at videolan dot org>
+ *          Felix Paul Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,24 +24,24 @@
 
 @interface VLCFSPanel : NSWindow
 {
-  NSTimer *fadeTimer,*hideAgainTimer;
-  NSPoint mouseClic;
-  BOOL b_fadeQueued;
-  BOOL b_keptVisible;
-  BOOL b_alreadyCounting;
-  int i_timeToKeepVisibleInSec;
+    NSTimer *fadeTimer,*hideAgainTimer;
+    NSPoint mouseClic;
+    BOOL b_fadeQueued;
+    BOOL b_keptVisible;
+    BOOL b_alreadyCounting;
+    int i_timeToKeepVisibleInSec;
 
-  BOOL b_nonActive;
-  BOOL b_displayed;
-  BOOL b_voutWasUpdated;
-  int i_device;
+    BOOL b_nonActive;
+    BOOL b_displayed;
+    BOOL b_voutWasUpdated;
+    int i_device;
 
-  BOOL b_usingBigScreen;
+    BOOL b_usingBigScreen;
 }
-- (id)initWithContentRect: (NSRect)contentRec
-      styleMask: (NSUInteger)aStyle
-      backing: (NSBackingStoreType)bufferingType
-        defer: (BOOL)flag;
+- (id)initWithContentRect: (NSRect)contentRect
+                styleMask: (NSUInteger)aStyle
+                  backing: (NSBackingStoreType)bufferingType
+                    defer: (BOOL)flag;
 - (void)awakeFromNib;
 - (BOOL)canBecomeKeyWindow;
 - (void)dealloc;
@@ -78,12 +78,12 @@
 
 @interface VLCFSPanelView : NSView
 {
-  NSColor *fillColor;
-  NSButton *o_prev, *o_next, *o_bwd, *o_fwd, *o_play, *o_fullscreen;
-  NSTextField *o_streamTitle_txt, *o_streamPosition_txt;
-  NSSlider *o_fs_timeSlider, *o_fs_volumeSlider;
+    NSColor *fillColor;
+    NSButton *o_prev, *o_next, *o_bwd, *o_fwd, *o_play, *o_fullscreen;
+    NSTextField *o_streamTitle_txt, *o_streamPosition_txt;
+    NSSlider *o_fs_timeSlider, *o_fs_volumeSlider;
 
-  BOOL b_usingBigScreen;
+    BOOL b_usingBigScreen;
 }
 - (id)initWithFrame: (NSRect)frameRect;
 - (void)drawRect: (NSRect)rect;

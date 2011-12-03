@@ -30,36 +30,36 @@
  *****************************************************************************/
 #define GUID_FMT "0x%x-0x%x-0x%x-0x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x%2.2x"
 #define GUID_PRINT( guid )  \
-  (unsigned)(guid).Data1,      \
-  (guid).Data2,      \
-  (guid).Data3,      \
-  (guid).Data4[0],(guid).Data4[1],(guid).Data4[2],(guid).Data4[3],  \
-  (guid).Data4[4],(guid).Data4[5],(guid).Data4[6],(guid).Data4[7]
+    (unsigned)(guid).Data1,              \
+    (guid).Data2,              \
+    (guid).Data3,              \
+    (guid).Data4[0],(guid).Data4[1],(guid).Data4[2],(guid).Data4[3],    \
+    (guid).Data4[4],(guid).Data4[5],(guid).Data4[6],(guid).Data4[7]
 
 enum
 {
-  ASF_OBJECT_NULL = 0,
-  ASF_OBJECT_ROOT,
-  ASF_OBJECT_HEADER,
-  ASF_OBJECT_DATA,
-  ASF_OBJECT_INDEX,
-  ASF_OBJECT_FILE_PROPERTIES,
-  ASF_OBJECT_STREAM_PROPERTIES,
-  ASF_OBJECT_HEADER_EXTENSION,
-  ASF_OBJECT_CODEC_LIST,
-  ASF_OBJECT_MARKER,
-  ASF_OBJECT_CONTENT_DESCRIPTION,
-  ASF_OBJECT_METADATA,
-  ASF_OBJECT_PADDING,
-  ASF_OBJECT_OTHER,
+    ASF_OBJECT_NULL = 0,
+    ASF_OBJECT_ROOT,
+    ASF_OBJECT_HEADER,
+    ASF_OBJECT_DATA,
+    ASF_OBJECT_INDEX,
+    ASF_OBJECT_FILE_PROPERTIES,
+    ASF_OBJECT_STREAM_PROPERTIES,
+    ASF_OBJECT_HEADER_EXTENSION,
+    ASF_OBJECT_CODEC_LIST,
+    ASF_OBJECT_MARKER,
+    ASF_OBJECT_CONTENT_DESCRIPTION,
+    ASF_OBJECT_METADATA,
+    ASF_OBJECT_PADDING,
+    ASF_OBJECT_OTHER,
 };
 
 static const guid_t asf_object_null_guid =
 {
-  0x00000000,
-  0x0000,
-  0x0000,
-  { 0x00,0x00, 0x00,0x00,0x00,0x00,0x00,0x00 }
+    0x00000000,
+    0x0000,
+    0x0000,
+    { 0x00,0x00, 0x00,0x00,0x00,0x00,0x00,0x00 }
 };
 
 /* Top-Level object */
@@ -205,25 +205,25 @@ static const guid_t asf_guid_audio_conceal_spread =
 {0xBFC3CD50, 0x618F, 0x11CF, {0x8B, 0xB2, 0x00, 0xAA, 0x00, 0xB4, 0xE2, 0x20}};
 
 
-#define ASF_OBJECT_COMMON    \
-  int    i_type;     \
-  guid_t   i_object_id;  \
-  uint64_t   i_object_size;  \
-  uint64_t   i_object_pos;   \
-  union asf_object_u *p_father;  \
-  union asf_object_u *p_first; \
-  union asf_object_u *p_last;  \
-  union asf_object_u *p_next;
+#define ASF_OBJECT_COMMON          \
+    int          i_type;           \
+    guid_t       i_object_id;      \
+    uint64_t     i_object_size;    \
+    uint64_t     i_object_pos;     \
+    union asf_object_u *p_father;  \
+    union asf_object_u *p_first;   \
+    union asf_object_u *p_last;    \
+    union asf_object_u *p_next;
 
 /****************************************************************************
  * GUID functions
  ****************************************************************************/
 static inline void ASF_GetGUID( guid_t *p_guid, const uint8_t *p_data )
 {
-  p_guid->Data1 = GetDWLE( p_data );
-  p_guid->Data2 = GetWLE( p_data + 4);
-  p_guid->Data3 = GetWLE( p_data + 6);
-  memcpy( p_guid->Data4, p_data + 8, 8 );
+    p_guid->Data1 = GetDWLE( p_data );
+    p_guid->Data2 = GetWLE( p_data + 4);
+    p_guid->Data3 = GetWLE( p_data + 6);
+    memcpy( p_guid->Data4, p_data + 8, 8 );
 }
 
 #endif

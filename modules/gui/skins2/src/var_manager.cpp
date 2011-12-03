@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 2c28d1dcd350a9710e14d89f3572a089149e2d6c $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,120 +26,120 @@
 
 
 VarManager::VarManager( intf_thread_t *pIntf ): SkinObject( pIntf ),
-  m_pTooltipText( NULL ), m_pHelpText( NULL )
+    m_pTooltipText( NULL ), m_pHelpText( NULL )
 {
-  m_pTooltipText = new VarText( pIntf );
-  m_pHelpText = new VarText( pIntf, false );
+    m_pTooltipText = new VarText( pIntf );
+    m_pHelpText = new VarText( pIntf, false );
 }
 
 
 VarManager::~VarManager()
 {
-  // Delete the variables in the reverse order they were added
-  list<string>::const_iterator it1;
-  for( it1 = m_varList.begin(); it1 != m_varList.end(); ++it1 )
-  {
-    m_varMap.erase(*it1);
-  }
+    // Delete the variables in the reverse order they were added
+    list<string>::const_iterator it1;
+    for( it1 = m_varList.begin(); it1 != m_varList.end(); ++it1 )
+    {
+        m_varMap.erase(*it1);
+    }
 
-  // Delete the anonymous variables
-  while( !m_anonVarList.empty() )
-  {
-    m_anonVarList.pop_back();
-  }
+    // Delete the anonymous variables
+    while( !m_anonVarList.empty() )
+    {
+        m_anonVarList.pop_back();
+    }
 
 
-  delete m_pTooltipText;
+    delete m_pTooltipText;
 
-  // Warning! the help text must be the last variable to be deleted,
-  // because VarText destructor references it (FIXME: find a cleaner way?)
-  delete m_pHelpText;
+    // Warning! the help text must be the last variable to be deleted,
+    // because VarText destructor references it (FIXME: find a cleaner way?)
+    delete m_pHelpText;
 }
 
 
 VarManager *VarManager::instance( intf_thread_t *pIntf )
 {
-  if( ! pIntf->p_sys->p_varManager )
-  {
-    VarManager *pVarManager;
-    pVarManager = new VarManager( pIntf );
-    if( pVarManager )
+    if( ! pIntf->p_sys->p_varManager )
     {
-    pIntf->p_sys->p_varManager = pVarManager;
+        VarManager *pVarManager;
+        pVarManager = new VarManager( pIntf );
+        if( pVarManager )
+        {
+            pIntf->p_sys->p_varManager = pVarManager;
+        }
     }
-  }
-  return pIntf->p_sys->p_varManager;
+    return pIntf->p_sys->p_varManager;
 }
 
 
 void VarManager::destroy( intf_thread_t *pIntf )
 {
-  delete pIntf->p_sys->p_varManager;
-  pIntf->p_sys->p_varManager = NULL;
+    delete pIntf->p_sys->p_varManager;
+    pIntf->p_sys->p_varManager = NULL;
 }
 
 
 void VarManager::registerVar( const VariablePtr &rcVar, const string &rName )
 {
-  m_varMap[rName] = rcVar;
-  m_varList.push_front( rName );
+    m_varMap[rName] = rcVar;
+    m_varList.push_front( rName );
 
-  m_anonVarList.push_back( rcVar );
+    m_anonVarList.push_back( rcVar );
 }
 
 
 void VarManager::registerVar( const VariablePtr &rcVar )
 {
-  m_anonVarList.push_back( rcVar );
+    m_anonVarList.push_back( rcVar );
 }
 
 
 Variable *VarManager::getVar( const string &rName )
 {
-  if( m_varMap.find( rName ) != m_varMap.end() )
-  {
-    return m_varMap[rName].get();
-  }
-  else
-  {
-    return NULL;
-  }
+    if( m_varMap.find( rName ) != m_varMap.end() )
+    {
+        return m_varMap[rName].get();
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 
 Variable *VarManager::getVar( const string &rName, const string &rType )
 {
-  if( m_varMap.find( rName ) != m_varMap.end() )
-  {
-    Variable *pVar = m_varMap[rName].get();
-    // Check the variable type
-    if( pVar->getType() != rType )
+    if( m_varMap.find( rName ) != m_varMap.end() )
     {
-    msg_Warn( getIntf(), "variable %s has incorrect type (%s instead"
-        " of (%s)", rName.c_str(), pVar->getType().c_str(),
-        rType.c_str() );
-    return NULL;
+        Variable *pVar = m_varMap[rName].get();
+        // Check the variable type
+        if( pVar->getType() != rType )
+        {
+            msg_Warn( getIntf(), "variable %s has incorrect type (%s instead"
+                      " of (%s)", rName.c_str(), pVar->getType().c_str(),
+                      rType.c_str() );
+            return NULL;
+        }
+        else
+        {
+            return pVar;
+        }
     }
     else
     {
-    return pVar;
+        return NULL;
     }
-  }
-  else
-  {
-    return NULL;
-  }
 }
 
 
 void VarManager::registerConst( const string &rName, const string &rValue)
 {
-  m_constMap[rName] = rValue;
+    m_constMap[rName] = rValue;
 }
 
 
 string VarManager::getConst( const string &rName )
 {
-  return m_constMap[rName];
+    return m_constMap[rName];
 }
 

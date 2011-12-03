@@ -5,10 +5,10 @@
  * Copyright (C) 2009 Laurent Aimar
  *
  * Authors: Cyril Deguet <asmax@videolan.org>
- *    Gildas Bazin <gbazin@videolan.org>
- *    Eric Petit <titer@m0k.org>
- *    Cedric Cocquebert <cedric.cocquebert@supelec.fr>
- *    Laurent Aimar <fenrir _AT_ videolan _DOT_ org>
+ *          Gildas Bazin <gbazin@videolan.org>
+ *          Eric Petit <titer@m0k.org>
+ *          Cedric Cocquebert <cedric.cocquebert@supelec.fr>
+ *          Laurent Aimar <fenrir _AT_ videolan _DOT_ org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 #include <vlc_picture_pool.h>
 #include <vlc_opengl.h>
 
-// Define USE_OPENGL_ES to the GL ES Version you want to selec
+// Define USE_OPENGL_ES to the GL ES Version you want to select
 #ifndef USE_OPENGL_ES
 # define USE_OPENGL_ES 0
 #endif
@@ -41,7 +41,7 @@
 #  include <GLES/gl.h>
 # else
 #  ifdef WIN32
-# include <GL/glew.h>
+#   include <GL/glew.h>
 #  endif
 #  include <GL/gl.h>
 # endif
@@ -58,27 +58,27 @@
 
 static inline bool HasExtension(const char *apis, const char *api)
 {
-  size_t apilen = strlen(api);
-  while (apis) {
-    while (*apis == ' ')
-    apis++;
-    if (!strncmp(apis, api, apilen) && memchr(" ", apis[apilen], 2))
-    return true;
-    apis = strchr(apis, ' ');
-  }
-  return false;
+    size_t apilen = strlen(api);
+    while (apis) {
+        while (*apis == ' ')
+            apis++;
+        if (!strncmp(apis, api, apilen) && memchr(" ", apis[apilen], 2))
+            return true;
+        apis = strchr(apis, ' ');
+    }
+    return false;
 }
 
 typedef struct vout_display_opengl_t vout_display_opengl_t;
 
 vout_display_opengl_t *vout_display_opengl_New(video_format_t *fmt,
-                 const vlc_fourcc_t **subpicture_chromas,
-                 vlc_gl_t *gl);
+                                               const vlc_fourcc_t **subpicture_chromas,
+                                               vlc_gl_t *gl);
 void vout_display_opengl_Delete(vout_display_opengl_t *vgl);
 
 picture_pool_t *vout_display_opengl_GetPool(vout_display_opengl_t *vgl, unsigned);
 
 int vout_display_opengl_Prepare(vout_display_opengl_t *vgl,
-            picture_t *picture, subpicture_t *subpicture);
+                                picture_t *picture, subpicture_t *subpicture);
 int vout_display_opengl_Display(vout_display_opengl_t *vgl,
-            const video_format_t *source);
+                                const video_format_t *source);

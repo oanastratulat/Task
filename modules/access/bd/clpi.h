@@ -21,54 +21,54 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-typedef struc
+typedef struct
 {
-  int   i_pcr_pid;
-  int64_t i_packet; /* TS Packet number */
-  int64_t i_start;  /* Presentation start time in 45kHz */
-  int64_t i_end;  /* Presentation end time in 45kHz */
+    int     i_pcr_pid;
+    int64_t i_packet;   /* TS Packet number */
+    int64_t i_start;    /* Presentation start time in 45kHz */
+    int64_t i_end;      /* Presentation end time in 45kHz */
 } bd_clpi_stc_t;
 void bd_clpi_stc_Parse( bd_clpi_stc_t *p_stc, bs_t *s );
 
-typedef struc
+typedef struct
 {
-  int i_pid;    /* PID of the associated stream */
-  int i_type;   /* Stream type of the associated stream */
+    int i_pid;          /* PID of the associated stream */
+    int i_type;         /* Stream type of the associated stream */
 } bd_clpi_stream_t;
 void bd_clpi_stream_Parse( bd_clpi_stream_t *p_stream, bs_t *s );
 
-typedef struc
+typedef struct
 {
-  bool  b_angle_point;  /* EP angle point change */
-  int64_t i_packet;   /* TS packet number */
-  int64_t i_pts;    /* PTS of the associated stream (90kHz, 33bits) */
+    bool    b_angle_point;  /* EP angle point change */
+    int64_t i_packet;       /* TS packet number */
+    int64_t i_pts;          /* PTS of the associated stream (90kHz, 33bits) */
 } bd_clpi_ep_t;
 
-typedef struc
+typedef struct
 {
-  int i_pid;    /* PID of the associated stream */
-  int i_type;   /* Stream type of the associated stream */
+    int i_pid;          /* PID of the associated stream */
+    int i_type;         /* Stream type of the associated stream */
 
-  int    i_ep;
-  bd_clpi_ep_t *p_ep;
+    int          i_ep;
+    bd_clpi_ep_t *p_ep;
 } bd_clpi_ep_map_t;
 void bd_clpi_ep_map_Clean( bd_clpi_ep_map_t *p_ep_map );
 int bd_clpi_ep_map_Parse( bd_clpi_ep_map_t *p_ep_map,
-          bs_t *s, const int i_ep_map_start );
+                          bs_t *s, const int i_ep_map_start );
 
-typedef struc
+typedef struct
 {
-  int      i_id;
+    int              i_id;
 
-  int      i_stc;
-  bd_clpi_stc_t  *p_stc;
+    int              i_stc;
+    bd_clpi_stc_t    *p_stc;
+    
+    int              i_pmt_pid;
+    int              i_stream;
+    bd_clpi_stream_t *p_stream;
 
-  int      i_pmt_pid;
-  int      i_stream;
-  bd_clpi_stream_t *p_stream;
-
-  int      i_ep_map;
-  bd_clpi_ep_map_t *p_ep_map;
+    int              i_ep_map;
+    bd_clpi_ep_map_t *p_ep_map;
 } bd_clpi_t;
 void bd_clpi_Clean( bd_clpi_t *p_clpi );
 int bd_clpi_Parse( bd_clpi_t *p_clpi, bs_t *s, int i_id );

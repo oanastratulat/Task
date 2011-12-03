@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -31,125 +31,125 @@ using namespace dash::xml;
 using namespace dash::http;
 using namespace dash::mpd;
 
-DOMParser::DOMParser  (stream_t *stream) :
-  root( NULL ),
-  stream( stream ),
-  vlc_xml( NULL ),
-  vlc_reader( NULL )
+DOMParser::DOMParser    (stream_t *stream) :
+    root( NULL ),
+    stream( stream ),
+    vlc_xml( NULL ),
+    vlc_reader( NULL )
 {
 }
 
-DOMParser::~DOMParser ()
+DOMParser::~DOMParser   ()
 {
-  delete this->root;
-  if(this->vlc_reader)
-    xml_ReaderDelete(this->vlc_reader);
-  if ( this->vlc_xml )
-    xml_Delete( this->vlc_xml );
+    delete this->root;
+    if(this->vlc_reader)
+        xml_ReaderDelete(this->vlc_reader);
+    if ( this->vlc_xml )
+        xml_Delete( this->vlc_xml );
 }
 
-Node* DOMParser::getRootNode      ()
+Node*   DOMParser::getRootNode              ()
 {
-  return this->root;
+    return this->root;
 }
-bool  DOMParser::parse        ()
+bool    DOMParser::parse                    ()
 {
-  this->vlc_xml = xml_Create(this->stream);
+    this->vlc_xml = xml_Create(this->stream);
 
-  if(!this->vlc_xml)
-    return false;
+    if(!this->vlc_xml)
+        return false;
 
-  this->vlc_reader = xml_ReaderCreate(this->vlc_xml, this->stream);
+    this->vlc_reader = xml_ReaderCreate(this->vlc_xml, this->stream);
 
-  if(!this->vlc_reader)
-    return false;
+    if(!this->vlc_reader)
+        return false;
 
-  this->root = this->processNode();
+    this->root = this->processNode();
 
-  return true;
+    return true;
 }
-Node* DOMParser::processNode      ()
+Node*   DOMParser::processNode              ()
 {
-  const char *data;
-  int type = xml_ReaderNextNode(this->vlc_reader, &data);
-  if(type != -1 && type != XML_READER_TEXT && type != XML_READER_NONE && type != XML_READER_ENDELEM)
-  {
-    Node *node = new Node();
+    const char *data;
+    int type = xml_ReaderNextNode(this->vlc_reader, &data);
+    if(type != -1 && type != XML_READER_TEXT && type != XML_READER_NONE && type != XML_READER_ENDELEM)
+    {
+        Node *node = new Node();
 
-    std::string name  = data;
-    bool    isEmpty = xml_ReaderIsEmptyElement(this->vlc_reader);
-    node->setName(name);
+        std::string name    = data;
+        bool        isEmpty = xml_ReaderIsEmptyElement(this->vlc_reader);
+        node->setName(name);
 
-    this->addAttributesToNode(node);
+        this->addAttributesToNode(node);
 
-    if(isEmpty)
-    return node;
+        if(isEmpty)
+            return node;
 
-    Node *subnode = NULL;
+        Node *subnode = NULL;
 
-    while((subnode = this->processNode()) != NULL)
-    node->addSubNode(subnode);
+        while((subnode = this->processNode()) != NULL)
+            node->addSubNode(subnode);
 
-    return node;
-  }
-  return NULL;
+        return node;
+    }
+    return NULL;
 }
-void  DOMParser::addAttributesToNode  (Node *node)
+void    DOMParser::addAttributesToNode      (Node *node)
 {
-  const char *attrValue;
-  const char *attrName;
+    const char *attrValue;
+    const char *attrName;
 
-  while((attrName = xml_ReaderNextAttr(this->vlc_reader, &attrValue)) != NULL)
-  {
-    std::string key   = attrName;
-    std::string value = attrValue;
-    node->addAttribute(key, value);
-  }
+    while((attrName = xml_ReaderNextAttr(this->vlc_reader, &attrValue)) != NULL)
+    {
+        std::string key     = attrName;
+        std::string value   = attrValue;
+        node->addAttribute(key, value);
+    }
 }
-void  DOMParser::print        (Node *node, int offset)
+void    DOMParser::print                    (Node *node, int offset)
 {
-  for(int i = 0; i < offset; i++)
-    msg_Dbg(this->stream, " ");
+    for(int i = 0; i < offset; i++)
+        msg_Dbg(this->stream, " ");
 
-  msg_Dbg(this->stream, "%s", node->getName().c_str());
+    msg_Dbg(this->stream, "%s", node->getName().c_str());
 
-  std::vector<std::string> keys = node->getAttributeKeys();
+    std::vector<std::string> keys = node->getAttributeKeys();
 
-  for(size_t i = 0; i < keys.size(); i++)
-    msg_Dbg(this->stream, " %s=%s", keys.at(i).c_str(), node->getAttributeValue(keys.at(i)).c_str());
+    for(size_t i = 0; i < keys.size(); i++)
+        msg_Dbg(this->stream, " %s=%s", keys.at(i).c_str(), node->getAttributeValue(keys.at(i)).c_str());
 
-  msg_Dbg(this->stream, "\n");
+    msg_Dbg(this->stream, "\n");
 
-  offset++;
+    offset++;
 
-  for(size_t i = 0; i < node->getSubNodes().size(); i++)
-  {
-    this->print(node->getSubNodes().at(i), offset);
-  }
+    for(size_t i = 0; i < node->getSubNodes().size(); i++)
+    {
+        this->print(node->getSubNodes().at(i), offset);
+    }
 }
 
-void  DOMParser::print        ()
+void    DOMParser::print                    ()
 {
-  this->print(this->root, 0);
+    this->print(this->root, 0);
 }
-Profile DOMParser::getProfile     (dash::xml::Node *node)
+Profile DOMParser::getProfile               (dash::xml::Node *node)
 {
-  std::string profile = node->getAttributeValue("profiles");
+    std::string profile = node->getAttributeValue("profiles");
 
-  if(!profile.compare("urn:mpeg:mpegB:profile:dash:isoff-basic-on-demand:cm"))
-    return dash::mpd::BasicCM;
+    if(!profile.compare("urn:mpeg:mpegB:profile:dash:isoff-basic-on-demand:cm"))
+        return dash::mpd::BasicCM;
 
-  return dash::mpd::NotValid;
+    return dash::mpd::NotValid;
 }
-bool  DOMParser::isDash       (stream_t *stream)
+bool    DOMParser::isDash                   (stream_t *stream)
 {
-  const uint8_t *peek;
+    const uint8_t *peek;
 
-  const char* psz_namespace = "urn:mpeg:mpegB:schema:DASH:MPD:DIS2011";
-  if(stream_Peek(stream, &peek, 1024) < (int)strlen(psz_namespace))
-    return false;
+    const char* psz_namespace = "urn:mpeg:mpegB:schema:DASH:MPD:DIS2011";
+    if(stream_Peek(stream, &peek, 1024) < (int)strlen(psz_namespace))
+        return false;
 
-  const char *p = strstr((const char*)peek, psz_namespace );
+    const char *p = strstr((const char*)peek, psz_namespace );
 
-  return p != NULL;
+    return p != NULL;
 }

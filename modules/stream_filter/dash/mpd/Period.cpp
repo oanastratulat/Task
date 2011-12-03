@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -31,19 +31,19 @@ using namespace dash::mpd;
 
 Period::Period  (std::map<std::string, std::string> attributes)
 {
-  this->attributes = attributes;
+    this->attributes = attributes;
 }
 Period::~Period ()
 {
-  for(size_t i = 0; i < this->groups.size(); i++)
-    delete(this->groups.at(i));
+    for(size_t i = 0; i < this->groups.size(); i++)
+        delete(this->groups.at(i));
 }
 
-std::vector<Group*> Period::getGroups ()
+std::vector<Group*> Period::getGroups   ()
 {
-  return this->groups;
+    return this->groups;
 }
-void      Period::addGroup  (Group *group)
+void                Period::addGroup    (Group *group)
 {
-  this->groups.push_back(group);
+    this->groups.push_back(group);
 }

@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 257d9ecdc12e40d2cfad1fade2373236a24ef9c3 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,27 +26,27 @@
 #include "macosx_tooltip.hpp"
 
 MacOSXTooltip::MacOSXTooltip( intf_thread_t *pIntf ):
-  OSTooltip( pIntf )
+    OSTooltip( pIntf )
 {
-  // TODO
+    // TODO
 }
 
 
 MacOSXTooltip::~MacOSXTooltip()
 {
-  // TODO
+    // TODO
 }
 
 
 void MacOSXTooltip::show( int left, int top, OSGraphics &rText )
 {
-  // TODO
+    // TODO
 }
 
 
 void MacOSXTooltip::hide()
 {
-  // TODO
+    // TODO
 }
 
 

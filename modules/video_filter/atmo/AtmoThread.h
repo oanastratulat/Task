@@ -13,10 +13,10 @@
 
 #if defined(_ATMO_VLC_PLUGIN_)
 // use threading stuff from videolan!
-# include <vlc_common.h>
-# include <vlc_threads.h>
+#   include <vlc_common.h>
+#   include <vlc_threads.h>
 #else
-# include <windows.h>
+#   include <windows.h>
 #endif
 
 class CThread
@@ -25,26 +25,26 @@ protected:
 
 #if defined(_ATMO_VLC_PLUGIN_)
 
-  vlc_mutex_t  m_TerminateLock;
-  vlc_cond_t m_TerminateCond;
-  vlc_object_t *m_pOwner;
-  ATMO_BOOL  m_HasThread;
-  vlc_thread_t m_Thread;
+    vlc_mutex_t  m_TerminateLock;
+    vlc_cond_t   m_TerminateCond;
+    vlc_object_t *m_pOwner;
+    ATMO_BOOL    m_HasThread;
+    vlc_thread_t m_Thread;
 
 #else
 
-  HANDLE m_hThread;
+    HANDLE m_hThread;
 	DWORD m_dwThreadID;
 	HANDLE m_hTerminateEvent;
 
 #endif
 
-  volatile ATMO_BOOL m_bTerminated;
+    volatile ATMO_BOOL m_bTerminated;
 
 private:
 
 #if defined(_ATMO_VLC_PLUGIN_)
-  static void *ThreadProc(void *);
+    static void *ThreadProc(void *);
 #else
 	static DWORD WINAPI ThreadProc(LPVOID lpParameter);
 #endif
@@ -60,10 +60,10 @@ public:
 	CThread(void);
 #endif
 
-  virtual ~CThread(void);
+    virtual ~CThread(void);
 
-  void Terminate(void);
-  void Run();
+    void Terminate(void);
+    void Run();
 
 };
 

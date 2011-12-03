@@ -22,5 +22,5 @@
  *****************************************************************************/
 
 void *bonjour_start_service( vlc_object_t *, const char*, const char *, int,
-           char * );
+                             char * );
 void bonjour_stop_service( void * );

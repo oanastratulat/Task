@@ -26,20 +26,20 @@
 #define LEFTMARGIN  18
 #define RIGHTMARGIN 18
 
-static NSMenu *o_keys_menu = nil;
+static NSMenu   *o_keys_menu = nil;
 
 @interface VLCConfigControl : NSView
 {
-  module_config_t *p_item;
-  char    *psz_name;
-  NSTextField   *o_label;
-  int     i_type;
-  int     i_view_type;
-  bool  b_advanced;
+    module_config_t *p_item;
+    char            *psz_name;
+    NSTextField     *o_label;
+    int             i_type;
+    int             i_view_type;
+    bool      b_advanced;
 }
 
 + (VLCConfigControl *)newControl: (module_config_t *)_p_item
-    withView: (NSView *)o_parent_view;
+        withView: (NSView *)o_parent_view;
 - (id)initWithFrame: (NSRect)frame item: (module_config_t *)p_item;
 - (NSString *)name;
 - (int)type;
@@ -60,33 +60,33 @@ static NSMenu *o_keys_menu = nil;
 
 @interface StringConfigControl : VLCConfigControl
 {
-  NSTextField   *o_textfield;
+    NSTextField     *o_textfield;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 
 @interface StringListConfigControl : VLCConfigControl <NSComboBoxDataSource>
 {
-  NSComboBox  *o_combo;
+    NSComboBox      *o_combo;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 
 @interface FileConfigControl : VLCConfigControl
 {
-  NSTextField   *o_textfield;
-  NSButton    *o_button;
-  BOOL    b_directory;
+    NSTextField     *o_textfield;
+    NSButton        *o_button;
+    BOOL            b_directory;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 - (IBAction)openFileDialog: (id)sender;
 - (void)pathChosenInPanel:(NSOpenPanel *)o_sheet withReturn:(int)i_return_code contextInfo:(void  *)o_context_info;
@@ -95,23 +95,23 @@ static NSMenu *o_keys_menu = nil;
 
 @interface ModuleConfigControl : VLCConfigControl
 {
-  NSPopUpButton *o_popup;
+    NSPopUpButton   *o_popup;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 
 @interface IntegerConfigControl : VLCConfigControl <NSTextFieldDelegate>
 {
-  NSTextField   *o_textfield;
-  NSStepper   *o_stepper;
+    NSTextField     *o_textfield;
+    NSStepper       *o_stepper;
 }
 
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 - (IBAction)stepperChanged:(id)sender;
 - (void)textfieldChanged:(NSNotification *)o_notification;
 
@@ -119,25 +119,25 @@ static NSMenu *o_keys_menu = nil;
 
 @interface IntegerListConfigControl : VLCConfigControl <NSComboBoxDataSource>
 {
-  NSComboBox  *o_combo;
+    NSComboBox      *o_combo;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 
 @interface RangedIntegerConfigControl : VLCConfigControl <NSTextFieldDelegate>
 {
-  NSSlider    *o_slider;
-  NSTextField   *o_textfield;
-  NSTextField   *o_textfield_min;
-  NSTextField   *o_textfield_max;
+    NSSlider        *o_slider;
+    NSTextField     *o_textfield;
+    NSTextField     *o_textfield_min;
+    NSTextField     *o_textfield_max;
 }
 
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 - (IBAction)sliderChanged:(id)sender;
 - (void)textfieldChanged:(NSNotification *)o_notification;
 
@@ -145,23 +145,23 @@ static NSMenu *o_keys_menu = nil;
 
 @interface BoolConfigControl : VLCConfigControl
 {
-  NSButton    *o_checkbox;
+    NSButton        *o_checkbox;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 
 @interface FloatConfigControl : VLCConfigControl <NSTextFieldDelegate>
 {
-  NSTextField   *o_textfield;
-  NSStepper   *o_stepper;
+    NSTextField     *o_textfield;
+    NSStepper       *o_stepper;
 }
 
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 - (IBAction)stepperChanged:(id)sender;
 - (void)textfieldChanged:(NSNotification *)o_notification;
 
@@ -169,15 +169,15 @@ static NSMenu *o_keys_menu = nil;
 
 @interface RangedFloatConfigControl : VLCConfigControl <NSTextFieldDelegate>
 {
-  NSSlider    *o_slider;
-  NSTextField   *o_textfield;
-  NSTextField   *o_textfield_min;
-  NSTextField   *o_textfield_max;
+    NSSlider        *o_slider;
+    NSTextField     *o_textfield;
+    NSTextField     *o_textfield_min;
+    NSTextField     *o_textfield_max;
 }
 
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 - (IBAction)sliderChanged:(id)sender;
 - (void)textfieldChanged:(NSNotification *)o_notification;
 
@@ -185,23 +185,23 @@ static NSMenu *o_keys_menu = nil;
 
 @interface KeyConfigControl : VLCConfigControl
 {
-  NSPopUpButton *o_popup;
+    NSPopUpButton   *o_popup;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 
 @interface ModuleListConfigControl : VLCConfigControl <NSTableViewDataSource>
 {
-  NSTextField   *o_textfield;
-  NSScrollView  *o_scrollview;
-  NSMutableArray  *o_modulearray;
+    NSTextField     *o_textfield;
+    NSScrollView    *o_scrollview;
+    NSMutableArray  *o_modulearray;
 }
 
 - (id) initWithItem: (module_config_t *)_p_item
-     withView: (NSView *)o_parent_view;
+           withView: (NSView *)o_parent_view;
 
 @end
 

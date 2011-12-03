@@ -27,51 +27,51 @@
 
 
 X11Popup::X11Popup( intf_thread_t *pIntf, X11Display &rDisplay )
-  : OSPopup( pIntf )
+    : OSPopup( pIntf )
 {
-  // TODO
-  (void)rDisplay;
+    // TODO
+    (void)rDisplay;
 }
 
 
 X11Popup::~X11Popup()
 {
-  // TODO
+    // TODO
 }
 
 
 void X11Popup::show( int xPos, int yPos )
 {
-  // TODO
-  (void)xPos; (void)yPos;
+    // TODO
+    (void)xPos; (void)yPos;
 }
 
 
 void X11Popup::hide()
 {
-  // TODO
+    // TODO
 }
 
 
 void X11Popup::addItem( const string &rLabel, int pos )
 {
-  // TODO
-  (void)rLabel; (void)pos;
+    // TODO
+    (void)rLabel; (void)pos;
 }
 
 
 void X11Popup::addSeparator( int pos )
 {
-  // TODO
-  (void)pos;
+    // TODO
+    (void)pos;
 }
 
 
-int X11Popup::getPosFromId( int id ) cons
+int X11Popup::getPosFromId( int id ) const
 {
-  // TODO
-  (void)id;
-  return 0;
+    // TODO
+    (void)id;
+    return 0;
 }
 
 

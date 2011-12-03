@@ -1,6 +1,6 @@
 //
 //  PXSourceListDataSource.h
-//  PXViewKi
+//  PXViewKit
 //
 //  Created by Alex Rozanski on 17/10/2009.
 //  Copyright 2009-10 Alex Rozanski http://perspx.com

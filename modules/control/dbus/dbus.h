@@ -6,8 +6,8 @@
  * Copyright © 2009-2010 The VideoLAN team
  * $Id: 1230f4169c4d9e46d167cf2f7df467a436f06c8a $
  *
- * Authors:  Rafaël Carré <funman at videolanorg>
- *     Mirsal Ennaime <mirsal at mirsal fr>
+ * Authors:    Rafaël Carré <funman at videolanorg>
+ *             Mirsal Ennaime <mirsal at mirsal fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,12 +29,12 @@
 
 #define DBUS_MPRIS_BUS_NAME "org.mpris.MediaPlayer2.vlc"
 
-static DBusHandlerResul
+static DBusHandlerResult
 MPRISEntryPoint ( DBusConnection *p_conn, DBusMessage *p_from, void *p_this );
 
 static const DBusObjectPathVTable dbus_mpris_vtable = {
-    NULL, MPRISEntryPoint, /* handler function */
-    NULL, NULL, NULL, NULL
+        NULL, MPRISEntryPoint, /* handler function */
+        NULL, NULL, NULL, NULL
 };
 
 #define ABS(x) ( ( x ) > 0 ? ( x ) : ( -1 * ( x ) ) )

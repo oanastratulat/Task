@@ -29,7 +29,7 @@ extern const char * const ppsz_button_states[3];
 /* OSD Menu structure support routines for internal use by
  * OSD Menu configuration file parsers only.
  */
-osd_menu_t *osd_MenuNew( osd_menu_t *, const char *, int, int );
+osd_menu_t   *osd_MenuNew( osd_menu_t *, const char *, int, int );
 osd_button_t *osd_ButtonNew( const char *, int, int );
 osd_state_t  *osd_StateNew( osd_menu_t *, const char *, const char * );
 

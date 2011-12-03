@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCMinimalVoutWindow.h: MacOS X Minimal window for a vou
+ * VLCMinimalVoutWindow.h: MacOS X Minimal window for a vout
  *****************************************************************************
  * Copyright (C) 2007 the VideoLAN team
  * $Id: 7e2fd2803937e11887830d6116a7e21d1a531f82 $
@@ -27,10 +27,10 @@
 
 @interface VLCMinimalVoutWindow : NSWindow
 {
-  NSRect initialFrame;
-  NSPoint initialLocation, initialLocationOnScreen;
-  BOOL fullscreen;
-  BOOL mouseDraggedShouldResize;
+    NSRect initialFrame;
+    NSPoint initialLocation, initialLocationOnScreen;
+    BOOL fullscreen;
+    BOOL mouseDraggedShouldResize;
 }
 
 - (id)initWithContentRect:(NSRect)contentRect;

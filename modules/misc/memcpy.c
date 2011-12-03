@@ -38,15 +38,15 @@ static int OpenDummy(vlc_object_t *);
  * Module descriptor
  *****************************************************************************/
 vlc_module_begin ()
-  set_shortname( N_("Dummy") )
-  set_description( N_("libc memcpy") )
-  set_capability( "memcpy", 50 )
-  set_callbacks( OpenDummy, NULL )
-  add_shortcut( "c", "libc" )
+    set_shortname( N_("Dummy") )
+    set_description( N_("libc memcpy") )
+    set_capability( "memcpy", 50 )
+    set_callbacks( OpenDummy, NULL )
+    add_shortcut( "c", "libc" )
 vlc_module_end ()
 
 static int OpenDummy( vlc_object_t *obj )
 {
-  (void) obj;
-  return VLC_SUCCESS;
+    (void) obj;
+    return VLC_SUCCESS;
 }

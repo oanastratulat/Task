@@ -34,21 +34,21 @@
 
 static int Activate( vlc_object_t *p_this )
 {
-  if( !(vlc_CPU() & CPU_CAPABILITY_3DNOW) )
-    return VLC_EGENERIC;
+    if( !(vlc_CPU() & CPU_CAPABILITY_3DNOW) )
+        return VLC_EGENERIC;
 
-  VLC_UNUSED(p_this);
-  vlc_fastmem_register( fast_memcpy );
+    VLC_UNUSED(p_this);
+    vlc_fastmem_register( fast_memcpy );
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 vlc_module_begin ()
-  set_category( CAT_ADVANCED )
-  set_subcategory( SUBCAT_ADVANCED_MISC )
-  set_description( N_("3D Now! memcpy") )
-  add_shortcut( "3dn", "3dnow", "memcpy3dn", "memcpy3dnow" )
-  set_capability( "memcpy", 100 )
-  set_callbacks( Activate, NULL )
+    set_category( CAT_ADVANCED )
+    set_subcategory( SUBCAT_ADVANCED_MISC )
+    set_description( N_("3D Now! memcpy") )
+    add_shortcut( "3dn", "3dnow", "memcpy3dn", "memcpy3dnow" )
+    set_capability( "memcpy", 100 )
+    set_callbacks( Activate, NULL )
 vlc_module_end ()
 

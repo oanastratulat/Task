@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -43,35 +43,35 @@
 
 namespace dash
 {
-  namespace http
-  {
-    class HTTPConnection : public IHTTPConnection
+    namespace http
     {
-    public:
-      HTTPConnection    ( const std::string& url, stream_t *stream );
-      virtual ~HTTPConnection ();
+        class HTTPConnection : public IHTTPConnection
+        {
+            public:
+                HTTPConnection          ( const std::string& url, stream_t *stream );
+                virtual ~HTTPConnection ();
 
-      bool    init    ();
-      void    closeSocket   ();
+                bool        init            ();
+                void        closeSocket     ();
 
-      virtual int   read    (void *p_buffer, size_t len);
-      virtual int   peek    (const uint8_t **pp_peek, size_t i_peek);
+                virtual int     read        (void *p_buffer, size_t len);
+                virtual int     peek        (const uint8_t **pp_peek, size_t i_peek);
 
-    private:
-      int       httpSocket;
-      std::string     url;
-      std::string     hostname;
-      std::string     path;
-      std::string     request;
-      stream_t      *stream;
-      stream_t      *urlStream;
+            private:
+                int                     httpSocket;
+                std::string             url;
+                std::string             hostname;
+                std::string             path;
+                std::string             request;
+                stream_t                *stream;
+                stream_t                *urlStream;
 
-      void    parseURL    ();
-      bool    sendData    (const std::string& data);
-      bool    parseHeader   ();
-      std::string   readLine    ();
-    };
-  }
+                void            parseURL        ();
+                bool            sendData        (const std::string& data);
+                bool            parseHeader     ();
+                std::string     readLine        ();
+        };
+    }
 }
 
 #endif /* HTTPCONNECTION_H_ */

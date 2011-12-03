@@ -5,10 +5,10 @@
  * $Id: 844a59d68c0d184d118d0fb897a84d585c6559bc $
  *
  * Author: Sam Hocevar <sam@zoy.org>
- *   Christophe Massiot <massiot@via.ecp.fr>
- *   Laurent Aimar <fenrir@videolan.org>
- *   Juha Jeronen <juha.jeronen@jyu.fi>
- *   ...and others
+ *         Christophe Massiot <massiot@via.ecp.fr>
+ *         Laurent Aimar <fenrir@videolan.org>
+ *         Juha Jeronen <juha.jeronen@jyu.fi>
+ *         ...and others
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,13 +49,13 @@ struct vlc_object_t;
 
 /** Available deinterlace modes. */
 static const char *const mode_list[] = {
-  "discard", "blend", "mean", "bob", "linear", "x",
-  "yadif", "yadif2x", "phosphor", "ivtc" };
+    "discard", "blend", "mean", "bob", "linear", "x",
+    "yadif", "yadif2x", "phosphor", "ivtc" };
 
 /** User labels for the available deinterlace modes. */
 static const char *const mode_list_text[] = {
-  N_("Discard"), N_("Blend"), N_("Mean"), N_("Bob"), N_("Linear"), "X",
-  "Yadif", "Yadif (2x)", N_("Phosphor"), N_("Film NTSC (IVTC)") };
+    N_("Discard"), N_("Blend"), N_("Mean"), N_("Bob"), N_("Linear"), "X",
+    "Yadif", "Yadif (2x)", N_("Phosphor"), N_("Film NTSC (IVTC)") };
 
 /*****************************************************************************
  * Data structures
@@ -65,10 +65,10 @@ static const char *const mode_list_text[] = {
  * Available deinterlace algorithms.
  * @see SetFilterMethod()
  */
-typedef enum { DEINTERLACE_DISCARD, DEINTERLACE_MEAN,  DEINTERLACE_BLEND,
-     DEINTERLACE_BOB,   DEINTERLACE_LINEAR,  DEINTERLACE_X,
-     DEINTERLACE_YADIF, DEINTERLACE_YADIF2X, DEINTERLACE_PHOSPHOR,
-     DEINTERLACE_IVTC } deinterlace_mode;
+typedef enum { DEINTERLACE_DISCARD, DEINTERLACE_MEAN,    DEINTERLACE_BLEND,
+               DEINTERLACE_BOB,     DEINTERLACE_LINEAR,  DEINTERLACE_X,
+               DEINTERLACE_YADIF,   DEINTERLACE_YADIF2X, DEINTERLACE_PHOSPHOR,
+               DEINTERLACE_IVTC } deinterlace_mode;
 
 #define METADATA_SIZE (3)
 /**
@@ -77,9 +77,9 @@ typedef enum { DEINTERLACE_DISCARD, DEINTERLACE_MEAN,  DEINTERLACE_BLEND,
  * @see Deinterlace()
  */
 typedef struct {
-  mtime_t pi_date[METADATA_SIZE];
-  int   pi_nb_fields[METADATA_SIZE];
-  bool  pb_top_field_first[METADATA_SIZE];
+    mtime_t pi_date[METADATA_SIZE];
+    int     pi_nb_fields[METADATA_SIZE];
+    bool    pb_top_field_first[METADATA_SIZE];
 } metadata_history_t;
 
 #define HISTORY_SIZE (3)
@@ -87,36 +87,36 @@ typedef struct {
 /**
  * Top-level deinterlace subsystem state.
  */
-struct filter_sys_
+struct filter_sys_t
 {
-  int  i_mode;      /**< Deinterlace mode */
+    int  i_mode;              /**< Deinterlace mode */
 
-  /* Algorithm behaviour flags */
-  bool b_double_rate;   /**< Shall we double the framerate? */
-  bool b_half_height;   /**< Shall be divide the height by 2 */
-  bool b_use_frame_history; /**< Use the input frame history buffer? */
+    /* Algorithm behaviour flags */
+    bool b_double_rate;       /**< Shall we double the framerate? */
+    bool b_half_height;       /**< Shall be divide the height by 2 */
+    bool b_use_frame_history; /**< Use the input frame history buffer? */
 
-  /** Merge routine: C, MMX, SSE, ALTIVEC, NEON, ... */
-  void (*pf_merge) ( void *, const void *, const void *, size_t );
-  /** Merge finalization routine: C, MMX, SSE, ALTIVEC, NEON, ... */
-  void (*pf_end_merge) ( void );
+    /** Merge routine: C, MMX, SSE, ALTIVEC, NEON, ... */
+    void (*pf_merge) ( void *, const void *, const void *, size_t );
+    /** Merge finalization routine: C, MMX, SSE, ALTIVEC, NEON, ... */
+    void (*pf_end_merge) ( void );
 
-  /**
-   * Metadata history (PTS, nb_fields, TFF). Used for framerate doublers.
-   * @see metadata_history_
-   */
-  metadata_history_t meta;
+    /**
+     * Metadata history (PTS, nb_fields, TFF). Used for framerate doublers.
+     * @see metadata_history_t
+     */
+    metadata_history_t meta;
 
-  /** Output frame timing / framerate doubler control
-    (see extra documentation in deinterlace.h) */
-  int i_frame_offset;
+    /** Output frame timing / framerate doubler control
+        (see extra documentation in deinterlace.h) */
+    int i_frame_offset;
 
-  /** Input frame history buffer for algorithms with temporal filtering. */
-  picture_t *pp_history[HISTORY_SIZE];
+    /** Input frame history buffer for algorithms with temporal filtering. */
+    picture_t *pp_history[HISTORY_SIZE];
 
-  /* Algorithm-specific substructures */
-  phosphor_sys_t phosphor; /**< Phosphor algorithm state. */
-  ivtc_sys_t ivtc;   /**< IVTC algorithm state. */
+    /* Algorithm-specific substructures */
+    phosphor_sys_t phosphor; /**< Phosphor algorithm state. */
+    ivtc_sys_t ivtc;         /**< IVTC algorithm state. */
 };
 
 /*****************************************************************************
@@ -131,10 +131,10 @@ struct filter_sys_
  * @param p_filter The filter instance.
  * @param psz_method Desired method. See mode_list for available choices.
  * @param i_chroma Input chroma. Set this to p_filter->fmt_in.video.i_chroma.
- * @see mode_lis
+ * @see mode_list
  */
 void SetFilterMethod( filter_t *p_filter, const char *psz_method,
-        vlc_fourcc_t i_chroma );
+                      vlc_fourcc_t i_chroma );
 
 /**
  * Get the output video format of the chosen deinterlace method
@@ -149,8 +149,8 @@ void SetFilterMethod( filter_t *p_filter, const char *psz_method,
  * @see SetFilterMethod()
  */
 void GetOutputFormat( filter_t *p_filter,
-        video_format_t *p_dst,
-        const video_format_t *p_src );
+                      video_format_t *p_dst,
+                      const video_format_t *p_src );
 
 /**
  * Returns whether the specified chroma is implemented in the deinterlace
@@ -162,7 +162,7 @@ void GetOutputFormat( filter_t *p_filter,
  * Note for deinterlace hackers: adding support for a new chroma typically
  * requires changes to all low-level functions across all the algorithms.
  *
- * @see vlc_fourcc_
+ * @see vlc_fourcc_t
  */
 bool IsChromaSupported( vlc_fourcc_t i_chroma );
 
@@ -197,19 +197,19 @@ bool IsChromaSupported( vlc_fourcc_t i_chroma );
  * algorithms (e.g. IVTC).
  *
  * Currently:
- * Most algorithms:    1 -> 1, no offse
- * All framerate doublers: 1 -> 2, no offse
- * Yadif:      1 -> 1, offset of one frame
- * IVTC:       1 -> 1 or 0 (depends on whether a drop was needed)
- *            with an offset of one frame (in most cases)
- *            and framerate conversion.
+ *   Most algorithms:        1 -> 1, no offset
+ *   All framerate doublers: 1 -> 2, no offset
+ *   Yadif:                  1 -> 1, offset of one frame
+ *   IVTC:                   1 -> 1 or 0 (depends on whether a drop was needed)
+ *                                with an offset of one frame (in most cases)
+ *                                and framerate conversion.
  *
  * @param p_filter The filter instance.
  * @param p_pic The latest input picture.
  * @return Deinterlaced picture(s). Linked list of picture_t's or NULL.
  * @see Open()
- * @see filter_
- * @see filter_sys_
+ * @see filter_t
+ * @see filter_sys_t
  */
 picture_t *Deinterlace( filter_t *p_filter, picture_t *p_pic );
 
@@ -219,9 +219,9 @@ picture_t *Deinterlace( filter_t *p_filter, picture_t *p_pic );
  * Possible reasons for returning VLC_EGENERIC:
  *  - Unsupported input chroma. See IsChromaSupported().
  *  - Caller has set p_filter->b_allow_fmt_out_change to false,
- *  but the algorithm chosen in the configuration
- *  wants to convert the output to a format differen
- *  from the input. See SetFilterMethod().
+ *    but the algorithm chosen in the configuration
+ *    wants to convert the output to a format different
+ *    from the input. See SetFilterMethod().
  *
  * Open() is atomic: if an error occurs, the state of p_this
  * is left as it was before the call to this function.
@@ -245,11 +245,11 @@ int Open( vlc_object_t *p_this );
  *
  * @param p_filter The filter instance.
  * @see Open()
- * @see filter_
- * @see filter_sys_
- * @see metadata_history_
- * @see phosphor_sys_
- * @see ivtc_sys_
+ * @see filter_t
+ * @see filter_sys_t
+ * @see metadata_history_t
+ * @see phosphor_sys_t
+ * @see ivtc_sys_t
  */
 void Flush( filter_t *p_filter );
 
@@ -269,13 +269,13 @@ void Flush( filter_t *p_filter );
  * @return VLC error code; currently always VLC_SUCCESS.
  * @retval VLC_SUCCESS All ok.
  * @see Open()
- * @see filter_
- * @see vlc_mouse_
+ * @see filter_t
+ * @see vlc_mouse_t
  */
 int Mouse( filter_t *p_filter,
-     vlc_mouse_t *p_mouse,
-     const vlc_mouse_t *p_old,
-     const vlc_mouse_t *p_new );
+           vlc_mouse_t *p_mouse,
+           const vlc_mouse_t *p_old,
+           const vlc_mouse_t *p_new );
 
 /**
  * Stops and uninitializes the filter, and deallocates memory.
@@ -298,19 +298,19 @@ void Close( vlc_object_t *p_this );
  * this is needed and how it is used.
  *
  * Valid range: 0 <= i_frame_offset < METADATA_SIZE, or
- *      i_frame_offset = CUSTOM_PTS.
- *      The special value CUSTOM_PTS is only allowed
- *      if b_double_rate is false.
+ *              i_frame_offset = CUSTOM_PTS.
+ *              The special value CUSTOM_PTS is only allowed
+ *              if b_double_rate is false.
  *
- *      If CUSTOM_PTS is used, the algorithm must compute the outgoing
- *      PTSs itself, and additionally, read the TFF/BFF information
- *      itself (if it needs it) from the incoming frames.
+ *              If CUSTOM_PTS is used, the algorithm must compute the outgoing
+ *              PTSs itself, and additionally, read the TFF/BFF information
+ *              itself (if it needs it) from the incoming frames.
  *
  * Meaning of values:
  * 0 = output frame corresponds to the current input frame
- *   (no frame offset; default if not set),
+ *     (no frame offset; default if not set),
  * 1 = output frame corresponds to the previous input frame
- *   (e.g. Yadif and Yadif2x work like this),
+ *     (e.g. Yadif and Yadif2x work like this),
  * ...
  *
  * If necessary, i_frame_offset should be updated by the active deinterlace
@@ -320,19 +320,19 @@ void Close( vlc_object_t *p_this );
  * (i.e. at the next incoming frame).
  *
  * The first-ever frame that arrives to the filter after Open() is always
- * handled as having i_frame_offset = 0. For the second and all subsequen
+ * handled as having i_frame_offset = 0. For the second and all subsequent
  * frames, each algorithm is responsible for setting the offset correctly.
  * (The default is 0, so if that is correct, there's no need to do anything.)
  *
  * This solution guarantees that i_frame_offset:
- * 1) is up to date at the start of each frame,
- * 2) does not change (as far as Deinterlace() is concerned) during
- *  a frame, and
- * 3) does not need a special API for setting the value at the start of each
- *  input frame, before the algorithm starts rendering the (first) outpu
- *  frame for that input frame.
+ *   1) is up to date at the start of each frame,
+ *   2) does not change (as far as Deinterlace() is concerned) during
+ *      a frame, and
+ *   3) does not need a special API for setting the value at the start of each
+ *      input frame, before the algorithm starts rendering the (first) output
+ *      frame for that input frame.
  *
- * The deinterlace algorithm is allowed to behave differently for differen
+ * The deinterlace algorithm is allowed to behave differently for different
  * input frames. This is especially important for startup, when full history
  * (as defined by each algorithm) is not yet available. During the first-ever
  * input frame, it is clear that it is the only possible source for
@@ -341,15 +341,15 @@ void Close( vlc_object_t *p_this );
  *
  * Having the correct offset at the start of each input frame is critically
  * important in order to:
- * 1) Allocate the correct number of output frames for framerate doublers,
- *  and to
- * 2) Pass correct TFF/BFF information to the algorithm.
+ *   1) Allocate the correct number of output frames for framerate doublers,
+ *      and to
+ *   2) Pass correct TFF/BFF information to the algorithm.
  *
  * These points are important for proper soft field repeat support. This
  * feature is used in some streams (especially NTSC) originating from film.
  * For example, in soft NTSC telecine, the number of fields alternates
  * as 3,2,3,2,... and the video field dominance flips every two frames (after
- * every "3"). Also, some streams request an occasional field repea
+ * every "3"). Also, some streams request an occasional field repeat
  * (nb_fields = 3), after which the video field dominance flips.
  * To render such streams correctly, the nb_fields and TFF/BFF information
  * must be taken from the specific input frame that the algorithm intends

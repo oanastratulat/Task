@@ -33,7 +33,7 @@ enum __DEBUG_CLASS { __DBCL_FIXME, __DBCL_ERR, __DBCL_WARN, __DBCL_TRACE, __DBCL
 
 #define __GET_DEBUGGING(dbcl,dbch)  __GET_DEBUGGING_##dbcl(dbch)
 #define __SET_DEBUGGING(dbcl,dbch,on) \
-  ((on) ? ((dbch)[0] |= 1 << (dbcl)) : ((dbch)[0] &= ~(1 << (dbcl))))
+    ((on) ? ((dbch)[0] |= 1 << (dbcl)) : ((dbch)[0] &= ~(1 << (dbcl))))
 
 #ifndef __GNUC__
 #define __FUNCTION__ ""
@@ -41,13 +41,13 @@ enum __DEBUG_CLASS { __DBCL_FIXME, __DBCL_ERR, __DBCL_WARN, __DBCL_TRACE, __DBCL
 
 #define __DPRINTF(dbcl,dbch) \
   (!__GET_DEBUGGING(dbcl,(dbch)) || (dbg_header_##dbcl((dbch),__FUNCTION__),0)) ? \
-   (void)0 : (void)dbg_printf
+     (void)0 : (void)dbg_printf
 
 /* Exported definitions and macros */
 
 /* These function return a printable version of a string, including
- quotes.  The string will be valid for some time, but not indefinitely
- as strings are re-used.  */
+   quotes.  The string will be valid for some time, but not indefinitely
+   as strings are re-used.  */
 extern LPCSTR debugstr_an (LPCSTR s, int n);
 extern LPCSTR debugstr_wn (LPCWSTR s, int n);
 extern LPCSTR debugres_a (LPCSTR res);
@@ -81,9 +81,9 @@ extern int dbg_printf(const char *format, ...);
 #define ERR_ON(X) 1
 
 #define DECLARE_DEBUG_CHANNEL(ch) \
-  extern char dbch_##ch[];
+    extern char dbch_##ch[];
 #define DEFAULT_DEBUG_CHANNEL(ch) \
-  extern char dbch_##ch[]; static char * const __dbch_default = dbch_##ch;
+    extern char dbch_##ch[]; static char * const __dbch_default = dbch_##ch;
 
 #define DPRINTF dbg_printf
 #define MESSAGE dbg_printf

@@ -21,38 +21,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-typedef struct visual_effect_
+typedef struct visual_effect_t
 {
-  const char *psz_name;  /* Filter name*/
+    const char *psz_name;    /* Filter name*/
 
-  int    (*pf_run)( struct visual_effect_t * , vlc_object_t *,
-          const block_t *, picture_t *);
-  void *   p_data; /* The effect stores whatever it wants here */
-  int    i_width;
-  int    i_height;
-  char *   psz_args;
-  int    i_nb_chans;
+    int        (*pf_run)( struct visual_effect_t * , vlc_object_t *,
+                          const block_t *, picture_t *);
+    void *     p_data; /* The effect stores whatever it wants here */
+    int        i_width;
+    int        i_height;
+    char *     psz_args;
+    int        i_nb_chans;
 
-  /* Channels index */
-  int    i_idx_left;
-  int    i_idx_right;
+    /* Channels index */
+    int        i_idx_left;
+    int        i_idx_right;
 } visual_effect_t ;
 
 typedef struct spectrum_data
 {
-  int *peaks;
-  int *prev_heights;
+    int *peaks;
+    int *prev_heights;
 
-  unsigned i_prev_nb_samples;
-  int16_t *p_prev_s16_buff;
+    unsigned i_prev_nb_samples;
+    int16_t *p_prev_s16_buff;
 } spectrum_data;
 
-typedef struc
+typedef struct
 {
-  int *peaks;
+    int *peaks;
 
-  unsigned i_prev_nb_samples;
-  int16_t *p_prev_s16_buff;
+    unsigned i_prev_nb_samples;
+    int16_t *p_prev_s16_buff;
 } spectrometer_data;
 
 /*****************************************************************************
@@ -61,30 +61,30 @@ typedef struc
  * This structure is part of the audio filter descriptor.
  * It describes some visualizer specific variables.
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
-  vout_thread_t *p_vout;
+    vout_thread_t   *p_vout;
 
-  int     i_width;
-  int     i_height;
+    int             i_width;
+    int             i_height;
 
-  int     i_effect;
-  visual_effect_t **effect;
+    int             i_effect;
+    visual_effect_t **effect;
 };
 
 /* Prototypes */
 int scope_Run
-    (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
+        (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
 int vuMeter_Run
-    (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
+        (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
 int dummy_Run
-    (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
+        (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
 int random_Run
-    (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
+        (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
 int spectrum_Run
-    (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
+        (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
 int spectrometer_Run
-    (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
+        (visual_effect_t * , vlc_object_t *, const block_t *, picture_t *);
 
 /* Default vout size */
 #define VOUT_WIDTH  800

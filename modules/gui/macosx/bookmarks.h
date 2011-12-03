@@ -25,29 +25,29 @@
 #import "intf.h"
 #import <vlc_common.h>
 
-@interface VLCBookmarks : NSObjec
+@interface VLCBookmarks : NSObject
 {
-  /* main window */
-  IBOutlet id o_bookmarks_window;
-  IBOutlet id o_btn_add;
-  IBOutlet id o_btn_clear;
-  IBOutlet id o_btn_edit;
-  IBOutlet id o_btn_extract;
-  IBOutlet id o_btn_rm;
-  IBOutlet id o_tbl_dataTable;
+    /* main window */
+    IBOutlet id o_bookmarks_window;
+    IBOutlet id o_btn_add;
+    IBOutlet id o_btn_clear;
+    IBOutlet id o_btn_edit;
+    IBOutlet id o_btn_extract;
+    IBOutlet id o_btn_rm;
+    IBOutlet id o_tbl_dataTable;
 
-  /* edit window */
-  IBOutlet id o_edit_window;
-  IBOutlet id o_edit_btn_ok;
-  IBOutlet id o_edit_btn_cancel;
-  IBOutlet id o_edit_lbl_name;
-  IBOutlet id o_edit_lbl_time;
-  IBOutlet id o_edit_lbl_bytes;
-  IBOutlet id o_edit_fld_name;
-  IBOutlet id o_edit_fld_time;
-  IBOutlet id o_edit_fld_bytes;
+    /* edit window */
+    IBOutlet id o_edit_window;
+    IBOutlet id o_edit_btn_ok;
+    IBOutlet id o_edit_btn_cancel;
+    IBOutlet id o_edit_lbl_name;
+    IBOutlet id o_edit_lbl_time;
+    IBOutlet id o_edit_lbl_bytes;
+    IBOutlet id o_edit_fld_name;
+    IBOutlet id o_edit_fld_time;
+    IBOutlet id o_edit_fld_bytes;
 
-  input_thread_t *p_old_input;
+    input_thread_t *p_old_input;
 }
 
 - (IBAction)add:(id)sender;

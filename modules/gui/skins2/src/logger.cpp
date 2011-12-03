@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 606a4422895ccfe18721ff6eed14133cc610436b $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,34 +37,34 @@ Logger::~Logger()
 
 Logger *Logger::instance( intf_thread_t *pIntf )
 {
-  if( ! pIntf->p_sys->p_logger )
-  {
-    Logger *pLogger = new Logger( pIntf );
-    if( pLogger )
+    if( ! pIntf->p_sys->p_logger )
     {
-    // Initialization succeeded
-    pIntf->p_sys->p_logger = pLogger;
+        Logger *pLogger = new Logger( pIntf );
+        if( pLogger )
+        {
+            // Initialization succeeded
+            pIntf->p_sys->p_logger = pLogger;
+        }
     }
-  }
-  return pIntf->p_sys->p_logger;
+    return pIntf->p_sys->p_logger;
 }
 
 
 void Logger::destroy( intf_thread_t *pIntf )
 {
-  delete pIntf->p_sys->p_logger;
-  pIntf->p_sys->p_logger = NULL;
+    delete pIntf->p_sys->p_logger;
+    pIntf->p_sys->p_logger = NULL;
 }
 
 
 void Logger::error( const string &rMsg )
 {
-  msg_Err( getIntf(), "%s", rMsg.c_str() );
+    msg_Err( getIntf(), "%s", rMsg.c_str() );
 }
 
 
 void Logger::warn( const string &rMsg )
 {
-  msg_Warn( getIntf(), "%s", rMsg.c_str() );
+    msg_Warn( getIntf(), "%s", rMsg.c_str() );
 }
 

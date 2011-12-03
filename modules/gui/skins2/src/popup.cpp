@@ -30,57 +30,57 @@
 
 
 Popup::Popup( intf_thread_t *pIntf, WindowManager &rWindowManager )
-  : SkinObject( pIntf ), m_rWindowManager( rWindowManager )
+    : SkinObject( pIntf ), m_rWindowManager( rWindowManager )
 {
-  // Get the OSFactory
-  OSFactory *pOsFactory = OSFactory::instance( getIntf() );
+    // Get the OSFactory
+    OSFactory *pOsFactory = OSFactory::instance( getIntf() );
 
-  // Create an OSPopup to handle OS specific processing
-  m_pOsPopup = pOsFactory->createOSPopup();
+    // Create an OSPopup to handle OS specific processing
+    m_pOsPopup = pOsFactory->createOSPopup();
 }
 
 
 void Popup::show( int xPos, int yPos )
 {
-  // Notify that we are the active popup menu, so that the window which
-  // receives our menu events knows whom to forward them
-  m_rWindowManager.setActivePopup( *this );
+    // Notify that we are the active popup menu, so that the window which
+    // receives our menu events knows whom to forward them
+    m_rWindowManager.setActivePopup( *this );
 
-  m_pOsPopup->show( xPos, yPos );
+    m_pOsPopup->show( xPos, yPos );
 }
 
 
 void Popup::hide()
 {
-  m_pOsPopup->hide();
+    m_pOsPopup->hide();
 }
 
 
 void Popup::addItem( const string &rLabel, CmdGeneric &rCmd, int pos )
 {
-  m_pOsPopup->addItem( rLabel, pos );
-  m_actions[pos] = &rCmd;
+    m_pOsPopup->addItem( rLabel, pos );
+    m_actions[pos] = &rCmd;
 }
 
 
 void Popup::addSeparator( int pos )
 {
-  m_pOsPopup->addSeparator( pos );
-  m_actions[pos] = NULL;
+    m_pOsPopup->addSeparator( pos );
+    m_actions[pos] = NULL;
 }
 
 
 void Popup::handleEvent( const EvtMenu &rEvent )
 {
-  unsigned int n = m_pOsPopup->getPosFromId( rEvent.getItemId() );
-  if( (n < m_actions.size()) && m_actions[n] )
-  {
-    m_actions[n]->execute();
-  }
-  else
-  {
-    // Should never happen
-    msg_Warn( getIntf(), "problem in the popup implementation" );
-  }
+    unsigned int n = m_pOsPopup->getPosFromId( rEvent.getItemId() );
+    if( (n < m_actions.size()) && m_actions[n] )
+    {
+        m_actions[n]->execute();
+    }
+    else
+    {
+        // Should never happen
+        msg_Warn( getIntf(), "problem in the popup implementation" );
+    }
 }
 

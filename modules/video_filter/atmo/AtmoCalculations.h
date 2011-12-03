@@ -18,7 +18,7 @@
 class CAtmoColorCalculator
 {
 protected:
- CAtmoConfig *m_pAtmoConfig;
+   CAtmoConfig *m_pAtmoConfig;
 
   // Flip instead having a array with (64x48) entries of values for each channel
   // I have x arrays of 64x48 so each channel has its own array...
@@ -48,15 +48,15 @@ protected:
 
 
 protected:
-  void FindMostUsed(int AtmoSetup_NumZones,int *most_used,long int *windowed_hist);
+    void FindMostUsed(int AtmoSetup_NumZones,int *most_used,long int *windowed_hist);
 
 public:
-  CAtmoColorCalculator(CAtmoConfig *pAtmoConfig);
+    CAtmoColorCalculator(CAtmoConfig *pAtmoConfig);
 	~CAtmoColorCalculator(void);
 
-  pColorPacket AnalyzeHSV(tHSVColor *HSV_Img);
+    pColorPacket AnalyzeHSV(tHSVColor *HSV_Img);
 
-  void UpdateParameters();
+    void UpdateParameters();
 };
 
 

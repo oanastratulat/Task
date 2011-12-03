@@ -1,5 +1,5 @@
 /*****************************************************************************
- * avformat.h: muxer and demuxer using libavforma
+ * avformat.h: muxer and demuxer using libavformat
  *****************************************************************************
  * Copyright (C) 2001-2008 the VideoLAN team
  * $Id: 62c8e9909e5253a7082d37c3e39a0e1b39376fea $
@@ -22,7 +22,7 @@
  *****************************************************************************/
 
 void LibavcodecCallback( void *p_opaque, int i_level,
-           const char *psz_format, va_list va );
+                             const char *psz_format, va_list va );
 
 /* Demux module */
 int  OpenDemux ( vlc_object_t * );

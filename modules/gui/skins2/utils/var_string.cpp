@@ -4,7 +4,7 @@
  * Copyright (C) 2010 the VideoLAN team
  * $Id: fd913c33f9b964a7543a5ab8206abdea167be89e $
  *
- * Author: Erwan Tulou  <erwan10 aT videolan DoT org>
+ * Author: Erwan Tulou      <erwan10 aT videolan DoT org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,11 +29,11 @@ const string VarString::m_type = "string";
 
 void VarString::set( string str )
 {
-  // If the value has changed, notify the observers
-  if( m_value != str )
-  {
-    m_value = str;
-    notify( NULL );
-  }
+    // If the value has changed, notify the observers
+    if( m_value != str )
+    {
+        m_value = str;
+        notify( NULL );
+    }
 }
 

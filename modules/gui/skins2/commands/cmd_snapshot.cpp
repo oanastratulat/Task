@@ -27,32 +27,32 @@
 
 void CmdSnapshot::execute()
 {
-  if( getIntf()->p_sys->p_input == NULL )
-    return;
+    if( getIntf()->p_sys->p_input == NULL )
+        return;
 
-  vout_thread_t *pVout = input_GetVout( getIntf()->p_sys->p_input );
-  if( pVout )
-  {
-    // Take a snapsho
-    var_TriggerCallback( pVout, "video-snapshot" );
-    vlc_object_release( pVout );
-  }
+    vout_thread_t *pVout = input_GetVout( getIntf()->p_sys->p_input );
+    if( pVout )
+    {
+        // Take a snapshot
+        var_TriggerCallback( pVout, "video-snapshot" );
+        vlc_object_release( pVout );
+    }
 }
 
 
 void CmdToggleRecord::execute()
 {
-  input_thread_t* pInput = getIntf()->p_sys->p_input;
-  if( pInput )
-    var_ToggleBool( pInput, "record" );
+    input_thread_t* pInput = getIntf()->p_sys->p_input;
+    if( pInput )
+        var_ToggleBool( pInput, "record" );
 }
 
 
 void CmdNextFrame::execute()
 {
-  input_thread_t* pInput = getIntf()->p_sys->p_input;
-  if( pInput )
-    var_TriggerCallback( pInput, "frame-next" );
+    input_thread_t* pInput = getIntf()->p_sys->p_input;
+    if( pInput )
+        var_TriggerCallback( pInput, "frame-next" );
 }
 
 

@@ -5,7 +5,7 @@
  * $Id: 67a386e171be6bab3fa9bbedd883ff1f653266d0 $
  *
  * Authors: Antoine Cellerier <dionoea at videolan tod org>
- *    Pierre d'Herbemont <pdherbemont # videolan.org>
+ *          Pierre d'Herbemont <pdherbemont # videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

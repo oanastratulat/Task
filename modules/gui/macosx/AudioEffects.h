@@ -5,7 +5,7 @@
  * $Id: f63344acdf2934d930c021e5e928fb1bec784234 $
  *
  * Authors: Felix Paul Kühne <fkuehne -at- videolan -dot- org>
- *    Jérôme Decoodt <djc@videolan.org>
+ *          Jérôme Decoodt <djc@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,77 +25,77 @@
 #import <Cocoa/Cocoa.h>
 
 @interface VLCAudioEffects : NSObject {
-  /* generic */
-  IBOutlet id o_tableView;
-  IBOutlet id o_window;
-  intf_thread_t *p_intf;
+    /* generic */
+    IBOutlet id o_tableView;
+    IBOutlet id o_window;
+    intf_thread_t *p_intf;
 
-  /* Equalizer */
-  IBOutlet id o_eq_enable_ckb;
-  IBOutlet id o_eq_twopass_ckb;
-  IBOutlet id o_eq_preamp_lbl;
-  IBOutlet id o_eq_presets_popup;
-  IBOutlet id o_eq_band1_sld;
-  IBOutlet id o_eq_band2_sld;
-  IBOutlet id o_eq_band3_sld;
-  IBOutlet id o_eq_band4_sld;
-  IBOutlet id o_eq_band5_sld;
-  IBOutlet id o_eq_band6_sld;
-  IBOutlet id o_eq_band7_sld;
-  IBOutlet id o_eq_band8_sld;
-  IBOutlet id o_eq_band9_sld;
-  IBOutlet id o_eq_band10_sld;
-  IBOutlet id o_eq_preamp_sld;
+    /* Equalizer */
+    IBOutlet id o_eq_enable_ckb;
+    IBOutlet id o_eq_twopass_ckb;
+    IBOutlet id o_eq_preamp_lbl;
+    IBOutlet id o_eq_presets_popup;
+    IBOutlet id o_eq_band1_sld;
+    IBOutlet id o_eq_band2_sld;
+    IBOutlet id o_eq_band3_sld;
+    IBOutlet id o_eq_band4_sld;
+    IBOutlet id o_eq_band5_sld;
+    IBOutlet id o_eq_band6_sld;
+    IBOutlet id o_eq_band7_sld;
+    IBOutlet id o_eq_band8_sld;
+    IBOutlet id o_eq_band9_sld;
+    IBOutlet id o_eq_band10_sld;
+    IBOutlet id o_eq_preamp_sld;
 
-  /* Compressor */
-  IBOutlet id o_comp_enable_ckb;
-  IBOutlet id o_comp_reset_btn;
-  IBOutlet id o_comp_band1_sld;
-  IBOutlet id o_comp_band1_fld;
-  IBOutlet id o_comp_band1_lbl;
-  IBOutlet id o_comp_band2_sld;
-  IBOutlet id o_comp_band2_fld;
-  IBOutlet id o_comp_band2_lbl;
-  IBOutlet id o_comp_band3_sld;
-  IBOutlet id o_comp_band3_fld;
-  IBOutlet id o_comp_band3_lbl;
-  IBOutlet id o_comp_band4_sld;
-  IBOutlet id o_comp_band4_fld;
-  IBOutlet id o_comp_band4_lbl;
-  IBOutlet id o_comp_band5_sld;
-  IBOutlet id o_comp_band5_fld;
-  IBOutlet id o_comp_band5_lbl;
-  IBOutlet id o_comp_band6_sld;
-  IBOutlet id o_comp_band6_fld;
-  IBOutlet id o_comp_band6_lbl;
-  IBOutlet id o_comp_band7_sld;
-  IBOutlet id o_comp_band7_fld;
-  IBOutlet id o_comp_band7_lbl;
+    /* Compressor */
+    IBOutlet id o_comp_enable_ckb;
+    IBOutlet id o_comp_reset_btn;
+    IBOutlet id o_comp_band1_sld;
+    IBOutlet id o_comp_band1_fld;
+    IBOutlet id o_comp_band1_lbl;
+    IBOutlet id o_comp_band2_sld;
+    IBOutlet id o_comp_band2_fld;
+    IBOutlet id o_comp_band2_lbl;
+    IBOutlet id o_comp_band3_sld;
+    IBOutlet id o_comp_band3_fld;
+    IBOutlet id o_comp_band3_lbl;
+    IBOutlet id o_comp_band4_sld;
+    IBOutlet id o_comp_band4_fld;
+    IBOutlet id o_comp_band4_lbl;
+    IBOutlet id o_comp_band5_sld;
+    IBOutlet id o_comp_band5_fld;
+    IBOutlet id o_comp_band5_lbl;
+    IBOutlet id o_comp_band6_sld;
+    IBOutlet id o_comp_band6_fld;
+    IBOutlet id o_comp_band6_lbl;
+    IBOutlet id o_comp_band7_sld;
+    IBOutlet id o_comp_band7_fld;
+    IBOutlet id o_comp_band7_lbl;
+    
+    /* Spatializer */
+    IBOutlet id o_spat_enable_ckb;
+    IBOutlet id o_spat_reset_btn;
+    IBOutlet id o_spat_band1_sld;
+    IBOutlet id o_spat_band1_fld;
+    IBOutlet id o_spat_band1_lbl;
+    IBOutlet id o_spat_band2_sld;
+    IBOutlet id o_spat_band2_fld;
+    IBOutlet id o_spat_band2_lbl;
+    IBOutlet id o_spat_band3_sld;
+    IBOutlet id o_spat_band3_fld;
+    IBOutlet id o_spat_band3_lbl;
+    IBOutlet id o_spat_band4_sld;
+    IBOutlet id o_spat_band4_fld;
+    IBOutlet id o_spat_band4_lbl;
+    IBOutlet id o_spat_band5_sld;
+    IBOutlet id o_spat_band5_fld;
+    IBOutlet id o_spat_band5_lbl;
 
-  /* Spatializer */
-  IBOutlet id o_spat_enable_ckb;
-  IBOutlet id o_spat_reset_btn;
-  IBOutlet id o_spat_band1_sld;
-  IBOutlet id o_spat_band1_fld;
-  IBOutlet id o_spat_band1_lbl;
-  IBOutlet id o_spat_band2_sld;
-  IBOutlet id o_spat_band2_fld;
-  IBOutlet id o_spat_band2_lbl;
-  IBOutlet id o_spat_band3_sld;
-  IBOutlet id o_spat_band3_fld;
-  IBOutlet id o_spat_band3_lbl;
-  IBOutlet id o_spat_band4_sld;
-  IBOutlet id o_spat_band4_fld;
-  IBOutlet id o_spat_band4_lbl;
-  IBOutlet id o_spat_band5_sld;
-  IBOutlet id o_spat_band5_fld;
-  IBOutlet id o_spat_band5_lbl;
-
-  /* Filter */
-  IBOutlet id o_filter_headPhone_ckb;
-  IBOutlet id o_filter_normLevel_ckb;
-  IBOutlet id o_filter_normLevel_sld;
-  IBOutlet id o_filter_normLevel_lbl;
+    /* Filter */
+    IBOutlet id o_filter_headPhone_ckb;
+    IBOutlet id o_filter_normLevel_ckb;
+    IBOutlet id o_filter_normLevel_sld;
+    IBOutlet id o_filter_normLevel_lbl;
 }
 
 /* generic */

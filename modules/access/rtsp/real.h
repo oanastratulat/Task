@@ -1,12 +1,12 @@
 /*****************************************************************************
- * real.c: rtsp inpu
+ * real.c: rtsp input
  *****************************************************************************
- * Copyright (C) 2002-2004 the xine projec
+ * Copyright (C) 2002-2004 the xine project
  * Copyright (C) 2005 VideoLAN
  * $Id: 51392e5ff6a27507e62a1e730fae97d2e963804d $
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
- *    Adapted from xine which itself adapted it from joschkas real tools.
+ *          Adapted from xine which itself adapted it from joschkas real tools.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 #ifndef HAVE_REAL_H
 #define HAVE_REAL_H
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
+#ifdef HAVE_CONFIG_H 
+# include "config.h" 
 #endif
 
 #include <stdlib.h>
@@ -39,9 +39,9 @@
 #include "real_sdpplin.h"
 
 #ifdef REALDEBUG
-# define lprintf printf
+#   define lprintf printf
 #else
-  static inline void lprintf( const char *dummy, ... ) { (void)dummy; }
+    static inline void lprintf( const char *dummy, ... ) { (void)dummy; }
 #endif
 
 int real_get_rdt_chunk_header(rtsp_client_t *, rmff_pheader_t *);

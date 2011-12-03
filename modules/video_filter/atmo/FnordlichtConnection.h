@@ -29,50 +29,50 @@
 #include "AtmoConfig.h"
 
 #if defined(WIN32)
-# include <windows.h>
+#   include <windows.h>
 #endif
 
 
 class CFnordlichtConnection : public CAtmoConnection
 {
-  private:
-    HANDLE m_hComport;
+    private:
+        HANDLE m_hComport;
 
-    ATMO_BOOL sync(void);
-    ATMO_BOOL stop(unsigned char addr);
-    ATMO_BOOL reset(unsigned char addr);
-    ATMO_BOOL start_bootloader(unsigned char addr);
-    ATMO_BOOL boot_enter_application(unsigned char addr);
+        ATMO_BOOL sync(void);
+        ATMO_BOOL stop(unsigned char addr);
+        ATMO_BOOL reset(unsigned char addr);
+        ATMO_BOOL start_bootloader(unsigned char addr);
+        ATMO_BOOL boot_enter_application(unsigned char addr);
 
 #if defined(WIN32)
-    DWORD  m_dwLastWin32Error;
-  public:
-    DWORD getLastError() { return m_dwLastWin32Error; }
+        DWORD  m_dwLastWin32Error;
+    public:
+        DWORD getLastError() { return m_dwLastWin32Error; }
 #endif
 
-  public:
-    CFnordlichtConnection (CAtmoConfig *cfg);
-    virtual ~CFnordlichtConnection (void);
+    public:
+        CFnordlichtConnection (CAtmoConfig *cfg);
+        virtual ~CFnordlichtConnection (void);
 
-    virtual ATMO_BOOL OpenConnection();
+        virtual ATMO_BOOL OpenConnection();
 
-    virtual void CloseConnection();
+        virtual void CloseConnection();
 
-    virtual ATMO_BOOL isOpen(void);
+        virtual ATMO_BOOL isOpen(void);
 
-    virtual ATMO_BOOL SendData(pColorPacket data);
+        virtual ATMO_BOOL SendData(pColorPacket data);
 
-    virtual int getAmountFnordlichter();
+        virtual int getAmountFnordlichter();
 
-    virtual const char *getDevicePath() { return "fnordlicht"; }
+        virtual const char *getDevicePath() { return "fnordlicht"; }
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-    virtual char *getChannelName(int ch);
-    virtual ATMO_BOOL ShowConfigDialog(HINSTANCE hInst, HWND parent,
-                CAtmoConfig *cfg);
+        virtual char *getChannelName(int ch);
+        virtual ATMO_BOOL ShowConfigDialog(HINSTANCE hInst, HWND parent,
+                                            CAtmoConfig *cfg);
 #endif
 
-    virtual ATMO_BOOL CreateDefaultMapping(CAtmoChannelAssignment *ca);
+        virtual ATMO_BOOL CreateDefaultMapping(CAtmoChannelAssignment *ca);
 };
 
 #endif

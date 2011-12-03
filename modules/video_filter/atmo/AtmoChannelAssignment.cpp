@@ -1,6 +1,6 @@
 /*
  * AtmoChannelAssignment.cpp: Class for storing a hardware channel to zone mapping
- * Lis
+ * List
  *
  * See the README.txt file for copyright information and how to reach the author(s).
  *
@@ -48,14 +48,14 @@ void CAtmoChannelAssignment::setSize(int numChannels)
 {
   if(numChannels != m_num_channels)
   {
-   delete []m_mappings;
-   m_mappings = NULL;
-   m_num_channels = numChannels;
-   if(m_num_channels > 0)
-   {
-   m_mappings = new int[m_num_channels];
-   memset(m_mappings, 0, sizeof(int) * m_num_channels);
-   }
+     delete []m_mappings;
+     m_mappings = NULL;
+     m_num_channels = numChannels;
+     if(m_num_channels > 0)
+     {
+       m_mappings = new int[m_num_channels];
+       memset(m_mappings, 0, sizeof(int) * m_num_channels);
+     }
   }
 }
 
@@ -70,16 +70,16 @@ int *CAtmoChannelAssignment::getMapArrayClone(int &count)
 
 int CAtmoChannelAssignment::getZoneIndex(int channel)
 {
- if(m_mappings && (channel>=0) && (channel<m_num_channels))
-   return m_mappings[channel] ;
- else
-   return -1;
+   if(m_mappings && (channel>=0) && (channel<m_num_channels))
+     return m_mappings[channel] ;
+   else
+     return -1;
 }
 
 void CAtmoChannelAssignment::setZoneIndex(int channel, int zone)
 {
  if(m_mappings && (channel>=0) && (channel<m_num_channels))
-  m_mappings[channel] = zone;
+    m_mappings[channel] = zone;
 }
 
 

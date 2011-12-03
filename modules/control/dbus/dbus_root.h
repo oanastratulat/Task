@@ -1,13 +1,13 @@
 /*****************************************************************************
- * dbus-root.h : dbus control module (mpris v1.0) - root objec
+ * dbus-root.h : dbus control module (mpris v1.0) - root object
  *****************************************************************************
  * Copyright © 2006-2008 Rafaël Carré
  * Copyright © 2007-2010 Mirsal Ennaime
  * Copyright © 2009-2010 The VideoLAN team
  * $Id: c076b3e7bce454d79cd3ac648c587e7a9dc6ac1d $
  *
- * Authors:  Mirsal Ennaime <mirsal at mirsal fr>
- *     Rafaël Carré <funman at videolanorg>
+ * Authors:    Mirsal Ennaime <mirsal at mirsal fr>
+ *             Rafaël Carré <funman at videolanorg>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,11 +30,11 @@
 #include "dbus_common.h"
 
 /* DBUS IDENTIFIERS */
-#define DBUS_MPRIS_ROOT_INTERFACE  "org.mpris.MediaPlayer2"
+#define DBUS_MPRIS_ROOT_INTERFACE    "org.mpris.MediaPlayer2"
 
 /* Handle incoming dbus messages */
 DBusHandlerResult handle_root ( DBusConnection *p_conn,
-            DBusMessage *p_from,
-            void *p_this );
+                                DBusMessage *p_from,
+                                void *p_this );
 
 #endif //dbus-root.h

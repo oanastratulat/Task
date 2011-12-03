@@ -5,7 +5,7 @@
  * $Id: 9c40e539f6a1b19b55d0c3a48c41b524e2883d1c $
  *
  * Authors: Antoine Cellerier <dionoea at videolan tod org>
- *    Pierre d'Herbemont <pdherbemont # videolan.org>
+ *          Pierre d'Herbemont <pdherbemont # videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
  * Preamble
  *****************************************************************************/
 #ifndef  _GNU_SOURCE
-# define  _GNU_SOURCE
+#   define  _GNU_SOURCE
 #endif
 
 #ifdef HAVE_CONFIG_H
@@ -38,9 +38,9 @@
 #include <vlc_meta.h>
 #include <vlc_aout.h>
 
-#include <lua.h>    /* Low level lua C API */
-#include <lauxlib.h>  /* Higher level C API */
-#include <lualib.h>   /* Lua libs */
+#include <lua.h>        /* Low level lua C API */
+#include <lauxlib.h>    /* Higher level C API */
+#include <lualib.h>     /* Lua libs */
 
 #include "../vlc.h"
 #include "../libs.h"
@@ -50,58 +50,58 @@
  *****************************************************************************/
 static int vlclua_msg_dbg( lua_State *L )
 {
-  int i_top = lua_gettop( L );
-  vlc_object_t *p_this = vlclua_get_this( L );
-  int i;
-  for( i = 1; i <= i_top; i++ )
-    msg_Dbg( p_this, "%s", luaL_checkstring( L, i ) );
-  return 0;
+    int i_top = lua_gettop( L );
+    vlc_object_t *p_this = vlclua_get_this( L );
+    int i;
+    for( i = 1; i <= i_top; i++ )
+        msg_Dbg( p_this, "%s", luaL_checkstring( L, i ) );
+    return 0;
 }
 
 static int vlclua_msg_warn( lua_State *L )
 {
-  int i_top = lua_gettop( L );
-  vlc_object_t *p_this = vlclua_get_this( L );
-  int i;
-  for( i = 1; i <= i_top; i++ )
-    msg_Warn( p_this, "%s", luaL_checkstring( L, i ) );
-  return 0;
+    int i_top = lua_gettop( L );
+    vlc_object_t *p_this = vlclua_get_this( L );
+    int i;
+    for( i = 1; i <= i_top; i++ )
+        msg_Warn( p_this, "%s", luaL_checkstring( L, i ) );
+    return 0;
 }
 
 static int vlclua_msg_err( lua_State *L )
 {
-  int i_top = lua_gettop( L );
-  vlc_object_t *p_this = vlclua_get_this( L );
-  int i;
-  for( i = 1; i <= i_top; i++ )
-    msg_Err( p_this, "%s", luaL_checkstring( L, i ) );
-  return 0;
+    int i_top = lua_gettop( L );
+    vlc_object_t *p_this = vlclua_get_this( L );
+    int i;
+    for( i = 1; i <= i_top; i++ )
+        msg_Err( p_this, "%s", luaL_checkstring( L, i ) );
+    return 0;
 }
 
 static int vlclua_msg_info( lua_State *L )
 {
-  int i_top = lua_gettop( L );
-  vlc_object_t *p_this = vlclua_get_this( L );
-  int i;
-  for( i = 1; i <= i_top; i++ )
-    msg_Info( p_this, "%s", luaL_checkstring( L, i ) );
-  return 0;
+    int i_top = lua_gettop( L );
+    vlc_object_t *p_this = vlclua_get_this( L );
+    int i;
+    for( i = 1; i <= i_top; i++ )
+        msg_Info( p_this, "%s", luaL_checkstring( L, i ) );
+    return 0;
 }
 
 /*****************************************************************************
  *
  *****************************************************************************/
 static const luaL_Reg vlclua_msg_reg[] = {
-  { "dbg", vlclua_msg_dbg },
-  { "warn", vlclua_msg_warn },
-  { "err", vlclua_msg_err },
-  { "info", vlclua_msg_info },
-  { NULL, NULL }
+    { "dbg", vlclua_msg_dbg },
+    { "warn", vlclua_msg_warn },
+    { "err", vlclua_msg_err },
+    { "info", vlclua_msg_info },
+    { NULL, NULL }
 };
 
 void luaopen_msg( lua_State *L )
 {
-  lua_newtable( L );
-  luaL_register( L, NULL, vlclua_msg_reg );
-  lua_setfield( L, -2, "msg" );
+    lua_newtable( L );
+    luaL_register( L, NULL, vlclua_msg_reg );
+    lua_setfield( L, -2, "msg" );
 }

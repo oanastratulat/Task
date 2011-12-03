@@ -1,7 +1,7 @@
 /*****************************************************************************
  * variables.cpp : VLC variable class
  ****************************************************************************
- * Copyright (C) 2009 Rémi Denis-Courmon
+ * Copyright (C) 2009 Rémi Denis-Courmont
  * Copyright (C) 2006 the VideoLAN team
  *
  * This program is free software; you can redistribute it and/or modify
@@ -27,55 +27,55 @@
 #include "variables.hpp"
 
 QVLCVariable::QVLCVariable (vlc_object_t *obj, const char *varname, int type,
-          bool inherit)
-  : object (obj), name (qfu(varname))
+                            bool inherit)
+    : object (obj), name (qfu(varname))
 {
-  vlc_object_hold (object);
+    vlc_object_hold (object);
 
-  if (inherit)
-    type |= VLC_VAR_DOINHERIT;
-  var_Create (object, qtu(name), type);
-  var_AddCallback (object, qtu(name), callback, this);
+    if (inherit)
+        type |= VLC_VAR_DOINHERIT;
+    var_Create (object, qtu(name), type);
+    var_AddCallback (object, qtu(name), callback, this);
 }
 
 QVLCVariable::~QVLCVariable (void)
 {
-  var_DelCallback (object, qtu(name), callback, this);
-  var_Destroy (object, qtu(name));
-  vlc_object_release (object);
+    var_DelCallback (object, qtu(name), callback, this);
+    var_Destroy (object, qtu(name));
+    vlc_object_release (object);
 }
 
 int QVLCVariable::callback (vlc_object_t *object, const char *,
-          vlc_value_t old, vlc_value_t cur, void *data)
+                            vlc_value_t old, vlc_value_t cur, void *data)
 {
-  VLC_UNUSED(object);
+    VLC_UNUSED(object);
 
-  QVLCVariable *self = static_cast<QVLCVariable *>(data);
+    QVLCVariable *self = static_cast<QVLCVariable *>(data);
 
-  self->trigger (self->object, old, cur);
-  return VLC_SUCCESS;
+    self->trigger (self->object, old, cur);
+    return VLC_SUCCESS;
 }
 
 
 QVLCPointer::QVLCPointer (vlc_object_t *obj, const char *varname, bool inherit)
-  : QVLCVariable (obj, varname, VLC_VAR_ADDRESS, inherit)
+    : QVLCVariable (obj, varname, VLC_VAR_ADDRESS, inherit)
 {
 }
 
 void QVLCPointer::trigger (vlc_object_t *obj, vlc_value_t old, vlc_value_t cur)
 {
-  emit pointerChanged (obj, old.p_address, cur.p_address);
-  emit pointerChanged (obj, cur.p_address);
+    emit pointerChanged (obj, old.p_address, cur.p_address);
+    emit pointerChanged (obj, cur.p_address);
 }
 
 
 QVLCInteger::QVLCInteger (vlc_object_t *obj, const char *varname, bool inherit)
-  : QVLCVariable (obj, varname, VLC_VAR_INTEGER, inherit)
+    : QVLCVariable (obj, varname, VLC_VAR_INTEGER, inherit)
 {
 }
 
 void QVLCInteger::trigger (vlc_object_t *obj, vlc_value_t old, vlc_value_t cur)
 {
-  emit integerChanged (obj, old.i_int, cur.i_int);
-  emit integerChanged (obj, cur.i_int);
+    emit integerChanged (obj, old.i_int, cur.i_int);
+    emit integerChanged (obj, cur.i_int);
 }

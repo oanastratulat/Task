@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -43,25 +43,25 @@
 
 namespace dash
 {
-  namespace mpd
-  {
-    class BasicCMManager : public IMPDManager
+    namespace mpd
     {
-    public:
-      BasicCMManager    (MPD *mpd);
-      virtual ~BasicCMManager ();
+        class BasicCMManager : public IMPDManager
+        {
+            public:
+                BasicCMManager          (MPD *mpd);
+                virtual ~BasicCMManager ();
 
-      const std::vector<Period *>& getPeriods      () const;
-      Period*       getFirstPeriod    ();
-      Period*       getNextPeriod     (Period *period);
-      Representation*   getBestRepresentation (Period *period);
-      std::vector<ISegment *> getSegments     (Representation *rep);
-      Representation*   getRepresentation   (Period *period, long bitrate);
+                const std::vector<Period *>&   getPeriods              () const;
+                Period*                 getFirstPeriod          ();
+                Period*                 getNextPeriod           (Period *period);
+                Representation*         getBestRepresentation   (Period *period);
+                std::vector<ISegment *> getSegments             (Representation *rep);
+                Representation*         getRepresentation       (Period *period, long bitrate);
 
-    private:
-      MPD *mpd;
-    };
-  }
+            private:
+                MPD *mpd;
+        };
+    }
 }
 
 #endif /* BASICCMMANAGER_H_ */

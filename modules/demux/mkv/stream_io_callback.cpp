@@ -5,7 +5,7 @@
  * $Id: 2fff1ef76da356fc0292e95e58c2b018bb41e6e1 $
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
- *    Steve Lhomme <steve.lhomme@free.fr>
+ *          Steve Lhomme <steve.lhomme@free.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,77 +28,77 @@
 #include "demux.hpp"
 
 /*****************************************************************************
- * Stream managmen
+ * Stream managment
  *****************************************************************************/
 vlc_stream_io_callback::vlc_stream_io_callback( stream_t *s_, bool b_owner_ )
-         : s( s_), b_owner( b_owner_ )
+                       : s( s_), b_owner( b_owner_ )
 {
-  mb_eof = false;
+    mb_eof = false;
 }
 
 uint32 vlc_stream_io_callback::read( void *p_buffer, size_t i_size )
 {
-  if( i_size <= 0 || mb_eof )
-    return 0;
+    if( i_size <= 0 || mb_eof )
+        return 0;
 
-  return stream_Read( s, p_buffer, i_size );
+    return stream_Read( s, p_buffer, i_size );
 }
 
 void vlc_stream_io_callback::setFilePointer(int64_t i_offset, seek_mode mode )
 {
-  int64_t i_pos, i_size;
+    int64_t i_pos, i_size;
 
-  switch( mode )
-  {
-    case seek_beginning:
-    i_pos = i_offset;
-    break;
-    case seek_end:
-    i_pos = stream_Size( s ) - i_offset;
-    break;
-    default:
-    i_pos= stream_Tell( s ) + i_offset;
-    break;
-  }
+    switch( mode )
+    {
+        case seek_beginning:
+            i_pos = i_offset;
+            break;
+        case seek_end:
+            i_pos = stream_Size( s ) - i_offset;
+            break;
+        default:
+            i_pos= stream_Tell( s ) + i_offset;
+            break;
+    }
 
-  if( i_pos < 0 || ( ( i_size = stream_Size( s ) ) != 0 && i_pos >= i_size ) )
-  {
-    mb_eof = true;
+    if( i_pos < 0 || ( ( i_size = stream_Size( s ) ) != 0 && i_pos >= i_size ) )
+    {
+        mb_eof = true;
+        return;
+    }
+
+    mb_eof = false;
+    if( stream_Seek( s, i_pos ) )
+    {
+        mb_eof = true;
+    }
     return;
-  }
-
-  mb_eof = false;
-  if( stream_Seek( s, i_pos ) )
-  {
-    mb_eof = true;
-  }
-  return;
 }
 
 uint64 vlc_stream_io_callback::getFilePointer( void )
 {
-  if ( s == NULL )
-    return 0;
-  return stream_Tell( s );
+    if ( s == NULL )
+        return 0;
+    return stream_Tell( s );
 }
 
 size_t vlc_stream_io_callback::write(const void *, size_t )
 {
-  return 0;
+    return 0;
 }
 
 uint64 vlc_stream_io_callback::toRead( void )
 {
-  uint64_t i_size;
+    uint64_t i_size;
 
-  if( s == NULL)
-    return 0;
+    if( s == NULL)
+        return 0;
 
-  stream_Control( s, STREAM_GET_SIZE, &i_size );
+    stream_Control( s, STREAM_GET_SIZE, &i_size );
 
-  if( i_size == 0 )
-    return 0xFFFFFFFFL;
+    if( i_size == 0 )
+        return 0xFFFFFFFFL;
 
-  return (uint64) i_size - stream_Tell( s );
+    return (uint64) i_size - stream_Tell( s );
 }
 

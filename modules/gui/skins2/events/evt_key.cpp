@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 417b9f017e6983e4f4da669bc0b836e99d474a33 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,30 +26,30 @@
 #include <vlc_keys.h>
 
 
-const string EvtKey::getAsString() cons
+const string EvtKey::getAsString() const
 {
-  string event = "key";
+    string event = "key";
 
-  // Add the action
-  if( m_action == kDown )
-    event += ":down";
-  else if( m_action == kUp )
-    event += ":up";
-  else
-    msg_Warn( getIntf(), "Unknown action type" );
+    // Add the action
+    if( m_action == kDown )
+        event += ":down";
+    else if( m_action == kUp )
+        event += ":up";
+    else
+        msg_Warn( getIntf(), "Unknown action type" );
 
-  // Add the key
-  char *keyName = vlc_keycode2str( m_key & ~KEY_MODIFIER );
-  if( keyName )
-  {
-    event += (string)":" + keyName;
-    free( keyName );
-  }
-  else
-    msg_Warn( getIntf(), "Unknown key: %d", m_key );
+    // Add the key
+    char *keyName = vlc_keycode2str( m_key & ~KEY_MODIFIER );
+    if( keyName )
+    {
+        event += (string)":" + keyName;
+        free( keyName );
+    }
+    else
+        msg_Warn( getIntf(), "Unknown key: %d", m_key );
 
-  // Add the modifier
-  addModifier( event );
+    // Add the modifier
+    addModifier( event );
 
-  return event;
+    return event;
 }

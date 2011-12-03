@@ -5,12 +5,12 @@
  * $Id: 3045843c6e7bf44bdb9550938259679aed7e8a6f $
  *
  * Authors: Colin Delacroix <colin@zoy.org>
- *    Florian G. Pflug <fgp@phlo.org>
- *    Jon Lech Johansen <jon-vl@nanocrew.net>
- *    Derk-Jan Hartman <hartman at videolan dot org>
- *    Eric Petit <titer@m0k.org>
- *    Benjamin Pracht <bigben at videolan dot org>
- *    Damien Fouilleul <damienf at videolan dot org>
+ *          Florian G. Pflug <fgp@phlo.org>
+ *          Jon Lech Johansen <jon-vl@nanocrew.net>
+ *          Derk-Jan Hartman <hartman at videolan dot org>
+ *          Eric Petit <titer@m0k.org>
+ *          Benjamin Pracht <bigben at videolan dot org>
+ *          Damien Fouilleul <damienf at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,9 +59,9 @@ void cocoaglvoutviewUnlock( vout_thread_t * p_vout );
 /* VLCOpenGLVoutView */
 @interface VLCOpenGLVoutView : NSOpenGLView
 {
-  id <VLCOpenGLVoutEmbedding> container;
-  vout_thread_t * p_vout;
-  NSLock    * objectLock;
+    id <VLCOpenGLVoutEmbedding> container;
+    vout_thread_t * p_vout;
+    NSLock        * objectLock;
 }
 /* Init a new gl view and register it to both the framework and the
  * vout_thread_t. Must be called from main thread */

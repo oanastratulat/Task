@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -37,46 +37,46 @@
 
 namespace dash
 {
-  namespace mpd
-  {
-    class Representation
+    namespace mpd
     {
-    public:
-      Representation    ( const std::map<std::string, std::string>&  attributes);
-      virtual ~Representation ();
+        class Representation
+        {
+            public:
+                Representation          ( const std::map<std::string, std::string>&  attributes);
+                virtual ~Representation ();
 
-      std::string   getWidth      () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getHeight     () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getParX       () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getParY       () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getLang       () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getFrameRate    () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getId       () const throw(dash::exception::AttributeNotPresentException);
-      /*
-       *  @return The bitrate required for this representation
-       *    in Bytes per seconds.
-       *    -1 if an error occurs.
-       */
-      int       getBandwidth    () const;
-      std::string   getDependencyId   () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getNumberOfChannels   () const throw(dash::exception::AttributeNotPresentException);
-      std::string   getSamplingRate   () const throw(dash::exception::AttributeNotPresentException);
-      SegmentInfo*    getSegmentInfo    () const throw(dash::exception::ElementNotPresentException);
-      TrickModeType*  getTrickModeType    () const throw(dash::exception::ElementNotPresentException);
-      ContentProtection*  getContentProtection  () const throw(dash::exception::ElementNotPresentException);
+                std::string         getWidth                () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getHeight               () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getParX                 () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getParY                 () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getLang                 () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getFrameRate            () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getId                   () const throw(dash::exception::AttributeNotPresentException);
+                /*
+                 *  @return The bitrate required for this representation
+                 *          in Bytes per seconds.
+                 *          -1 if an error occurs.
+                 */
+                int                 getBandwidth            () const;
+                std::string         getDependencyId         () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getNumberOfChannels     () const throw(dash::exception::AttributeNotPresentException);
+                std::string         getSamplingRate         () const throw(dash::exception::AttributeNotPresentException);
+                SegmentInfo*        getSegmentInfo          () const throw(dash::exception::ElementNotPresentException);
+                TrickModeType*      getTrickModeType        () const throw(dash::exception::ElementNotPresentException);
+                ContentProtection*  getContentProtection    () const throw(dash::exception::ElementNotPresentException);
 
-      void  setSegmentInfo   (SegmentInfo *info);
-      void  setTrickModeType   (TrickModeType *trickModeType);
-      void  setContentProtection (ContentProtection *protection);
+                void    setSegmentInfo         (SegmentInfo *info);
+                void    setTrickModeType       (TrickModeType *trickModeType);
+                void    setContentProtection   (ContentProtection *protection);
 
-    private:
-      std::map<std::string, std::string>  attributes;
-      SegmentInfo         *segmentInfo;
-      TrickModeType         *trickModeType;
-      ContentProtection       *contentProtection;
+            private:
+                std::map<std::string, std::string>  attributes;
+                SegmentInfo                         *segmentInfo;
+                TrickModeType                       *trickModeType;
+                ContentProtection                   *contentProtection;
 
-    };
-  }
+        };
+    }
 }
 
 #endif /* REPRESENTATION_H_ */

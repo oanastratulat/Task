@@ -32,34 +32,34 @@ typedef struct watch_thread_t watch_thread_t;
 typedef struct item_list_t item_list_t;
 
 /**
- * Definition of item_list_
+ * Definition of item_list_t
  */
 struct item_list_t {
-  input_item_t *p_item;   /**< Input item */
-  ml_media_t *p_media;  /**< Media item */
-  item_list_t  *p_next;   /**< Next element in the list */
-  int     i_media_id; /**< Media id */
-  int     i_age;  /**< Time spent in this list without activity */
-  int     i_refs;   /**< Number of important refs */
-  int     i_update; /**< Flag set when the input item is updated:
-            0: no update,
-            1: meta update,
-            2: increment play count,
-            3: both */
+    input_item_t *p_item;     /**< Input item */
+    ml_media_t   *p_media;    /**< Media item */
+    item_list_t  *p_next;     /**< Next element in the list */
+    int           i_media_id; /**< Media id */
+    int           i_age;      /**< Time spent in this list without activity */
+    int           i_refs;     /**< Number of important refs */
+    int           i_update;   /**< Flag set when the input item is updated:
+                                    0: no update,
+                                    1: meta update,
+                                    2: increment play count,
+                                    3: both */
 };
 
 #define ML_ITEMLIST_HASH_LENGTH 40
 
-#define il_foreachhashlist( a, b, c )              \
-    for( int c = 0 ; c < ML_ITEMLIST_HASH_LENGTH ; c++ )   \
-      for( item_list_t* b = a[c]; b; b = b->p_next )
+#define il_foreachhashlist( a, b, c )                                          \
+            for( int c = 0 ; c < ML_ITEMLIST_HASH_LENGTH ; c++ )         \
+                for( item_list_t* b = a[c]; b; b = b->p_next )
 
 #define il_foreachlist( a, b )  for( item_list_t* b = a ; b; b = b->p_next )
 
 #define item_list_add( a, b, c ) __item_list_add( a, b, c, false )
 
 int __item_list_add( watch_thread_t *p_wt, ml_media_t* p_media,
-       input_item_t *p_item, bool );
+                     input_item_t *p_item, bool );
 item_list_t* item_list_delMedia( watch_thread_t *p_wt, int i_media_id );
 item_list_t* item_list_delItem( watch_thread_t *p_wt, input_item_t *p_item, bool );
 item_list_t* item_list_listitemOfMediaId( watch_thread_t *p_wt, int i_media_id );
@@ -68,7 +68,7 @@ ml_media_t* item_list_mediaOfMediaId( watch_thread_t *p_wt, int i_media_id );
 ml_media_t* item_list_mediaOfItem( watch_thread_t *p_wt, input_item_t* p_item, bool );
 int item_list_mediaIdOfItem( watch_thread_t *p_wt, input_item_t *p_item );
 int item_list_updateInput( watch_thread_t *p_wt, input_item_t *p_item,
-         bool b_play_count );
+                           bool b_play_count );
 void item_list_destroy( watch_thread_t* p_wt );
 
 /**
@@ -78,7 +78,7 @@ void item_list_destroy( watch_thread_t* p_wt );
  */
 static inline int item_hash( input_item_t* p_item )
 {
-  return DictHash( p_item->psz_uri, ML_ITEMLIST_HASH_LENGTH );
+    return DictHash( p_item->psz_uri, ML_ITEMLIST_HASH_LENGTH );
 }
 
 #endif /* ML_ITEM_LIST_H */

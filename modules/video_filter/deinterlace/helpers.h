@@ -40,7 +40,7 @@ struct plane_t;
  * @see ComposeFrame()
  */
 typedef enum { CC_ALTLINE, CC_UPCONVERT, CC_SOURCE_TOP, CC_SOURCE_BOTTOM,
-     CC_MERGE } compose_chroma_t;
+               CC_MERGE } compose_chroma_t;
 
 /**
  * Helper function: composes a frame from the given field pair.
@@ -58,44 +58,44 @@ typedef enum { CC_ALTLINE, CC_UPCONVERT, CC_SOURCE_TOP, CC_SOURCE_BOTTOM,
  *
  * The i_output_chroma parameter must always be supplied, but it is only used
  * when the chroma format of the input is detected as 4:2:0. Available modes:
- * - CC_ALTLINE:   Alternate line copy, like for luma. Chroma line 0
- *         comes from top field picture, chroma line 1 comes
- *         from bottom field picture, chroma line 2 from top
- *         field picture, and so on. This is usually the righ
- *         choice for IVTCing NTSC DVD material, but rarely
- *         for any other use cases.
- * - CC_UPCONVERT:   The output will have 4:2:2 chroma. All 4:2:0 chroma
- *         data from both input fields will be used to generate
- *         the 4:2:2 chroma data of the output. Each output line
- *         will thus have independent chroma. This is a good
- *         choice for most purposes except IVTC, if the machine
- *         can handle the increased throughput. (Make sure to
- *         allocate a 4:2:2 output picture first!)
- *         This mode can also be used for converting a 4:2:0
- *         frame to 4:2:2 format (by passing the same inpu
- *         picture for both input fields).
- *         Conversions: I420, YV12 --> I422
- *            J420   --> J422
- * - CC_SOURCE_TOP:  Copy chroma of source top field picture.
- *         Ignore chroma of source bottom field picture.
- * - CC_SOURCE_BOTTOM: Copy chroma of source bottom field picture.
- *         Ignore chroma of source top field picture.
- * - CC_MERGE:   Average the chroma of the input field pictures.
- *         (Note that this has no effect if the input fields
- *        come from the same frame.)
+ *   - CC_ALTLINE:       Alternate line copy, like for luma. Chroma line 0
+ *                       comes from top field picture, chroma line 1 comes
+ *                       from bottom field picture, chroma line 2 from top
+ *                       field picture, and so on. This is usually the right
+ *                       choice for IVTCing NTSC DVD material, but rarely
+ *                       for any other use cases.
+ *   - CC_UPCONVERT:     The output will have 4:2:2 chroma. All 4:2:0 chroma
+ *                       data from both input fields will be used to generate
+ *                       the 4:2:2 chroma data of the output. Each output line
+ *                       will thus have independent chroma. This is a good
+ *                       choice for most purposes except IVTC, if the machine
+ *                       can handle the increased throughput. (Make sure to
+ *                       allocate a 4:2:2 output picture first!)
+ *                       This mode can also be used for converting a 4:2:0
+ *                       frame to 4:2:2 format (by passing the same input
+ *                       picture for both input fields).
+ *                       Conversions: I420, YV12 --> I422
+ *                                    J420       --> J422
+ *   - CC_SOURCE_TOP:    Copy chroma of source top field picture.
+ *                       Ignore chroma of source bottom field picture.
+ *   - CC_SOURCE_BOTTOM: Copy chroma of source bottom field picture.
+ *                       Ignore chroma of source top field picture.
+ *   - CC_MERGE:         Average the chroma of the input field pictures.
+ *                       (Note that this has no effect if the input fields
+ *                        come from the same frame.)
  *
  * @param p_filter The filter instance (determines input chroma).
  * @param p_outpic Composed picture is written here. Allocated by caller.
  * @param p_inpic_top Picture to extract the top field from.
  * @param p_inpic_bottom Picture to extract the bottom field from.
  * @param i_output_chroma Chroma operation mode for 4:2:0 (see function doc)
- * @see compose_chroma_
+ * @see compose_chroma_t
  * @see RenderPhosphor()
  * @see RenderIVTC()
  */
 void ComposeFrame( filter_t *p_filter, picture_t *p_outpic,
-       picture_t *p_inpic_top, picture_t *p_inpic_bottom,
-       compose_chroma_t i_output_chroma );
+                   picture_t *p_inpic_top, picture_t *p_inpic_bottom,
+                   compose_chroma_t i_output_chroma );
 
 /**
  * Helper function: Estimates the number of 8x8 blocks which have motion
@@ -129,8 +129,8 @@ void ComposeFrame( filter_t *p_filter, picture_t *p_outpic,
  * @see RenderIVTC()
  */
 int EstimateNumBlocksWithMotion( const picture_t* p_prev,
-           const picture_t* p_curr,
-           int *pi_top, int *pi_bot);
+                                 const picture_t* p_curr,
+                                 int *pi_top, int *pi_bot);
 
 /**
  * Helper function: estimates "how much interlaced" the given field pair is.
@@ -162,6 +162,6 @@ int EstimateNumBlocksWithMotion( const picture_t* p_prev,
  * @see ComposeFrame()
  */
 int CalculateInterlaceScore( const picture_t* p_pic_top,
-           const picture_t* p_pic_bot );
+                             const picture_t* p_pic_bot );
 
 #endif

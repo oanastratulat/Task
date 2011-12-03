@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -34,63 +34,63 @@ using namespace dash::logic;
 using namespace dash::mpd;
 using namespace dash::exception;
 
-DASHManager::DASHManager  (HTTPConnectionManager *conManager, Node *node, IAdaptationLogic::LogicType type, Profile profile)
+DASHManager::DASHManager    (HTTPConnectionManager *conManager, Node *node, IAdaptationLogic::LogicType type, Profile profile)
 {
-  this->conManager    = conManager;
-  this->node      = node;
-  this->logicType   = type;
-  this->profile     = profile;
-  this->mpdManager    = mpd::MPDManagerFactory::create(this->profile, this->node);
-  this->adaptationLogic = AdaptationLogicFactory::create( this->logicType, this->mpdManager );
-  this->currentChunk  = NULL;
+    this->conManager        = conManager;
+    this->node              = node;
+    this->logicType         = type;
+    this->profile           = profile;
+    this->mpdManager        = mpd::MPDManagerFactory::create(this->profile, this->node);
+    this->adaptationLogic   = AdaptationLogicFactory::create( this->logicType, this->mpdManager );
+    this->currentChunk      = NULL;
 
-  this->conManager->attach(this->adaptationLogic);
+    this->conManager->attach(this->adaptationLogic);
 }
-DASHManager::~DASHManager ()
+DASHManager::~DASHManager   ()
 {
-  delete this->adaptationLogic;
-  delete this->mpdManager;
+    delete this->adaptationLogic;
+    delete this->mpdManager;
 }
 
-int DASHManager::read (void *p_buffer, size_t len)
+int DASHManager::read   (void *p_buffer, size_t len)
 {
-  if(this->currentChunk == NULL)
-  {
-    try
+    if(this->currentChunk == NULL)
     {
-    this->currentChunk = this->adaptationLogic->getNextChunk();
+        try
+        {
+            this->currentChunk = this->adaptationLogic->getNextChunk();
+        }
+        catch(EOFException &e)
+        {
+            this->currentChunk = NULL;
+            return 0;
+        }
     }
-    catch(EOFException &e)
+
+    int ret = this->conManager->read(this->currentChunk, p_buffer, len);
+
+    if(ret <= 0)
     {
-    this->currentChunk = NULL;
-    return 0;
+        this->currentChunk = NULL;
+        return this->read(p_buffer, len);
     }
-  }
 
-  int ret = this->conManager->read(this->currentChunk, p_buffer, len);
-
-  if(ret <= 0)
-  {
-    this->currentChunk = NULL;
-    return this->read(p_buffer, len);
-  }
-
-  return ret;
+    return ret;
 }
-int DASHManager::peek (const uint8_t **pp_peek, size_t i_peek)
+int DASHManager::peek   (const uint8_t **pp_peek, size_t i_peek)
 {
-  if(this->currentChunk == NULL)
-  {
-    try
+    if(this->currentChunk == NULL)
     {
-    this->currentChunk = this->adaptationLogic->getNextChunk();
+        try
+        {
+            this->currentChunk = this->adaptationLogic->getNextChunk();
+        }
+        catch(EOFException &e)
+        {
+            return 0;
+        }
     }
-    catch(EOFException &e)
-    {
-    return 0;
-    }
-  }
 
-  int ret = this->conManager->peek(this->currentChunk, pp_peek, i_peek);
-  return ret;
+    int ret = this->conManager->peek(this->currentChunk, pp_peek, i_peek);
+    return ret;
 }

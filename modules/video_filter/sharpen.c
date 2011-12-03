@@ -5,7 +5,7 @@
  * $Id: f876c9b061248f51ce509ba00d0d4449b7ed67a7 $
  *
  * Author: Jérémy DEMEULE <dj_mulder at djduron dot no-ip dot org>
- *   Jean-Baptiste Kempf <jb at videolan dot org>
+ *         Jean-Baptiste Kempf <jb at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 /* The sharpen filter. */
 /*
  * static int filter[] = { -1, -1, -1,
- *         -1,  8, -1,
- *         -1, -1, -1 };
+ *                         -1,  8, -1,
+ *                         -1, -1, -1 };
  */
 
 /*****************************************************************************
@@ -49,12 +49,12 @@
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-static int  Create  ( vlc_object_t * );
-static void Destroy ( vlc_object_t * );
+static int  Create    ( vlc_object_t * );
+static void Destroy   ( vlc_object_t * );
 
 static picture_t *Filter( filter_t *, picture_t * );
 static int SharpenCallback( vlc_object_t *, char const *,
-          vlc_value_t, vlc_value_t, void * );
+                            vlc_value_t, vlc_value_t, void * );
 
 #define SHARPEN_HELP N_("Augment contrast between contours.")
 #define FILTER_PREFIX "sharpen-"
@@ -63,20 +63,20 @@ static int SharpenCallback( vlc_object_t *, char const *,
  * Module descriptor
  *****************************************************************************/
 vlc_module_begin ()
-  set_description( N_("Sharpen video filter") )
-  set_shortname( N_("Sharpen") )
-  set_help(SHARPEN_HELP)
-  set_category( CAT_VIDEO )
-  set_subcategory( SUBCAT_VIDEO_VFILTER )
-  set_capability( "video filter2", 0 )
-  add_float_with_range( "sharpen-sigma", 0.05, 0.0, 2.0,
-    SIG_TEXT, SIG_LONGTEXT, false )
-  add_shortcut( "sharpen" )
-  set_callbacks( Create, Destroy )
+    set_description( N_("Sharpen video filter") )
+    set_shortname( N_("Sharpen") )
+    set_help(SHARPEN_HELP)
+    set_category( CAT_VIDEO )
+    set_subcategory( SUBCAT_VIDEO_VFILTER )
+    set_capability( "video filter2", 0 )
+    add_float_with_range( "sharpen-sigma", 0.05, 0.0, 2.0,
+        SIG_TEXT, SIG_LONGTEXT, false )
+    add_shortcut( "sharpen" )
+    set_callbacks( Create, Destroy )
 vlc_module_end ()
 
 static const char *const ppsz_filter_options[] = {
-  "sigma", NULL
+    "sigma", NULL
 };
 
 /*****************************************************************************
@@ -86,10 +86,10 @@ static const char *const ppsz_filter_options[] = {
  * It describes the Sharpen specific properties of an output thread.
  *****************************************************************************/
 
-struct filter_sys_
+struct filter_sys_t
 {
-  vlc_mutex_t lock;
-  int tab_precalc[512];
+    vlc_mutex_t lock;
+    int tab_precalc[512];
 };
 
 /*****************************************************************************
@@ -97,15 +97,15 @@ struct filter_sys_
  *****************************************************************************/
 inline static int32_t clip( int32_t a )
 {
-  return (a > 255) ? 255 : (a < 0) ? 0 : a;
+    return (a > 255) ? 255 : (a < 0) ? 0 : a;
 }
 
 static void init_precalc_table(filter_sys_t *p_filter, float sigma)
 {
-  for(int i = 0; i < 512; ++i)
-  {
-    p_filter->tab_precalc[i] = (i - 256) * sigma;
-  }
+    for(int i = 0; i < 512; ++i)
+    {
+        p_filter->tab_precalc[i] = (i - 256) * sigma;
+    }
 }
 
 /*****************************************************************************
@@ -115,26 +115,26 @@ static void init_precalc_table(filter_sys_t *p_filter, float sigma)
  *****************************************************************************/
 static int Create( vlc_object_t *p_this )
 {
-  filter_t *p_filter = (filter_t *)p_this;
+    filter_t *p_filter = (filter_t *)p_this;
 
-  /* Allocate structure */
-  p_filter->p_sys = malloc( sizeof( filter_sys_t ) );
-  if( p_filter->p_sys == NULL )
-    return VLC_ENOMEM;
+    /* Allocate structure */
+    p_filter->p_sys = malloc( sizeof( filter_sys_t ) );
+    if( p_filter->p_sys == NULL )
+        return VLC_ENOMEM;
 
-  p_filter->pf_video_filter = Filter;
+    p_filter->pf_video_filter = Filter;
 
-  config_ChainParse( p_filter, FILTER_PREFIX, ppsz_filter_options,
-       p_filter->p_cfg );
+    config_ChainParse( p_filter, FILTER_PREFIX, ppsz_filter_options,
+                   p_filter->p_cfg );
 
-  float sigma = var_CreateGetFloatCommand( p_filter, FILTER_PREFIX "sigma" );
-  init_precalc_table(p_filter->p_sys, sigma);
+    float sigma = var_CreateGetFloatCommand( p_filter, FILTER_PREFIX "sigma" );
+    init_precalc_table(p_filter->p_sys, sigma);
 
-  vlc_mutex_init( &p_filter->p_sys->lock );
-  var_AddCallback( p_filter, FILTER_PREFIX "sigma",
-       SharpenCallback, p_filter->p_sys );
+    vlc_mutex_init( &p_filter->p_sys->lock );
+    var_AddCallback( p_filter, FILTER_PREFIX "sigma",
+                     SharpenCallback, p_filter->p_sys );
 
-  return VLC_SUCCESS;
+    return VLC_SUCCESS;
 }
 
 
@@ -145,98 +145,98 @@ static int Create( vlc_object_t *p_this )
  *****************************************************************************/
 static void Destroy( vlc_object_t *p_this )
 {
-  filter_t *p_filter = (filter_t *)p_this;
-  filter_sys_t *p_sys = p_filter->p_sys;
+    filter_t *p_filter = (filter_t *)p_this;
+    filter_sys_t *p_sys = p_filter->p_sys;
 
-  var_DelCallback( p_filter, FILTER_PREFIX "sigma", SharpenCallback, p_sys );
-  vlc_mutex_destroy( &p_sys->lock );
-  free( p_sys );
+    var_DelCallback( p_filter, FILTER_PREFIX "sigma", SharpenCallback, p_sys );
+    vlc_mutex_destroy( &p_sys->lock );
+    free( p_sys );
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************
  * This function send the currently rendered image to Invert image, waits
- * until it is displayed and switch the two rendering buffers, preparing nex
+ * until it is displayed and switch the two rendering buffers, preparing next
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
 {
-  picture_t *p_outpic;
-  int i, j;
-  uint8_t *p_src = NULL;
-  uint8_t *p_out = NULL;
-  int i_src_pitch;
-  int i_out_pitch;
-  int pix;
-  const int v1 = -1;
-  const int v2 = 3; /* 2^3 = 8 */
+    picture_t *p_outpic;
+    int i, j;
+    uint8_t *p_src = NULL;
+    uint8_t *p_out = NULL;
+    int i_src_pitch;
+    int i_out_pitch;
+    int pix;
+    const int v1 = -1;
+    const int v2 = 3; /* 2^3 = 8 */
 
-  if( !p_pic ) return NULL;
+    if( !p_pic ) return NULL;
 
-  p_outpic = filter_NewPicture( p_filter );
-  if( !p_outpic )
-  {
-    picture_Release( p_pic );
-    return NULL;
-  }
-
-  /* process the Y plane */
-  p_src = p_pic->p[Y_PLANE].p_pixels;
-  p_out = p_outpic->p[Y_PLANE].p_pixels;
-  i_src_pitch = p_pic->p[Y_PLANE].i_pitch;
-  i_out_pitch = p_outpic->p[Y_PLANE].i_pitch;
-
-  /* perform convolution only on Y plane. Avoid border line. */
-  vlc_mutex_lock( &p_filter->p_sys->lock );
-  for( i = 0; i < p_pic->p[Y_PLANE].i_visible_lines; i++ )
-  {
-    if( (i == 0) || (i == p_pic->p[Y_PLANE].i_visible_lines - 1) )
+    p_outpic = filter_NewPicture( p_filter );
+    if( !p_outpic )
     {
-    for( j = 0; j < p_pic->p[Y_PLANE].i_visible_pitch; j++ )
-      p_out[i * i_out_pitch + j] = clip( p_src[i * i_src_pitch + j] );
-    continue ;
-    }
-    for( j = 0; j < p_pic->p[Y_PLANE].i_visible_pitch; j++ )
-    {
-    if( (j == 0) || (j == p_pic->p[Y_PLANE].i_visible_pitch - 1) )
-    {
-      p_out[i * i_out_pitch + j] = p_src[i * i_src_pitch + j];
-      continue ;
+        picture_Release( p_pic );
+        return NULL;
     }
 
-    pix = (p_src[(i - 1) * i_src_pitch + j - 1] * v1) +
-      (p_src[(i - 1) * i_src_pitch + j  ] * v1) +
-      (p_src[(i - 1) * i_src_pitch + j + 1] * v1) +
-      (p_src[(i  ) * i_src_pitch + j - 1] * v1) +
-      (p_src[(i  ) * i_src_pitch + j  ] << v2) +
-      (p_src[(i  ) * i_src_pitch + j + 1] * v1) +
-      (p_src[(i + 1) * i_src_pitch + j - 1] * v1) +
-      (p_src[(i + 1) * i_src_pitch + j  ] * v1) +
-      (p_src[(i + 1) * i_src_pitch + j + 1] * v1);
+    /* process the Y plane */
+    p_src = p_pic->p[Y_PLANE].p_pixels;
+    p_out = p_outpic->p[Y_PLANE].p_pixels;
+    i_src_pitch = p_pic->p[Y_PLANE].i_pitch;
+    i_out_pitch = p_outpic->p[Y_PLANE].i_pitch;
 
-     pix = pix >= 0 ? clip(pix) : -clip(pix * -1);
-     p_out[i * i_out_pitch + j] = clip( p_src[i * i_src_pitch + j] +
-     p_filter->p_sys->tab_precalc[pix + 256] );
+    /* perform convolution only on Y plane. Avoid border line. */
+    vlc_mutex_lock( &p_filter->p_sys->lock );
+    for( i = 0; i < p_pic->p[Y_PLANE].i_visible_lines; i++ )
+    {
+        if( (i == 0) || (i == p_pic->p[Y_PLANE].i_visible_lines - 1) )
+        {
+            for( j = 0; j < p_pic->p[Y_PLANE].i_visible_pitch; j++ )
+                p_out[i * i_out_pitch + j] = clip( p_src[i * i_src_pitch + j] );
+            continue ;
+        }
+        for( j = 0; j < p_pic->p[Y_PLANE].i_visible_pitch; j++ )
+        {
+            if( (j == 0) || (j == p_pic->p[Y_PLANE].i_visible_pitch - 1) )
+            {
+                p_out[i * i_out_pitch + j] = p_src[i * i_src_pitch + j];
+                continue ;
+            }
+
+            pix = (p_src[(i - 1) * i_src_pitch + j - 1] * v1) +
+                  (p_src[(i - 1) * i_src_pitch + j    ] * v1) +
+                  (p_src[(i - 1) * i_src_pitch + j + 1] * v1) +
+                  (p_src[(i    ) * i_src_pitch + j - 1] * v1) +
+                  (p_src[(i    ) * i_src_pitch + j    ] << v2) +
+                  (p_src[(i    ) * i_src_pitch + j + 1] * v1) +
+                  (p_src[(i + 1) * i_src_pitch + j - 1] * v1) +
+                  (p_src[(i + 1) * i_src_pitch + j    ] * v1) +
+                  (p_src[(i + 1) * i_src_pitch + j + 1] * v1);
+
+           pix = pix >= 0 ? clip(pix) : -clip(pix * -1);
+           p_out[i * i_out_pitch + j] = clip( p_src[i * i_src_pitch + j] +
+               p_filter->p_sys->tab_precalc[pix + 256] );
+        }
     }
-  }
-  vlc_mutex_unlock( &p_filter->p_sys->lock );
+    vlc_mutex_unlock( &p_filter->p_sys->lock );
 
-  plane_CopyPixels( &p_outpic->p[U_PLANE], &p_pic->p[U_PLANE] );
-  plane_CopyPixels( &p_outpic->p[V_PLANE], &p_pic->p[V_PLANE] );
+    plane_CopyPixels( &p_outpic->p[U_PLANE], &p_pic->p[U_PLANE] );
+    plane_CopyPixels( &p_outpic->p[V_PLANE], &p_pic->p[V_PLANE] );
 
-  return CopyInfoAndRelease( p_outpic, p_pic );
+    return CopyInfoAndRelease( p_outpic, p_pic );
 }
 
 static int SharpenCallback( vlc_object_t *p_this, char const *psz_var,
-          vlc_value_t oldval, vlc_value_t newval,
-          void *p_data )
+                            vlc_value_t oldval, vlc_value_t newval,
+                            void *p_data )
 {
-  VLC_UNUSED(p_this); VLC_UNUSED(oldval); VLC_UNUSED(psz_var);
-  filter_sys_t *p_sys = (filter_sys_t *)p_data;
+    VLC_UNUSED(p_this); VLC_UNUSED(oldval); VLC_UNUSED(psz_var);
+    filter_sys_t *p_sys = (filter_sys_t *)p_data;
 
-  vlc_mutex_lock( &p_sys->lock );
-  init_precalc_table( p_sys,  VLC_CLIP( newval.f_float, 0., 2. ) );
-  vlc_mutex_unlock( &p_sys->lock );
-  return VLC_SUCCESS;
+    vlc_mutex_lock( &p_sys->lock );
+    init_precalc_table( p_sys,  VLC_CLIP( newval.f_float, 0., 2. ) );
+    vlc_mutex_unlock( &p_sys->lock );
+    return VLC_SUCCESS;
 }

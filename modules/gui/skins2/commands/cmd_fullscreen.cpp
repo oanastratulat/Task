@@ -4,8 +4,8 @@
  * Copyright (C) 2003-2009 the VideoLAN team
  * $Id: a2ef8f9b386a5e8a636fa499ae4e62f7f870fb08 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,15 +30,15 @@
 
 void CmdFullscreen::execute()
 {
-  bool fs = var_ToggleBool( pl_Get( getIntf() ), "fullscreen" );
+    bool fs = var_ToggleBool( pl_Get( getIntf() ), "fullscreen" );
 
-  if( getIntf()->p_sys->p_input == NULL )
-    return;
-  vout_thread_t *pVout = input_GetVout( getIntf()->p_sys->p_input );
-  if( pVout )
-  {
-    // Switch fullscreen
-    var_SetBool( pVout, "fullscreen", fs );
-    vlc_object_release( pVout );
-  }
+    if( getIntf()->p_sys->p_input == NULL )
+        return;
+    vout_thread_t *pVout = input_GetVout( getIntf()->p_sys->p_input );
+    if( pVout )
+    {
+        // Switch fullscreen
+        var_SetBool( pVout, "fullscreen", fs );
+        vlc_object_release( pVout );
+    }
 }

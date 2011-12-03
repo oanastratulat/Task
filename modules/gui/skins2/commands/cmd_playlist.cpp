@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: e0f223d34b5f6a6025b0de68c31385919852d3d4 $
  *
- * Authors: Cyril Deguet   <asmax@via.ecp.fr>
- *    Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ *          Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,81 +29,81 @@
 
 void CmdPlaylistDel::execute()
 {
-  m_rList.delSelected();
+    m_rList.delSelected();
 }
 
 void CmdPlaylistNext::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-    playlist_Next( pPlaylist );
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
+        playlist_Next( pPlaylist );
 }
 
 
 void CmdPlaylistPrevious::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-    playlist_Prev( pPlaylist );
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
+        playlist_Prev( pPlaylist );
 }
 
 
 void CmdPlaylistRandom::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-    var_SetBool( pPlaylist , "random", m_value );
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
+        var_SetBool( pPlaylist , "random", m_value );
 }
 
 
 void CmdPlaylistLoop::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-    var_SetBool( pPlaylist , "loop", m_value );
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
+        var_SetBool( pPlaylist , "loop", m_value );
 }
 
 
 void CmdPlaylistRepeat::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-    var_SetBool( pPlaylist , "repeat", m_value );
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
+        var_SetBool( pPlaylist , "repeat", m_value );
 }
 
 
 void CmdPlaylistLoad::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-    playlist_Import( pPlaylist, m_file.c_str() );
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
+        playlist_Import( pPlaylist, m_file.c_str() );
 }
 
 
 void CmdPlaylistSave::execute()
 {
-  playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
-  if( pPlaylist != NULL )
-  {
-    const char *psz_module;
-    if( m_file.find( ".xsp", 0 ) != string::npos )
-    psz_module = "export-xspf";
-    else if( m_file.find( "m3u", 0 ) != string::npos )
-    psz_module = "export-m3u";
-    else if( m_file.find( "html", 0 ) != string::npos )
-    psz_module = "export-html";
-    else
+    playlist_t *pPlaylist = getIntf()->p_sys->p_playlist;
+    if( pPlaylist != NULL )
     {
-    msg_Err(getIntf(),"Did not recognise playlist export file type");
-    return;
-    }
+        const char *psz_module;
+        if( m_file.find( ".xsp", 0 ) != string::npos )
+            psz_module = "export-xspf";
+        else if( m_file.find( "m3u", 0 ) != string::npos )
+            psz_module = "export-m3u";
+        else if( m_file.find( "html", 0 ) != string::npos )
+            psz_module = "export-html";
+        else
+        {
+            msg_Err(getIntf(),"Did not recognise playlist export file type");
+            return;
+        }
 
-    playlist_Export( pPlaylist, m_file.c_str(),
-         pPlaylist->p_local_category, psz_module );
-  }
+        playlist_Export( pPlaylist, m_file.c_str(),
+                         pPlaylist->p_local_category, psz_module );
+    }
 }
 
 void CmdPlaylistFirst::execute()
 {
-  playlist_Control(getIntf()->p_sys->p_playlist,PLAYLIST_PLAY,pl_Unlocked);
+    playlist_Control(getIntf()->p_sys->p_playlist,PLAYLIST_PLAY,pl_Unlocked);
 }

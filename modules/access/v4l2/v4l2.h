@@ -21,11 +21,11 @@
 #include <vlc_common.h>
 
 #if defined(HAVE_LINUX_VIDEODEV2_H)
-# include <linux/videodev2.h>
+#   include <linux/videodev2.h>
 #elif defined(HAVE_SYS_VIDEOIO_H)
-# include <sys/videoio.h>
+#   include <sys/videoio.h>
 #else
-# error "No Video4Linux2 headers found."
+#   error "No Video4Linux2 headers found."
 #endif
 
 /* Hacks to compile with old headers */
@@ -59,55 +59,55 @@
 #endif
 
 #ifdef HAVE_LIBV4L2
-# include <libv4l2.h>
+#   include <libv4l2.h>
 #else
-# define v4l2_close close
-# define v4l2_dup dup
-# define v4l2_ioctl ioctl
-# define v4l2_read read
-# define v4l2_mmap mmap
-# define v4l2_munmap munmap
+#   define v4l2_close close
+#   define v4l2_dup dup
+#   define v4l2_ioctl ioctl
+#   define v4l2_read read
+#   define v4l2_mmap mmap
+#   define v4l2_munmap munmap
 #endif
 
 #define CFG_PREFIX "v4l2-"
 
 /* TODO: remove this, use callbacks */
 typedef enum {
-  IO_METHOD_READ=1,
-  IO_METHOD_MMAP,
-  IO_METHOD_USERPTR,
+    IO_METHOD_READ=1,
+    IO_METHOD_MMAP,
+    IO_METHOD_USERPTR,
 } io_method;
 
 typedef struct vlc_v4l2_ctrl vlc_v4l2_ctrl_t;
 
 /* TODO: move this to access.c and demux.c (separately) */
-struct demux_sys_
+struct demux_sys_t
 {
-  int  i_fd;
+    int  i_fd;
 
-  /* Video */
-  io_method io;
+    /* Video */
+    io_method io;
 
-  struct buffer_t *p_buffers;
-  unsigned int i_nbuffers;
+    struct buffer_t *p_buffers;
+    unsigned int i_nbuffers;
 #define blocksize i_nbuffers /* HACK HACK */
 
-  int i_fourcc;
-  uint32_t i_block_flags;
+    int i_fourcc;
+    uint32_t i_block_flags;
 
-  es_out_id_t *p_es;
+    es_out_id_t *p_es;
 
-  vlc_v4l2_ctrl_t *controls;
+    vlc_v4l2_ctrl_t *controls;
 
 #ifdef HAVE_LIBV4L2
-  bool b_libv4l2;
+    bool b_libv4l2;
 #endif
 };
 
-struct buffer_
+struct buffer_t
 {
-  void *  start;
-  size_t  length;
+    void *  start;
+    size_t  length;
 };
 
 /* video.c */
@@ -120,7 +120,7 @@ int DemuxOpen(vlc_object_t *);
 void DemuxClose(vlc_object_t *);
 float GetAbsoluteMaxFrameRate(vlc_object_t *, int fd, uint32_t fmt);
 void GetMaxDimensions(vlc_object_t *, int fd, uint32_t fmt, float fps_min,
-        uint32_t *pwidth, uint32_t *pheight);
+                      uint32_t *pwidth, uint32_t *pheight);
 
 /* access.c */
 int AccessOpen(vlc_object_t *);

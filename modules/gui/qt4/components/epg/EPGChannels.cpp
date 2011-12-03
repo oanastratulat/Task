@@ -28,54 +28,54 @@
 #include <QPaintEvent>
 
 EPGChannels::EPGChannels( QWidget *parent, EPGView *m_epgView )
-  : QWidget( parent ), m_epgView( m_epgView ), m_offset( 0 )
+    : QWidget( parent ), m_epgView( m_epgView ), m_offset( 0 )
 {
-  setContentsMargins( 0, 0, 0, 0 );
+    setContentsMargins( 0, 0, 0, 0 );
 }
 
 void EPGChannels::setOffset( int offset )
 {
-  m_offset = offset;
-  update();
+    m_offset = offset;
+    update();
 }
 
 void EPGChannels::addChannel( QString channelName )
 {
-  if ( !channelList.contains( channelName ) )
-  {
-    channelList << channelName;
-    channelList.sort();
-    update();
-  }
+    if ( !channelList.contains( channelName ) )
+    {
+        channelList << channelName;
+        channelList.sort();
+        update();
+    }
 }
 
 void EPGChannels::removeChannel( QString channelName )
 {
-  if ( channelList.removeOne( channelName ) ) update();
+    if ( channelList.removeOne( channelName ) ) update();
 }
 
 void EPGChannels::paintEvent( QPaintEvent *event )
 {
-  Q_UNUSED( event );
+    Q_UNUSED( event );
 
-  QPainter p( this );
+    QPainter p( this );
 
-  /* Draw the top and the bottom lines. */
-  p.drawLine( 0, 0, width() - 1, 0 );
+    /* Draw the top and the bottom lines. */
+    p.drawLine( 0, 0, width() - 1, 0 );
 
-  unsigned int i=0;
-  foreach( QString text, channelList )
-  {
-    /* try to remove the " [Program xxx]" end */
-    int i_idx_channel = text.lastIndexOf(" [");
-    if (i_idx_channel > 0)
-    text = text.left( i_idx_channel );
+    unsigned int i=0;
+    foreach( QString text, channelList )
+    {
+        /* try to remove the " [Program xxx]" end */
+        int i_idx_channel = text.lastIndexOf(" [");
+        if (i_idx_channel > 0)
+            text = text.left( i_idx_channel );
 
-    p.drawText( 0, - m_offset + ( i++ + 0.5 ) * TRACKS_HEIGHT - 4,
-        width(), 20, Qt::AlignLeft, text );
+        p.drawText( 0, - m_offset + ( i++ + 0.5 ) * TRACKS_HEIGHT - 4,
+                    width(), 20, Qt::AlignLeft, text );
 
-    int i_width = fontMetrics().width( text );
-    if( width() < i_width )
-    setMinimumWidth( i_width );
-  }
+        int i_width = fontMetrics().width( text );
+        if( width() < i_width )
+            setMinimumWidth( i_width );
+    }
 }

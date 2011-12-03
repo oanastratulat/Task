@@ -23,12 +23,12 @@
 
 /* ffmpeg header */
 #if defined(HAVE_LIBAVFORMAT_AVFORMAT_H)
-# include <libavformat/avformat.h>
-# if defined(HAVE_LIBAVFORMAT_AVIO_H)
-#  include <libavformat/avio.h>
-# endif
+#   include <libavformat/avformat.h>
+#   if defined(HAVE_LIBAVFORMAT_AVIO_H)
+#      include <libavformat/avio.h>
+#   endif
 #elif defined(HAVE_FFMPEG_AVFORMAT_H)
-# include <ffmpeg/avformat.h>
+#   include <ffmpeg/avformat.h>
 #endif
 int  OpenAvio (vlc_object_t *);
 void CloseAvio(vlc_object_t *);
@@ -36,18 +36,18 @@ int  OutOpenAvio (vlc_object_t *);
 void OutCloseAvio(vlc_object_t *);
 
 #define AVIO_MODULE \
-  set_shortname(N_("FFmpeg"))     \
-  set_description(N_("FFmpeg access") ) \
-  set_category(CAT_INPUT)       \
-  set_subcategory(SUBCAT_INPUT_ACCESS)  \
-  set_capability("access", -1)    \
-  add_shortcut("avio", "rtmp")    \
-  set_callbacks(OpenAvio, CloseAvio) \
-  add_submodule () \
-    set_shortname( "libavformat" ) \
-    set_description( N_("libavformat access output") ) \
-    set_capability( "sout access", -1 ) \
-    set_category( CAT_SOUT ) \
-    set_subcategory( SUBCAT_SOUT_ACO ) \
-    add_shortcut( "avio", "rtmp" ) \
-    set_callbacks( OutOpenAvio, OutCloseAvio)
+    set_shortname(N_("FFmpeg"))             \
+    set_description(N_("FFmpeg access") )   \
+    set_category(CAT_INPUT)                 \
+    set_subcategory(SUBCAT_INPUT_ACCESS)    \
+    set_capability("access", -1)            \
+    add_shortcut("avio", "rtmp")            \
+    set_callbacks(OpenAvio, CloseAvio) \
+    add_submodule () \
+        set_shortname( "libavformat" ) \
+        set_description( N_("libavformat access output") ) \
+        set_capability( "sout access", -1 ) \
+        set_category( CAT_SOUT ) \
+        set_subcategory( SUBCAT_SOUT_ACO ) \
+        add_shortcut( "avio", "rtmp" ) \
+        set_callbacks( OutOpenAvio, OutCloseAvio)
