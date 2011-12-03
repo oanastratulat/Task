@@ -1,0 +1,235 @@
+root { 
+    display: block;
+}
+body{
+}
+
+#mainContainer{
+	text-align: center;
+	width: 800px;
+}
+#controlContainer{
+	width: 800px;
+}
+#libraryContainer{
+	width: 800px;
+}
+#libraryTree{
+	height: 300px;
+	overflow:scroll;
+	white-space: nowrap;
+	text-align: left;
+}
+#viewContainer{
+	width: 800px;
+}
+#mediaViewer{
+	min-height: 500px;
+}
+#player{
+	height: 500px;
+	width: 500px;
+}
+#seekSlider{
+	width: 98%;
+	margin-left:10px;
+}
+#volumeSlider{
+	width: 100px;
+	display: inline-block;
+}
+#currentVolume{
+	display: inline-block;
+}
+
+#mediaTitle{
+	overflow: hidden;
+	padding: 5px;
+}
+
+#regular_layout #mediaTitle{
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	width: 500px;
+	text-align: left;
+}
+
+#mobile_layout #mediaTitle{
+}
+
+#currentTime{
+	float: left;
+	text-align: left;
+}
+#totalTime{
+	float: right;
+	text-align: right;
+}
+#controlTable{
+	position:relative;
+	height: 150px;
+}
+
+
+#controlButtons{
+	text-align: left;
+	width: 380px;
+}
+
+/* div layout */
+#regular_layout #controlButtons{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0;
+	margin: 0;
+}
+
+/* still on table layout */
+#mobile_layout #controlButtons{
+}
+
+#buttonszone{
+	position: absolute;
+	top: 5px;
+	left: 388px;
+	width: 42px;
+	vertical-align: top;
+	margin: 0;
+	padding: 0;
+}
+#buttonszone li{
+	float: left;
+}
+
+#volumesliderzone{
+	position: absolute;
+	top: 20px;
+	left: 435px;
+	width: 210px;
+}
+
+#volumeSlider{
+	width: 208px;
+}
+
+#artszone{
+	position: absolute;
+	top: 0;
+	left: 648px;
+	width: 150px;
+	height: 150px;
+	vertical-align: top;
+}
+
+#seekContainer{
+	position:absolute;
+	left: 0;
+	top: 100px;
+	width: 645px;
+	vertical-align: bottom;
+}
+
+.button48{
+	width: 48px;
+	height: 48px;
+	margin: 5px 0px 5px 2px;
+	background: none;
+	border: none;
+	display: inline-block;
+	cursor: pointer;
+	background-image: url("../images/buttons.png");
+	background-repeat: no-repeat;
+}
+.button48:hover{
+	filter: alpha(opacity:0.5);
+	-ms-filter: "alpha(opacity=50)";
+	-khtml-opacity: 0.50;
+	-moz-opacity: 0.5;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.button{
+	cursor: pointer;
+	display: inline-block;
+}
+#buttonOpen{
+	background-position: 0px 0px;
+}
+#buttonStop{
+	background-position: -576px 0px;
+}
+.playing {
+	background-position: -336px 0px;
+}
+.paused {
+	background-position: -384px 0px;
+}
+#buttonPrev{
+	background-position: -144px 0px;
+}
+#buttonNext{
+	background-position: -288px 0px;
+}
+#buttonFull{
+	background-position: -192px 0px;
+}
+#buttonSout{
+	background-position: -624px 0px;
+}
+#buttonEQ{
+	background-position: -48px 0px;
+}
+#window_browse ol{
+	list-style-type: none;
+}
+#window_browse ol li{
+	list-style-type: none;
+	float: left;
+	padding: 5px;
+}
+.system_icon{
+	width:80px;
+	text-align:center;
+	vertical-align:top;
+	display: inline-block;
+	cursor: pointer;
+	padding: 2px;
+	border: 1px solid #823D0A;
+	margin: 2px;
+	height: 92px;
+	background-color: #E1E1E1;
+	overflow: hidden;
+}
+#window_create_stream table tr td{
+	font-size: 11px;
+}
+
+#window_equalizer div div{
+	text-align: center;
+	font-size: 11px;
+	padding: 0px;
+}
+.eqBand{
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 400px;
+	font-size: 1.5em;
+}
+.footer{
+	margin-top: 30px;
+	text-align: center;
+	font-size: 11px;
+}
+
+div.centered{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.hidden{
+	visibility: hidden;
+	display: none;
+}
