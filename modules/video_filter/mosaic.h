@@ -5,7 +5,7 @@
  * $Id: 5e634fa10fbb64009866cc97050cb1f75bef85d0 $
  *
  * Authors: Antoine Cellerier <dionoea@videolan.org>
- *          Christophe Massiot <massiot@via.ecp.fr>
+ *    Christophe Massiot <massiot@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,38 +22,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-typedef struct bridged_es_t
+typedef struct bridged_es_
 {
-    es_format_t fmt;
-    picture_t *p_picture;
-    picture_t **pp_last;
-    bool b_empty;
-    char *psz_id;
+  es_format_t fmt;
+  picture_t *p_picture;
+  picture_t **pp_last;
+  bool b_empty;
+  char *psz_id;
 
-    int i_alpha;
-    int i_x;
-    int i_y;
+  int i_alpha;
+  int i_x;
+  int i_y;
 } bridged_es_t;
 
-typedef struct bridge_t
+typedef struct bridge_
 {
-    bridged_es_t **pp_es;
-    int i_es_num;
+  bridged_es_t **pp_es;
+  int i_es_num;
 } bridge_t;
 
 static bridge_t *GetBridge( vlc_object_t *p_object )
 {
-    vlc_object_t *p_libvlc = VLC_OBJECT( p_object->p_libvlc );
-    vlc_value_t val;
+  vlc_object_t *p_libvlc = VLC_OBJECT( p_object->p_libvlc );
+  vlc_value_t val;
 
-    if( var_Get( p_libvlc, "mosaic-struct", &val ) != VLC_SUCCESS )
-    {
-        return NULL;
-    }
-    else
-    {
-        return val.p_address;
-    }
+  if( var_Get( p_libvlc, "mosaic-struct", &val ) != VLC_SUCCESS )
+  {
+    return NULL;
+  }
+  else
+  {
+    return val.p_address;
+  }
 }
 #define GetBridge(a) GetBridge( VLC_OBJECT(a) )
 

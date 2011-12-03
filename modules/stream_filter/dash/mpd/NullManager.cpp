@@ -5,7 +5,7 @@
  *
  * Created on: Apr 20, 2011
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -29,27 +29,27 @@
 
 using namespace dash::mpd;
 
-const std::vector<Period *>&   NullManager::getPeriods              () const
+const std::vector<Period *>& NullManager::getPeriods      () cons
 {
-    return this->periods;
+  return this->periods;
 }
-Period*                 NullManager::getFirstPeriod          ()
+Period*       NullManager::getFirstPeriod    ()
 {
-    return NULL;
+  return NULL;
 }
-Period*                 NullManager::getNextPeriod           (Period *)
+Period*       NullManager::getNextPeriod     (Period *)
 {
-    return NULL;
+  return NULL;
 }
-Representation*         NullManager::getBestRepresentation   (Period *)
+Representation*   NullManager::getBestRepresentation (Period *)
 {
-    return NULL;
+  return NULL;
 }
-std::vector<ISegment *> NullManager::getSegments             (Representation *)
+std::vector<ISegment *> NullManager::getSegments     (Representation *)
 {
-    return this->segments;
+  return this->segments;
 }
-Representation*         NullManager::getRepresentation       (Period *, long )
+Representation*   NullManager::getRepresentation   (Period *, long )
 {
-    return NULL;
+  return NULL;
 }

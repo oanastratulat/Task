@@ -1,5 +1,5 @@
 /*****************************************************************************
- * applescript.h: MacOS X AppleScript support
+ * applescript.h: MacOS X AppleScript suppor
  *****************************************************************************
  * Copyright (C) 2002-2003, 2005, 2007 VLC authors and VideoLAN
  * $Id: 990d44990e6ee3ded040782410a2586684fb7543 $

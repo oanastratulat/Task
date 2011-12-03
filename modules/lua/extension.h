@@ -31,68 +31,68 @@
 /* List of available commands */
 typedef enum
 {
-    CMD_ACTIVATE = 1,
-    CMD_DEACTIVATE,
-    CMD_TRIGGERMENU,    /* Arg1 = int*, pointing to id to trigger. free */
-    CMD_CLICK,          /* Arg1 = extension_widget_t* */
-    CMD_CLOSE,
-    CMD_SET_INPUT,      /* No arg. Just signal current input changed */
-    CMD_UPDATE_META,    /* No arg. Just signal current input item meta changed */
-    CMD_PLAYING_CHANGED /* Arg1 = int*, New playing status  */
+  CMD_ACTIVATE = 1,
+  CMD_DEACTIVATE,
+  CMD_TRIGGERMENU,  /* Arg1 = int*, pointing to id to trigger. free */
+  CMD_CLICK,    /* Arg1 = extension_widget_t* */
+  CMD_CLOSE,
+  CMD_SET_INPUT,  /* No arg. Just signal current input changed */
+  CMD_UPDATE_META,  /* No arg. Just signal current input item meta changed */
+  CMD_PLAYING_CHANGED /* Arg1 = int*, New playing status  */
 } command_type_e;
 
 //Data types
 typedef enum
 {
-    LUA_END = 0,
-    LUA_NUM,
-    LUA_TEXT
+  LUA_END = 0,
+  LUA_NUM,
+  LUA_TEXT
 } lua_datatype_e;
 
-struct extensions_manager_sys_t
+struct extensions_manager_sys_
 {
-    /* List of activated extensions */
-    DECL_ARRAY( extension_t* ) activated_extensions;
+  /* List of activated extensions */
+  DECL_ARRAY( extension_t* ) activated_extensions;
 
-    /* Lock for this list */
-    vlc_mutex_t lock;
+  /* Lock for this list */
+  vlc_mutex_t lock;
 
-    /* Flag indicating that the module is about to be unloaded */
-    bool b_killed;
+  /* Flag indicating that the module is about to be unloaded */
+  bool b_killed;
 };
 
-struct extension_sys_t
+struct extension_sys_
 {
-    /* Extension general */
-    int i_capabilities;
+  /* Extension general */
+  int i_capabilities;
 
-    /* Lua specific */
-    lua_State *L;
+  /* Lua specific */
+  lua_State *L;
 
-    /* Thread data */
-    vlc_thread_t thread;
-    vlc_mutex_t command_lock;
-    vlc_mutex_t running_lock;
-    vlc_cond_t wait;
+  /* Thread data */
+  vlc_thread_t thread;
+  vlc_mutex_t command_lock;
+  vlc_mutex_t running_lock;
+  vlc_cond_t wait;
 
-    /* The input this extension should use for vlc.input
-     * or NULL if it should use playlist's current input */
-    struct input_thread_t *p_input;
+  /* The input this extension should use for vlc.inpu
+   * or NULL if it should use playlist's current input */
+  struct input_thread_t *p_input;
 
-    extensions_manager_t *p_mgr;     ///< Parent
-    /* Queue of commands to execute */
-    struct command_t
-    {
-        command_type_e i_command;
-        void *data[10];         ///< Optional void* arguments
-        struct command_t *next; ///< Next command
-    } *command;
+  extensions_manager_t *p_mgr;   ///< Paren
+  /* Queue of commands to execute */
+  struct command_
+  {
+    command_type_e i_command;
+    void *data[10];   ///< Optional void* arguments
+    struct command_t *next; ///< Next command
+  } *command;
 
-    // The two following booleans are protected by command_lock
-    dialog_progress_bar_t *progress;
-    vlc_timer_t timer; ///< This timer makes sure Lua never gets stuck >5s
+  // The two following booleans are protected by command_lock
+  dialog_progress_bar_t *progress;
+  vlc_timer_t timer; ///< This timer makes sure Lua never gets stuck >5s
 
-    bool b_exiting;
+  bool b_exiting;
 };
 
 /* Extensions: manager functions */
@@ -103,19 +103,19 @@ void KillExtension( extensions_manager_t *p_mgr, extension_t *p_ext );
 int __PushCommand( extension_t *ext, bool unique, command_type_e cmd, va_list options );
 static inline int PushCommand( extension_t *ext, int cmd, ... )
 {
-    va_list args;
-    va_start( args, cmd );
-    int i_ret = __PushCommand( ext, false, cmd, args );
-    va_end( args );
-    return i_ret;
+  va_list args;
+  va_start( args, cmd );
+  int i_ret = __PushCommand( ext, false, cmd, args );
+  va_end( args );
+  return i_ret;
 }
 static inline int PushCommandUnique( extension_t *ext, int cmd, ... )
 {
-    va_list args;
-    va_start( args, cmd );
-    int i_ret = __PushCommand( ext, true, cmd, args );
-    va_end( args );
-    return i_ret;
+  va_list args;
+  va_start( args, cmd );
+  int i_ret = __PushCommand( ext, true, cmd, args );
+  va_end( args );
+  return i_ret;
 }
 bool LockExtension( extension_t *p_ext );
 void UnlockExtension( extension_t *p_ext );
@@ -126,14 +126,14 @@ extension_t *vlclua_extension_get( lua_State *L );
 int lua_ExtensionActivate( extensions_manager_t *, extension_t * );
 int lua_ExtensionDeactivate( extensions_manager_t *, extension_t * );
 int lua_ExecuteFunctionVa( extensions_manager_t *p_mgr, extension_t *p_ext,
-                            const char *psz_function, va_list args );
+          const char *psz_function, va_list args );
 int lua_ExecuteFunction( extensions_manager_t *p_mgr, extension_t *p_ext,
-                         const char *psz_function, ... );
+         const char *psz_function, ... );
 int lua_ExtensionWidgetClick( extensions_manager_t *p_mgr,
-                              extension_t *p_ext,
-                              extension_widget_t *p_widget );
+          extension_t *p_ext,
+          extension_widget_t *p_widget );
 int lua_ExtensionTriggerMenu( extensions_manager_t *p_mgr,
-                              extension_t *p_ext, int id );
+          extension_t *p_ext, int id );
 
 /* Dialog specific */
 int lua_DialogFlush( lua_State *L );

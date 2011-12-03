@@ -59,9 +59,9 @@ description:The now infamous Apple Macintosh commercial aired during the 1984 Su
 
 #define MAX_LINE 1024
 
-struct demux_sys_t
+struct demux_sys_
 {
-    input_item_t *p_current_input;
+  input_item_t *p_current_input;
 };
 
 /*****************************************************************************
@@ -75,32 +75,32 @@ static int Control( demux_t *p_demux, int i_query, va_list args );
  *****************************************************************************/
 int Import_GVP( vlc_object_t *p_this )
 {
-    demux_t *p_demux = (demux_t *)p_this;
-    int i_peek, i, b_found = false;
-    const uint8_t *p_peek;
+  demux_t *p_demux = (demux_t *)p_this;
+  int i_peek, i, b_found = false;
+  const uint8_t *p_peek;
 
-    i_peek = stream_Peek( p_demux->s, &p_peek, MAX_LINE );
+  i_peek = stream_Peek( p_demux->s, &p_peek, MAX_LINE );
 
-    for( i = 0; i < i_peek - (int)sizeof("gvp_version:"); i++ )
+  for( i = 0; i < i_peek - (int)sizeof("gvp_version:"); i++ )
+  {
+    if( p_peek[i] == 'g' && p_peek[i+1] == 'v' && p_peek[i+2] == 'p' &&
+    !memcmp( p_peek+i, "gvp_version:", sizeof("gvp_version:") - 1 ) )
     {
-        if( p_peek[i] == 'g' && p_peek[i+1] == 'v' && p_peek[i+2] == 'p' &&
-            !memcmp( p_peek+i, "gvp_version:", sizeof("gvp_version:") - 1 ) )
-        {
-            b_found = true;
-            break;
-        }
+    b_found = true;
+    break;
     }
+  }
 
-    if( !b_found ) return VLC_EGENERIC;
+  if( !b_found ) return VLC_EGENERIC;
 
-    STANDARD_DEMUX_INIT_MSG(  "using Google Video Playlist (gvp) import" );
-    p_demux->pf_control = Control;
-    p_demux->pf_demux = Demux;
-    p_demux->p_sys = malloc( sizeof( demux_sys_t ) );
-    if( !p_demux->p_sys )
-        return VLC_ENOMEM;
+  STANDARD_DEMUX_INIT_MSG(  "using Google Video Playlist (gvp) import" );
+  p_demux->pf_control = Control;
+  p_demux->pf_demux = Demux;
+  p_demux->p_sys = malloc( sizeof( demux_sys_t ) );
+  if( !p_demux->p_sys )
+    return VLC_ENOMEM;
 
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -108,127 +108,127 @@ int Import_GVP( vlc_object_t *p_this )
  *****************************************************************************/
 void Close_GVP( vlc_object_t *p_this )
 {
-    demux_t *p_demux = (demux_t *)p_this;
-    demux_sys_t *p_sys = p_demux->p_sys;
+  demux_t *p_demux = (demux_t *)p_this;
+  demux_sys_t *p_sys = p_demux->p_sys;
 
-    free( p_sys );
+  free( p_sys );
 }
 
 static int Demux( demux_t *p_demux )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
+  demux_sys_t *p_sys = p_demux->p_sys;
 
-    char *psz_line;
-    char *psz_attrvalue;
+  char *psz_line;
+  char *psz_attrvalue;
 
-    char *psz_version = NULL;
-    char *psz_url = NULL;
-    char *psz_docid = NULL;
-    int i_duration = -1;
-    char *psz_title = NULL;
-    char *psz_description = NULL;
-    input_item_t *p_input;
+  char *psz_version = NULL;
+  char *psz_url = NULL;
+  char *psz_docid = NULL;
+  int i_duration = -1;
+  char *psz_title = NULL;
+  char *psz_description = NULL;
+  input_item_t *p_input;
 
-    input_item_t *p_current_input = GetCurrentItem(p_demux);
+  input_item_t *p_current_input = GetCurrentItem(p_demux);
 
-    input_item_node_t *p_subitems = input_item_node_Create( p_current_input );
+  input_item_node_t *p_subitems = input_item_node_Create( p_current_input );
 
-    p_sys->p_current_input = p_current_input;
+  p_sys->p_current_input = p_current_input;
 
-    while( ( psz_line = stream_ReadLine( p_demux->s ) ) )
+  while( ( psz_line = stream_ReadLine( p_demux->s ) ) )
+  {
+    if( *psz_line == '#' )
     {
-        if( *psz_line == '#' )
-        {
-            /* This is a comment */
-            free( psz_line );
-            continue;
-        }
-        psz_attrvalue = strchr( psz_line, ':' );
-        if( !psz_attrvalue )
-        {
-            msg_Dbg( p_demux, "Unable to parse line (%s)", psz_line );
-            free( psz_line );
-            continue;
-        }
-        *psz_attrvalue = '\0';
-        psz_attrvalue++;
-        if( !strcmp( psz_line, "gvp_version" ) )
-        {
-            psz_version = strdup( psz_attrvalue );
-        }
-        else if( !strcmp( psz_line, "url" ) )
-        {
-            psz_url = strdup( psz_attrvalue );
-        }
-        else if( !strcmp( psz_line, "docid" ) )
-        {
-            psz_docid = strdup( psz_attrvalue );
-        }
-        else if( !strcmp( psz_line, "duration" ) )
-        {
-            i_duration = atoi( psz_attrvalue );
-        }
-        else if( !strcmp( psz_line, "title" ) )
-        {
-            psz_title = strdup( psz_attrvalue );
-        }
-        else if( !strcmp( psz_line, "description" ) )
-        {
-            char *buf;
-            if( !psz_description )
-            {
-                psz_description = strdup( psz_attrvalue );
-            }
-            else
-            {
-                /* handle multi-line descriptions */
-                if( asprintf( &buf, "%s\n%s", psz_description, psz_attrvalue ) == -1 )
-                    buf = NULL;
-                free( psz_description );
-                psz_description = buf;
-            }
-            /* remove ^M char at the end of the line (if any) */
-            buf = psz_description + strlen( psz_description );
-            if( buf != psz_description )
-            {
-                buf--;
-                if( *buf == '\r' ) *buf = '\0';
-            }
-        }
-        free( psz_line );
+    /* This is a comment */
+    free( psz_line );
+    continue;
     }
-
-    if( !psz_url )
+    psz_attrvalue = strchr( psz_line, ':' );
+    if( !psz_attrvalue )
     {
-        msg_Err( p_demux, "URL not found" );
+    msg_Dbg( p_demux, "Unable to parse line (%s)", psz_line );
+    free( psz_line );
+    continue;
+    }
+    *psz_attrvalue = '\0';
+    psz_attrvalue++;
+    if( !strcmp( psz_line, "gvp_version" ) )
+    {
+    psz_version = strdup( psz_attrvalue );
+    }
+    else if( !strcmp( psz_line, "url" ) )
+    {
+    psz_url = strdup( psz_attrvalue );
+    }
+    else if( !strcmp( psz_line, "docid" ) )
+    {
+    psz_docid = strdup( psz_attrvalue );
+    }
+    else if( !strcmp( psz_line, "duration" ) )
+    {
+    i_duration = atoi( psz_attrvalue );
+    }
+    else if( !strcmp( psz_line, "title" ) )
+    {
+    psz_title = strdup( psz_attrvalue );
+    }
+    else if( !strcmp( psz_line, "description" ) )
+    {
+    char *buf;
+    if( !psz_description )
+    {
+      psz_description = strdup( psz_attrvalue );
     }
     else
     {
-        p_input = input_item_New( psz_url, psz_title );
-#define SADD_INFO( type, field ) if( field ) { input_item_AddInfo( \
-                    p_input, _("Google Video"), type, "%s", field ) ; }
-        SADD_INFO( "gvp_version", psz_version );
-        SADD_INFO( "docid", psz_docid );
-        SADD_INFO( "description", psz_description );
-        input_item_node_AppendItem( p_subitems, p_input );
-        vlc_gc_decref( p_input );
+      /* handle multi-line descriptions */
+      if( asprintf( &buf, "%s\n%s", psz_description, psz_attrvalue ) == -1 )
+        buf = NULL;
+      free( psz_description );
+      psz_description = buf;
     }
+    /* remove ^M char at the end of the line (if any) */
+    buf = psz_description + strlen( psz_description );
+    if( buf != psz_description )
+    {
+      buf--;
+      if( *buf == '\r' ) *buf = '\0';
+    }
+    }
+    free( psz_line );
+  }
 
-    input_item_node_PostAndDelete( p_subitems );
+  if( !psz_url )
+  {
+    msg_Err( p_demux, "URL not found" );
+  }
+  else
+  {
+    p_input = input_item_New( psz_url, psz_title );
+#define SADD_INFO( type, field ) if( field ) { input_item_AddInfo( \
+        p_input, _("Google Video"), type, "%s", field ) ; }
+    SADD_INFO( "gvp_version", psz_version );
+    SADD_INFO( "docid", psz_docid );
+    SADD_INFO( "description", psz_description );
+    input_item_node_AppendItem( p_subitems, p_input );
+    vlc_gc_decref( p_input );
+  }
 
-    vlc_gc_decref(p_current_input);
+  input_item_node_PostAndDelete( p_subitems );
 
-    free( psz_version );
-    free( psz_url );
-    free( psz_docid );
-    free( psz_title );
-    free( psz_description );
+  vlc_gc_decref(p_current_input);
 
-    return 0; /* Needed for correct operation of go back */
+  free( psz_version );
+  free( psz_url );
+  free( psz_docid );
+  free( psz_title );
+  free( psz_description );
+
+  return 0; /* Needed for correct operation of go back */
 }
 
 static int Control( demux_t *p_demux, int i_query, va_list args )
 {
-    VLC_UNUSED(p_demux); VLC_UNUSED(i_query); VLC_UNUSED(args);
-    return VLC_EGENERIC;
+  VLC_UNUSED(p_demux); VLC_UNUSED(i_query); VLC_UNUSED(args);
+  return VLC_EGENERIC;
 }

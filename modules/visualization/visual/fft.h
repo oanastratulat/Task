@@ -33,17 +33,17 @@
 typedef short int sound_sample;
 
 struct _struct_fft_state {
-     /* Temporary data stores to perform FFT in. */
-     float real[FFT_BUFFER_SIZE];
-     float imag[FFT_BUFFER_SIZE];
+   /* Temporary data stores to perform FFT in. */
+   float real[FFT_BUFFER_SIZE];
+   float imag[FFT_BUFFER_SIZE];
 
-     /* */
-     unsigned int bitReverse[FFT_BUFFER_SIZE];
+   /* */
+   unsigned int bitReverse[FFT_BUFFER_SIZE];
 
-     /* The next two tables could be made to use less space in memory, since they
-      * overlap hugely, but hey. */
-     float sintable[FFT_BUFFER_SIZE / 2];
-     float costable[FFT_BUFFER_SIZE / 2];
+   /* The next two tables could be made to use less space in memory, since they
+  * overlap hugely, but hey. */
+   float sintable[FFT_BUFFER_SIZE / 2];
+   float costable[FFT_BUFFER_SIZE / 2];
 };
 
 /* FFT prototypes */

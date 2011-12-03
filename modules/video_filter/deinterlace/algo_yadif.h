@@ -5,7 +5,7 @@
  * $Id: b211417a2eb40355ae9dd5c954c06ff379a3cd12 $
  *
  * Author: Laurent Aimar <fenrir@videolan.org>
- *         Juha Jeronen  <juha.jeronen@jyu.fi> (soft field repeat hack)
+ *   Juha Jeronen  <juha.jeronen@jyu.fi> (soft field repeat hack)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ struct picture_t;
  * indicated by p_src->i_nb_fields. This is done by calling this function
  * several times, first with i_order = 0, and then with all other parameters
  * the same, but a new p_dst, increasing i_order (1 for second field,
- * and then if i_nb_fields = 3, also i_order = 2 to get the repeated first
+ * and then if i_nb_fields = 3, also i_order = 2 to get the repeated firs
  * field), and alternating i_field (starting, at i_order = 0, with the field
  * according to p_src->b_top_field_first). See Deinterlace() for an example.
  *
@@ -84,6 +84,6 @@ struct picture_t;
  * @see Deinterlace()
  */
 int RenderYadif( filter_t *p_filter, picture_t *p_dst, picture_t *p_src,
-                 int i_order, int i_field );
+       int i_order, int i_field );
 
 #endif

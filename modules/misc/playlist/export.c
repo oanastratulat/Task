@@ -34,9 +34,9 @@
 /***************************************************************************
  * Prototypes
  ***************************************************************************/
-int Export_M3U    ( vlc_object_t *p_intf );
-int Export_M3U8   ( vlc_object_t *p_intf );
-int Export_HTML   ( vlc_object_t *p_intf );
+int Export_M3U  ( vlc_object_t *p_intf );
+int Export_M3U8 ( vlc_object_t *p_intf );
+int Export_HTML ( vlc_object_t *p_intf );
 int xspf_export_playlist( vlc_object_t *p_intf );
 
 /*****************************************************************************
@@ -44,30 +44,30 @@ int xspf_export_playlist( vlc_object_t *p_intf );
  *****************************************************************************/
 vlc_module_begin ()
 
-    set_category( CAT_PLAYLIST )
-    set_subcategory( SUBCAT_PLAYLIST_EXPORT )
-    add_submodule ()
-        set_description( N_("M3U playlist export") )
-        add_shortcut( "export-m3u" )
-        set_capability( "playlist export" , 0 )
-        set_callbacks( Export_M3U , NULL )
+  set_category( CAT_PLAYLIST )
+  set_subcategory( SUBCAT_PLAYLIST_EXPORT )
+  add_submodule ()
+    set_description( N_("M3U playlist export") )
+    add_shortcut( "export-m3u" )
+    set_capability( "playlist export" , 0 )
+    set_callbacks( Export_M3U , NULL )
 
-    add_submodule ()
-        set_description( N_("M3U8 playlist export") )
-        add_shortcut( "export-m3u8" )
-        set_capability( "playlist export" , 0 )
-        set_callbacks( Export_M3U , NULL )
+  add_submodule ()
+    set_description( N_("M3U8 playlist export") )
+    add_shortcut( "export-m3u8" )
+    set_capability( "playlist export" , 0 )
+    set_callbacks( Export_M3U , NULL )
 
-    add_submodule ()
-        set_description( N_("XSPF playlist export") )
-        add_shortcut( "export-xspf" )
-        set_capability( "playlist export" , 0 )
-        set_callbacks( xspf_export_playlist , NULL )
+  add_submodule ()
+    set_description( N_("XSPF playlist export") )
+    add_shortcut( "export-xspf" )
+    set_capability( "playlist export" , 0 )
+    set_callbacks( xspf_export_playlist , NULL )
 
-    add_submodule ()
-        set_description( N_("HTML playlist export") )
-        add_shortcut( "export-html" )
-        set_capability( "playlist export", 0 )
-        set_callbacks( Export_HTML, NULL )
+  add_submodule ()
+    set_description( N_("HTML playlist export") )
+    add_shortcut( "export-html" )
+    set_capability( "playlist export", 0 )
+    set_callbacks( Export_HTML, NULL )
 
 vlc_module_end ()

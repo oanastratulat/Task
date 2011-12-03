@@ -3,7 +3,7 @@
  * @brief Common code for XCB video output plugins
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmont
+ * Copyright © 2009 Rémi Denis-Courmon
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -46,71 +46,71 @@
  */
 static xcb_connection_t *Connect (vlc_object_t *obj, const char *display)
 {
-    xcb_connection_t *conn = xcb_connect (display, NULL);
-    if (xcb_connection_has_error (conn) /*== NULL*/)
-    {
-        msg_Err (obj, "cannot connect to X server (%s)",
-                 display ? display : "default");
-        xcb_disconnect (conn);
-        return NULL;
-    }
+  xcb_connection_t *conn = xcb_connect (display, NULL);
+  if (xcb_connection_has_error (conn) /*== NULL*/)
+  {
+    msg_Err (obj, "cannot connect to X server (%s)",
+       display ? display : "default");
+    xcb_disconnect (conn);
+    return NULL;
+  }
 
-    const xcb_setup_t *setup = xcb_get_setup (conn);
-    msg_Dbg (obj, "connected to X%"PRIu16".%"PRIu16" server",
-             setup->protocol_major_version, setup->protocol_minor_version);
-    char *vendor = strndup (xcb_setup_vendor (setup), setup->vendor_len);
-    if (vendor)
-    {
-        msg_Dbg (obj, " vendor : %s", vendor);
-        free (vendor);
-    }
-    msg_Dbg (obj, " version: %"PRIu32, setup->release_number);
-    return conn;
+  const xcb_setup_t *setup = xcb_get_setup (conn);
+  msg_Dbg (obj, "connected to X%"PRIu16".%"PRIu16" server",
+     setup->protocol_major_version, setup->protocol_minor_version);
+  char *vendor = strndup (xcb_setup_vendor (setup), setup->vendor_len);
+  if (vendor)
+  {
+    msg_Dbg (obj, " vendor : %s", vendor);
+    free (vendor);
+  }
+  msg_Dbg (obj, " version: %"PRIu32, setup->release_number);
+  return conn;
 }
 
 /**
  * Find screen matching a given root window.
  */
 static const xcb_screen_t *FindScreen (vlc_object_t *obj,
-                                       xcb_connection_t *conn,
-                                       xcb_window_t root)
+             xcb_connection_t *conn,
+             xcb_window_t root)
 {
-    /* Find the selected screen */
-    const xcb_setup_t *setup = xcb_get_setup (conn);
-    const xcb_screen_t *screen = NULL;
-    for (xcb_screen_iterator_t i = xcb_setup_roots_iterator (setup);
-         i.rem > 0 && screen == NULL; xcb_screen_next (&i))
-    {
-        if (i.data->root == root)
-            screen = i.data;
-    }
+  /* Find the selected screen */
+  const xcb_setup_t *setup = xcb_get_setup (conn);
+  const xcb_screen_t *screen = NULL;
+  for (xcb_screen_iterator_t i = xcb_setup_roots_iterator (setup);
+   i.rem > 0 && screen == NULL; xcb_screen_next (&i))
+  {
+    if (i.data->root == root)
+    screen = i.data;
+  }
 
-    if (screen == NULL)
-    {
-        msg_Err (obj, "parent window screen not found");
-        return NULL;
-    }
-    msg_Dbg (obj, "using screen 0x%"PRIx32, root);
-    return screen;
+  if (screen == NULL)
+  {
+    msg_Err (obj, "parent window screen not found");
+    return NULL;
+  }
+  msg_Dbg (obj, "using screen 0x%"PRIx32, root);
+  return screen;
 }
 
 static const xcb_screen_t *FindWindow (vlc_object_t *obj,
-                                       xcb_connection_t *conn,
-                                       xcb_window_t xid,
-                                       uint8_t *restrict pdepth)
+             xcb_connection_t *conn,
+             xcb_window_t xid,
+             uint8_t *restrict pdepth)
 {
-    xcb_get_geometry_reply_t *geo =
-        xcb_get_geometry_reply (conn, xcb_get_geometry (conn, xid), NULL);
-    if (geo == NULL)
-    {
-        msg_Err (obj, "parent window not valid");
-        return NULL;
-    }
+  xcb_get_geometry_reply_t *geo =
+    xcb_get_geometry_reply (conn, xcb_get_geometry (conn, xid), NULL);
+  if (geo == NULL)
+  {
+    msg_Err (obj, "parent window not valid");
+    return NULL;
+  }
 
-    const xcb_screen_t *screen = FindScreen (obj, conn, geo->root);
-    *pdepth = geo->depth;
-    free (geo);
-    return screen;
+  const xcb_screen_t *screen = FindScreen (obj, conn, geo->root);
+  *pdepth = geo->depth;
+  free (geo);
+  return screen;
 }
 
 
@@ -119,153 +119,153 @@ static const xcb_screen_t *FindWindow (vlc_object_t *obj,
  * find the corresponding X server screen.
  */
 vout_window_t *GetWindow (vout_display_t *vd,
-                          xcb_connection_t **restrict pconn,
-                          const xcb_screen_t **restrict pscreen,
-                          uint8_t *restrict pdepth)
+          xcb_connection_t **restrict pconn,
+          const xcb_screen_t **restrict pscreen,
+          uint8_t *restrict pdepth)
 {
-    /* Get window */
-    vout_window_cfg_t wnd_cfg;
+  /* Get window */
+  vout_window_cfg_t wnd_cfg;
 
-    memset( &wnd_cfg, 0, sizeof(wnd_cfg) );
-    wnd_cfg.type = VOUT_WINDOW_TYPE_XID;
-    wnd_cfg.x = var_InheritInteger (vd, "video-x");
-    wnd_cfg.y = var_InheritInteger (vd, "video-y");
-    wnd_cfg.width  = vd->cfg->display.width;
-    wnd_cfg.height = vd->cfg->display.height;
+  memset( &wnd_cfg, 0, sizeof(wnd_cfg) );
+  wnd_cfg.type = VOUT_WINDOW_TYPE_XID;
+  wnd_cfg.x = var_InheritInteger (vd, "video-x");
+  wnd_cfg.y = var_InheritInteger (vd, "video-y");
+  wnd_cfg.width  = vd->cfg->display.width;
+  wnd_cfg.height = vd->cfg->display.height;
 
-    vout_window_t *wnd = vout_display_NewWindow (vd, &wnd_cfg);
-    if (wnd == NULL)
-    {
-        msg_Err (vd, "parent window not available");
-        return NULL;
-    }
+  vout_window_t *wnd = vout_display_NewWindow (vd, &wnd_cfg);
+  if (wnd == NULL)
+  {
+    msg_Err (vd, "parent window not available");
+    return NULL;
+  }
 
-    xcb_connection_t *conn = Connect (VLC_OBJECT(vd), wnd->display.x11);
-    if (conn == NULL)
-        goto error;
-    *pconn = conn;
+  xcb_connection_t *conn = Connect (VLC_OBJECT(vd), wnd->display.x11);
+  if (conn == NULL)
+    goto error;
+  *pconn = conn;
 
-    *pscreen = FindWindow (VLC_OBJECT(vd), conn, wnd->handle.xid, pdepth);
-    if (*pscreen == NULL)
-    {
-        xcb_disconnect (conn);
-        goto error;
-    }
+  *pscreen = FindWindow (VLC_OBJECT(vd), conn, wnd->handle.xid, pdepth);
+  if (*pscreen == NULL)
+  {
+    xcb_disconnect (conn);
+    goto error;
+  }
 
-    RegisterMouseEvents (VLC_OBJECT(vd), conn, wnd->handle.xid);
-    return wnd;
+  RegisterMouseEvents (VLC_OBJECT(vd), conn, wnd->handle.xid);
+  return wnd;
 
 error:
-    vout_display_DeleteWindow (vd, wnd);
-    return NULL;
+  vout_display_DeleteWindow (vd, wnd);
+  return NULL;
 }
 
 /** Check MIT-SHM shared memory support */
 bool CheckSHM (vlc_object_t *obj, xcb_connection_t *conn)
 {
 #ifdef HAVE_SYS_SHM_H
-    xcb_shm_query_version_cookie_t ck;
-    xcb_shm_query_version_reply_t *r;
+  xcb_shm_query_version_cookie_t ck;
+  xcb_shm_query_version_reply_t *r;
 
-    ck = xcb_shm_query_version (conn);
-    r = xcb_shm_query_version_reply (conn, ck, NULL);
-    if (r != NULL)
-    {
-        free (r);
-        return true;
-    }
-    msg_Err (obj, "shared memory (MIT-SHM) not available");
-    msg_Warn (obj, "display will be slow");
+  ck = xcb_shm_query_version (conn);
+  r = xcb_shm_query_version_reply (conn, ck, NULL);
+  if (r != NULL)
+  {
+    free (r);
+    return true;
+  }
+  msg_Err (obj, "shared memory (MIT-SHM) not available");
+  msg_Warn (obj, "display will be slow");
 #else
-    msg_Warn (obj, "shared memory (MIT-SHM) not implemented");
-    (void) conn;
+  msg_Warn (obj, "shared memory (MIT-SHM) not implemented");
+  (void) conn;
 #endif
-    return false;
+  return false;
 }
 
 /**
- * Initialize a picture buffer as shared memory, according to the video output
+ * Initialize a picture buffer as shared memory, according to the video outpu
  * format. If a attach is true, the segment is attached to
  * the X server (MIT-SHM extension).
  */
 int PictureResourceAlloc (vout_display_t *vd, picture_resource_t *res, size_t size,
-                          xcb_connection_t *conn, bool attach)
+          xcb_connection_t *conn, bool attach)
 {
-    res->p_sys = malloc (sizeof(*res->p_sys));
-    if (!res->p_sys)
-        return VLC_EGENERIC;
+  res->p_sys = malloc (sizeof(*res->p_sys));
+  if (!res->p_sys)
+    return VLC_EGENERIC;
 
 #ifdef HAVE_SYS_SHM_H
-    /* Allocate shared memory segment */
-    int id = shmget (IPC_PRIVATE, size, IPC_CREAT | S_IRWXU);
-    if (id == -1)
+  /* Allocate shared memory segment */
+  int id = shmget (IPC_PRIVATE, size, IPC_CREAT | S_IRWXU);
+  if (id == -1)
+  {
+    msg_Err (vd, "shared memory allocation error: %m");
+    free (res->p_sys);
+    return VLC_EGENERIC;
+  }
+
+  /* Attach the segment to VLC */
+  void *shm = shmat (id, NULL, 0 /* read/write */);
+  if (-1 == (intptr_t)shm)
+  {
+    msg_Err (vd, "shared memory attachment error: %m");
+    shmctl (id, IPC_RMID, 0);
+    free (res->p_sys);
+    return VLC_EGENERIC;
+  }
+
+  xcb_shm_seg_t segment;
+  if (attach)
+  {
+    /* Attach the segment to X */
+    xcb_void_cookie_t ck;
+
+    segment = xcb_generate_id (conn);
+    ck = xcb_shm_attach_checked (conn, segment, id, 1);
+
+    switch (CheckError (vd, conn, "shared memory server-side error", ck))
     {
-        msg_Err (vd, "shared memory allocation error: %m");
-        free (res->p_sys);
-        return VLC_EGENERIC;
+    case 0:
+      break;
+
+    case XCB_ACCESS:
+    {
+      struct shmid_ds buf;
+      /* Retry with promiscuous permissions */
+      shmctl (id, IPC_STAT, &buf);
+      buf.shm_perm.mode |= S_IRGRP|S_IROTH;
+      shmctl (id, IPC_SET, &buf);
+      ck = xcb_shm_attach_checked (conn, segment, id, 1);
+      if (CheckError (vd, conn, "same error on retry", ck) == 0)
+        break;
+      /* fall through */
     }
 
-    /* Attach the segment to VLC */
-    void *shm = shmat (id, NULL, 0 /* read/write */);
-    if (-1 == (intptr_t)shm)
-    {
-        msg_Err (vd, "shared memory attachment error: %m");
-        shmctl (id, IPC_RMID, 0);
-        free (res->p_sys);
-        return VLC_EGENERIC;
+    default:
+      msg_Info (vd, "using buggy X11 server - SSH proxying?");
+      segment = 0;
     }
+  }
+  else
+    segment = 0;
 
-    xcb_shm_seg_t segment;
-    if (attach)
-    {
-        /* Attach the segment to X */
-        xcb_void_cookie_t ck;
-
-        segment = xcb_generate_id (conn);
-        ck = xcb_shm_attach_checked (conn, segment, id, 1);
-
-        switch (CheckError (vd, conn, "shared memory server-side error", ck))
-        {
-            case 0:
-                break;
-
-            case XCB_ACCESS:
-            {
-                struct shmid_ds buf;
-                /* Retry with promiscuous permissions */
-                shmctl (id, IPC_STAT, &buf);
-                buf.shm_perm.mode |= S_IRGRP|S_IROTH;
-                shmctl (id, IPC_SET, &buf);
-                ck = xcb_shm_attach_checked (conn, segment, id, 1);
-                if (CheckError (vd, conn, "same error on retry", ck) == 0)
-                    break;
-                /* fall through */
-            }
-
-            default:
-                msg_Info (vd, "using buggy X11 server - SSH proxying?");
-                segment = 0;
-        }
-    }
-    else
-        segment = 0;
-
-    shmctl (id, IPC_RMID, NULL);
-    res->p_sys->segment = segment;
-    res->p->p_pixels = shm;
+  shmctl (id, IPC_RMID, NULL);
+  res->p_sys->segment = segment;
+  res->p->p_pixels = shm;
 #else
-    assert (!attach);
-    res->p_sys->segment = 0;
+  assert (!attach);
+  res->p_sys->segment = 0;
 
-    /* XXX: align on 32 bytes for VLC chroma filters */
-    res->p->p_pixels = malloc (size);
-    if (unlikely(res->p->p_pixels == NULL))
-    {
-        free (res->p_sys);
-        return VLC_EGENERIC;
-    }
+  /* XXX: align on 32 bytes for VLC chroma filters */
+  res->p->p_pixels = malloc (size);
+  if (unlikely(res->p->p_pixels == NULL))
+  {
+    free (res->p_sys);
+    return VLC_EGENERIC;
+  }
 #endif
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 /**
@@ -274,13 +274,13 @@ int PictureResourceAlloc (vout_display_t *vd, picture_resource_t *res, size_t si
 void PictureResourceFree (picture_resource_t *res, xcb_connection_t *conn)
 {
 #ifdef HAVE_SYS_SHM_H
-    xcb_shm_seg_t segment = res->p_sys->segment;
+  xcb_shm_seg_t segment = res->p_sys->segment;
 
-    if (conn != NULL && segment != 0)
-        xcb_shm_detach (conn, segment);
-    shmdt (res->p->p_pixels);
+  if (conn != NULL && segment != 0)
+    xcb_shm_detach (conn, segment);
+  shmdt (res->p->p_pixels);
 #else
-    free (res->p->p_pixels);
+  free (res->p->p_pixels);
 #endif
 }
 

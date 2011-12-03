@@ -2,7 +2,7 @@
  * IMPDManager.h
  *
  *  Created on: Apr 22, 2011
- *      Author: Christopher Müller
+ *  Author: Christopher Müller
  */
 
 #ifndef IMPDMANAGER_H_
@@ -14,26 +14,26 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    enum Profile
     {
-        enum Profile
-        {
-            NotValid,
-            Full2011,
-            Basic,
-            BasicCM,
-        };
-        class IMPDManager
-        {
-            public:
-                virtual const std::vector<Period *>&   getPeriods              () const                 = 0;
-                virtual Period*                 getFirstPeriod          ()                              = 0;
-                virtual Period*                 getNextPeriod           (Period *period)                = 0;
-                virtual Representation*         getBestRepresentation   (Period *period)                = 0;
-                virtual std::vector<ISegment *> getSegments             (Representation *rep)           = 0;
-                virtual Representation*         getRepresentation       (Period *period, long bitrate)  = 0;
-                virtual ~IMPDManager(){}
-        };
-    }
+    NotValid,
+    Full2011,
+    Basic,
+    BasicCM,
+    };
+    class IMPDManager
+    {
+    public:
+      virtual const std::vector<Period *>& getPeriods      () const       = 0;
+      virtual Period*       getFirstPeriod    ()          = 0;
+      virtual Period*       getNextPeriod     (Period *period)      = 0;
+      virtual Representation*   getBestRepresentation (Period *period)      = 0;
+      virtual std::vector<ISegment *> getSegments     (Representation *rep)     = 0;
+      virtual Representation*   getRepresentation   (Period *period, long bitrate)  = 0;
+      virtual ~IMPDManager(){}
+    };
+  }
 }
 #endif /* IMPDMANAGER_H_ */

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * extensions_manager.cpp: Extensions manager for Qt
+ * extensions_manager.cpp: Extensions manager for Q
  ****************************************************************************
  * Copyright (C) 2009-2010 VideoLAN and authors
  * $Id: 29538dc771baab1e4e3d8e70956f3ae68f52b81a $
@@ -40,280 +40,280 @@
 ExtensionsManager* ExtensionsManager::instance = NULL;
 
 ExtensionsManager::ExtensionsManager( intf_thread_t *_p_intf, QObject *parent )
-        : QObject( parent ), p_intf( _p_intf ), p_extensions_manager( NULL )
-        , p_edp( NULL )
+    : QObject( parent ), p_intf( _p_intf ), p_extensions_manager( NULL )
+    , p_edp( NULL )
 {
-    assert( ExtensionsManager::instance == NULL );
-    instance = this;
+  assert( ExtensionsManager::instance == NULL );
+  instance = this;
 
-    menuMapper = new QSignalMapper( this );
-    CONNECT( menuMapper, mapped( int ), this, triggerMenu( int ) );
-    CONNECT( THEMIM->getIM(), playingStatusChanged( int ), this, playingChanged( int ) );
-    DCONNECT( THEMIM, inputChanged( input_thread_t* ),
-              this, inputChanged( input_thread_t* ) );
-    CONNECT( THEMIM->getIM(), metaChanged( input_item_t* ),
-             this, metaChanged( input_item_t* ) );
-    b_unloading = false;
-    b_failed = false;
+  menuMapper = new QSignalMapper( this );
+  CONNECT( menuMapper, mapped( int ), this, triggerMenu( int ) );
+  CONNECT( THEMIM->getIM(), playingStatusChanged( int ), this, playingChanged( int ) );
+  DCONNECT( THEMIM, inputChanged( input_thread_t* ),
+      this, inputChanged( input_thread_t* ) );
+  CONNECT( THEMIM->getIM(), metaChanged( input_item_t* ),
+     this, metaChanged( input_item_t* ) );
+  b_unloading = false;
+  b_failed = false;
 }
 
 ExtensionsManager::~ExtensionsManager()
 {
-    msg_Dbg( p_intf, "Killing extension dialog provider" );
-    ExtensionsDialogProvider::killInstance();
-    if( p_extensions_manager )
-    {
-        module_unneed( p_extensions_manager, p_extensions_manager->p_module );
-        vlc_object_release( p_extensions_manager );
-    }
+  msg_Dbg( p_intf, "Killing extension dialog provider" );
+  ExtensionsDialogProvider::killInstance();
+  if( p_extensions_manager )
+  {
+    module_unneed( p_extensions_manager, p_extensions_manager->p_module );
+    vlc_object_release( p_extensions_manager );
+  }
 }
 
 bool ExtensionsManager::loadExtensions()
 {
+  if( !p_extensions_manager )
+  {
+    p_extensions_manager = ( extensions_manager_t* )
+        vlc_object_create( p_intf, sizeof( extensions_manager_t ) );
     if( !p_extensions_manager )
     {
-        p_extensions_manager = ( extensions_manager_t* )
-                    vlc_object_create( p_intf, sizeof( extensions_manager_t ) );
-        if( !p_extensions_manager )
-        {
-            b_failed = true;
-            emit extensionsUpdated();
-            return false;
-        }
-
-        p_extensions_manager->p_module =
-                module_need( p_extensions_manager, "extension", NULL, false );
-
-        if( !p_extensions_manager->p_module )
-        {
-            msg_Err( p_intf, "Unable to load extensions module" );
-            vlc_object_release( p_extensions_manager );
-            p_extensions_manager = NULL;
-            b_failed = true;
-            emit extensionsUpdated();
-            return false;
-        }
-
-        /* Initialize dialog provider */
-        p_edp = ExtensionsDialogProvider::getInstance( p_intf,
-                                                       p_extensions_manager );
-        if( !p_edp )
-        {
-            msg_Err( p_intf, "Unable to create dialogs provider for extensions" );
-            module_unneed( p_extensions_manager,
-                           p_extensions_manager->p_module );
-            vlc_object_release( p_extensions_manager );
-            p_extensions_manager = NULL;
-            b_failed = true;
-            emit extensionsUpdated();
-            return false;
-        }
-        b_unloading = false;
-    }
-    b_failed = false;
+    b_failed = true;
     emit extensionsUpdated();
-    return true;
+    return false;
+    }
+
+    p_extensions_manager->p_module =
+      module_need( p_extensions_manager, "extension", NULL, false );
+
+    if( !p_extensions_manager->p_module )
+    {
+    msg_Err( p_intf, "Unable to load extensions module" );
+    vlc_object_release( p_extensions_manager );
+    p_extensions_manager = NULL;
+    b_failed = true;
+    emit extensionsUpdated();
+    return false;
+    }
+
+    /* Initialize dialog provider */
+    p_edp = ExtensionsDialogProvider::getInstance( p_intf,
+                   p_extensions_manager );
+    if( !p_edp )
+    {
+    msg_Err( p_intf, "Unable to create dialogs provider for extensions" );
+    module_unneed( p_extensions_manager,
+         p_extensions_manager->p_module );
+    vlc_object_release( p_extensions_manager );
+    p_extensions_manager = NULL;
+    b_failed = true;
+    emit extensionsUpdated();
+    return false;
+    }
+    b_unloading = false;
+  }
+  b_failed = false;
+  emit extensionsUpdated();
+  return true;
 }
 
 void ExtensionsManager::unloadExtensions()
 {
-    if( !p_extensions_manager )
-        return;
-    b_unloading = true;
-    ExtensionsDialogProvider::killInstance();
-    module_unneed( p_extensions_manager, p_extensions_manager->p_module );
-    vlc_object_release( p_extensions_manager );
-    p_extensions_manager = NULL;
+  if( !p_extensions_manager )
+    return;
+  b_unloading = true;
+  ExtensionsDialogProvider::killInstance();
+  module_unneed( p_extensions_manager, p_extensions_manager->p_module );
+  vlc_object_release( p_extensions_manager );
+  p_extensions_manager = NULL;
 }
 
 void ExtensionsManager::reloadExtensions()
 {
-    unloadExtensions();
-    loadExtensions();
-    emit extensionsUpdated();
+  unloadExtensions();
+  loadExtensions();
+  emit extensionsUpdated();
 }
 
 void ExtensionsManager::menu( QMenu *current )
 {
-    assert( current != NULL );
-    if( !isLoaded() )
+  assert( current != NULL );
+  if( !isLoaded() )
+  {
+    // This case can happen: do nothing
+    return;
+  }
+
+  vlc_mutex_lock( &p_extensions_manager->lock );
+
+  QAction *action;
+  extension_t *p_ext = NULL;
+  int i_ext = 0;
+  FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  {
+    bool b_Active = extension_IsActivated( p_extensions_manager, p_ext );
+
+    if( b_Active && extension_HasMenu( p_extensions_manager, p_ext ) )
     {
-        // This case can happen: do nothing
-        return;
+    QMenu *submenu = new QMenu( qfu( p_ext->psz_title ), current );
+    char **ppsz_titles = NULL;
+    uint16_t *pi_ids = NULL;
+    size_t i_num = 0;
+    action = current->addMenu( submenu );
+
+    action->setCheckable( true );
+    action->setChecked( true );
+
+    if( extension_GetMenu( p_extensions_manager, p_ext,
+             &ppsz_titles, &pi_ids ) == VLC_SUCCESS )
+    {
+      for( int i = 0; ppsz_titles[i] != NULL; ++i )
+      {
+        ++i_num;
+        action = submenu->addAction( qfu( ppsz_titles[i] ) );
+        menuMapper->setMapping( action,
+                MENU_MAP( pi_ids[i], i_ext ) );
+        CONNECT( action, triggered(), menuMapper, map() );
+        free( ppsz_titles[i] );
+      }
+      if( !i_num )
+      {
+        action = submenu->addAction( qtr( "Empty" ) );
+        action->setEnabled( false );
+      }
+      free( ppsz_titles );
+      free( pi_ids );
+    }
+    else
+    {
+      msg_Warn( p_intf, "Could not get menu for extension '%s'",
+          p_ext->psz_title );
+      action = submenu->addAction( qtr( "Empty" ) );
+      action->setEnabled( false );
     }
 
-    vlc_mutex_lock( &p_extensions_manager->lock );
-
-    QAction *action;
-    extension_t *p_ext = NULL;
-    int i_ext = 0;
-    FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
-    {
-        bool b_Active = extension_IsActivated( p_extensions_manager, p_ext );
-
-        if( b_Active && extension_HasMenu( p_extensions_manager, p_ext ) )
-        {
-            QMenu *submenu = new QMenu( qfu( p_ext->psz_title ), current );
-            char **ppsz_titles = NULL;
-            uint16_t *pi_ids = NULL;
-            size_t i_num = 0;
-            action = current->addMenu( submenu );
-
-            action->setCheckable( true );
-            action->setChecked( true );
-
-            if( extension_GetMenu( p_extensions_manager, p_ext,
-                                   &ppsz_titles, &pi_ids ) == VLC_SUCCESS )
-            {
-                for( int i = 0; ppsz_titles[i] != NULL; ++i )
-                {
-                    ++i_num;
-                    action = submenu->addAction( qfu( ppsz_titles[i] ) );
-                    menuMapper->setMapping( action,
-                                            MENU_MAP( pi_ids[i], i_ext ) );
-                    CONNECT( action, triggered(), menuMapper, map() );
-                    free( ppsz_titles[i] );
-                }
-                if( !i_num )
-                {
-                    action = submenu->addAction( qtr( "Empty" ) );
-                    action->setEnabled( false );
-                }
-                free( ppsz_titles );
-                free( pi_ids );
-            }
-            else
-            {
-                msg_Warn( p_intf, "Could not get menu for extension '%s'",
-                          p_ext->psz_title );
-                action = submenu->addAction( qtr( "Empty" ) );
-                action->setEnabled( false );
-            }
-
-            submenu->addSeparator();
-            action = submenu->addAction( QIcon( ":/menu/quit" ),
-                                         qtr( "Deactivate" ) );
-            menuMapper->setMapping( action, MENU_MAP( 0, i_ext ) );
-            CONNECT( action, triggered(), menuMapper, map() );
-        }
-        else
-        {
-            action = current->addAction( qfu( p_ext->psz_title ) );
-            menuMapper->setMapping( action, MENU_MAP( 0, i_ext ) );
-            CONNECT( action, triggered(), menuMapper, map() );
-
-            if( !extension_TriggerOnly( p_extensions_manager, p_ext ) )
-            {
-                action->setCheckable( true );
-                action->setChecked( b_Active );
-            }
-        }
-        i_ext++;
+    submenu->addSeparator();
+    action = submenu->addAction( QIcon( ":/menu/quit" ),
+               qtr( "Deactivate" ) );
+    menuMapper->setMapping( action, MENU_MAP( 0, i_ext ) );
+    CONNECT( action, triggered(), menuMapper, map() );
     }
-    FOREACH_END()
+    else
+    {
+    action = current->addAction( qfu( p_ext->psz_title ) );
+    menuMapper->setMapping( action, MENU_MAP( 0, i_ext ) );
+    CONNECT( action, triggered(), menuMapper, map() );
 
-    vlc_mutex_unlock( &p_extensions_manager->lock );
+    if( !extension_TriggerOnly( p_extensions_manager, p_ext ) )
+    {
+      action->setCheckable( true );
+      action->setChecked( b_Active );
+    }
+    }
+    i_ext++;
+  }
+  FOREACH_END()
+
+  vlc_mutex_unlock( &p_extensions_manager->lock );
 }
 
 void ExtensionsManager::triggerMenu( int id )
 {
-    uint16_t i_ext = MENU_GET_EXTENSION( id );
-    uint16_t i_action = MENU_GET_ACTION( id );
+  uint16_t i_ext = MENU_GET_EXTENSION( id );
+  uint16_t i_action = MENU_GET_ACTION( id );
 
-    vlc_mutex_lock( &p_extensions_manager->lock );
+  vlc_mutex_lock( &p_extensions_manager->lock );
 
-    if( (int) i_ext > p_extensions_manager->extensions.i_size )
+  if( (int) i_ext > p_extensions_manager->extensions.i_size )
+  {
+    msg_Dbg( p_intf, "can't trigger extension with wrong id %d",
+       (int) i_ext );
+    return;
+  }
+
+  extension_t *p_ext = ARRAY_VAL( p_extensions_manager->extensions, i_ext );
+  assert( p_ext != NULL);
+
+  vlc_mutex_unlock( &p_extensions_manager->lock );
+
+  if( i_action == 0 )
+  {
+    msg_Dbg( p_intf, "activating or triggering extension '%s'",
+       p_ext->psz_title );
+
+    if( extension_TriggerOnly( p_extensions_manager, p_ext ) )
     {
-        msg_Dbg( p_intf, "can't trigger extension with wrong id %d",
-                 (int) i_ext );
-        return;
-    }
-
-    extension_t *p_ext = ARRAY_VAL( p_extensions_manager->extensions, i_ext );
-    assert( p_ext != NULL);
-
-    vlc_mutex_unlock( &p_extensions_manager->lock );
-
-    if( i_action == 0 )
-    {
-        msg_Dbg( p_intf, "activating or triggering extension '%s'",
-                 p_ext->psz_title );
-
-        if( extension_TriggerOnly( p_extensions_manager, p_ext ) )
-        {
-            extension_Trigger( p_extensions_manager, p_ext );
-        }
-        else
-        {
-            if( !extension_IsActivated( p_extensions_manager, p_ext ) )
-                extension_Activate( p_extensions_manager, p_ext );
-            else
-                extension_Deactivate( p_extensions_manager, p_ext );
-        }
+    extension_Trigger( p_extensions_manager, p_ext );
     }
     else
     {
-        msg_Dbg( p_intf, "triggering extension '%s', on menu with id = 0x%x",
-                 p_ext->psz_title, i_action );
-
-        extension_TriggerMenu( p_extensions_manager, p_ext, i_action );
+    if( !extension_IsActivated( p_extensions_manager, p_ext ) )
+      extension_Activate( p_extensions_manager, p_ext );
+    else
+      extension_Deactivate( p_extensions_manager, p_ext );
     }
+  }
+  else
+  {
+    msg_Dbg( p_intf, "triggering extension '%s', on menu with id = 0x%x",
+       p_ext->psz_title, i_action );
+
+    extension_TriggerMenu( p_extensions_manager, p_ext, i_action );
+  }
 }
 
 void ExtensionsManager::inputChanged( input_thread_t* p_input )
 {
-    //This is unlikely, but can happen if no extension modules can be loaded.
-    if ( p_extensions_manager == NULL )
-        return ;
-    vlc_mutex_lock( &p_extensions_manager->lock );
+  //This is unlikely, but can happen if no extension modules can be loaded.
+  if ( p_extensions_manager == NULL )
+    return ;
+  vlc_mutex_lock( &p_extensions_manager->lock );
 
-    extension_t *p_ext;
-    FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  extension_t *p_ext;
+  FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  {
+    if( extension_IsActivated( p_extensions_manager, p_ext ) )
     {
-        if( extension_IsActivated( p_extensions_manager, p_ext ) )
-        {
-            extension_SetInput( p_extensions_manager, p_ext, p_input );
-        }
+    extension_SetInput( p_extensions_manager, p_ext, p_input );
     }
-    FOREACH_END()
+  }
+  FOREACH_END()
 
-    vlc_mutex_unlock( &p_extensions_manager->lock );
+  vlc_mutex_unlock( &p_extensions_manager->lock );
 }
 
 void ExtensionsManager::playingChanged( int state )
 {
-    //This is unlikely, but can happen if no extension modules can be loaded.
-    if ( p_extensions_manager == NULL )
-        return ;
-    vlc_mutex_lock( &p_extensions_manager->lock );
+  //This is unlikely, but can happen if no extension modules can be loaded.
+  if ( p_extensions_manager == NULL )
+    return ;
+  vlc_mutex_lock( &p_extensions_manager->lock );
 
-    extension_t *p_ext;
-    FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  extension_t *p_ext;
+  FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  {
+    if( extension_IsActivated( p_extensions_manager, p_ext ) )
     {
-        if( extension_IsActivated( p_extensions_manager, p_ext ) )
-        {
-            extension_PlayingChanged( p_extensions_manager, p_ext, state );
-        }
+    extension_PlayingChanged( p_extensions_manager, p_ext, state );
     }
-    FOREACH_END()
+  }
+  FOREACH_END()
 
-    vlc_mutex_unlock( &p_extensions_manager->lock );
+  vlc_mutex_unlock( &p_extensions_manager->lock );
 }
 
 void ExtensionsManager::metaChanged( input_item_t* )
 {
-    //This is unlikely, but can happen if no extension modules can be loaded.
-    if ( p_extensions_manager == NULL )
-        return ;
-    vlc_mutex_lock( &p_extensions_manager->lock );
-    extension_t *p_ext;
-    FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  //This is unlikely, but can happen if no extension modules can be loaded.
+  if ( p_extensions_manager == NULL )
+    return ;
+  vlc_mutex_lock( &p_extensions_manager->lock );
+  extension_t *p_ext;
+  FOREACH_ARRAY( p_ext, p_extensions_manager->extensions )
+  {
+    if( extension_IsActivated( p_extensions_manager, p_ext ) )
     {
-        if( extension_IsActivated( p_extensions_manager, p_ext ) )
-        {
-            extension_MetaChanged( p_extensions_manager, p_ext );
-        }
+    extension_MetaChanged( p_extensions_manager, p_ext );
     }
-    FOREACH_END()
-    vlc_mutex_unlock( &p_extensions_manager->lock );
+  }
+  FOREACH_END()
+  vlc_mutex_unlock( &p_extensions_manager->lock );
 }

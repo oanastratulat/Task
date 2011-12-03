@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -30,32 +30,32 @@
 using namespace dash::http;
 
 Chunk::Chunk() : startByte( 0 ),
-    endByte( 0 )
+  endByte( 0 )
 {
 }
 
-int         Chunk::getEndByte   () const
+int   Chunk::getEndByte () cons
 {
-    return endByte;
+  return endByte;
 }
-int         Chunk::getStartByte () const
+int   Chunk::getStartByte () cons
 {
-    return startByte;
+  return startByte;
 }
 
-const std::string& Chunk::getUrl       () const
+const std::string& Chunk::getUrl   () cons
 {
-    return url;
+  return url;
 }
-void        Chunk::setEndByte   (int endByte)
+void    Chunk::setEndByte (int endByte)
 {
-    this->endByte = endByte;
+  this->endByte = endByte;
 }
-void        Chunk::setStartByte (int startByte)
+void    Chunk::setStartByte (int startByte)
 {
-    this->startByte = startByte;
+  this->startByte = startByte;
 }
-void        Chunk::setUrl       ( const std::string& url )
+void    Chunk::setUrl   ( const std::string& url )
 {
-    this->url = url;
+  this->url = url;
 }

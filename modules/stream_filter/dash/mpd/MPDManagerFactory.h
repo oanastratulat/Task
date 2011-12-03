@@ -5,7 +5,7 @@
  *
  * Created on: Apr 20, 2011
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,17 +33,17 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class MPDManagerFactory
     {
-        class MPDManagerFactory
-        {
-            public:
-                static IMPDManager* create(Profile profile, dash::xml::Node *root);
+    public:
+      static IMPDManager* create(Profile profile, dash::xml::Node *root);
 
-            private:
-                static IMPDManager* createBasicCMManager(dash::xml::Node *root);
-        };
-    }
+    private:
+      static IMPDManager* createBasicCMManager(dash::xml::Node *root);
+    };
+  }
 }
 
 #endif /* MPDMANAGERFACTORY_H_ */

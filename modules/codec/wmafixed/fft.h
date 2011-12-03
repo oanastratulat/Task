@@ -26,18 +26,18 @@ typedef int32_t FFTSample;
 
 typedef struct FFTComplex
 {
-    int32_t re, im;
+  int32_t re, im;
 }
 FFTComplex;
 
-typedef struct FFTContext
+typedef struct FFTContex
 {
-    int nbits;
-    int inverse;
-    uint16_t *revtab;
-    FFTComplex *exptab;
-    FFTComplex *exptab1; /* only used by SSE code */
-    int (*fft_calc)(struct FFTContext *s, FFTComplex *z);
+  int nbits;
+  int inverse;
+  uint16_t *revtab;
+  FFTComplex *exptab;
+  FFTComplex *exptab1; /* only used by SSE code */
+  int (*fft_calc)(struct FFTContext *s, FFTComplex *z);
 }
 FFTContext;
 

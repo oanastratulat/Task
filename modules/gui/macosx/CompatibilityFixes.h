@@ -44,17 +44,17 @@
 @protocol NSToolbarDelegate <NSObject> @end
 
 enum {
-    NSApplicationPresentationDefault                    = 0,
-    NSApplicationPresentationAutoHideDock               = (1 <<  0),
-    NSApplicationPresentationHideDock                   = (1 <<  1),
-    NSApplicationPresentationAutoHideMenuBar            = (1 <<  2),
-    NSApplicationPresentationHideMenuBar                = (1 <<  3),
-    NSApplicationPresentationDisableAppleMenu           = (1 <<  4),
-    NSApplicationPresentationDisableProcessSwitching    = (1 <<  5),
-    NSApplicationPresentationDisableForceQuit           = (1 <<  6),
-    NSApplicationPresentationDisableSessionTermination  = (1 <<  7),
-    NSApplicationPresentationDisableHideApplication     = (1 <<  8),
-    NSApplicationPresentationDisableMenuBarTransparency = (1 <<  9)
+  NSApplicationPresentationDefault        = 0,
+  NSApplicationPresentationAutoHideDock     = (1 <<  0),
+  NSApplicationPresentationHideDock       = (1 <<  1),
+  NSApplicationPresentationAutoHideMenuBar    = (1 <<  2),
+  NSApplicationPresentationHideMenuBar      = (1 <<  3),
+  NSApplicationPresentationDisableAppleMenu     = (1 <<  4),
+  NSApplicationPresentationDisableProcessSwitching  = (1 <<  5),
+  NSApplicationPresentationDisableForceQuit     = (1 <<  6),
+  NSApplicationPresentationDisableSessionTermination  = (1 <<  7),
+  NSApplicationPresentationDisableHideApplication   = (1 <<  8),
+  NSApplicationPresentationDisableMenuBarTransparency = (1 <<  9)
 };
 
 #if defined( __LP64__) && !defined(__POWER__) /* Bug in the 10.5.sdk in 64bits */
@@ -68,13 +68,13 @@ extern OSErr UpdateSystemActivity(UInt8 activity);
 
 #ifndef MAC_OS_X_VERSION_10_7
 enum {
-    NSWindowCollectionBehaviorFullScreenPrimary = 1 << 7,
-    NSWindowCollectionBehaviorFullScreenAuxiliary = 1 << 8
+  NSWindowCollectionBehaviorFullScreenPrimary = 1 << 7,
+  NSWindowCollectionBehaviorFullScreenAuxiliary = 1 << 8
 };
 
 enum {
-    NSApplicationPresentationFullScreen                 = (1 << 10),
-    NSApplicationPresentationAutoHideToolbar            = (1 << 11)
+  NSApplicationPresentationFullScreen       = (1 << 10),
+  NSApplicationPresentationAutoHideToolbar    = (1 << 11)
 };
 
 /* the follow is just to fix warnings, not for implementation! */

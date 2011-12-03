@@ -5,8 +5,8 @@
  * $Id: 4923948f8c96045e6a0cca6a4fda37c16071d27c $
  *
  * Author: Sam Hocevar <sam@zoy.org>
- *         Damien Lucas <nitrox@videolan.org>  (Bob, Blend)
- *         Laurent Aimar <fenrir@videolan.org> (Bob, Blend)
+ *   Damien Lucas <nitrox@videolan.org>  (Bob, Blend)
+ *   Laurent Aimar <fenrir@videolan.org> (Bob, Blend)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ struct picture_t;
  * @see Deinterlace()
  */
 void RenderDiscard( filter_t *p_filter,
-                    picture_t *p_outpic, picture_t *p_pic, int i_field );
+        picture_t *p_outpic, picture_t *p_pic, int i_field );
 
 /**
  * RenderBob: basic framerate doubler.
@@ -69,7 +69,7 @@ void RenderDiscard( filter_t *p_filter,
  * @see Deinterlace()
  */
 void RenderBob( filter_t *p_filter,
-                picture_t *p_outpic, picture_t *p_pic, int i_field );
+      picture_t *p_outpic, picture_t *p_pic, int i_field );
 
 /**
  * RenderLinear: Bob with linear interpolation.
@@ -84,7 +84,7 @@ void RenderBob( filter_t *p_filter,
  * @see Deinterlace()
  */
 void RenderLinear( filter_t *p_filter,
-                   picture_t *p_outpic, picture_t *p_pic, int i_field );
+       picture_t *p_outpic, picture_t *p_pic, int i_field );
 
 /**
  * RenderMean: half-resolution blender.
@@ -99,7 +99,7 @@ void RenderLinear( filter_t *p_filter,
  * @see Deinterlace()
  */
 void RenderMean( filter_t *p_filter,
-                 picture_t *p_outpic, picture_t *p_pic );
+       picture_t *p_outpic, picture_t *p_pic );
 
 /**
  * RenderBlend: full-resolution blender.
@@ -115,6 +115,6 @@ void RenderMean( filter_t *p_filter,
  * @see Deinterlace()
  */
 void RenderBlend( filter_t *p_filter,
-                  picture_t *p_outpic, picture_t *p_pic );
+      picture_t *p_outpic, picture_t *p_pic );
 
 #endif

@@ -20,10 +20,10 @@
 #include "AtmoInput.h"
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-#    include "AtmoDisplays.h"
+#  include "AtmoDisplays.h"
 #else
-#   include <vlc_common.h>
-#   include <vlc_threads.h>
+# include <vlc_common.h>
+# include <vlc_threads.h>
 #endif
 
 class CAtmoInput;
@@ -43,88 +43,88 @@ class CAtmoInput;
 class CAtmoDynData
 {
 private:
-    /*
-      thread creating the current output (depends on active effect)
-    */
-    CThread *m_pCurrentEffectThread;
+  /*
+  thread creating the current output (depends on active effect)
+  */
+  CThread *m_pCurrentEffectThread;
 
-    /*
-      in Modus Live View the packetQueue is the connection
-      between the output processing and the pixelsource
-    */
-    CAtmoPacketQueue *m_pLivePacketQueue;
+  /*
+  in Modus Live View the packetQueue is the connection
+  between the output processing and the pixelsource
+  */
+  CAtmoPacketQueue *m_pLivePacketQueue;
 
-    /*
-      thread for getting and preparing the pixeldata in color
-      packets for each zone
-    */
-    CAtmoInput *m_pLiveInput;
-    LivePictureSource m_LivePictureSource;
+  /*
+  thread for getting and preparing the pixeldata in color
+  packets for each zone
+  */
+  CAtmoInput *m_pLiveInput;
+  LivePictureSource m_LivePictureSource;
 
-    /*
-    connection to the current configure hardware device
-    */
-    CAtmoConnection *m_pAtmoConnection;
+  /*
+  connection to the current configure hardware device
+  */
+  CAtmoConnection *m_pAtmoConnection;
 
-    /*
-     all global persistent parameters
-    */
-    CAtmoConfig *m_pAtmoConfig;
+  /*
+   all global persistent parameters
+  */
+  CAtmoConfig *m_pAtmoConfig;
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-    CAtmoDisplays *m_pAtmoDisplays;
-    HINSTANCE m_hInst;
-    CRITICAL_SECTION m_RemoteCallCriticalSection;
-    char m_WorkDir[MAX_PATH];
+  CAtmoDisplays *m_pAtmoDisplays;
+  HINSTANCE m_hInst;
+  CRITICAL_SECTION m_RemoteCallCriticalSection;
+  char m_WorkDir[MAX_PATH];
 #else
-    vlc_object_t *p_atmo_filter;
-    vlc_mutex_t  m_lock;
+  vlc_object_t *p_atmo_filter;
+  vlc_mutex_t  m_lock;
 #endif
 
 
 public:
 #if !defined(_ATMO_VLC_PLUGIN_)
-     CAtmoDynData(HINSTANCE hInst,
-                  CAtmoConfig *pAtmoConfig,
-                  CAtmoDisplays *pAtmoDisplays);
+   CAtmoDynData(HINSTANCE hInst,
+      CAtmoConfig *pAtmoConfig,
+      CAtmoDisplays *pAtmoDisplays);
 #else
-     CAtmoDynData(vlc_object_t *p_atmo_filter,
-                  CAtmoConfig *pAtmoConfig);
+   CAtmoDynData(vlc_object_t *p_atmo_filter,
+      CAtmoConfig *pAtmoConfig);
 #endif
-    ~CAtmoDynData(void);
+  ~CAtmoDynData(void);
 
-    CThread *getEffectThread()           { return m_pCurrentEffectThread; }
-    void setEffectThread(CThread *value) { m_pCurrentEffectThread = value; }
+  CThread *getEffectThread()     { return m_pCurrentEffectThread; }
+  void setEffectThread(CThread *value) { m_pCurrentEffectThread = value; }
 
 
-    CAtmoPacketQueue *getLivePacketQueue() { return m_pLivePacketQueue; }
-    void setLivePacketQueue(CAtmoPacketQueue *pQueue) { m_pLivePacketQueue = pQueue; }
+  CAtmoPacketQueue *getLivePacketQueue() { return m_pLivePacketQueue; }
+  void setLivePacketQueue(CAtmoPacketQueue *pQueue) { m_pLivePacketQueue = pQueue; }
 
-    CAtmoInput *getLiveInput() { return m_pLiveInput; }
-    void setLiveInput(CAtmoInput *value) {  m_pLiveInput = value; }
+  CAtmoInput *getLiveInput() { return m_pLiveInput; }
+  void setLiveInput(CAtmoInput *value) {  m_pLiveInput = value; }
 
-    LivePictureSource getLivePictureSource() { return m_LivePictureSource; }
-    void setLivePictureSource(LivePictureSource lps) { m_LivePictureSource = lps; }
+  LivePictureSource getLivePictureSource() { return m_LivePictureSource; }
+  void setLivePictureSource(LivePictureSource lps) { m_LivePictureSource = lps; }
 
-    CAtmoConnection *getAtmoConnection() { return m_pAtmoConnection; }
-    void setAtmoConnection(CAtmoConnection *value) { m_pAtmoConnection = value; }
+  CAtmoConnection *getAtmoConnection() { return m_pAtmoConnection; }
+  void setAtmoConnection(CAtmoConnection *value) { m_pAtmoConnection = value; }
 
-    CAtmoConfig *getAtmoConfig() { return m_pAtmoConfig; }
+  CAtmoConfig *getAtmoConfig() { return m_pAtmoConfig; }
 
-    void ReloadZoneDefinitionBitmaps();
-    void CalculateDefaultZones();
+  void ReloadZoneDefinitionBitmaps();
+  void CalculateDefaultZones();
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-    CAtmoDisplays *getAtmoDisplays() { return m_pAtmoDisplays; }
-    HINSTANCE getHinstance() { return m_hInst; }
-    void setWorkDir(const char *dir);
-    char *getWorkDir();
+  CAtmoDisplays *getAtmoDisplays() { return m_pAtmoDisplays; }
+  HINSTANCE getHinstance() { return m_hInst; }
+  void setWorkDir(const char *dir);
+  char *getWorkDir();
 #else
-    vlc_object_t *getAtmoFilter() { return p_atmo_filter; }
+  vlc_object_t *getAtmoFilter() { return p_atmo_filter; }
 #endif
 
-    void LockCriticalSection();
-    void UnLockCriticalSection();
+  void LockCriticalSection();
+  void UnLockCriticalSection();
 };
 
 #endif

@@ -5,7 +5,7 @@
  * $Id: 70ce57f303a4603d8926c1ec854890870a606bd4 $
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
- *          Gildas Bazin <gbazin@videolan.org>
+ *    Gildas Bazin <gbazin@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,23 +34,23 @@
 
 vlc_module_begin ()
 #endif /* MERGE_FFMPEG */
-    add_shortcut( "ffmpeg", "avformat" )
-    set_category( CAT_INPUT )
-    set_subcategory( SUBCAT_INPUT_DEMUX )
-    set_description( N_("Avformat demuxer" ) )
-    set_shortname( N_("Avformat") )
-    set_capability( "demux", 2 )
-    set_callbacks( OpenDemux, CloseDemux )
+  add_shortcut( "ffmpeg", "avformat" )
+  set_category( CAT_INPUT )
+  set_subcategory( SUBCAT_INPUT_DEMUX )
+  set_description( N_("Avformat demuxer" ) )
+  set_shortname( N_("Avformat") )
+  set_capability( "demux", 2 )
+  set_callbacks( OpenDemux, CloseDemux )
 
 #ifdef ENABLE_SOUT
-    /* mux submodule */
-    add_submodule ()
-    add_shortcut( "ffmpeg", "avformat" )
-    set_description( N_("Avformat muxer" ) )
-    set_capability( "sout mux", 2 )
-    add_string( "ffmpeg-mux", NULL, MUX_TEXT,
-                MUX_LONGTEXT, true )
-    set_callbacks( OpenMux, CloseMux )
+  /* mux submodule */
+  add_submodule ()
+  add_shortcut( "ffmpeg", "avformat" )
+  set_description( N_("Avformat muxer" ) )
+  set_capability( "sout mux", 2 )
+  add_string( "ffmpeg-mux", NULL, MUX_TEXT,
+      MUX_LONGTEXT, true )
+  set_callbacks( OpenMux, CloseMux )
 #endif
 #ifndef MERGE_FFMPEG
 vlc_module_end ()

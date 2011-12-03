@@ -37,11 +37,11 @@
 static int Open( vlc_object_t * p_this );
 
 vlc_module_begin ()
-    set_shortname( N_("Dummy") )
-    set_description( N_("Dummy audio output") )
-    set_capability( "audio output", 0 )
-    set_callbacks( Open, NULL )
-    add_shortcut( "dummy" )
+  set_shortname( N_("Dummy") )
+  set_description( N_("Dummy audio output") )
+  set_capability( "audio output", 0 )
+  set_callbacks( Open, NULL )
+  add_shortcut( "dummy" )
 vlc_module_end ()
 
 #define A52_FRAME_NB 1536
@@ -56,27 +56,27 @@ static void Play( audio_output_t *, block_t * );
  *****************************************************************************/
 static int Open( vlc_object_t * p_this )
 {
-    audio_output_t * p_aout = (audio_output_t *)p_this;
+  audio_output_t * p_aout = (audio_output_t *)p_this;
 
-    p_aout->pf_play = Play;
-    p_aout->pf_pause = NULL;
-    p_aout->pf_flush = NULL;
-    aout_VolumeSoftInit( p_aout );
+  p_aout->pf_play = Play;
+  p_aout->pf_pause = NULL;
+  p_aout->pf_flush = NULL;
+  aout_VolumeSoftInit( p_aout );
 
-    if( AOUT_FMT_SPDIF( &p_aout->format )
-     && var_InheritBool( p_this, "spdif" ) )
-    {
-        p_aout->format.i_format = VLC_CODEC_SPDIFL;
-        p_aout->format.i_bytes_per_frame = AOUT_SPDIF_SIZE;
-        p_aout->format.i_frame_length = A52_FRAME_NB;
-    }
-    else
-        p_aout->format.i_format = HAVE_FPU ? VLC_CODEC_FL32 : VLC_CODEC_S16N;
+  if( AOUT_FMT_SPDIF( &p_aout->format )
+   && var_InheritBool( p_this, "spdif" ) )
+  {
+    p_aout->format.i_format = VLC_CODEC_SPDIFL;
+    p_aout->format.i_bytes_per_frame = AOUT_SPDIF_SIZE;
+    p_aout->format.i_frame_length = A52_FRAME_NB;
+  }
+  else
+    p_aout->format.i_format = HAVE_FPU ? VLC_CODEC_FL32 : VLC_CODEC_S16N;
 
-    /* Create the variable for the audio-device */
-    var_Create( p_aout, "audio-device", VLC_VAR_INTEGER | VLC_VAR_HASCHOICE );
+  /* Create the variable for the audio-device */
+  var_Create( p_aout, "audio-device", VLC_VAR_INTEGER | VLC_VAR_HASCHOICE );
 
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -84,6 +84,6 @@ static int Open( vlc_object_t * p_this )
  *****************************************************************************/
 static void Play( audio_output_t *aout, block_t *block )
 {
-    block_Release( block );
-    (void) aout;
+  block_Release( block );
+  (void) aout;
 }

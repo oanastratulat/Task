@@ -36,282 +36,282 @@ EPGGraphicsScene::EPGGraphicsScene( QObject *parent ) : QGraphicsScene( parent )
 
 void EPGGraphicsScene::drawBackground( QPainter *painter, const QRectF &rect)
 {
-    EPGView *epgView;
-    painter->setPen( QPen( QColor( 224, 224, 224 ) ) );
-    for( int y = rect.top() + TRACKS_HEIGHT ; y < rect.bottom() ; y += TRACKS_HEIGHT )
-       painter->drawLine( QLineF( rect.left(), y, rect.right(), y ) );
-    epgView = qobject_cast<EPGView *>(parent());
-    int x = epgView->startTime().secsTo( epgView->baseTime() );
-    painter->setPen( QPen( QColor( 255, 192, 192 ) ) );
-        painter->drawLine( QLineF( x, rect.top(), x, rect.bottom() ) );
+  EPGView *epgView;
+  painter->setPen( QPen( QColor( 224, 224, 224 ) ) );
+  for( int y = rect.top() + TRACKS_HEIGHT ; y < rect.bottom() ; y += TRACKS_HEIGHT )
+   painter->drawLine( QLineF( rect.left(), y, rect.right(), y ) );
+  epgView = qobject_cast<EPGView *>(parent());
+  int x = epgView->startTime().secsTo( epgView->baseTime() );
+  painter->setPen( QPen( QColor( 255, 192, 192 ) ) );
+    painter->drawLine( QLineF( x, rect.top(), x, rect.bottom() ) );
 }
 
 EPGView::EPGView( QWidget *parent ) : QGraphicsView( parent )
 {
-    setContentsMargins( 0, 0, 0, 0 );
-    setFrameStyle( QFrame::Box );
-    setAlignment( Qt::AlignLeft | Qt::AlignTop );
+  setContentsMargins( 0, 0, 0, 0 );
+  setFrameStyle( QFrame::Box );
+  setAlignment( Qt::AlignLeft | Qt::AlignTop );
 
-    m_startTime = QDateTime::currentDateTime();
+  m_startTime = QDateTime::currentDateTime();
 
-    EPGGraphicsScene *EPGscene = new EPGGraphicsScene( this );
+  EPGGraphicsScene *EPGscene = new EPGGraphicsScene( this );
 
-    setScene( EPGscene );
+  setScene( EPGscene );
 }
 
 void EPGView::setScale( double scaleFactor )
 {
-    m_scaleFactor = scaleFactor;
-    QMatrix matrix;
-    matrix.scale( scaleFactor, 1 );
-    setMatrix( matrix );
+  m_scaleFactor = scaleFactor;
+  QMatrix matrix;
+  matrix.scale( scaleFactor, 1 );
+  setMatrix( matrix );
 }
 
 void EPGView::updateStartTime()
 {
-    mutex.lock();
-    foreach( EPGEventByTimeQMap *epgItemByTime, epgitemsByChannel.values() )
+  mutex.lock();
+  foreach( EPGEventByTimeQMap *epgItemByTime, epgitemsByChannel.values() )
+  {
+    foreach( EPGItem *epgItem, epgItemByTime->values() )
     {
-        foreach( EPGItem *epgItem, epgItemByTime->values() )
-        {
-            epgItem->updatePos();
-        }
+    epgItem->updatePos();
     }
-    mutex.unlock();
+  }
+  mutex.unlock();
 }
 
 void EPGView::updateChannels()
 {
-    /* Make sure our items goes to the correct row */
-    unsigned int channelIndex = 0;
-    mutex.lock();
-    foreach( EPGEventByTimeQMap *epgItemByTime, epgitemsByChannel.values() )
-    {
-        foreach( EPGItem *epgItem, epgItemByTime->values() )
-            epgItem->setRow( channelIndex );
-        channelIndex++;
-    }
-    mutex.unlock();
+  /* Make sure our items goes to the correct row */
+  unsigned int channelIndex = 0;
+  mutex.lock();
+  foreach( EPGEventByTimeQMap *epgItemByTime, epgitemsByChannel.values() )
+  {
+    foreach( EPGItem *epgItem, epgItemByTime->values() )
+    epgItem->setRow( channelIndex );
+    channelIndex++;
+  }
+  mutex.unlock();
 }
 
 const QDateTime& EPGView::startTime()
 {
-    return m_startTime;
+  return m_startTime;
 }
 
 const QDateTime& EPGView::baseTime()
 {
-    return m_baseTime;
+  return m_baseTime;
 }
 
-bool EPGView::hasValidData() const
+bool EPGView::hasValidData() cons
 {
-    return !epgitemsByChannel.isEmpty();
+  return !epgitemsByChannel.isEmpty();
 }
 
 static void cleanOverlapped( EPGEventByTimeQMap *epgItemByTime, EPGItem *epgItem, QGraphicsScene *scene )
 {
-    QDateTime epgItemTime = epgItem->start();
-    QDateTime epgItemTimeEnd = epgItem->end();
-    /* Clean overlapped programs */
-    foreach(const QDateTime existingTimes, epgItemByTime->keys())
+  QDateTime epgItemTime = epgItem->start();
+  QDateTime epgItemTimeEnd = epgItem->end();
+  /* Clean overlapped programs */
+  foreach(const QDateTime existingTimes, epgItemByTime->keys())
+  {
+    if ( existingTimes > epgItemTimeEnd ) break; /* Can't overlap later items */
+    if ( existingTimes != epgItemTime )
     {
-        if ( existingTimes > epgItemTimeEnd ) break; /* Can't overlap later items */
-        if ( existingTimes != epgItemTime )
-        {
-            EPGItem *otherEPGItem = epgItemByTime->value( existingTimes );
-            if ( otherEPGItem->playsAt( epgItemTime.addSecs( 1 ) )
-                || /* add/minus one sec because next one can start at prev end min */
-                 otherEPGItem->playsAt( epgItemTimeEnd.addSecs( -1 ) ) )
-            {
-                epgItemByTime->remove( otherEPGItem->start() );
-                scene->removeItem( otherEPGItem );
-                delete otherEPGItem;
-            }
-        }
+    EPGItem *otherEPGItem = epgItemByTime->value( existingTimes );
+    if ( otherEPGItem->playsAt( epgItemTime.addSecs( 1 ) )
+      || /* add/minus one sec because next one can start at prev end min */
+       otherEPGItem->playsAt( epgItemTimeEnd.addSecs( -1 ) ) )
+    {
+      epgItemByTime->remove( otherEPGItem->start() );
+      scene->removeItem( otherEPGItem );
+      delete otherEPGItem;
     }
+    }
+  }
 }
 
 bool EPGView::addEPGEvent( vlc_epg_event_t *data, QString channelName, bool b_current )
 {
-    /* Init our nested map if required */
-    EPGEventByTimeQMap *epgItemByTime;
-    EPGItem *epgItem;
-    bool b_refresh_channels = false;
+  /* Init our nested map if required */
+  EPGEventByTimeQMap *epgItemByTime;
+  EPGItem *epgItem;
+  bool b_refresh_channels = false;
 
-    QDateTime eventStart = QDateTime::fromTime_t( data->i_start );
-    if ( eventStart.addSecs( data->i_duration ) < m_baseTime )
-        return false; /* EPG feed sent expired item */
-    if ( eventStart < m_startTime )
-    {
-        m_startTime = eventStart;
-        emit startTimeChanged( m_startTime );
-    }
+  QDateTime eventStart = QDateTime::fromTime_t( data->i_start );
+  if ( eventStart.addSecs( data->i_duration ) < m_baseTime )
+    return false; /* EPG feed sent expired item */
+  if ( eventStart < m_startTime )
+  {
+    m_startTime = eventStart;
+    emit startTimeChanged( m_startTime );
+  }
 
-    mutex.lock();
-    if ( !epgitemsByChannel.contains( channelName ) )
-    {
-        epgItemByTime = new EPGEventByTimeQMap();
-        epgitemsByChannel.insert( channelName, epgItemByTime );
-        emit channelAdded( channelName );
-        b_refresh_channels = true;
-    } else {
-        epgItemByTime = epgitemsByChannel.value( channelName );
-    }
+  mutex.lock();
+  if ( !epgitemsByChannel.contains( channelName ) )
+  {
+    epgItemByTime = new EPGEventByTimeQMap();
+    epgitemsByChannel.insert( channelName, epgItemByTime );
+    emit channelAdded( channelName );
+    b_refresh_channels = true;
+  } else {
+    epgItemByTime = epgitemsByChannel.value( channelName );
+  }
 
-    if ( epgItemByTime->contains( eventStart ) )
-    {
-        /* Update our existing programs */
-        epgItem = epgItemByTime->value( eventStart );
-        epgItem->setCurrent( b_current );
-        if ( epgItem->setData( data ) ) /* updates our entry */
-            cleanOverlapped( epgItemByTime, epgItem, scene() );
-        mutex.unlock();
-        return false;
-    } else {
-        /* Insert a new program entry */
-        epgItem = new EPGItem( data, this );
-        cleanOverlapped( epgItemByTime, epgItem, scene() );
-        /* Effectively insert our new program */
-        epgItem->setCurrent( b_current );
-        epgItemByTime->insert( eventStart, epgItem );
-        scene()->addItem( epgItem );
-        /* update only our row (without calling the updatechannels()) */
-        epgItem->setRow( epgitemsByChannel.keys().indexOf( channelName ) );
-    }
+  if ( epgItemByTime->contains( eventStart ) )
+  {
+    /* Update our existing programs */
+    epgItem = epgItemByTime->value( eventStart );
+    epgItem->setCurrent( b_current );
+    if ( epgItem->setData( data ) ) /* updates our entry */
+    cleanOverlapped( epgItemByTime, epgItem, scene() );
     mutex.unlock();
+    return false;
+  } else {
+    /* Insert a new program entry */
+    epgItem = new EPGItem( data, this );
+    cleanOverlapped( epgItemByTime, epgItem, scene() );
+    /* Effectively insert our new program */
+    epgItem->setCurrent( b_current );
+    epgItemByTime->insert( eventStart, epgItem );
+    scene()->addItem( epgItem );
+    /* update only our row (without calling the updatechannels()) */
+    epgItem->setRow( epgitemsByChannel.keys().indexOf( channelName ) );
+  }
+  mutex.unlock();
 
-    /* Update rows on each item */
-    if ( b_refresh_channels ) updateChannels();
+  /* Update rows on each item */
+  if ( b_refresh_channels ) updateChannels();
 
-    return true;
+  return true;
 }
 
 void EPGView::removeEPGEvent( vlc_epg_event_t *data, QString channelName )
 {
-    EPGEventByTimeQMap *epgItemByTime;
-    QDateTime eventStart = QDateTime::fromTime_t( data->i_start );
-    EPGItem *epgItem;
-    bool b_update_channels = false;
+  EPGEventByTimeQMap *epgItemByTime;
+  QDateTime eventStart = QDateTime::fromTime_t( data->i_start );
+  EPGItem *epgItem;
+  bool b_update_channels = false;
 
-    mutex.lock();
-    if ( epgitemsByChannel.contains( channelName ) )
-    {
-        epgItemByTime = epgitemsByChannel.value( channelName );
+  mutex.lock();
+  if ( epgitemsByChannel.contains( channelName ) )
+  {
+    epgItemByTime = epgitemsByChannel.value( channelName );
 
-        if ( epgItemByTime->contains( eventStart ) )
-        { /* delete our EPGItem */
-            epgItem = epgItemByTime->value( eventStart );
-            epgItemByTime->remove( eventStart );
-            scene()->removeItem( epgItem );
-            delete epgItem;
-        }
-
-        if ( epgItemByTime->keys().isEmpty() )
-        { /* Now unused channel */
-            epgitemsByChannel.remove( channelName );
-            delete epgItemByTime;
-            emit channelRemoved( channelName );
-            b_update_channels = true;
-        }
+    if ( epgItemByTime->contains( eventStart ) )
+    { /* delete our EPGItem */
+    epgItem = epgItemByTime->value( eventStart );
+    epgItemByTime->remove( eventStart );
+    scene()->removeItem( epgItem );
+    delete epgItem;
     }
-    mutex.unlock();
 
-    if ( b_update_channels ) updateChannels();
+    if ( epgItemByTime->keys().isEmpty() )
+    { /* Now unused channel */
+    epgitemsByChannel.remove( channelName );
+    delete epgItemByTime;
+    emit channelRemoved( channelName );
+    b_update_channels = true;
+    }
+  }
+  mutex.unlock();
+
+  if ( b_update_channels ) updateChannels();
 }
 
 void EPGView::reset()
 {
-    /* clean our items storage and remove them from the scene */
-    EPGEventByTimeQMap *epgItemByTime;
-    EPGItem *epgItem;
-    mutex.lock();
-    foreach( const QString &channelName, epgitemsByChannel.keys() )
+  /* clean our items storage and remove them from the scene */
+  EPGEventByTimeQMap *epgItemByTime;
+  EPGItem *epgItem;
+  mutex.lock();
+  foreach( const QString &channelName, epgitemsByChannel.keys() )
+  {
+    epgItemByTime = epgitemsByChannel[ channelName ];
+    foreach( const QDateTime &key, epgItemByTime->keys() )
     {
-        epgItemByTime = epgitemsByChannel[ channelName ];
-        foreach( const QDateTime &key, epgItemByTime->keys() )
-        {
-            epgItem = epgItemByTime->value( key );
-            scene()->removeItem( epgItem );
-            epgItemByTime->remove( key );
-            delete epgItem;
-        }
-        epgitemsByChannel.remove( channelName );
-        delete epgItemByTime;
-        emit channelRemoved( channelName ); /* notify others */
+    epgItem = epgItemByTime->value( key );
+    scene()->removeItem( epgItem );
+    epgItemByTime->remove( key );
+    delete epgItem;
     }
-    mutex.unlock();
+    epgitemsByChannel.remove( channelName );
+    delete epgItemByTime;
+    emit channelRemoved( channelName ); /* notify others */
+  }
+  mutex.unlock();
 }
 
 void EPGView::cleanup()
 {
-    /* remove expired items and clear their current flag */
-    EPGEventByTimeQMap *epgItemByTime;
-    EPGItem *epgItem;
-    m_baseTime = QDateTime::currentDateTime();
-    QDateTime lowestTime = m_baseTime;
-    bool b_timechanged = false;
-    bool b_update_channels = false;
+  /* remove expired items and clear their current flag */
+  EPGEventByTimeQMap *epgItemByTime;
+  EPGItem *epgItem;
+  m_baseTime = QDateTime::currentDateTime();
+  QDateTime lowestTime = m_baseTime;
+  bool b_timechanged = false;
+  bool b_update_channels = false;
 
-    mutex.lock();
-    foreach( const QString &channelName, epgitemsByChannel.keys() )
+  mutex.lock();
+  foreach( const QString &channelName, epgitemsByChannel.keys() )
+  {
+    epgItemByTime = epgitemsByChannel[ channelName ];
+    foreach( const QDateTime &key, epgItemByTime->keys() )
     {
-        epgItemByTime = epgitemsByChannel[ channelName ];
-        foreach( const QDateTime &key, epgItemByTime->keys() )
-        {
-            epgItem = epgItemByTime->value( key );
-            if ( epgItem->endsBefore( baseTime() ) ) /* Expired item ? */
-            {
-                scene()->removeItem( epgItem );
-                epgItemByTime->remove( key );
-                delete epgItem;
-            } else {
-                epgItem->setCurrent( false ); /* if stream doesn't update */
-                if ( lowestTime > epgItem->start() )
-                {
-                    lowestTime = epgItem->start(); /* update our reference */
-                    b_timechanged = true;
-                }
-            }
-        }
-
-        if ( epgItemByTime->keys().isEmpty() )
-        { /* Now unused channel */
-            epgitemsByChannel.remove( channelName );
-            delete epgItemByTime;
-            emit channelRemoved( channelName );
-            b_update_channels = true;
-        }
+    epgItem = epgItemByTime->value( key );
+    if ( epgItem->endsBefore( baseTime() ) ) /* Expired item ? */
+    {
+      scene()->removeItem( epgItem );
+      epgItemByTime->remove( key );
+      delete epgItem;
+    } else {
+      epgItem->setCurrent( false ); /* if stream doesn't update */
+      if ( lowestTime > epgItem->start() )
+      {
+        lowestTime = epgItem->start(); /* update our reference */
+        b_timechanged = true;
+      }
     }
-    mutex.unlock();
-
-    if ( b_timechanged )
-    {
-        m_startTime = lowestTime;
-        emit startTimeChanged( m_startTime );
     }
 
-    if ( b_update_channels ) updateChannels();
+    if ( epgItemByTime->keys().isEmpty() )
+    { /* Now unused channel */
+    epgitemsByChannel.remove( channelName );
+    delete epgItemByTime;
+    emit channelRemoved( channelName );
+    b_update_channels = true;
+    }
+  }
+  mutex.unlock();
+
+  if ( b_timechanged )
+  {
+    m_startTime = lowestTime;
+    emit startTimeChanged( m_startTime );
+  }
+
+  if ( b_update_channels ) updateChannels();
 }
 
 EPGView::~EPGView()
 {
-    reset();
+  reset();
 }
 
 void EPGView::updateDuration()
 {
-    QDateTime maxItemTime;
-    mutex.lock();
-    foreach( EPGEventByTimeQMap *epgItemByTime, epgitemsByChannel.values() )
-        foreach( EPGItem *epgItem, epgItemByTime->values() )
-            if ( epgItem->end() > maxItemTime ) maxItemTime = epgItem->end();
-    mutex.unlock();
-    m_duration = m_startTime.secsTo( maxItemTime );
-    emit durationChanged( m_duration );
+  QDateTime maxItemTime;
+  mutex.lock();
+  foreach( EPGEventByTimeQMap *epgItemByTime, epgitemsByChannel.values() )
+    foreach( EPGItem *epgItem, epgItemByTime->values() )
+    if ( epgItem->end() > maxItemTime ) maxItemTime = epgItem->end();
+  mutex.unlock();
+  m_duration = m_startTime.secsTo( maxItemTime );
+  emit durationChanged( m_duration );
 }
 
 void EPGView::focusItem( EPGItem *epgItem )
 {
-    emit itemFocused( epgItem );
+  emit itemFocused( epgItem );
 }

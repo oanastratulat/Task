@@ -25,7 +25,7 @@
  * Preamble
  *****************************************************************************/
 #ifndef  _GNU_SOURCE
-#   define  _GNU_SOURCE
+# define  _GNU_SOURCE
 #endif
 
 #ifdef HAVE_CONFIG_H
@@ -34,8 +34,8 @@
 
 #include <vlc_vout.h>
 
-#include <lua.h>        /* Low level lua C API */
-#include <lauxlib.h>    /* Higher level C API */
+#include <lua.h>    /* Low level lua C API */
+#include <lauxlib.h>  /* Higher level C API */
 
 #include "../vlc.h"
 #include "../libs.h"
@@ -47,37 +47,37 @@
  *****************************************************************************/
 static int vlclua_fullscreen( lua_State *L )
 {
-    vout_thread_t *p_vout;
-    int i_ret;
+  vout_thread_t *p_vout;
+  int i_ret;
 
-    input_thread_t * p_input = vlclua_get_input_internal( L );
-    if( !p_input ) return vlclua_error( L );
+  input_thread_t * p_input = vlclua_get_input_internal( L );
+  if( !p_input ) return vlclua_error( L );
 
-    p_vout = input_GetVout( p_input );
-    if( !p_vout )
-    {
-        vlc_object_release( p_input );
-        return vlclua_error( L );
-    }
-
-    i_ret = vlclua_var_toggle_or_set( L, p_vout, "fullscreen" );
-
-    vlc_object_release( p_vout );
+  p_vout = input_GetVout( p_input );
+  if( !p_vout )
+  {
     vlc_object_release( p_input );
-    return i_ret;
+    return vlclua_error( L );
+  }
+
+  i_ret = vlclua_var_toggle_or_set( L, p_vout, "fullscreen" );
+
+  vlc_object_release( p_vout );
+  vlc_object_release( p_input );
+  return i_ret;
 }
 
 /*****************************************************************************
  *
  *****************************************************************************/
 static const luaL_Reg vlclua_video_reg[] = {
-    { "fullscreen", vlclua_fullscreen },
-    { NULL, NULL }
+  { "fullscreen", vlclua_fullscreen },
+  { NULL, NULL }
 };
 
 void luaopen_video( lua_State *L )
 {
-    lua_newtable( L );
-    luaL_register( L, NULL, vlclua_video_reg );
-    lua_setfield( L, -2, "video" );
+  lua_newtable( L );
+  luaL_register( L, NULL, vlclua_video_reg );
+  lua_setfield( L, -2, "video" );
 }

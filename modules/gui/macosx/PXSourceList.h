@@ -1,6 +1,6 @@
 //
 //  PXSourceList.h
-//  PXSourceList
+//  PXSourceLis
 //
 //  Created by Alex Rozanski on 05/09/2009.
 //  Copyright 2009-10 Alex Rozanski http://perspx.com
@@ -25,7 +25,7 @@
 @property (assign) id<PXSourceListDataSource> dataSource;
 @property (assign) id<PXSourceListDelegate> delegate;
 
-- (NSUInteger)numberOfGroups;							//Returns the number of groups in the Source List
+- (NSUInteger)numberOfGroups;							//Returns the number of groups in the Source Lis
 - (BOOL)isGroupItem:(id)item;							//Returns whether `item` is a group
 - (BOOL)isGroupAlwaysExpanded:(id)group;				//Returns whether `group` is displayed as always expanded
 

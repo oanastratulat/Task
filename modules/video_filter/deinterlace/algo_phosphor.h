@@ -33,35 +33,35 @@ struct picture_t;
  *****************************************************************************/
 
 /* These numbers, and phosphor_chroma_list[], should be in the same order
-   as phosphor_chroma_list_text[]. The value 0 is reserved, because
-   var_GetInteger() returns 0 in case of error. */
+ as phosphor_chroma_list_text[]. The value 0 is reserved, because
+ var_GetInteger() returns 0 in case of error. */
 /** Valid Phosphor 4:2:0 chroma handling modes. */
-typedef enum { PC_LATEST = 1, PC_ALTLINE   = 2,
-               PC_BLEND  = 3, PC_UPCONVERT = 4 } phosphor_chroma_t;
+typedef enum { PC_LATEST = 1, PC_ALTLINE = 2,
+     PC_BLEND  = 3, PC_UPCONVERT = 4 } phosphor_chroma_t;
 /** Phosphor 4:2:0 chroma handling modes (config item). */
 static const int phosphor_chroma_list[] = { PC_LATEST, PC_ALTLINE,
-                                            PC_BLEND,  PC_UPCONVERT };
+                PC_BLEND,  PC_UPCONVERT };
 /** User labels for Phosphor 4:2:0 chroma handling modes (config item). */
 static const char *const phosphor_chroma_list_text[] = { N_("Latest"),
-                                                         N_("AltLine"),
-                                                         N_("Blend"),
-                                                         N_("Upconvert") };
+                   N_("AltLine"),
+                   N_("Blend"),
+                   N_("Upconvert") };
 
 /* Same here. Same order as in phosphor_dimmer_list_text[],
-   and the value 0 is reserved for config error. */
+ and the value 0 is reserved for config error. */
 /** Phosphor dimmer strengths (config item). */
 static const int phosphor_dimmer_list[] = { 1, 2, 3, 4 };
 /** User labels for Phosphor dimmer strengths (config item). */
 static const char *const phosphor_dimmer_list_text[] = { N_("Off"),
-                                                         N_("Low"),
-                                                         N_("Medium"),
-                                                         N_("High") };
+                   N_("Low"),
+                   N_("Medium"),
+                   N_("High") };
 
 /** Algorithm-specific state for Phosphor. */
-typedef struct
+typedef struc
 {
-    phosphor_chroma_t i_chroma_for_420;
-    int i_dimmer_strength;
+  phosphor_chroma_t i_chroma_for_420;
+  int i_dimmer_strength;
 } phosphor_sys_t;
 
 /*****************************************************************************
@@ -85,7 +85,7 @@ typedef struct
  * indicated by p_src->i_nb_fields. This is done by calling this function
  * several times, first with i_order = 0, and then with all other parameters
  * the same, but a new p_dst, increasing i_order (1 for second field,
- * and then if i_nb_fields = 3, also i_order = 2 to get the repeated first
+ * and then if i_nb_fields = 3, also i_order = 2 to get the repeated firs
  * field), and alternating i_field (starting, at i_order = 0, with the field
  * according to p_src->b_top_field_first). See Deinterlace() for an example.
  *
@@ -101,8 +101,8 @@ typedef struct
  * @see Deinterlace()
  */
 int RenderPhosphor( filter_t *p_filter,
-                    picture_t *p_dst,
-                    int i_order, int i_field );
+        picture_t *p_dst,
+        int i_order, int i_field );
 
 /*****************************************************************************
  * Extra documentation
@@ -118,7 +118,7 @@ int RenderPhosphor( filter_t *p_filter,
  * interlaced effects, such as in Sol Bianca or Silent Mobius. It can also
  * be used for true interlaced video, such as most camcorder recordings.
  *
- * The filter has several modes for handling 4:2:0 chroma for those output
+ * The filter has several modes for handling 4:2:0 chroma for those outpu
  * frames that fall across input frame temporal boundaries (i.e. fields come
  * from different frames). Upconvert (to 4:2:2) provides the most accurate
  * CRT simulation, but requires more CPU and memory bandwidth than the other
@@ -142,24 +142,24 @@ int RenderPhosphor( filter_t *p_filter,
  *
  * The main differences to the Bob algorithm are:
  *  - in addition to the current field, the previous one (fading out)
- *    is also rendered
+ *  is also rendered
  *  - some horizontal lines don't seem to flicker as much
- *  - scanline visual effect (adjustable; the dimmer strength can be set
- *    in the VLC advanced configuration)
+ *  - scanline visual effect (adjustable; the dimmer strength can be se
+ *  in the VLC advanced configuration)
  *  - the picture appears 25%, 38% or 44% darker on average (for dimmer
- *    strengths 1, 2 and 3)
+ *  strengths 1, 2 and 3)
  *  - if the input has 4:2:0 chroma, the colours may look messed up in some
- *    output frames. This is a limitation of the 4:2:0 chroma format, and due
- *    to the fact that both fields are present in each output picture. Usually
- *    this doesn't matter in practice, but see the 4:2:0 chroma mode setting
- *    in the configuration if needed (it may help a bit).
+ *  output frames. This is a limitation of the 4:2:0 chroma format, and due
+ *  to the fact that both fields are present in each output picture. Usually
+ *  this doesn't matter in practice, but see the 4:2:0 chroma mode setting
+ *  in the configuration if needed (it may help a bit).
  *
  * In addition, when this filter is used on an LCD computer monitor,
  * the main differences to a real CRT TV are:
  *  - Pixel shape and grid layout; CRT TVs were designed for interlaced
- *    field rendering, while LCD monitors weren't.
+ *  field rendering, while LCD monitors weren't.
  *  - No scan flicker even though the display runs (usually) at 60Hz.
- *    (This at least is a good thing.)
+ *  (This at least is a good thing.)
  *
  * The output vertical resolution should be large enough for the scaling
  * not to have a too adverse effect on the regular scanline pattern.

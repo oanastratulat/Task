@@ -5,7 +5,7 @@
  * $Id: e978e7c3e191742d7918718d406be3a562e3e06d $
  *
  * Authors: Antoine Cellerier <dionoea at videolan tod org>
- *          Pierre d'Herbemont <pdherbemont # videolan.org>
+ *    Pierre d'Herbemont <pdherbemont # videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 int vlclua_push_vlc_object( lua_State *L, vlc_object_t *p_obj );
 #define vlclua_push_vlc_object( a, b ) \
-        vlclua_push_vlc_object( a, VLC_OBJECT( b ) )
+    vlclua_push_vlc_object( a, VLC_OBJECT( b ) )
 
 #endif
 

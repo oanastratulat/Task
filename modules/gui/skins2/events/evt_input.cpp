@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 8b947762c51b4d2f397bf8de98739d0fcf3bc082 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
- *          Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ *    Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,38 +25,38 @@
 #include "evt_input.hpp"
 #include "vlc_keys.h"
 
-const int
-    EvtInput::kModNone=0,
-    EvtInput::kModAlt=KEY_MODIFIER_ALT,
-    EvtInput::kModShift=KEY_MODIFIER_SHIFT,
-    EvtInput::kModCtrl=KEY_MODIFIER_CTRL,
-    EvtInput::kModMeta=KEY_MODIFIER_META,
-    EvtInput::kModCmd=KEY_MODIFIER_COMMAND;
+const in
+  EvtInput::kModNone=0,
+  EvtInput::kModAlt=KEY_MODIFIER_ALT,
+  EvtInput::kModShift=KEY_MODIFIER_SHIFT,
+  EvtInput::kModCtrl=KEY_MODIFIER_CTRL,
+  EvtInput::kModMeta=KEY_MODIFIER_META,
+  EvtInput::kModCmd=KEY_MODIFIER_COMMAND;
 
 EvtInput::EvtInput( intf_thread_t *pIntf, int mod )
-    : EvtGeneric( pIntf), m_mod( mod ) { }
+  : EvtGeneric( pIntf), m_mod( mod ) { }
 
 
-void EvtInput::addModifier( string &rEvtString ) const
+void EvtInput::addModifier( string &rEvtString ) cons
 {
-    if( m_mod == kModNone )
-    {
-        rEvtString += ":none";
-    }
-    else
-    {
-        string m = ":";
-        if( m_mod & kModAlt )
-            m += "alt,";
-        if( m_mod & kModCtrl )
-            m += "ctrl,";
-        if( m_mod & kModShift )
-            m += "shift,";
-        if( m_mod & kModMeta )
-            m += "meta,";
-        if( m_mod & kModCmd )
-            m += "cmd,";
-        // Append the result except the last ','
-        rEvtString.insert( rEvtString.end(), m.begin(), m.end()-1 );
-    }
+  if( m_mod == kModNone )
+  {
+    rEvtString += ":none";
+  }
+  else
+  {
+    string m = ":";
+    if( m_mod & kModAlt )
+    m += "alt,";
+    if( m_mod & kModCtrl )
+    m += "ctrl,";
+    if( m_mod & kModShift )
+    m += "shift,";
+    if( m_mod & kModMeta )
+    m += "meta,";
+    if( m_mod & kModCmd )
+    m += "cmd,";
+    // Append the result except the last ','
+    rEvtString.insert( rEvtString.end(), m.begin(), m.end()-1 );
+  }
 }

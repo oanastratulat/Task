@@ -4,7 +4,7 @@
  */
 
 /*
- * Modified for use with MPlayer, detailed CVS changelog at
+ * Modified for use with MPlayer, detailed CVS changelog a
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  * $Id: 9f14971897fad2f4be501b40547b2034dd915b11 $
  */
@@ -21,7 +21,7 @@ extern "C" {
 #endif /* defined(__cplusplus) */
 
 /*
- * Win32 was easy to implement under Unix since most (all?) 32-bit
+ * Win32 was easy to implement under Unix since most (all?) 32-bi
  * Unices uses the same type model (ILP32) as Win32, where int, long
  * and pointer are 32-bit.
  *
@@ -37,28 +37,28 @@ extern "C" {
 #ifndef __INTEL_COMPILER
 
 #ifndef __int8
-typedef char          __int8;
+typedef char    __int8;
 #endif
 #ifndef __uint8
 typedef unsigned char __uint8;
 #endif
 
 #ifndef __int16
-typedef short          __int16;
+typedef short    __int16;
 #endif
 #ifndef __uint16
 typedef unsigned short __uint16;
 #endif
 
 #ifndef __int32
-typedef int          __int32;
+typedef int    __int32;
 #endif
 #ifndef __uint32
 typedef unsigned int __uint32;
 #endif
 
 #ifndef __int64
-typedef long long          __int64;
+typedef long long    __int64;
 #endif
 #ifndef __uint64
 typedef unsigned long long __uint64;
@@ -76,11 +76,11 @@ typedef unsigned __int64 __uint64;
 #if defined(_WIN64)
 
 typedef __uint32 __ptr32;
-typedef void    *__ptr64;
+typedef void  *__ptr64;
 
 #else /* FIXME: defined(_WIN32) */
 
-typedef void    *__ptr32;
+typedef void  *__ptr32;
 typedef __uint64 __ptr64;
 
 #endif

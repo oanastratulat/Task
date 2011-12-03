@@ -1,5 +1,5 @@
 /*
- * Modified for use with MPlayer, detailed CVS changelog at
+ * Modified for use with MPlayer, detailed CVS changelog a
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  * $Id: f7e369d5348fc7c5173c4cf3382ade9eb13cd8ae $
  */

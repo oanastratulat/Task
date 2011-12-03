@@ -41,7 +41,7 @@ int osd_parser_xmlOpen ( vlc_object_t *p_this );
 
 int osd_parser_xmlOpen( vlc_object_t *p_this )
 {
-    VLC_UNUSED(p_this);
-    return VLC_SUCCESS;
+  VLC_UNUSED(p_this);
+  return VLC_SUCCESS;
 }
 

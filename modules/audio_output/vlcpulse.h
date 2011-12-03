@@ -3,9 +3,9 @@
  * \brief PulseAudio support library for LibVLC plugins
  */
 /****************************************************************************
- * Copyright (C) 2011 Rémi Denis-Courmont
+ * Copyright (C) 2011 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -27,9 +27,9 @@ extern "C" {
 # endif
 
 VLC_API pa_context *vlc_pa_connect (vlc_object_t *obj,
-                                    pa_threaded_mainloop **);
+            pa_threaded_mainloop **);
 VLC_API void vlc_pa_disconnect (vlc_object_t *obj, pa_context *ctx,
-                                pa_threaded_mainloop *);
+            pa_threaded_mainloop *);
 
 VLC_API void vlc_pa_error (vlc_object_t *, const char *msg, pa_context *);
 #define vlc_pa_error(o, m, c) vlc_pa_error(VLC_OBJECT(o), m, c)

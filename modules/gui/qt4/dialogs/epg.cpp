@@ -3,7 +3,7 @@
  ****************************************************************************
  * Copyright © 2010 VideoLAN and AUTHORS
  *
- * Authors:    Jean-Baptiste Kempf <jb@videolan.org>
+ * Authors:  Jean-Baptiste Kempf <jb@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,98 +43,98 @@
 
 EpgDialog::EpgDialog( intf_thread_t *_p_intf ): QVLCFrame( _p_intf )
 {
-    setWindowTitle( qtr( "Program Guide" ) );
+  setWindowTitle( qtr( "Program Guide" ) );
 
-    QVBoxLayout *layout = new QVBoxLayout( this );
-    layout->setMargin( 0 );
-    epg = new EPGWidget( this );
+  QVBoxLayout *layout = new QVBoxLayout( this );
+  layout->setMargin( 0 );
+  epg = new EPGWidget( this );
 
-    QGroupBox *descBox = new QGroupBox( qtr( "Description" ), this );
+  QGroupBox *descBox = new QGroupBox( qtr( "Description" ), this );
 
-    QVBoxLayout *boxLayout = new QVBoxLayout( descBox );
+  QVBoxLayout *boxLayout = new QVBoxLayout( descBox );
 
-    description = new QTextEdit( this );
-    description->setReadOnly( true );
-    description->setFrameStyle( QFrame::Sunken | QFrame::StyledPanel );
-    description->setAutoFillBackground( true );
-    description->setAlignment( Qt::AlignLeft | Qt::AlignTop );
-    description->setFixedHeight( 100 );
+  description = new QTextEdit( this );
+  description->setReadOnly( true );
+  description->setFrameStyle( QFrame::Sunken | QFrame::StyledPanel );
+  description->setAutoFillBackground( true );
+  description->setAlignment( Qt::AlignLeft | Qt::AlignTop );
+  description->setFixedHeight( 100 );
 
-    QPalette palette;
-    palette.setBrush(QPalette::Active, QPalette::Window, palette.brush( QPalette::Base ) );
-    description->setPalette( palette );
+  QPalette palette;
+  palette.setBrush(QPalette::Active, QPalette::Window, palette.brush( QPalette::Base ) );
+  description->setPalette( palette );
 
-    title = new QLabel( qtr( "Title" ), this );
-    title->setWordWrap( true );
+  title = new QLabel( qtr( "Title" ), this );
+  title->setWordWrap( true );
 
-    boxLayout->addWidget( title );
-    boxLayout->addWidget( description );
+  boxLayout->addWidget( title );
+  boxLayout->addWidget( description );
 
-    layout->addWidget( epg, 10 );
-    layout->addWidget( descBox );
+  layout->addWidget( epg, 10 );
+  layout->addWidget( descBox );
 
-    CONNECT( epg, itemSelectionChanged( EPGItem *), this, showEvent( EPGItem *) );
-    CONNECT( THEMIM->getIM(), epgChanged(), this, updateInfos() );
-    CONNECT( THEMIM, inputChanged( input_thread_t * ), this, updateInfos() );
+  CONNECT( epg, itemSelectionChanged( EPGItem *), this, showEvent( EPGItem *) );
+  CONNECT( THEMIM->getIM(), epgChanged(), this, updateInfos() );
+  CONNECT( THEMIM, inputChanged( input_thread_t * ), this, updateInfos() );
 
-    QDialogButtonBox *buttonsBox = new QDialogButtonBox( this );
+  QDialogButtonBox *buttonsBox = new QDialogButtonBox( this );
 
 #if 0
-    QPushButton *update = new QPushButton( qtr( "Update" ) ); // Temporary to test
-    buttonsBox->addButton( update, QDialogButtonBox::ActionRole );
-    BUTTONACT( update, updateInfos() );
+  QPushButton *update = new QPushButton( qtr( "Update" ) ); // Temporary to tes
+  buttonsBox->addButton( update, QDialogButtonBox::ActionRole );
+  BUTTONACT( update, updateInfos() );
 #endif
 
-    buttonsBox->addButton( new QPushButton( qtr( "&Close" ) ),
-                           QDialogButtonBox::RejectRole );
-    boxLayout->addWidget( buttonsBox );
-    CONNECT( buttonsBox, rejected(), this, close() );
+  buttonsBox->addButton( new QPushButton( qtr( "&Close" ) ),
+         QDialogButtonBox::RejectRole );
+  boxLayout->addWidget( buttonsBox );
+  CONNECT( buttonsBox, rejected(), this, close() );
 
-    timer = new QTimer( this );
-    timer->setSingleShot( true );
-    timer->setInterval( 1000 * 60 );
-    CONNECT( timer, timeout(), this, updateInfos() );
+  timer = new QTimer( this );
+  timer->setSingleShot( true );
+  timer->setInterval( 1000 * 60 );
+  CONNECT( timer, timeout(), this, updateInfos() );
 
-    updateInfos();
-    readSettings( "EPGDialog", QSize( 650, 450 ) );
+  updateInfos();
+  readSettings( "EPGDialog", QSize( 650, 450 ) );
 }
 
 EpgDialog::~EpgDialog()
 {
-    writeSettings( "EPGDialog" );
+  writeSettings( "EPGDialog" );
 }
 
 void EpgDialog::showEvent( EPGItem *epgItem )
 {
-    if( !epgItem ) return;
+  if( !epgItem ) return;
 
-    QDateTime end = epgItem->start().addSecs( epgItem->duration() );
-    title->setText( QString("%1 - %2 : %3")
-                   .arg( epgItem->start().toString( "hh:mm" ) )
-                   .arg( end.toString( "hh:mm" ) )
-                   .arg( epgItem->name() )
-                   );
-    description->setText( epgItem->description() );
+  QDateTime end = epgItem->start().addSecs( epgItem->duration() );
+  title->setText( QString("%1 - %2 : %3")
+       .arg( epgItem->start().toString( "hh:mm" ) )
+       .arg( end.toString( "hh:mm" ) )
+       .arg( epgItem->name() )
+       );
+  description->setText( epgItem->description() );
 }
 
 void EpgDialog::updateInfos()
 {
-    timer->stop();
-    input_item_t *p_input_item = NULL;
-    playlist_t *p_playlist = THEPL;
-    input_thread_t *p_input_thread = playlist_CurrentInput( p_playlist ); /* w/hold */
-    if( p_input_thread )
+  timer->stop();
+  input_item_t *p_input_item = NULL;
+  playlist_t *p_playlist = THEPL;
+  input_thread_t *p_input_thread = playlist_CurrentInput( p_playlist ); /* w/hold */
+  if( p_input_thread )
+  {
+    PL_LOCK; /* as input_GetItem still unfixed */
+    p_input_item = input_GetItem( p_input_thread );
+    if ( p_input_item ) vlc_gc_incref( p_input_item );
+    PL_UNLOCK;
+    vlc_object_release( p_input_thread );
+    if ( p_input_item )
     {
-        PL_LOCK; /* as input_GetItem still unfixed */
-        p_input_item = input_GetItem( p_input_thread );
-        if ( p_input_item ) vlc_gc_incref( p_input_item );
-        PL_UNLOCK;
-        vlc_object_release( p_input_thread );
-        if ( p_input_item )
-        {
-            epg->updateEPG( p_input_item );
-            vlc_gc_decref( p_input_item );
-            if ( isVisible() ) timer->start();
-        }
+    epg->updateEPG( p_input_item );
+    vlc_gc_decref( p_input_item );
+    if ( isVisible() ) timer->start();
     }
+  }
 }

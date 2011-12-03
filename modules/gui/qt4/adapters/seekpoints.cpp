@@ -30,55 +30,55 @@
 #include "input_manager.hpp"
 
 SeekPoints::SeekPoints( QObject *parent, intf_thread_t *p_intf_ ) :
-    QObject( parent ), p_intf( p_intf_ )
+  QObject( parent ), p_intf( p_intf_ )
 {}
 
 void SeekPoints::update()
 {
-    input_title_t *p_title = NULL;
-    input_thread_t *p_input_thread = playlist_CurrentInput( THEPL );
-    int i_title_id = -1;
-    if( !p_input_thread ) { pointsList.clear(); return; }
+  input_title_t *p_title = NULL;
+  input_thread_t *p_input_thread = playlist_CurrentInput( THEPL );
+  int i_title_id = -1;
+  if( !p_input_thread ) { pointsList.clear(); return; }
 
-    if ( input_Control( p_input_thread, INPUT_GET_TITLE_INFO, &p_title, &i_title_id )
-        != VLC_SUCCESS )
-    {
-        vlc_object_release( p_input_thread );
-        pointsList.clear();
-        return;
-    }
-
+  if ( input_Control( p_input_thread, INPUT_GET_TITLE_INFO, &p_title, &i_title_id )
+    != VLC_SUCCESS )
+  {
     vlc_object_release( p_input_thread );
-
-    /* lock here too, as update event is triggered by an external thread */
-    if ( !access() ) return;
     pointsList.clear();
-    for ( int i=0; i<p_title->i_seekpoint ; i++ )
-        if ( p_title->seekpoint[i]->i_time_offset > 0 )
-            pointsList << SeekPoint( p_title->seekpoint[i] );
+    return;
+  }
 
-    vlc_input_title_Delete( p_title );
-    release();
+  vlc_object_release( p_input_thread );
+
+  /* lock here too, as update event is triggered by an external thread */
+  if ( !access() ) return;
+  pointsList.clear();
+  for ( int i=0; i<p_title->i_seekpoint ; i++ )
+    if ( p_title->seekpoint[i]->i_time_offset > 0 )
+    pointsList << SeekPoint( p_title->seekpoint[i] );
+
+  vlc_input_title_Delete( p_title );
+  release();
 }
 
 QList<SeekPoint> const SeekPoints::getPoints()
 {
-    QList<SeekPoint> copy;
-    if ( access() )
-    {
-        copy = pointsList;
-        release();
-    }
-    return copy;
+  QList<SeekPoint> copy;
+  if ( access() )
+  {
+    copy = pointsList;
+    release();
+  }
+  return copy;
 }
 
 bool SeekPoints::jumpTo( int i_chapterindex )
 {
-    vlc_value_t val;
-    val.i_int = i_chapterindex;
-    input_thread_t *p_input_thread = playlist_CurrentInput( THEPL );
-    if( !p_input_thread ) return false;
-    bool b_succ = var_Set( p_input_thread, "chapter", val );
-    vlc_object_release( p_input_thread );
-    return ( b_succ == VLC_SUCCESS );
+  vlc_value_t val;
+  val.i_int = i_chapterindex;
+  input_thread_t *p_input_thread = playlist_CurrentInput( THEPL );
+  if( !p_input_thread ) return false;
+  bool b_succ = var_Set( p_input_thread, "chapter", val );
+  vlc_object_release( p_input_thread );
+  return ( b_succ == VLC_SUCCESS );
 }

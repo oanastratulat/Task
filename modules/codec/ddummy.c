@@ -35,29 +35,29 @@
 
 #define SAVE_TEXT N_("Save raw codec data")
 #define SAVE_LONGTEXT N_( \
-    "Save the raw codec data if you have selected/forced the dummy " \
-    "decoder in the main options." )
+  "Save the raw codec data if you have selected/forced the dummy " \
+  "decoder in the main options." )
 
 static int OpenDecoder( vlc_object_t * );
 static int OpenDecoderDump( vlc_object_t * );
 static void CloseDecoder( vlc_object_t * );
 
 vlc_module_begin ()
-    set_shortname( N_("Dummy") )
-    set_description( N_("Dummy decoder") )
-    set_capability( "decoder", 0 )
-    set_callbacks( OpenDecoder, CloseDecoder )
-    set_category( CAT_INPUT )
-    set_subcategory( SUBCAT_INPUT_SCODEC )
-    add_bool( "dummy-save-es", false, SAVE_TEXT, SAVE_LONGTEXT, true )
-    add_shortcut( "dummy" )
+  set_shortname( N_("Dummy") )
+  set_description( N_("Dummy decoder") )
+  set_capability( "decoder", 0 )
+  set_callbacks( OpenDecoder, CloseDecoder )
+  set_category( CAT_INPUT )
+  set_subcategory( SUBCAT_INPUT_SCODEC )
+  add_bool( "dummy-save-es", false, SAVE_TEXT, SAVE_LONGTEXT, true )
+  add_shortcut( "dummy" )
 
-    add_submodule ()
-    set_section( N_( "Dump decoder" ), NULL )
-    set_description( N_("Dump decoder") )
-    set_capability( "decoder", -1 )
-    set_callbacks( OpenDecoderDump, CloseDecoder )
-    add_shortcut( "dump" )
+  add_submodule ()
+  set_section( N_( "Dump decoder" ), NULL )
+  set_description( N_("Dump decoder") )
+  set_capability( "decoder", -1 )
+  set_callbacks( OpenDecoderDump, CloseDecoder )
+  add_shortcut( "dump" )
 vlc_module_end ()
 
 
@@ -71,48 +71,48 @@ static void *DecodeBlock( decoder_t *p_dec, block_t **pp_block );
  *****************************************************************************/
 static int OpenDecoderCommon( vlc_object_t *p_this, bool b_force_dump )
 {
-    decoder_t *p_dec = (decoder_t*)p_this;
-    char psz_file[10 + 3 * sizeof (p_dec)];
+  decoder_t *p_dec = (decoder_t*)p_this;
+  char psz_file[10 + 3 * sizeof (p_dec)];
 
-    snprintf( psz_file, sizeof( psz_file), "stream.%p", p_dec );
+  snprintf( psz_file, sizeof( psz_file), "stream.%p", p_dec );
 
-    if( !b_force_dump )
-        b_force_dump = var_InheritBool( p_dec, "dummy-save-es" );
-    if( b_force_dump )
+  if( !b_force_dump )
+    b_force_dump = var_InheritBool( p_dec, "dummy-save-es" );
+  if( b_force_dump )
+  {
+    FILE *stream = vlc_fopen( psz_file, "wb" );
+    if( stream == NULL )
     {
-        FILE *stream = vlc_fopen( psz_file, "wb" );
-        if( stream == NULL )
-        {
-            msg_Err( p_dec, "cannot create `%s'", psz_file );
-            return VLC_EGENERIC;
-        }
-        msg_Dbg( p_dec, "dumping stream to file `%s'", psz_file );
-        p_dec->p_sys = (void *)stream;
+    msg_Err( p_dec, "cannot create `%s'", psz_file );
+    return VLC_EGENERIC;
     }
-    else
-        p_dec->p_sys = NULL;
+    msg_Dbg( p_dec, "dumping stream to file `%s'", psz_file );
+    p_dec->p_sys = (void *)stream;
+  }
+  else
+    p_dec->p_sys = NULL;
 
-    /* Set callbacks */
-    p_dec->pf_decode_video = (picture_t *(*)(decoder_t *, block_t **))
-        DecodeBlock;
-    p_dec->pf_decode_audio = (aout_buffer_t *(*)(decoder_t *, block_t **))
-        DecodeBlock;
-    p_dec->pf_decode_sub = (subpicture_t *(*)(decoder_t *, block_t **))
-        DecodeBlock;
+  /* Set callbacks */
+  p_dec->pf_decode_video = (picture_t *(*)(decoder_t *, block_t **))
+    DecodeBlock;
+  p_dec->pf_decode_audio = (aout_buffer_t *(*)(decoder_t *, block_t **))
+    DecodeBlock;
+  p_dec->pf_decode_sub = (subpicture_t *(*)(decoder_t *, block_t **))
+    DecodeBlock;
 
-    es_format_Copy( &p_dec->fmt_out, &p_dec->fmt_in );
+  es_format_Copy( &p_dec->fmt_out, &p_dec->fmt_in );
 
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 static int OpenDecoder( vlc_object_t *p_this )
 {
-    return OpenDecoderCommon( p_this, false );
+  return OpenDecoderCommon( p_this, false );
 }
 
 static int  OpenDecoderDump( vlc_object_t *p_this )
 {
-    return OpenDecoderCommon( p_this, true );
+  return OpenDecoderCommon( p_this, true );
 }
 
 /****************************************************************************
@@ -122,22 +122,22 @@ static int  OpenDecoderDump( vlc_object_t *p_this )
  ****************************************************************************/
 static void *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
 {
-    FILE *stream = (void *)p_dec->p_sys;
-    block_t *p_block;
+  FILE *stream = (void *)p_dec->p_sys;
+  block_t *p_block;
 
-    if( !pp_block || !*pp_block ) return NULL;
-    p_block = *pp_block;
+  if( !pp_block || !*pp_block ) return NULL;
+  p_block = *pp_block;
 
-    if( stream != NULL
-     && p_block->i_buffer > 0
-     && !(p_block->i_flags & (BLOCK_FLAG_DISCONTINUITY|BLOCK_FLAG_CORRUPTED)) )
-    {
-        fwrite( p_block->p_buffer, 1, p_block->i_buffer, stream );
-        msg_Dbg( p_dec, "dumped %zu bytes", p_block->i_buffer );
-    }
-    block_Release( p_block );
+  if( stream != NULL
+   && p_block->i_buffer > 0
+   && !(p_block->i_flags & (BLOCK_FLAG_DISCONTINUITY|BLOCK_FLAG_CORRUPTED)) )
+  {
+    fwrite( p_block->p_buffer, 1, p_block->i_buffer, stream );
+    msg_Dbg( p_dec, "dumped %zu bytes", p_block->i_buffer );
+  }
+  block_Release( p_block );
 
-    return NULL;
+  return NULL;
 }
 
 /*****************************************************************************
@@ -145,9 +145,9 @@ static void *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
  *****************************************************************************/
 static void CloseDecoder( vlc_object_t *p_this )
 {
-    decoder_t *p_dec = (decoder_t *)p_this;
-    FILE *stream = (void *)p_dec->p_sys;
+  decoder_t *p_dec = (decoder_t *)p_this;
+  FILE *stream = (void *)p_dec->p_sys;
 
-    if( stream != NULL )
-        fclose( stream );
+  if( stream != NULL )
+    fclose( stream );
 }

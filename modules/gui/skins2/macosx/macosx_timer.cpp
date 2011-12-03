@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 7c1d7cd08ee0b171fe80617c5cc908d596df9c2e $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,28 +28,28 @@
 
 
 MacOSXTimer::MacOSXTimer( intf_thread_t *pIntf,  CmdGeneric &rCmd ):
-    OSTimer( pIntf ), m_rCommand( rCmd )
+  OSTimer( pIntf ), m_rCommand( rCmd )
 {
-    // TODO
+  // TODO
 }
 
 
 MacOSXTimer::~MacOSXTimer()
 {
-    // TODO
-    stop();
+  // TODO
+  stop();
 }
 
 
 void MacOSXTimer::start( int delay, bool oneShot )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXTimer::stop()
 {
-    // TODO
+  // TODO
 }
 
 #endif

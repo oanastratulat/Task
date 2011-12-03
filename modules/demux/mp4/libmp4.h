@@ -254,303 +254,303 @@ struct MP4_Box_s;
 /* uuid Universal Unique IDentifiers */
 typedef struct UUID_s
 {
-    uint8_t b[16];
+  uint8_t b[16];
 } UUID_t;
 
 /* specific structure for all boxes */
 
 typedef struct MP4_Box_data_ftyp_s
 {
-    uint32_t i_major_brand;
-    uint32_t i_minor_version;
+  uint32_t i_major_brand;
+  uint32_t i_minor_version;
 
-    uint32_t i_compatible_brands_count;
-    uint32_t *i_compatible_brands;
+  uint32_t i_compatible_brands_count;
+  uint32_t *i_compatible_brands;
 
 } MP4_Box_data_ftyp_t;
 
 typedef struct MP4_Box_data_mvhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint64_t i_creation_time;
-    uint64_t i_modification_time;
-    uint32_t i_timescale;
-    uint64_t i_duration;
+  uint64_t i_creation_time;
+  uint64_t i_modification_time;
+  uint32_t i_timescale;
+  uint64_t i_duration;
 
-    int32_t  i_rate;
-    int16_t  i_volume;
-    int16_t  i_reserved1;
-    uint32_t i_reserved2[2];
-    int32_t  i_matrix[9];
-    uint32_t i_predefined[6];
-    uint32_t i_next_track_id;
+  int32_t  i_rate;
+  int16_t  i_volume;
+  int16_t  i_reserved1;
+  uint32_t i_reserved2[2];
+  int32_t  i_matrix[9];
+  uint32_t i_predefined[6];
+  uint32_t i_next_track_id;
 
 } MP4_Box_data_mvhd_t;
 
-#define MP4_TRACK_ENABLED    0x000001
-#define MP4_TRACK_IN_MOVIE   0x000002
+#define MP4_TRACK_ENABLED  0x000001
+#define MP4_TRACK_IN_MOVIE 0x000002
 #define MP4_TRACK_IN_PREVIEW 0x000004
 typedef struct MP4_Box_data_tkhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint64_t i_creation_time;
-    uint64_t i_modification_time;
-    uint32_t i_track_ID;
-    uint32_t i_reserved;
-    uint64_t i_duration;
+  uint64_t i_creation_time;
+  uint64_t i_modification_time;
+  uint32_t i_track_ID;
+  uint32_t i_reserved;
+  uint64_t i_duration;
 
-    uint32_t i_reserved2[2];
-    int16_t  i_layer;
-    int16_t  i_predefined;
+  uint32_t i_reserved2[2];
+  int16_t  i_layer;
+  int16_t  i_predefined;
 
-    int16_t  i_volume;
-    uint16_t i_reserved3;
-    int32_t  i_matrix[9];
-    int32_t  i_width;
-    int32_t  i_height;
+  int16_t  i_volume;
+  uint16_t i_reserved3;
+  int32_t  i_matrix[9];
+  int32_t  i_width;
+  int32_t  i_height;
 
 } MP4_Box_data_tkhd_t;
 
 typedef struct MP4_Box_data_mdhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint64_t i_creation_time;
-    uint64_t i_modification_time;
-    uint32_t i_timescale;
-    uint64_t i_duration;
+  uint64_t i_creation_time;
+  uint64_t i_modification_time;
+  uint32_t i_timescale;
+  uint64_t i_duration;
 
-    /* one bit for pad */
-    uint16_t      i_language_code;
-    /* unsigned int(5)[3] language difference with 0x60*/
-    unsigned char i_language[3];
-    uint16_t i_predefined;
+  /* one bit for pad */
+  uint16_t  i_language_code;
+  /* unsigned int(5)[3] language difference with 0x60*/
+  unsigned char i_language[3];
+  uint16_t i_predefined;
 
 } MP4_Box_data_mdhd_t;
 
 typedef struct MP4_Box_data_hdlr_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_predefined;
-    uint32_t i_handler_type; /* "vide" "soun" "hint" "odsm"
-                           "crsm" "sdsm" "m7sm" "ocsm"
-                           "ipsm" "mjsm" */
+  uint32_t i_predefined;
+  uint32_t i_handler_type; /* "vide" "soun" "hint" "odsm"
+         "crsm" "sdsm" "m7sm" "ocsm"
+         "ipsm" "mjsm" */
 
-    unsigned char *psz_name; /* in UTF-8 */
+  unsigned char *psz_name; /* in UTF-8 */
 
 } MP4_Box_data_hdlr_t;
 
 typedef struct MP4_Box_data_vmhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    int16_t  i_graphics_mode;
-    int16_t  i_opcolor[3];
+  int16_t  i_graphics_mode;
+  int16_t  i_opcolor[3];
 
 } MP4_Box_data_vmhd_t;
 
 typedef struct MP4_Box_data_smhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    int16_t  i_balance;
-    int16_t  i_reserved;
+  int16_t  i_balance;
+  int16_t  i_reserved;
 
 } MP4_Box_data_smhd_t;
 
 typedef struct MP4_Box_data_hmhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint16_t i_max_PDU_size;
-    uint16_t i_avg_PDU_size;
-    uint32_t i_max_bitrate;
-    uint32_t i_avg_bitrate;
-    uint32_t i_reserved;
+  uint16_t i_max_PDU_size;
+  uint16_t i_avg_PDU_size;
+  uint32_t i_max_bitrate;
+  uint32_t i_avg_bitrate;
+  uint32_t i_reserved;
 
 } MP4_Box_data_hmhd_t;
 
 typedef struct MP4_Box_data_url_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    char *psz_location;
+  char *psz_location;
 
 } MP4_Box_data_url_t;
 
 typedef struct MP4_Box_data_urn_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    char *psz_name;
-    char *psz_location;
+  char *psz_name;
+  char *psz_location;
 
 } MP4_Box_data_urn_t;
 
 typedef struct MP4_Box_data_dref_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 /* XXX it's also a container with i_entry_count entry */
 } MP4_Box_data_dref_t;
 
 typedef struct MP4_Box_data_stts_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
-    uint32_t *i_sample_count; /* these are array */
-    int32_t  *i_sample_delta;
+  uint32_t i_entry_count;
+  uint32_t *i_sample_count; /* these are array */
+  int32_t  *i_sample_delta;
 
 } MP4_Box_data_stts_t;
 
 typedef struct MP4_Box_data_ctts_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    uint32_t *i_sample_count; /* these are array */
-    int32_t  *i_sample_offset;
+  uint32_t *i_sample_count; /* these are array */
+  int32_t  *i_sample_offset;
 
 } MP4_Box_data_ctts_t;
 
 
 typedef struct MP4_Box_data_sample_soun_s
 {
-    uint8_t  i_reserved1[6];
-    uint16_t i_data_reference_index;
+  uint8_t  i_reserved1[6];
+  uint16_t i_data_reference_index;
 
-    //uint32_t i_reserved2[2];
-    uint16_t i_qt_version;
-    uint16_t i_qt_revision_level;
-    uint32_t i_qt_vendor;
+  //uint32_t i_reserved2[2];
+  uint16_t i_qt_version;
+  uint16_t i_qt_revision_level;
+  uint32_t i_qt_vendor;
 
-    uint16_t i_channelcount;
-    uint16_t i_samplesize;
-    uint16_t i_predefined;
-    uint16_t i_reserved3;
-    uint16_t i_sampleratehi; /* timescale of track */
-    uint16_t i_sampleratelo;
+  uint16_t i_channelcount;
+  uint16_t i_samplesize;
+  uint16_t i_predefined;
+  uint16_t i_reserved3;
+  uint16_t i_sampleratehi; /* timescale of track */
+  uint16_t i_sampleratelo;
 
-    /* for version 1 (i_reserved1[0] == 1) */
-    uint32_t i_sample_per_packet;
-    uint32_t i_bytes_per_packet;
-    uint32_t i_bytes_per_frame;
-    uint32_t i_bytes_per_sample;
+  /* for version 1 (i_reserved1[0] == 1) */
+  uint32_t i_sample_per_packet;
+  uint32_t i_bytes_per_packet;
+  uint32_t i_bytes_per_frame;
+  uint32_t i_bytes_per_sample;
 
-    /* XXX hack */
-    int     i_qt_description;
-    uint8_t *p_qt_description;
+  /* XXX hack */
+  int   i_qt_description;
+  uint8_t *p_qt_description;
 
-    void    *p_drms;
+  void  *p_drms;
 
 } MP4_Box_data_sample_soun_t;
 
 typedef struct MP4_Box_data_sample_vide_s
 {
-    uint8_t  i_reserved1[6];
-    uint16_t i_data_reference_index;
+  uint8_t  i_reserved1[6];
+  uint16_t i_data_reference_index;
 
-    uint16_t i_qt_version;
-    uint16_t i_qt_revision_level;
-    uint32_t i_qt_vendor;
+  uint16_t i_qt_version;
+  uint16_t i_qt_revision_level;
+  uint32_t i_qt_vendor;
 
-    uint32_t i_qt_temporal_quality;
-    uint32_t i_qt_spatial_quality;
+  uint32_t i_qt_temporal_quality;
+  uint32_t i_qt_spatial_quality;
 
-    int16_t  i_width;
-    int16_t  i_height;
+  int16_t  i_width;
+  int16_t  i_height;
 
-    uint32_t i_horizresolution;
-    uint32_t i_vertresolution;
+  uint32_t i_horizresolution;
+  uint32_t i_vertresolution;
 
-    uint32_t i_qt_data_size;
-    uint16_t i_qt_frame_count;
+  uint32_t i_qt_data_size;
+  uint16_t i_qt_frame_count;
 
-    uint8_t  i_compressorname[32];
-    int16_t  i_depth;
+  uint8_t  i_compressorname[32];
+  int16_t  i_depth;
 
-    int16_t  i_qt_color_table;
+  int16_t  i_qt_color_table;
 
-    /* XXX hack ImageDescription */
-    int     i_qt_image_description;
-    uint8_t *p_qt_image_description;
+  /* XXX hack ImageDescription */
+  int   i_qt_image_description;
+  uint8_t *p_qt_image_description;
 
-    void    *p_drms;
+  void  *p_drms;
 
 } MP4_Box_data_sample_vide_t;
 
-#define MP4_TEXT_DISPLAY_FLAG_DONT_DISPLAY       (1<<0)
-#define MP4_TEXT_DISPLAY_FLAG_AUTO_SCALE         (1<<1)
-#define MP4_TEXT_DISPLAY_FLAG_CLIP_TO_TEXT_BOX   (1<<2)
+#define MP4_TEXT_DISPLAY_FLAG_DONT_DISPLAY   (1<<0)
+#define MP4_TEXT_DISPLAY_FLAG_AUTO_SCALE   (1<<1)
+#define MP4_TEXT_DISPLAY_FLAG_CLIP_TO_TEXT_BOX (1<<2)
 #define MP4_TEXT_DISPLAY_FLAG_USE_MOVIE_BG_COLOR (1<<3)
 #define MP4_TEXT_DISPLAY_FLAG_SHRINK_TEXT_BOX_TO_FIT (1<<4)
-#define MP4_TEXT_DISPLAY_FLAG_SCROLL_IN          (1<<5)
-#define MP4_TEXT_DISPLAY_FLAG_SCROLL_OUT         (1<<6)
+#define MP4_TEXT_DISPLAY_FLAG_SCROLL_IN    (1<<5)
+#define MP4_TEXT_DISPLAY_FLAG_SCROLL_OUT   (1<<6)
 #define MP4_TEXT_DISPLAY_FLAG_HORIZONTAL_SCROLL  (1<<7)
-#define MP4_TEXT_DISPLAY_FLAG_REVERSE_SCROLL     (1<<8)
+#define MP4_TEXT_DISPLAY_FLAG_REVERSE_SCROLL   (1<<8)
 #define MP4_TEXT_DISPLAY_FLAG_CONTINUOUS_SCROLL  (1<<9)
-#define MP4_TEXT_DISPLAY_FLAG_FLOW_HORIZONTAL    (1<<10)
+#define MP4_TEXT_DISPLAY_FLAG_FLOW_HORIZONTAL  (1<<10)
 #define MP4_TEXT_DISPLAY_FLAG_CONTINUOUS_KARAOKE (1<<11)
-#define MP4_TEXT_DISPLAY_FLAG_DROP_SHADOW        (1<<12)
-#define MP4_TEXT_DISPLAY_FLAG_ANTI_ALIAS         (1<<13)
-#define MP4_TEXT_DISPLAY_FLAG_KEYED_TEXT         (1<<14)
-#define MP4_TEXT_DISPLAY_FLAG_INVERSE_HILITE     (1<<15)
-#define MP4_TEXT_DISPLAY_FLAG_COLOR_HILITE       (1<<16)
-#define MP4_TEXT_DISPLAY_FLAG_WRITE_VERTICALLY   (1<<17)
+#define MP4_TEXT_DISPLAY_FLAG_DROP_SHADOW    (1<<12)
+#define MP4_TEXT_DISPLAY_FLAG_ANTI_ALIAS   (1<<13)
+#define MP4_TEXT_DISPLAY_FLAG_KEYED_TEXT   (1<<14)
+#define MP4_TEXT_DISPLAY_FLAG_INVERSE_HILITE   (1<<15)
+#define MP4_TEXT_DISPLAY_FLAG_COLOR_HILITE   (1<<16)
+#define MP4_TEXT_DISPLAY_FLAG_WRITE_VERTICALLY (1<<17)
 
-typedef struct
+typedef struc
 {
-    uint32_t i_reserved1;
-    uint16_t i_reserved2;
+  uint32_t i_reserved1;
+  uint16_t i_reserved2;
 
-    uint16_t i_data_reference_index;
+  uint16_t i_data_reference_index;
 
-    uint32_t i_display_flags;   // TextDescription and Tx3gDescription
+  uint32_t i_display_flags; // TextDescription and Tx3gDescription
 
-    int8_t i_justification_horizontal; // left(0), centered(1), right(-1)
-    int8_t i_justification_vertical;   // top(0), centered(1), bottom(-1)
+  int8_t i_justification_horizontal; // left(0), centered(1), right(-1)
+  int8_t i_justification_vertical; // top(0), centered(1), bottom(-1)
 
-    uint16_t i_background_color[4];
+  uint16_t i_background_color[4];
 
-    uint16_t i_text_box_top;
-    uint16_t i_text_box_left;
-    uint16_t i_text_box_bottom;
-    uint16_t i_text_box_right;
+  uint16_t i_text_box_top;
+  uint16_t i_text_box_left;
+  uint16_t i_text_box_bottom;
+  uint16_t i_text_box_right;
 
-    // TODO to complete
+  // TODO to complete
 } MP4_Box_data_sample_text_t;
 
 typedef struct MP4_Box_data_sample_hint_s
 {
-    uint8_t  i_reserved1[6];
-    uint16_t i_data_reference_index;
+  uint8_t  i_reserved1[6];
+  uint16_t i_data_reference_index;
 
-    uint8_t *p_data;
+  uint8_t *p_data;
 
 } MP4_Box_data_sample_hint_t;
 
 typedef struct MP4_Box_data_moviehintinformation_rtp_s
 {
-    uint32_t i_description_format;
-    unsigned char *psz_text;
+  uint32_t i_description_format;
+  unsigned char *psz_text;
 
 } MP4_Box_data_moviehintinformation_rtp_t;
 
@@ -558,110 +558,110 @@ typedef struct MP4_Box_data_moviehintinformation_rtp_s
 
 typedef struct MP4_Box_data_stsd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    /* it contains SampleEntry handled as if it was Box */
+  /* it contains SampleEntry handled as if it was Box */
 
 } MP4_Box_data_stsd_t;
 
 
 typedef struct MP4_Box_data_stsz_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_sample_size;
-    uint32_t i_sample_count;
+  uint32_t i_sample_size;
+  uint32_t i_sample_count;
 
-    uint32_t *i_entry_size; /* array , empty if i_sample_size != 0 */
+  uint32_t *i_entry_size; /* array , empty if i_sample_size != 0 */
 
 } MP4_Box_data_stsz_t;
 
 typedef struct MP4_Box_data_stz2_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_sample_size; /* 24 bits */
-    uint8_t  i_field_size;
-    uint32_t i_sample_count;
+  uint32_t i_sample_size; /* 24 bits */
+  uint8_t  i_field_size;
+  uint32_t i_sample_count;
 
-    uint32_t *i_entry_size; /* array: unsigned int(i_field_size) entry_size */
+  uint32_t *i_entry_size; /* array: unsigned int(i_field_size) entry_size */
 
 } MP4_Box_data_stz2_t;
 
 typedef struct MP4_Box_data_stsc_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    uint32_t *i_first_chunk; /* theses are arrays */
-    uint32_t *i_samples_per_chunk;
-    uint32_t *i_sample_description_index;
+  uint32_t *i_first_chunk; /* theses are arrays */
+  uint32_t *i_samples_per_chunk;
+  uint32_t *i_sample_description_index;
 
 } MP4_Box_data_stsc_t;
 
 
 typedef struct MP4_Box_data_co64_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    uint64_t *i_chunk_offset;
+  uint64_t *i_chunk_offset;
 
 } MP4_Box_data_co64_t;
 
 
 typedef struct MP4_Box_data_stss_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    uint32_t *i_sample_number;
+  uint32_t *i_sample_number;
 
 } MP4_Box_data_stss_t;
 
 typedef struct MP4_Box_data_stsh_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    uint32_t *i_shadowed_sample_number;
-    uint32_t *i_sync_sample_number;
+  uint32_t *i_shadowed_sample_number;
+  uint32_t *i_sync_sample_number;
 
 } MP4_Box_data_stsh_t;
 
 typedef struct MP4_Box_data_stdp_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint16_t *i_priority;
+  uint16_t *i_priority;
 
 } MP4_Box_data_stdp_t;
 
 typedef struct MP4_Box_data_padb_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_sample_count;
+  uint32_t i_sample_count;
 
-    uint16_t *i_reserved1;   /* 1bit  */
-    uint16_t *i_pad2;        /* 3bits */
-    uint16_t *i_reserved2;   /* 1bit  */
-    uint16_t *i_pad1;        /* 3bits */
+  uint16_t *i_reserved1; /* 1bit  */
+  uint16_t *i_pad2;    /* 3bits */
+  uint16_t *i_reserved2; /* 1bit  */
+  uint16_t *i_pad1;    /* 3bits */
 
 
 } MP4_Box_data_padb_t;
@@ -669,390 +669,390 @@ typedef struct MP4_Box_data_padb_s
 
 typedef struct MP4_Box_data_elst_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_entry_count;
+  uint32_t i_entry_count;
 
-    uint64_t *i_segment_duration;
-    int64_t  *i_media_time;
-    uint16_t *i_media_rate_integer;
-    uint16_t *i_media_rate_fraction;
+  uint64_t *i_segment_duration;
+  int64_t  *i_media_time;
+  uint16_t *i_media_rate_integer;
+  uint16_t *i_media_rate_fraction;
 
 
 } MP4_Box_data_elst_t;
 
 typedef struct MP4_Box_data_cprt_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
-    /* 1 pad bit */
-    unsigned char i_language[3];
+  uint8_t  i_version;
+  uint32_t i_flags;
+  /* 1 pad bit */
+  unsigned char i_language[3];
 
-    char *psz_notice;
+  char *psz_notice;
 } MP4_Box_data_cprt_t;
 
 
 /* DecoderConfigDescriptor */
 typedef struct MP4_descriptor_decoder_config_s
 {
-    uint8_t i_objectTypeIndication;
-    uint8_t i_streamType;
-    int     b_upStream;
-    int     i_buffer_sizeDB;
-    int     i_max_bitrate;
-    int     i_avg_bitrate;
+  uint8_t i_objectTypeIndication;
+  uint8_t i_streamType;
+  int   b_upStream;
+  int   i_buffer_sizeDB;
+  int   i_max_bitrate;
+  int   i_avg_bitrate;
 
-    int     i_decoder_specific_info_len;
-    uint8_t *p_decoder_specific_info;
-    /* some other stuff */
+  int   i_decoder_specific_info_len;
+  uint8_t *p_decoder_specific_info;
+  /* some other stuff */
 
 } MP4_descriptor_decoder_config_t;
 
 typedef struct MP4_descriptor_SL_config_s
 {
 
-    int i_dummy; /* ANSI C forbids empty structures */
+  int i_dummy; /* ANSI C forbids empty structures */
 
 } MP4_descriptor_SL_config_t;
 
 
 typedef struct MP4_descriptor_ES_s
 {
-    uint16_t i_ES_ID;
-    int      b_stream_dependence;
-    int      b_url;
-    int      b_OCRstream;
-    int      i_stream_priority;
+  uint16_t i_ES_ID;
+  int  b_stream_dependence;
+  int  b_url;
+  int  b_OCRstream;
+  int  i_stream_priority;
 
-    int      i_depend_on_ES_ID; /* if b_stream_dependence set */
+  int  i_depend_on_ES_ID; /* if b_stream_dependence set */
 
-    unsigned char *psz_URL;
+  unsigned char *psz_URL;
 
-    uint16_t i_OCR_ES_ID;       /* if b_OCRstream */
-    MP4_descriptor_decoder_config_t *p_decConfigDescr;
+  uint16_t i_OCR_ES_ID;   /* if b_OCRstream */
+  MP4_descriptor_decoder_config_t *p_decConfigDescr;
 
-    MP4_descriptor_SL_config_t *p_slConfigDescr;
+  MP4_descriptor_SL_config_t *p_slConfigDescr;
 
-    /* some other stuff ... */
+  /* some other stuff ... */
 
 } MP4_descriptor_ES_t;
 
 /* ES descriptor */
 typedef struct MP4_Box_data_esds_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    MP4_descriptor_ES_t es_descriptor;
+  MP4_descriptor_ES_t es_descriptor;
 
 } MP4_Box_data_esds_t;
 
 
 typedef struct MP4_Box_data_dcom_s
 {
-    uint32_t i_algorithm; /* fourcc */
+  uint32_t i_algorithm; /* fourcc */
 
 } MP4_Box_data_dcom_t;
 
 typedef struct MP4_Box_data_cmvd_s
 {
-    uint32_t i_uncompressed_size;
-    uint32_t i_compressed_size;
+  uint32_t i_uncompressed_size;
+  uint32_t i_compressed_size;
 
-    int     b_compressed; /* Set to 1 if compressed data, 0 if uncompressed */
-    uint8_t *p_data;
+  int   b_compressed; /* Set to 1 if compressed data, 0 if uncompressed */
+  uint8_t *p_data;
 
 } MP4_Box_data_cmvd_t;
 
 typedef struct MP4_Box_data_cmov_s
 {
-    struct MP4_Box_s *p_moov; /* uncompressed moov */
+  struct MP4_Box_s *p_moov; /* uncompressed moov */
 
 } MP4_Box_data_cmov_t;
 
-typedef struct
+typedef struc
 {
-    uint32_t i_type;
+  uint32_t i_type;
 } MP4_Box_data_frma_t;
 
-typedef struct
+typedef struc
 {
-    uint32_t i_init;
-    uint32_t i_encr;
-    uint32_t i_decr;
+  uint32_t i_init;
+  uint32_t i_encr;
+  uint32_t i_decr;
 } MP4_Box_data_skcr_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_ref_type;
-    char     *psz_ref;
+  uint32_t i_ref_type;
+  char   *psz_ref;
 
 } MP4_Box_data_rdrf_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_rate;
+  uint32_t i_rate;
 
 } MP4_Box_data_rmdr_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_gestaltType;
-    uint32_t i_val1;
-    uint32_t i_val2;
-    uint16_t i_checkType;   /* 0: val1 is version min
-                               1: gestalt value & val2 == val1 */
+  uint32_t i_gestaltType;
+  uint32_t i_val1;
+  uint32_t i_val2;
+  uint16_t i_checkType; /* 0: val1 is version min
+           1: gestalt value & val2 == val1 */
 
 } MP4_Box_data_rmvc_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
 
 } MP4_Box_data_rmcd_t;
 
-typedef struct
+typedef struc
 {
-    uint32_t i_quality;
+  uint32_t i_quality;
 
 } MP4_Box_data_rmqu_t;
 
 typedef struct MP4_Box_data_mfhd_s
 {
-    uint32_t i_sequence_number;
+  uint32_t i_sequence_number;
 
-    uint8_t *p_vendor_extension;
+  uint8_t *p_vendor_extension;
 
 } MP4_Box_data_mfhd_t;
 
-#define MP4_TFHD_BASE_DATA_OFFSET     (1LL<<0)
-#define MP4_TFHD_SAMPLE_DESC_INDEX    (1LL<<1)
+#define MP4_TFHD_BASE_DATA_OFFSET   (1LL<<0)
+#define MP4_TFHD_SAMPLE_DESC_INDEX  (1LL<<1)
 #define MP4_TFHD_DFLT_SAMPLE_DURATION (1LL<<3)
-#define MP4_TFHD_DFLT_SAMPLE_SIZE     (1LL<<4)
-#define MP4_TFHD_DFLT_SAMPLE_FLAGS    (1LL<<5)
+#define MP4_TFHD_DFLT_SAMPLE_SIZE   (1LL<<4)
+#define MP4_TFHD_DFLT_SAMPLE_FLAGS  (1LL<<5)
 typedef struct MP4_Box_data_tfhd_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
-    uint32_t i_track_ID;
+  uint8_t  i_version;
+  uint32_t i_flags;
+  uint32_t i_track_ID;
 
-    /* optional fields */
-    uint64_t i_base_data_offset;
-    uint32_t i_sample_description_index;
-    uint32_t i_default_sample_duration;
-    uint32_t i_default_sample_size;
-    uint32_t i_default_sample_flags;
+  /* optional fields */
+  uint64_t i_base_data_offset;
+  uint32_t i_sample_description_index;
+  uint32_t i_default_sample_duration;
+  uint32_t i_default_sample_size;
+  uint32_t i_default_sample_flags;
 
 } MP4_Box_data_tfhd_t;
 
-#define MP4_TRUN_DATA_OFFSET         (1<<0)
-#define MP4_TRUN_FIRST_FLAGS         (1<<2)
-#define MP4_TRUN_SAMPLE_DURATION     (1<<8)
-#define MP4_TRUN_SAMPLE_SIZE         (1<<9)
-#define MP4_TRUN_SAMPLE_FLAGS        (1<<10)
+#define MP4_TRUN_DATA_OFFSET   (1<<0)
+#define MP4_TRUN_FIRST_FLAGS   (1<<2)
+#define MP4_TRUN_SAMPLE_DURATION   (1<<8)
+#define MP4_TRUN_SAMPLE_SIZE   (1<<9)
+#define MP4_TRUN_SAMPLE_FLAGS    (1<<10)
 #define MP4_TRUN_SAMPLE_TIME_OFFSET  (1<<11)
-typedef struct MP4_descriptor_trun_sample_t
+typedef struct MP4_descriptor_trun_sample_
 {
-    uint32_t i_duration;
-    uint32_t i_size;
-    uint32_t i_flags;
-    uint32_t i_composition_time_offset;
+  uint32_t i_duration;
+  uint32_t i_size;
+  uint32_t i_flags;
+  uint32_t i_composition_time_offset;
 } MP4_descriptor_trun_sample_t;
 
 typedef struct MP4_Box_data_trun_s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
-    uint32_t i_sample_count;
+  uint8_t  i_version;
+  uint32_t i_flags;
+  uint32_t i_sample_count;
 
-    /* optional fields */
-    uint32_t i_data_offset;
-    uint32_t i_first_sample_flags;
+  /* optional fields */
+  uint32_t i_data_offset;
+  uint32_t i_first_sample_flags;
 
-    MP4_descriptor_trun_sample_t *p_samples;
+  MP4_descriptor_trun_sample_t *p_samples;
 
 } MP4_Box_data_trun_t;
 
 
-typedef struct
+typedef struc
 {
-    char *psz_text;
+  char *psz_text;
 
 } MP4_Box_data_0xa9xxx_t;
 
-typedef struct
+typedef struc
 {
-    char *psz_text;
+  char *psz_text;
 
 } MP4_Box_data_name_t;
 
-typedef struct
+typedef struc
 {
-    uint32_t i_entry_count;
-    uint32_t *i_track_ID;
+  uint32_t i_entry_count;
+  uint32_t *i_track_ID;
 
 } MP4_Box_data_tref_generic_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint8_t i_chapter;
-    struct
-    {
-        char    *psz_name;
-        int64_t  i_start;
-    } chapter[256];
+  uint8_t i_chapter;
+  struc
+  {
+    char  *psz_name;
+    int64_t  i_start;
+  } chapter[256];
 } MP4_Box_data_chpl_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t i_version;
-    uint8_t i_profile;
-    uint8_t i_profile_compatibility;
-    uint8_t i_level;
+  uint8_t i_version;
+  uint8_t i_profile;
+  uint8_t i_profile_compatibility;
+  uint8_t i_level;
 
-    uint8_t i_reserved1;     /* 6 bits */
-    uint8_t i_length_size;
+  uint8_t i_reserved1;   /* 6 bits */
+  uint8_t i_length_size;
 
-    uint8_t i_reserved2;    /* 3 bits */
-    uint8_t  i_sps;
-    uint16_t *i_sps_length;
-    uint8_t  **sps;
+  uint8_t i_reserved2;  /* 3 bits */
+  uint8_t  i_sps;
+  uint16_t *i_sps_length;
+  uint8_t  **sps;
 
-    uint8_t  i_pps;
-    uint16_t *i_pps_length;
-    uint8_t  **pps;
+  uint8_t  i_pps;
+  uint16_t *i_pps_length;
+  uint8_t  **pps;
 
-    /* XXX: Hack raw avcC atom payload */
-    int     i_avcC;
-    uint8_t *p_avcC;
+  /* XXX: Hack raw avcC atom payload */
+  int   i_avcC;
+  uint8_t *p_avcC;
 
 } MP4_Box_data_avcC_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t i_fscod;
-    uint8_t i_bsid;
-    uint8_t i_bsmod;
-    uint8_t i_acmod;
-    uint8_t i_lfeon;
-    uint8_t i_bitrate_code;
+  uint8_t i_fscod;
+  uint8_t i_bsid;
+  uint8_t i_bsmod;
+  uint8_t i_acmod;
+  uint8_t i_lfeon;
+  uint8_t i_bitrate_code;
 
 } MP4_Box_data_dac3_t;
 
-typedef struct
+typedef struc
 {
-    uint16_t i_little_endian;
+  uint16_t i_little_endian;
 
 } MP4_Box_data_enda_t;
 
-typedef struct
+typedef struc
 {
-    uint16_t i_genre;
+  uint16_t i_genre;
 
 } MP4_Box_data_gnre_t;
 
-typedef struct
+typedef struc
 {
-    uint32_t i_track_number;
-    uint32_t i_track_total;
+  uint32_t i_track_number;
+  uint32_t i_track_total;
 
 } MP4_Box_data_trkn_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint16_t i_object_descriptor;
-    uint8_t i_OD_profile_level;
-    uint8_t i_scene_profile_level;
-    uint8_t i_audio_profile_level;
-    uint8_t i_visual_profile_level;
-    uint8_t i_graphics_profile_level;
+  uint16_t i_object_descriptor;
+  uint8_t i_OD_profile_level;
+  uint8_t i_scene_profile_level;
+  uint8_t i_audio_profile_level;
+  uint8_t i_visual_profile_level;
+  uint8_t i_graphics_profile_level;
 
 } MP4_Box_data_iods_t;
 
-typedef struct
+typedef struc
 {
-    uint32_t i_horizontal_spacing;
-    uint32_t i_vertical_spacing;
+  uint32_t i_horizontal_spacing;
+  uint32_t i_vertical_spacing;
 } MP4_Box_data_pasp_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint64_t i_fragment_duration;
+  uint64_t i_fragment_duration;
 } MP4_Box_data_mehd_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_track_ID;
-    uint32_t i_default_sample_description_index;
-    uint32_t i_default_sample_duration;
-    uint32_t i_default_sample_size;
-    uint32_t i_default_sample_flags;
+  uint32_t i_track_ID;
+  uint32_t i_default_sample_description_index;
+  uint32_t i_default_sample_duration;
+  uint32_t i_default_sample_size;
+  uint32_t i_default_sample_flags;
 } MP4_Box_data_trex_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint8_t *p_sample_table;
+  uint8_t *p_sample_table;
 } MP4_Box_data_sdtp_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_size;
+  uint32_t i_size;
 } MP4_Box_data_mfro_t;
 
-typedef struct
+typedef struc
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
-    uint32_t i_track_ID;
-    uint32_t i_number_of_entries;
+  uint32_t i_track_ID;
+  uint32_t i_number_of_entries;
 
-    uint8_t i_length_size_of_traf_num;
-    uint8_t i_length_size_of_trun_num;
-    uint8_t i_length_size_of_sample_num;
+  uint8_t i_length_size_of_traf_num;
+  uint8_t i_length_size_of_trun_num;
+  uint8_t i_length_size_of_sample_num;
 
-    uint32_t *p_time;
-    uint32_t *p_moof_offset;
-    uint8_t *p_traf_number;
-    uint8_t *p_trun_number;
-    uint8_t *p_sample_number;
+  uint32_t *p_time;
+  uint32_t *p_moof_offset;
+  uint8_t *p_traf_number;
+  uint8_t *p_trun_number;
+  uint8_t *p_sample_number;
 } MP4_Box_data_tfra_t;
 
 /*
 typedef struct MP4_Box_data__s
 {
-    uint8_t  i_version;
-    uint32_t i_flags;
+  uint8_t  i_version;
+  uint32_t i_flags;
 
 } MP4_Box_data__t;
 
@@ -1060,74 +1060,74 @@ typedef struct MP4_Box_data__s
 
 typedef union MP4_Box_data_s
 {
-    MP4_Box_data_ftyp_t *p_ftyp;
-    MP4_Box_data_mvhd_t *p_mvhd;
-    MP4_Box_data_mfhd_t *p_mfhd;
-    MP4_Box_data_tfhd_t *p_tfhd;
-    MP4_Box_data_trun_t *p_trun;
-    MP4_Box_data_tkhd_t *p_tkhd;
-    MP4_Box_data_mdhd_t *p_mdhd;
-    MP4_Box_data_hdlr_t *p_hdlr;
-    MP4_Box_data_vmhd_t *p_vmhd;
-    MP4_Box_data_smhd_t *p_smhd;
-    MP4_Box_data_hmhd_t *p_hmhd;
-    MP4_Box_data_url_t  *p_url;
-    MP4_Box_data_urn_t  *p_urn;
-    MP4_Box_data_dref_t *p_dref;
-    MP4_Box_data_stts_t *p_stts;
-    MP4_Box_data_ctts_t *p_ctts;
-    MP4_Box_data_stsd_t *p_stsd;
-    MP4_Box_data_sample_vide_t *p_sample_vide;
-    MP4_Box_data_sample_soun_t *p_sample_soun;
-    MP4_Box_data_sample_text_t *p_sample_text;
-    MP4_Box_data_sample_hint_t *p_sample_hint;
+  MP4_Box_data_ftyp_t *p_ftyp;
+  MP4_Box_data_mvhd_t *p_mvhd;
+  MP4_Box_data_mfhd_t *p_mfhd;
+  MP4_Box_data_tfhd_t *p_tfhd;
+  MP4_Box_data_trun_t *p_trun;
+  MP4_Box_data_tkhd_t *p_tkhd;
+  MP4_Box_data_mdhd_t *p_mdhd;
+  MP4_Box_data_hdlr_t *p_hdlr;
+  MP4_Box_data_vmhd_t *p_vmhd;
+  MP4_Box_data_smhd_t *p_smhd;
+  MP4_Box_data_hmhd_t *p_hmhd;
+  MP4_Box_data_url_t  *p_url;
+  MP4_Box_data_urn_t  *p_urn;
+  MP4_Box_data_dref_t *p_dref;
+  MP4_Box_data_stts_t *p_stts;
+  MP4_Box_data_ctts_t *p_ctts;
+  MP4_Box_data_stsd_t *p_stsd;
+  MP4_Box_data_sample_vide_t *p_sample_vide;
+  MP4_Box_data_sample_soun_t *p_sample_soun;
+  MP4_Box_data_sample_text_t *p_sample_text;
+  MP4_Box_data_sample_hint_t *p_sample_hint;
 
-    MP4_Box_data_esds_t *p_esds;
-    MP4_Box_data_avcC_t *p_avcC;
-    MP4_Box_data_dac3_t *p_dac3;
-    MP4_Box_data_enda_t *p_enda;
-    MP4_Box_data_gnre_t *p_gnre;
-    MP4_Box_data_trkn_t *p_trkn;
-    MP4_Box_data_iods_t *p_iods;
-    MP4_Box_data_pasp_t *p_pasp;
-    MP4_Box_data_trex_t *p_trex;
-    MP4_Box_data_mehd_t *p_mehd;
-    MP4_Box_data_sdtp_t *p_sdtp;
+  MP4_Box_data_esds_t *p_esds;
+  MP4_Box_data_avcC_t *p_avcC;
+  MP4_Box_data_dac3_t *p_dac3;
+  MP4_Box_data_enda_t *p_enda;
+  MP4_Box_data_gnre_t *p_gnre;
+  MP4_Box_data_trkn_t *p_trkn;
+  MP4_Box_data_iods_t *p_iods;
+  MP4_Box_data_pasp_t *p_pasp;
+  MP4_Box_data_trex_t *p_trex;
+  MP4_Box_data_mehd_t *p_mehd;
+  MP4_Box_data_sdtp_t *p_sdtp;
 
-    MP4_Box_data_tfra_t *p_tfra;
-    MP4_Box_data_mfro_t *p_mfro;
+  MP4_Box_data_tfra_t *p_tfra;
+  MP4_Box_data_mfro_t *p_mfro;
 
-    MP4_Box_data_stsz_t *p_stsz;
-    MP4_Box_data_stz2_t *p_stz2;
-    MP4_Box_data_stsc_t *p_stsc;
-    MP4_Box_data_co64_t *p_co64;
-    MP4_Box_data_stss_t *p_stss;
-    MP4_Box_data_stsh_t *p_stsh;
-    MP4_Box_data_stdp_t *p_stdp;
-    MP4_Box_data_padb_t *p_padb;
-    MP4_Box_data_elst_t *p_elst;
-    MP4_Box_data_cprt_t *p_cprt;
+  MP4_Box_data_stsz_t *p_stsz;
+  MP4_Box_data_stz2_t *p_stz2;
+  MP4_Box_data_stsc_t *p_stsc;
+  MP4_Box_data_co64_t *p_co64;
+  MP4_Box_data_stss_t *p_stss;
+  MP4_Box_data_stsh_t *p_stsh;
+  MP4_Box_data_stdp_t *p_stdp;
+  MP4_Box_data_padb_t *p_padb;
+  MP4_Box_data_elst_t *p_elst;
+  MP4_Box_data_cprt_t *p_cprt;
 
-    MP4_Box_data_dcom_t *p_dcom;
-    MP4_Box_data_cmvd_t *p_cmvd;
-    MP4_Box_data_cmov_t *p_cmov;
+  MP4_Box_data_dcom_t *p_dcom;
+  MP4_Box_data_cmvd_t *p_cmvd;
+  MP4_Box_data_cmov_t *p_cmov;
 
-    MP4_Box_data_moviehintinformation_rtp_t p_moviehintinformation_rtp;
+  MP4_Box_data_moviehintinformation_rtp_t p_moviehintinformation_rtp;
 
-    MP4_Box_data_frma_t *p_frma;
-    MP4_Box_data_skcr_t *p_skcr;
+  MP4_Box_data_frma_t *p_frma;
+  MP4_Box_data_skcr_t *p_skcr;
 
-    MP4_Box_data_rdrf_t *p_rdrf;
-    MP4_Box_data_rmdr_t *p_rmdr;
-    MP4_Box_data_rmqu_t *p_rmqu;
-    MP4_Box_data_rmvc_t *p_rmvc;
+  MP4_Box_data_rdrf_t *p_rdrf;
+  MP4_Box_data_rmdr_t *p_rmdr;
+  MP4_Box_data_rmqu_t *p_rmqu;
+  MP4_Box_data_rmvc_t *p_rmvc;
 
-    MP4_Box_data_0xa9xxx_t *p_0xa9xxx;
-    MP4_Box_data_chpl_t *p_chpl;
-    MP4_Box_data_tref_generic_t *p_tref_generic;
-    MP4_Box_data_name_t *p_name;
+  MP4_Box_data_0xa9xxx_t *p_0xa9xxx;
+  MP4_Box_data_chpl_t *p_chpl;
+  MP4_Box_data_tref_generic_t *p_tref_generic;
+  MP4_Box_data_name_t *p_name;
 
-    void                *p_data; /* for unknow type */
+  void      *p_data; /* for unknow type */
 } MP4_Box_data_t;
 
 
@@ -1135,24 +1135,24 @@ typedef union MP4_Box_data_s
 /* the most basic structure */
 typedef struct MP4_Box_s
 {
-    off_t        i_pos;      /* absolute position */
+  off_t    i_pos;  /* absolute position */
 
-    uint32_t     i_type;
-    uint32_t     i_shortsize;
+  uint32_t   i_type;
+  uint32_t   i_shortsize;
 
-    UUID_t       i_uuid;  /* Set if i_type == "uuid" */
+  UUID_t   i_uuid;  /* Set if i_type == "uuid" */
 
-    uint64_t     i_size; /* always set so use it */
+  uint64_t   i_size; /* always set so use it */
 
-    MP4_Box_data_t   data;   /* union of pointers on extended data depending
-                                on i_type (or i_usertype) */
+  MP4_Box_data_t data; /* union of pointers on extended data depending
+            on i_type (or i_usertype) */
 
-    struct MP4_Box_s *p_father; /* pointer on the father Box */
+  struct MP4_Box_s *p_father; /* pointer on the father Box */
 
-    struct MP4_Box_s *p_first;  /* pointer on the first child Box */
-    struct MP4_Box_s *p_last;
+  struct MP4_Box_s *p_first;  /* pointer on the first child Box */
+  struct MP4_Box_s *p_last;
 
-    struct MP4_Box_s *p_next;   /* pointer on the next boxes at the same level */
+  struct MP4_Box_s *p_next; /* pointer on the next boxes at the same level */
 
 } MP4_Box_t;
 
@@ -1161,16 +1161,16 @@ typedef struct MP4_Box_s
 /*****************************************************************************
  * MP4_BoxGetRoot : Parse the entire file, and create all boxes in memory
  *****************************************************************************
- *  The first box is a virtual box "root" and is the father for all first
+ *  The first box is a virtual box "root" and is the father for all firs
  *  level boxes
  *****************************************************************************/
 MP4_Box_t *MP4_BoxGetRoot( stream_t * );
 
 /*****************************************************************************
  * MP4_FreeBox : free memory allocated after read with MP4_ReadBox
- *               or MP4_BoxGetRoot, this means also children boxes
+ *     or MP4_BoxGetRoot, this means also children boxes
  * XXX : all children have to be allocated by a malloc !! and
- *         p_box is freed
+ *   p_box is freed
  *****************************************************************************/
 void MP4_BoxFree( stream_t *, MP4_Box_t *p_box );
 
@@ -1185,10 +1185,10 @@ void MP4_BoxDumpStructure( stream_t *p_input, MP4_Box_t *p_box );
  * MP4_BoxGet: find a box given a path relative to p_box
  *****************************************************************************
  * Path Format: . .. / as usual
- *              [number] to specifie box number ex: trak[12]
+ *      [number] to specifie box number ex: trak[12]
  *
  * ex: /moov/trak[12]
- *     ../mdia
+ *   ../mdia
  *****************************************************************************/
 MP4_Box_t *MP4_BoxGet( MP4_Box_t *p_box, const char *psz_fmt, ... );
 
@@ -1196,10 +1196,10 @@ MP4_Box_t *MP4_BoxGet( MP4_Box_t *p_box, const char *psz_fmt, ... );
  * MP4_BoxCount: find number of box given a path relative to p_box
  *****************************************************************************
  * Path Format: . .. / as usual
- *              [number] to specifie box number ex: trak[12]
+ *      [number] to specifie box number ex: trak[12]
  *
  * ex: /moov/trak
- *     ../mdia
+ *   ../mdia
  *****************************************************************************/
 int MP4_BoxCount( MP4_Box_t *p_box, const char *psz_fmt, ... );
 

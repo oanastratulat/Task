@@ -3,7 +3,7 @@
  * @brief RTP demux module shared declarations
  */
 /*****************************************************************************
- * Copyright © 2008 Rémi Denis-Courmont
+ * Copyright © 2008 Rémi Denis-Courmon
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,19 +24,19 @@ typedef struct rtp_pt_t rtp_pt_t;
 typedef struct rtp_session_t rtp_session_t;
 
 /** @section RTP payload format */
-struct rtp_pt_t
+struct rtp_pt_
 {
-    void   *(*init) (demux_t *);
-    void    (*destroy) (demux_t *, void *);
-    void    (*decode) (demux_t *, void *, block_t *);
-    uint32_t  frequency; /* RTP clock rate (Hz) */
-    uint8_t   number;
+  void *(*init) (demux_t *);
+  void  (*destroy) (demux_t *, void *);
+  void  (*decode) (demux_t *, void *, block_t *);
+  uint32_t  frequency; /* RTP clock rate (Hz) */
+  uint8_t number;
 };
 void rtp_autodetect (demux_t *, rtp_session_t *, const block_t *);
 
 static inline uint8_t rtp_ptype (const block_t *block)
 {
-    return block->p_buffer[1] & 0x7F;
+  return block->p_buffer[1] & 0x7F;
 }
 
 void *codec_init (demux_t *demux, es_format_t *fmt);
@@ -59,21 +59,21 @@ void *rtp_dgram_thread (void *data);
 void *rtp_stream_thread (void *data);
 
 /* Global data */
-struct demux_sys_t
+struct demux_sys_
 {
-    rtp_session_t *session;
+  rtp_session_t *session;
 #ifdef HAVE_SRTP
-    struct srtp_session_t *srtp;
+  struct srtp_session_t *srtp;
 #endif
-    int           fd;
-    int           rtcp_fd;
-    vlc_thread_t  thread;
+  int     fd;
+  int     rtcp_fd;
+  vlc_thread_t  thread;
 
-    mtime_t       timeout;
-    uint16_t      max_dropout; /**< Max packet forward misordering */
-    uint16_t      max_misorder; /**< Max packet backward misordering */
-    uint8_t       max_src; /**< Max simultaneous RTP sources */
-    bool          thread_ready;
-    bool          autodetect; /**< Payload type autodetection pending */
+  mtime_t   timeout;
+  uint16_t  max_dropout; /**< Max packet forward misordering */
+  uint16_t  max_misorder; /**< Max packet backward misordering */
+  uint8_t   max_src; /**< Max simultaneous RTP sources */
+  bool    thread_ready;
+  bool    autodetect; /**< Payload type autodetection pending */
 };
 

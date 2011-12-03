@@ -3,7 +3,7 @@
  *
  * Copyright 1998 Marcus Meissner
  *
- * Modified for use with MPlayer, detailed CVS changelog at
+ * Modified for use with MPlayer, detailed CVS changelog a
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  *
  * File now distributed as part of VLC media player with no modifications.
@@ -83,7 +83,7 @@ ICOpen(long filename,long fccHandler,unsigned int wMode) {
 	HDRVR		hdrv;
 	WINE_HIC	*whic;
 
-	/* Well, lParam2 is in fact a LPVIDEO_OPEN_PARMS, but it has the 
+	/* Well, lParam2 is in fact a LPVIDEO_OPEN_PARMS, but it has the
 	 * same layout as ICOPEN
 	 */
 	icopen.fccType		= 0x63646976; // "vidc" //fccType;
@@ -146,7 +146,7 @@ ICCompress(
 /***********************************************************************
  *		ICDecompress			[MSVFW.26]
  */
-long VFWAPIV 
+long VFWAPIV
 ICDecompress(HIC hic,long dwFlags,LPBITMAPINFOHEADER lpbiFormat,void* lpData,LPBITMAPINFOHEADER  lpbi,void* lpBits) {
 	ICDECOMPRESS	icd;
 	int result;
@@ -164,7 +164,7 @@ ICDecompress(HIC hic,long dwFlags,LPBITMAPINFOHEADER lpbiFormat,void* lpData,LPB
 /***********************************************************************
  *		ICDecompressEx			[MSVFW.26]
  */
-long VFWAPIV 
+long VFWAPIV
 ICDecompressEx(HIC hic,long dwFlags,LPBITMAPINFOHEADER lpbiFormat,void* lpData,LPBITMAPINFOHEADER  lpbi,void* lpBits) {
 	ICDECOMPRESSEX	icd;
 	int result;
@@ -190,7 +190,7 @@ ICDecompressEx(HIC hic,long dwFlags,LPBITMAPINFOHEADER lpbiFormat,void* lpData,L
 	return result;
 }
 
-long VFWAPIV 
+long VFWAPIV
 ICUniversalEx(HIC hic,int command,LPBITMAPINFOHEADER lpbiFormat,LPBITMAPINFOHEADER lpbi) {
 	ICDECOMPRESSEX	icd;
 	int result;
@@ -222,8 +222,8 @@ ICUniversalEx(HIC hic,int command,LPBITMAPINFOHEADER lpbiFormat,LPBITMAPINFOHEAD
  */
 LRESULT VFWAPI
 ICSendMessage(HIC hic,unsigned int msg,long lParam1,long lParam2) {
-    WINE_HIC	*whic = (WINE_HIC*)hic;
-    return SendDriverMessage(whic->hdrv, msg, lParam1,lParam2);
+  WINE_HIC	*whic = (WINE_HIC*)hic;
+  return SendDriverMessage(whic->hdrv, msg, lParam1,lParam2);
 }
 
 
@@ -234,7 +234,7 @@ LRESULT VFWAPI ICClose(HIC hic) {
 	WINE_HIC	*whic = (WINE_HIC*)hic;
 	/* FIXME: correct? */
 //	CloseDriver(whic->hdrv,0,0);
-        DrvClose(whic->hdrv);
+    DrvClose(whic->hdrv);
 //#warning FIXME: DrvClose
 	free(whic);
 	return 0;

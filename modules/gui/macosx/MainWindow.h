@@ -5,9 +5,9 @@
  * $Id: 3b2552ae85a4d41fc79facbaa195c55dcc6e3bd0 $
  *
  * Authors: Felix Paul Kühne <fkuehne -at- videolan -dot- org>
- *          Jon Lech Johansen <jon-vl@nanocrew.net>
- *          Christophe Massiot <massiot@via.ecp.fr>
- *          Derk-Jan Hartman <hartman at videolan.org>
+ *    Jon Lech Johansen <jon-vl@nanocrew.net>
+ *    Christophe Massiot <massiot@via.ecp.fr>
+ *    Derk-Jan Hartman <hartman at videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,86 +32,86 @@
 #import "fspanel.h"
 
 @interface VLCMainWindow : NSWindow <PXSourceListDataSource, PXSourceListDelegate, NSWindowDelegate, NSAnimationDelegate> {
-    IBOutlet id o_play_btn;
-    IBOutlet id o_bwd_btn;
-    IBOutlet id o_fwd_btn;
-    IBOutlet id o_stop_btn;
-    IBOutlet id o_playlist_btn;
-    IBOutlet id o_repeat_btn;
-    IBOutlet id o_shuffle_btn;
-    IBOutlet id o_effects_btn;
-    IBOutlet id o_fullscreen_btn;
-    IBOutlet id o_search_fld;
-    IBOutlet id o_volume_sld;
-    IBOutlet id o_volume_track_view;
-    IBOutlet id o_volume_down_btn;
-    IBOutlet id o_volume_up_btn;
-    IBOutlet id o_time_sld;
-    IBOutlet id o_time_sld_fancygradient_view;
-    IBOutlet id o_time_fld;
-    IBOutlet id o_progress_bar;
-    IBOutlet id o_bottombar_view;
-    IBOutlet id o_time_sld_left_view;
-    IBOutlet id o_time_sld_middle_view;
-    IBOutlet id o_time_sld_right_view;
-    // TODO Playlist table, additional ui stuff at the top of the window
-    IBOutlet id o_playlist_table;
-    IBOutlet id o_video_view;
-    IBOutlet id o_split_view;
-    IBOutlet id o_left_split_view;
-    IBOutlet id o_right_split_view;
-    IBOutlet id o_sidebar_view;
-    IBOutlet id o_chosen_category_lbl;
+  IBOutlet id o_play_btn;
+  IBOutlet id o_bwd_btn;
+  IBOutlet id o_fwd_btn;
+  IBOutlet id o_stop_btn;
+  IBOutlet id o_playlist_btn;
+  IBOutlet id o_repeat_btn;
+  IBOutlet id o_shuffle_btn;
+  IBOutlet id o_effects_btn;
+  IBOutlet id o_fullscreen_btn;
+  IBOutlet id o_search_fld;
+  IBOutlet id o_volume_sld;
+  IBOutlet id o_volume_track_view;
+  IBOutlet id o_volume_down_btn;
+  IBOutlet id o_volume_up_btn;
+  IBOutlet id o_time_sld;
+  IBOutlet id o_time_sld_fancygradient_view;
+  IBOutlet id o_time_fld;
+  IBOutlet id o_progress_bar;
+  IBOutlet id o_bottombar_view;
+  IBOutlet id o_time_sld_left_view;
+  IBOutlet id o_time_sld_middle_view;
+  IBOutlet id o_time_sld_right_view;
+  // TODO Playlist table, additional ui stuff at the top of the window
+  IBOutlet id o_playlist_table;
+  IBOutlet id o_video_view;
+  IBOutlet id o_split_view;
+  IBOutlet id o_left_split_view;
+  IBOutlet id o_right_split_view;
+  IBOutlet id o_sidebar_view;
+  IBOutlet id o_chosen_category_lbl;
 
-    IBOutlet id o_dropzone_view;
-    IBOutlet id o_dropzone_btn;
-    IBOutlet id o_dropzone_lbl;
+  IBOutlet id o_dropzone_view;
+  IBOutlet id o_dropzone_btn;
+  IBOutlet id o_dropzone_lbl;
 
-    IBOutlet VLCFSPanel *o_fspanel;
+  IBOutlet VLCFSPanel *o_fspanel;
 
-    BOOL b_dark_interface;
-    BOOL b_nativeFullscreenMode;
-    BOOL b_video_playback_enabled;
-    int i_lastShownVolume;
-    BOOL b_mute;
-    input_state_e cachedInputState;
+  BOOL b_dark_interface;
+  BOOL b_nativeFullscreenMode;
+  BOOL b_video_playback_enabled;
+  int i_lastShownVolume;
+  BOOL b_mute;
+  input_state_e cachedInputState;
 
-    NSImage * o_pause_img;
-    NSImage * o_pause_pressed_img;
-    NSImage * o_play_img;
-    NSImage * o_play_pressed_img;
-    NSImage * o_repeat_img;
-    NSImage * o_repeat_pressed_img;
-    NSImage * o_repeat_all_img;
-    NSImage * o_repeat_all_pressed_img;
-    NSImage * o_repeat_one_img;
-    NSImage * o_repeat_one_pressed_img;
-    NSImage * o_shuffle_img;
-    NSImage * o_shuffle_pressed_img;
-    NSImage * o_shuffle_on_img;
-    NSImage * o_shuffle_on_pressed_img;
+  NSImage * o_pause_img;
+  NSImage * o_pause_pressed_img;
+  NSImage * o_play_img;
+  NSImage * o_play_pressed_img;
+  NSImage * o_repeat_img;
+  NSImage * o_repeat_pressed_img;
+  NSImage * o_repeat_all_img;
+  NSImage * o_repeat_all_pressed_img;
+  NSImage * o_repeat_one_img;
+  NSImage * o_repeat_one_pressed_img;
+  NSImage * o_shuffle_img;
+  NSImage * o_shuffle_pressed_img;
+  NSImage * o_shuffle_on_img;
+  NSImage * o_shuffle_on_pressed_img;
 
-    NSTimeInterval last_fwd_event;
-    NSTimeInterval last_bwd_event;
-    BOOL just_triggered_next;
-    BOOL just_triggered_previous;
-    NSMutableArray *o_sidebaritems;
+  NSTimeInterval last_fwd_event;
+  NSTimeInterval last_bwd_event;
+  BOOL just_triggered_next;
+  BOOL just_triggered_previous;
+  NSMutableArray *o_sidebaritems;
 
-    VLCWindow       * o_nonembedded_window;
-    BOOL              b_nonembedded;
+  VLCWindow   * o_nonembedded_window;
+  BOOL      b_nonembedded;
 
-    VLCWindow       * o_fullscreen_window;
-    NSViewAnimation * o_fullscreen_anim1;
-    NSViewAnimation * o_fullscreen_anim2;
-    NSViewAnimation * o_makekey_anim;
-    NSView          * o_temp_view;
-    /* set to yes if we are fullscreen and all animations are over */
-    BOOL              b_fullscreen;
-    BOOL              b_window_is_invisible;
-    NSRecursiveLock * o_animation_lock;
-    NSSize nativeVideoSize;
+  VLCWindow   * o_fullscreen_window;
+  NSViewAnimation * o_fullscreen_anim1;
+  NSViewAnimation * o_fullscreen_anim2;
+  NSViewAnimation * o_makekey_anim;
+  NSView    * o_temp_view;
+  /* set to yes if we are fullscreen and all animations are over */
+  BOOL      b_fullscreen;
+  BOOL      b_window_is_invisible;
+  NSRecursiveLock * o_animation_lock;
+  NSSize nativeVideoSize;
 
-    NSInteger i_originalLevel;
+  NSInteger i_originalLevel;
 }
 + (VLCMainWindow *)sharedInstance;
 
@@ -167,9 +167,9 @@
 @end
 
 @interface VLCProgressBarGradientEffect : NSView {
-    NSImage * o_time_sld_gradient_left_img;
-    NSImage * o_time_sld_gradient_middle_img;
-    NSImage * o_time_sld_gradient_right_img;
+  NSImage * o_time_sld_gradient_left_img;
+  NSImage * o_time_sld_gradient_middle_img;
+  NSImage * o_time_sld_gradient_right_img;
 }
 - (void)loadImagesInDarkStyle:(BOOL)b_value;
 @end

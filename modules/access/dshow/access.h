@@ -28,21 +28,21 @@
 using namespace std;
 
 #ifndef _MSC_VER
-#   include <wtypes.h>
-#   include <unknwn.h>
-#   include <ole2.h>
-#   include <limits.h>
-#   ifdef _WINGDI_
-#      undef _WINGDI_
-#   endif
-#   define _WINGDI_ 1
-#   define AM_NOVTABLE
-#   define _OBJBASE_H_
-#   undef _X86_
-#   ifndef _I64_MAX
-#     define _I64_MAX LONG_LONG_MAX
-#   endif
-#   define LONGLONG long long
+# include <wtypes.h>
+# include <unknwn.h>
+# include <ole2.h>
+# include <limits.h>
+# ifdef _WINGDI_
+#  undef _WINGDI_
+# endif
+# define _WINGDI_ 1
+# define AM_NOVTABLE
+# define _OBJBASE_H_
+# undef _X86_
+# ifndef _I64_MAX
+#   define _I64_MAX LONG_LONG_MAX
+# endif
+# define LONGLONG long long
 #endif
 
 #include "vlc_dshow.h"
@@ -57,43 +57,43 @@ typedef struct dshow_stream_t dshow_stream_t;
 
 typedef struct CrossbarRouteRec
 {
-    IAMCrossbar *pXbar;
-    LONG        VideoInputIndex;
-    LONG        VideoOutputIndex;
-    LONG        AudioInputIndex;
-    LONG        AudioOutputIndex;
+  IAMCrossbar *pXbar;
+  LONG    VideoInputIndex;
+  LONG    VideoOutputIndex;
+  LONG    AudioInputIndex;
+  LONG    AudioOutputIndex;
 
 } CrossbarRoute;
 
 void DeleteCrossbarRoutes( access_sys_t * );
 HRESULT FindCrossbarRoutes( vlc_object_t *, access_sys_t *,
-                            IPin *, LONG, int = 0 );
+          IPin *, LONG, int = 0 );
 
 /****************************************************************************
  * Access descriptor declaration
  ****************************************************************************/
-struct access_sys_t
+struct access_sys_
 {
-    /* These 2 must be left at the beginning */
-    vlc_mutex_t lock;
-    vlc_cond_t  wait;
+  /* These 2 must be left at the beginning */
+  vlc_mutex_t lock;
+  vlc_cond_t  wait;
 
-    IFilterGraph           *p_graph;
-    ICaptureGraphBuilder2  *p_capture_graph_builder2;
-    IMediaControl          *p_control;
+  IFilterGraph     *p_graph;
+  ICaptureGraphBuilder2  *p_capture_graph_builder2;
+  IMediaControl    *p_control;
 
-    int                     i_crossbar_route_depth;
-    CrossbarRoute           crossbar_routes[MAX_CROSSBAR_DEPTH];
+  int       i_crossbar_route_depth;
+  CrossbarRoute     crossbar_routes[MAX_CROSSBAR_DEPTH];
 
-    /* list of elementary streams */
-    dshow_stream_t **pp_streams;
-    int            i_streams;
-    int            i_current_stream;
+  /* list of elementary streams */
+  dshow_stream_t **pp_streams;
+  int    i_streams;
+  int    i_current_stream;
 
-    /* misc properties */
-    int            i_width;
-    int            i_height;
-    int            i_chroma;
-    bool           b_chroma; /* Force a specific chroma on the dshow input */
+  /* misc properties */
+  int    i_width;
+  int    i_height;
+  int    i_chroma;
+  bool     b_chroma; /* Force a specific chroma on the dshow input */
 };
 

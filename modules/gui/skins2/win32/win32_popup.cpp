@@ -32,77 +32,77 @@ const UINT TPM_NOANIMATION = 0x4000L;
 
 
 Win32Popup::Win32Popup( intf_thread_t *pIntf, HWND hAssociatedWindow )
-    : OSPopup( pIntf ), m_hWnd( hAssociatedWindow )
+  : OSPopup( pIntf ), m_hWnd( hAssociatedWindow )
 {
-    // Create the popup menu
-    m_hMenu = CreatePopupMenu();
+  // Create the popup menu
+  m_hMenu = CreatePopupMenu();
 
-    if( !m_hMenu )
-    {
-        msg_Err( getIntf(), "CreatePopupMenu failed" );
-        return;
-    }
+  if( !m_hMenu )
+  {
+    msg_Err( getIntf(), "CreatePopupMenu failed" );
+    return;
+  }
 }
 
 
 Win32Popup::~Win32Popup()
 {
-    if( m_hMenu )
-        DestroyMenu( m_hMenu );
+  if( m_hMenu )
+    DestroyMenu( m_hMenu );
 }
 
 
 void Win32Popup::show( int xPos, int yPos )
 {
-    TrackPopupMenuEx( m_hMenu, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON
-                               | TPM_HORIZONTAL | TPM_NOANIMATION,
-                      xPos, yPos, m_hWnd, NULL );
+  TrackPopupMenuEx( m_hMenu, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RIGHTBUTTON
+           | TPM_HORIZONTAL | TPM_NOANIMATION,
+        xPos, yPos, m_hWnd, NULL );
 }
 
 
 void Win32Popup::hide()
 {
-    SendMessage( m_hWnd, WM_CANCELMODE, 0, 0 );
+  SendMessage( m_hWnd, WM_CANCELMODE, 0, 0 );
 }
 
 
 void Win32Popup::addItem( const string &rLabel, int pos )
 {
-    MENUITEMINFO menuItem;
-    menuItem.cbSize = sizeof( MENUITEMINFO );
-//     menuItem.fMask = MIIM_FTYPE | MIIM_ID | MIIM_TYPE | MIIM_STRING;
-//     menuItem.fType = MFT_STRING;
-    menuItem.fMask = MIIM_ID | MIIM_STRING;
-    menuItem.wID = pos;
-    menuItem.dwTypeData = (char*)rLabel.c_str();
-    menuItem.cch = rLabel.size();
+  MENUITEMINFO menuItem;
+  menuItem.cbSize = sizeof( MENUITEMINFO );
+//   menuItem.fMask = MIIM_FTYPE | MIIM_ID | MIIM_TYPE | MIIM_STRING;
+//   menuItem.fType = MFT_STRING;
+  menuItem.fMask = MIIM_ID | MIIM_STRING;
+  menuItem.wID = pos;
+  menuItem.dwTypeData = (char*)rLabel.c_str();
+  menuItem.cch = rLabel.size();
 
-    InsertMenuItem( m_hMenu, findInsertionPoint( pos ), TRUE, &menuItem );
+  InsertMenuItem( m_hMenu, findInsertionPoint( pos ), TRUE, &menuItem );
 }
 
 
 void Win32Popup::addSeparator( int pos )
 {
-    MENUITEMINFO sepItem;
-    sepItem.cbSize = sizeof( MENUITEMINFO );
-    sepItem.fMask = MIIM_FTYPE;
-    sepItem.fType = MFT_SEPARATOR;
+  MENUITEMINFO sepItem;
+  sepItem.cbSize = sizeof( MENUITEMINFO );
+  sepItem.fMask = MIIM_FTYPE;
+  sepItem.fType = MFT_SEPARATOR;
 
-    InsertMenuItem( m_hMenu, findInsertionPoint( pos ), TRUE, &sepItem );
+  InsertMenuItem( m_hMenu, findInsertionPoint( pos ), TRUE, &sepItem );
 }
 
 
-unsigned int Win32Popup::findInsertionPoint( unsigned int pos ) const
+unsigned int Win32Popup::findInsertionPoint( unsigned int pos ) cons
 {
-    // For this simple algorithm, we rely on the fact that in the final state
-    // of the menu, the ID of each item is equal to its position in the menu
-    int i = 0;
-    while( i < GetMenuItemCount( m_hMenu ) &&
-           GetMenuItemID( m_hMenu, i ) < pos )
-    {
-        i++;
-    }
-    return i;
+  // For this simple algorithm, we rely on the fact that in the final state
+  // of the menu, the ID of each item is equal to its position in the menu
+  int i = 0;
+  while( i < GetMenuItemCount( m_hMenu ) &&
+     GetMenuItemID( m_hMenu, i ) < pos )
+  {
+    i++;
+  }
+  return i;
 }
 
 

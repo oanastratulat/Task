@@ -24,7 +24,7 @@
  * Uses types CARD<n> for an n-bit unsigned integer, INT<n> for an n-bit signed
  * integer (for n = 8, 16 and 32).
  *
- * All multiple byte integers are in big endian (network) order (most
+ * All multiple byte integers are in big endian (network) order (mos
  * significant byte first).  Unless noted otherwise there is no special
  * alignment of protocol structures.
  *
@@ -38,8 +38,8 @@
  *  (3) Message types.
  *  (4) Encoding types.
  *  (5) For each message type, the form of the data following the type byte.
- *      Sometimes this is defined by a single structure but the more complex
- *      messages have to be explained by comments.
+ *  Sometimes this is defined by a single structure but the more complex
+ *  messages have to be explained by comments.
  */
 
 /*****************************************************************************
@@ -49,20 +49,20 @@
  *****************************************************************************/
 
 #include "inttypes.h"
-#define CARD8  uint8_t
-#define CARD16 uint16_t
-#define CARD32 uint32_t
+#define CARD8  uint8_
+#define CARD16 uint16_
+#define CARD32 uint32_
 
 /*-----------------------------------------------------------------------------
  * Structure used to specify a rectangle.  This structure is a multiple of 4
- * bytes so that it can be interspersed with 32-bit pixel data without
+ * bytes so that it can be interspersed with 32-bit pixel data withou
  * affecting alignment.
  */
 typedef struct {
-    CARD16 x;
-    CARD16 y;
-    CARD16 w;
-    CARD16 h;
+  CARD16 x;
+  CARD16 y;
+  CARD16 w;
+  CARD16 h;
 } rfbRectangle;
 
 #define sz_rfbRectangle 8
@@ -74,49 +74,49 @@ typedef struct {
 
 typedef struct {
 
-    CARD8 bitsPerPixel;		/* 8,16,32 only */
+  CARD8 bitsPerPixel;		/* 8,16,32 only */
 
-    CARD8 depth;		/* 8 to 32 */
+  CARD8 depth;		/* 8 to 32 */
 
-    CARD8 bigEndian;		/* True if multi-byte pixels are interpreted
-				   as big endian, or if single-bit-per-pixel
-				   has most significant bit of the byte
-				   corresponding to first (leftmost) pixel. Of
-				   course this is meaningless for 8 bits/pix */
+  CARD8 bigEndian;		/* True if multi-byte pixels are interpreted
+				 as big endian, or if single-bit-per-pixel
+				 has most significant bit of the byte
+				 corresponding to first (leftmost) pixel. Of
+				 course this is meaningless for 8 bits/pix */
 
-    CARD8 trueColour;		/* If false then we need a "colour map" to
-				   convert pixels to RGB.  If true, xxxMax and
-				   xxxShift specify bits used for red, green
-				   and blue */
+  CARD8 trueColour;		/* If false then we need a "colour map" to
+				 convert pixels to RGB.  If true, xxxMax and
+				 xxxShift specify bits used for red, green
+				 and blue */
 
-    /* the following fields are only meaningful if trueColour is true */
+  /* the following fields are only meaningful if trueColour is true */
 
-    CARD16 redMax;		/* maximum red value (= 2^n - 1 where n is the
-				   number of bits used for red). Note this
-				   value is always in big endian order. */
+  CARD16 redMax;		/* maximum red value (= 2^n - 1 where n is the
+				 number of bits used for red). Note this
+				 value is always in big endian order. */
 
-    CARD16 greenMax;		/* similar for green */
+  CARD16 greenMax;		/* similar for green */
 
-    CARD16 blueMax;		/* and blue */
+  CARD16 blueMax;		/* and blue */
 
-    CARD8 redShift;		/* number of shifts needed to get the red
-				   value in a pixel to the least significant
-				   bit. To find the red value from a given
-				   pixel, do the following:
-				   1) Swap pixel value according to bigEndian
-				      (e.g. if bigEndian is false and host byte
-				      order is big endian, then swap).
-				   2) Shift right by redShift.
-				   3) AND with redMax (in host byte order).
-				   4) You now have the red value between 0 and
-				      redMax. */
+  CARD8 redShift;		/* number of shifts needed to get the red
+				 value in a pixel to the least significan
+				 bit. To find the red value from a given
+				 pixel, do the following:
+				 1) Swap pixel value according to bigEndian
+				  (e.g. if bigEndian is false and host byte
+				  order is big endian, then swap).
+				 2) Shift right by redShift.
+				 3) AND with redMax (in host byte order).
+				 4) You now have the red value between 0 and
+				  redMax. */
 
-    CARD8 greenShift;		/* similar for green */
+  CARD8 greenShift;		/* similar for green */
 
-    CARD8 blueShift;		/* and blue */
+  CARD8 blueShift;		/* and blue */
 
-    CARD8 pad1;
-    CARD16 pad2;
+  CARD8 pad1;
+  CARD16 pad2;
 
 } rfbPixelFormat;
 
@@ -140,7 +140,7 @@ typedef struct {
  * this is "RFB 003.003\n").
  *
  * The client then replies with a similar 12-byte message giving the version
- * number of the protocol which should actually be used (which may be different
+ * number of the protocol which should actually be used (which may be differen
  * to that quoted by the server).
  *
  * It is intended that both clients and servers may provide some level of
@@ -167,7 +167,7 @@ typedef char rfbProtocolVersionMsg[13];	/* allow extra byte for null */
 /*-----------------------------------------------------------------------------
  * Authentication
  *
- * Once the protocol version has been decided, the server then sends a 32-bit
+ * Once the protocol version has been decided, the server then sends a 32-bi
  * word indicating whether any authentication is needed on the connection.
  * The value of this word determines the authentication scheme in use.  For
  * version 3.0 of the protocol this may have one of the following values:
@@ -181,7 +181,7 @@ typedef char rfbProtocolVersionMsg[13];	/* allow extra byte for null */
  * rfbConnFailed:	For some reason the connection failed (e.g. the server
  *			cannot support the desired protocol version).  This is
  *			followed by a string describing the reason (where a
- *			string is specified as a 32-bit length followed by that
+ *			string is specified as a 32-bit length followed by tha
  *			many ASCII characters).
  *
  * rfbNoAuth:		No authentication is needed.
@@ -215,7 +215,7 @@ typedef char rfbProtocolVersionMsg[13];	/* allow extra byte for null */
  */
 
 typedef struct {
-    CARD8 shared;
+  CARD8 shared;
 } rfbClientInitMsg;
 
 #define sz_rfbClientInitMsg 1
@@ -230,11 +230,11 @@ typedef struct {
  */
 
 typedef struct {
-    CARD16 framebufferWidth;
-    CARD16 framebufferHeight;
-    rfbPixelFormat format;	/* the server's preferred pixel format */
-    CARD32 nameLength;
-    /* followed by char name[nameLength] */
+  CARD16 framebufferWidth;
+  CARD16 framebufferHeight;
+  rfbPixelFormat format;	/* the server's preferred pixel format */
+  CARD32 nameLength;
+  /* followed by char name[nameLength] */
 } rfbServerInitMsg;
 
 #define sz_rfbServerInitMsg (8 + sz_rfbPixelFormat)
@@ -249,7 +249,7 @@ typedef struct {
  * FramebufferUpdateRequest messages.  The client should send
  * FramebufferUpdateRequest messages with incremental set to true when it has
  * finished processing one FramebufferUpdate and is ready to process another.
- * With a fast client, the rate at which FramebufferUpdateRequests are sent
+ * With a fast client, the rate at which FramebufferUpdateRequests are sen
  * should be regulated to avoid hogging the network.
  */
 
@@ -310,16 +310,16 @@ typedef struct {
  * FramebufferUpdate - a block of rectangles to be copied to the framebuffer.
  *
  * This message consists of a header giving the number of rectangles of pixel
- * data followed by the rectangles themselves.  The header is padded so that
+ * data followed by the rectangles themselves.  The header is padded so tha
  * together with the type byte it is an exact multiple of 4 bytes (to help
  * with alignment of 32-bit pixels):
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbFramebufferUpdate */
-    CARD8 pad;
-    CARD16 nRects;
-    /* followed by nRects rectangles */
+  CARD8 type;			/* always rfbFramebufferUpdate */
+  CARD8 pad;
+  CARD16 nRects;
+  /* followed by nRects rectangles */
 } rfbFramebufferUpdateMsg;
 
 #define sz_rfbFramebufferUpdateMsg 4
@@ -333,8 +333,8 @@ typedef struct {
  */
 
 typedef struct {
-    rfbRectangle r;
-    CARD32 encoding;	/* one of the encoding types rfbEncoding... */
+  rfbRectangle r;
+  CARD32 encoding;	/* one of the encoding types rfbEncoding... */
 } rfbFramebufferUpdateRectHeader;
 
 #define sz_rfbFramebufferUpdateRectHeader (sz_rfbRectangle + 4)
@@ -352,8 +352,8 @@ typedef struct {
  */
 
 typedef struct {
-    CARD16 srcX;
-    CARD16 srcY;
+  CARD16 srcX;
+  CARD16 srcY;
 } rfbCopyRect;
 
 #define sz_rfbCopyRect 4
@@ -367,7 +367,7 @@ typedef struct {
  */
 
 typedef struct {
-    CARD32 nSubrects;
+  CARD32 nSubrects;
 } rfbRREHeader;
 
 #define sz_rfbRREHeader 4
@@ -377,15 +377,15 @@ typedef struct {
  * CoRRE - Compact RRE Encoding.  We have an rfbRREHeader structure giving
  * the number of subrectangles following.  Finally the data follows in the form
  * [<bgpixel><subrect><subrect>...] where each <subrect> is
- * [<pixel><rfbCoRRERectangle>].  This means that
+ * [<pixel><rfbCoRRERectangle>].  This means tha
  * the whole rectangle must be at most 255x255 pixels.
  */
 
 typedef struct {
-    CARD8 x;
-    CARD8 y;
-    CARD8 w;
-    CARD8 h;
+  CARD8 x;
+  CARD8 y;
+  CARD8 w;
+  CARD8 h;
 } rfbCoRRERectangle;
 
 #define sz_rfbCoRRERectangle 4
@@ -398,7 +398,7 @@ typedef struct {
  * the last tile in each row will be correspondingly smaller.  Similarly if the
  * height is not an exact multiple of 16 then the height of each tile in the
  * final row will also be smaller.  Each tile begins with a "subencoding" type
- * byte, which is a mask made up of a number of bits.  If the Raw bit is set
+ * byte, which is a mask made up of a number of bits.  If the Raw bit is se
  * then the other bits are irrelevant; w*h pixel values follow (where w and h
  * are the width and height of the tile).  Otherwise the tile is encoded in a
  * similar way to RRE, except that the position and size of each subrectangle
@@ -406,23 +406,23 @@ typedef struct {
  * follows:
  *
  * BackgroundSpecified - if set, a pixel value follows which specifies
- *    the background colour for this tile.  The first non-raw tile in a
- *    rectangle must have this bit set.  If this bit isn't set then the
- *    background is the same as the last tile.
+ *  the background colour for this tile.  The first non-raw tile in a
+ *  rectangle must have this bit set.  If this bit isn't set then the
+ *  background is the same as the last tile.
  *
  * ForegroundSpecified - if set, a pixel value follows which specifies
- *    the foreground colour to be used for all subrectangles in this tile.
- *    If this bit is set then the SubrectsColoured bit must be zero.
+ *  the foreground colour to be used for all subrectangles in this tile.
+ *  If this bit is set then the SubrectsColoured bit must be zero.
  *
  * AnySubrects - if set, a single byte follows giving the number of
- *    subrectangles following.  If not set, there are no subrectangles (i.e.
- *    the whole tile is just solid background colour).
+ *  subrectangles following.  If not set, there are no subrectangles (i.e.
+ *  the whole tile is just solid background colour).
  *
  * SubrectsColoured - if set then each subrectangle is preceded by a pixel
- *    value giving the colour of that subrectangle.  If not set, all
- *    subrectangles are the same colour, the foreground colour;  if the
- *    ForegroundSpecified bit wasn't set then the foreground is the same as
- *    the last tile.
+ *  value giving the colour of that subrectangle.  If not set, all
+ *  subrectangles are the same colour, the foreground colour;  if the
+ *  ForegroundSpecified bit wasn't set then the foreground is the same as
+ *  the last tile.
  *
  * The position and size of each subrectangle is specified in two bytes.  The
  * Pack macros below can be used to generate the two bytes from x, y, w, h,
@@ -450,7 +450,7 @@ typedef struct {
  */
 
 typedef struct {
-    CARD32 length;
+  CARD32 length;
 } rfbZRLEHeader;
 
 #define sz_rfbZRLEHeader 4
@@ -461,21 +461,21 @@ typedef struct {
 
 /*-----------------------------------------------------------------------------
  * SetColourMapEntries - these messages are only sent if the pixel
- * format uses a "colour map" (i.e. trueColour false) and the client has not
+ * format uses a "colour map" (i.e. trueColour false) and the client has no
  * fixed the entire colour map using FixColourMapEntries.  In addition they
- * will only start being sent after the client has sent its first
+ * will only start being sent after the client has sent its firs
  * FramebufferUpdateRequest.  So if the client always tells the server to use
  * trueColour then it never needs to process this type of message.
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbSetColourMapEntries */
-    CARD8 pad;
-    CARD16 firstColour;
-    CARD16 nColours;
+  CARD8 type;			/* always rfbSetColourMapEntries */
+  CARD8 pad;
+  CARD16 firstColour;
+  CARD16 nColours;
 
-    /* Followed by nColours * 3 * CARD16
-       r1, g1, b1, r2, g2, b2, r3, g3, b3, ..., rn, bn, gn */
+  /* Followed by nColours * 3 * CARD16
+   r1, g1, b1, r2, g2, b2, r3, g3, b3, ..., rn, bn, gn */
 
 } rfbSetColourMapEntriesMsg;
 
@@ -488,7 +488,7 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbBell */
+  CARD8 type;			/* always rfbBell */
 } rfbBellMsg;
 
 #define sz_rfbBellMsg 1
@@ -500,11 +500,11 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbServerCutText */
-    CARD8 pad1;
-    CARD16 pad2;
-    CARD32 length;
-    /* followed by char text[length] */
+  CARD8 type;			/* always rfbServerCutText */
+  CARD8 pad1;
+  CARD16 pad2;
+  CARD32 length;
+  /* followed by char text[length] */
 } rfbServerCutTextMsg;
 
 #define sz_rfbServerCutTextMsg 8
@@ -516,13 +516,13 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;                 /* always rfbReSizeFrameBuffer */
-        CARD8 pad1;
-        CARD16 desktop_w;       /* Desktop width */
-        CARD16 desktop_h;       /* Desktop height */
-        CARD16 buffer_w;        /* FrameBuffer width */
-        CARD16 buffer_h;        /* Framebuffer height */
-    CARD16 pad2;
+  CARD8 type;       /* always rfbReSizeFrameBuffer */
+    CARD8 pad1;
+    CARD16 desktop_w;   /* Desktop width */
+    CARD16 desktop_h;   /* Desktop height */
+    CARD16 buffer_w;    /* FrameBuffer width */
+    CARD16 buffer_h;    /* Framebuffer height */
+  CARD16 pad2;
 
 } rfbReSizeFrameBufferMsg;
 
@@ -535,12 +535,12 @@ typedef struct {
  */
 
 typedef union {
-    CARD8 type;
-    rfbFramebufferUpdateMsg fu;
-    rfbSetColourMapEntriesMsg scme;
-    rfbBellMsg b;
-    rfbServerCutTextMsg sct;
-    rfbReSizeFrameBufferMsg rsfb;
+  CARD8 type;
+  rfbFramebufferUpdateMsg fu;
+  rfbSetColourMapEntriesMsg scme;
+  rfbBellMsg b;
+  rfbServerCutTextMsg sct;
+  rfbReSizeFrameBufferMsg rsfb;
 } rfbServerToClientMsg;
 
 
@@ -558,10 +558,10 @@ typedef union {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbSetPixelFormat */
-    CARD8 pad1;
-    CARD16 pad2;
-    rfbPixelFormat format;
+  CARD8 type;			/* always rfbSetPixelFormat */
+  CARD8 pad1;
+  CARD16 pad2;
+  rfbPixelFormat format;
 } rfbSetPixelFormatMsg;
 
 #define sz_rfbSetPixelFormatMsg (sz_rfbPixelFormat + 4)
@@ -571,17 +571,17 @@ typedef struct {
  * FixColourMapEntries - when the pixel format uses a "colour map", fix
  * read-only colour map entries.
  *
- *    ***************** NOT CURRENTLY SUPPORTED *****************
+ *  ***************** NOT CURRENTLY SUPPORTED *****************
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbFixColourMapEntries */
-    CARD8 pad;
-    CARD16 firstColour;
-    CARD16 nColours;
+  CARD8 type;			/* always rfbFixColourMapEntries */
+  CARD8 pad;
+  CARD16 firstColour;
+  CARD16 nColours;
 
-    /* Followed by nColours * 3 * CARD16
-       r1, g1, b1, r2, g2, b2, r3, g3, b3, ..., rn, bn, gn */
+  /* Followed by nColours * 3 * CARD16
+   r1, g1, b1, r2, g2, b2, r3, g3, b3, ..., rn, bn, gn */
 
 } rfbFixColourMapEntriesMsg;
 
@@ -595,10 +595,10 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbSetEncodings */
-    CARD8 pad;
-    CARD16 nEncodings;
-    /* followed by nEncodings * CARD32 encoding types */
+  CARD8 type;			/* always rfbSetEncodings */
+  CARD8 pad;
+  CARD16 nEncodings;
+  /* followed by nEncodings * CARD32 encoding types */
 } rfbSetEncodingsMsg;
 
 #define sz_rfbSetEncodingsMsg 4
@@ -609,8 +609,8 @@ typedef struct {
  */
 
 typedef struct {
-	CARD8 type;                 /* always rfbSetScaleFactor */
-	CARD8 scale;                /* Scale factor (positive non-zero integer) */
+	CARD8 type;       /* always rfbSetScaleFactor */
+	CARD8 scale;      /* Scale factor (positive non-zero integer) */
 	CARD16 pad2;
 } rfbSetScaleFactorMsg;
 
@@ -623,12 +623,12 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbFramebufferUpdateRequest */
-    CARD8 incremental;
-    CARD16 x;
-    CARD16 y;
-    CARD16 w;
-    CARD16 h;
+  CARD8 type;			/* always rfbFramebufferUpdateRequest */
+  CARD8 incremental;
+  CARD16 x;
+  CARD16 y;
+  CARD16 w;
+  CARD16 h;
 } rfbFramebufferUpdateRequestMsg;
 
 #define sz_rfbFramebufferUpdateRequestMsg 10
@@ -666,10 +666,10 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbKeyEvent */
-    CARD8 down;			/* true if down (press), false if up */
-    CARD16 pad;
-    CARD32 key;			/* key is specified as an X keysym */
+  CARD8 type;			/* always rfbKeyEvent */
+  CARD8 down;			/* true if down (press), false if up */
+  CARD16 pad;
+  CARD32 key;			/* key is specified as an X keysym */
 } rfbKeyEventMsg;
 
 #define sz_rfbKeyEventMsg 8
@@ -680,10 +680,10 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbPointerEvent */
-    CARD8 buttonMask;		/* bits 0-7 are buttons 1-8, 0=up, 1=down */
-    CARD16 x;
-    CARD16 y;
+  CARD8 type;			/* always rfbPointerEvent */
+  CARD8 buttonMask;		/* bits 0-7 are buttons 1-8, 0=up, 1=down */
+  CARD16 x;
+  CARD16 y;
 } rfbPointerEventMsg;
 
 #define rfbButton1Mask 1
@@ -703,11 +703,11 @@ typedef struct {
  */
 
 typedef struct {
-    CARD8 type;			/* always rfbClientCutText */
-    CARD8 pad1;
-    CARD16 pad2;
-    CARD32 length;
-    /* followed by char text[length] */
+  CARD8 type;			/* always rfbClientCutText */
+  CARD8 pad1;
+  CARD16 pad2;
+  CARD32 length;
+  /* followed by char text[length] */
 } rfbClientCutTextMsg;
 
 #define sz_rfbClientCutTextMsg 8
@@ -717,13 +717,13 @@ typedef struct {
  */
 
 typedef union {
-    CARD8 type;
-    rfbSetPixelFormatMsg spf;
-    rfbSetScaleFactorMsg ssf;
-    rfbFixColourMapEntriesMsg fcme;
-    rfbSetEncodingsMsg se;
-    rfbFramebufferUpdateRequestMsg fur;
-    rfbKeyEventMsg ke;
-    rfbPointerEventMsg pe;
-    rfbClientCutTextMsg cct;
+  CARD8 type;
+  rfbSetPixelFormatMsg spf;
+  rfbSetScaleFactorMsg ssf;
+  rfbFixColourMapEntriesMsg fcme;
+  rfbSetEncodingsMsg se;
+  rfbFramebufferUpdateRequestMsg fur;
+  rfbKeyEventMsg ke;
+  rfbPointerEventMsg pe;
+  rfbClientCutTextMsg cct;
 } rfbClientToServerMsg;

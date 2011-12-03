@@ -27,45 +27,45 @@
 
 
 MacOSXPopup::MacOSXPopup( intf_thread_t *pIntf )
-    : OSPopup( pIntf )
+  : OSPopup( pIntf )
 {
-    // TODO
+  // TODO
 }
 
 
 MacOSXPopup::~MacOSXPopup()
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXPopup::show( int xPos, int yPos )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXPopup::hide()
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXPopup::addItem( const string &rLabel, int pos )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXPopup::addSeparator( int pos )
 {
-    // TODO
+  // TODO
 }
 
 
-int MacOSXPopup::getPosFromId( int id ) const
+int MacOSXPopup::getPosFromId( int id ) cons
 {
-    // TODO
+  // TODO
 }
 
 

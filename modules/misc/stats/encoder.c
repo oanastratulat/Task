@@ -4,7 +4,7 @@
  * Copyright (C) 2002-2008 the VideoLAN team
  *
  * Authors: Gildas Bazin <gbazin@netcourrier.com>
- *          Pierre d'Herbemont <pdherbemont@videolan.org>
+ *    Pierre d'Herbemont <pdherbemont@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,11 +34,11 @@
 #include "stats.h"
 
 /*****************************************************************************
- * encoder_sys_t
+ * encoder_sys_
  *****************************************************************************/
-struct encoder_sys_t
+struct encoder_sys_
 {
-    int i;
+  int i;
 };
 
 /*****************************************************************************
@@ -52,21 +52,21 @@ static block_t *EncodeAudio( encoder_t *p_enc, aout_buffer_t *p_abuff );
  *****************************************************************************/
 int OpenEncoder ( vlc_object_t *p_this )
 {
-    encoder_t *p_enc = (encoder_t *)p_this;
+  encoder_t *p_enc = (encoder_t *)p_this;
 
-    p_enc->p_sys = malloc(sizeof(encoder_sys_t));
+  p_enc->p_sys = malloc(sizeof(encoder_sys_t));
 
-    if( !p_enc->p_sys ) return VLC_ENOMEM;
+  if( !p_enc->p_sys ) return VLC_ENOMEM;
 
-    p_enc->p_sys->i = 0;
+  p_enc->p_sys->i = 0;
 
-    msg_Dbg( p_this, "opening stats encoder" );
+  msg_Dbg( p_this, "opening stats encoder" );
 
-    p_enc->pf_encode_video = EncodeVideo;
-    p_enc->pf_encode_audio = EncodeAudio;
+  p_enc->pf_encode_video = EncodeVideo;
+  p_enc->pf_encode_audio = EncodeAudio;
 
 
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 /****************************************************************************
@@ -74,17 +74,17 @@ int OpenEncoder ( vlc_object_t *p_this )
  ****************************************************************************/
 static block_t *EncodeVideo( encoder_t *p_enc, picture_t *p_pict )
 {
-    (void)p_pict;
-    block_t * p_block = block_New( p_enc, kBufferSize );
+  (void)p_pict;
+  block_t * p_block = block_New( p_enc, kBufferSize );
 
-    *(mtime_t*)p_block->p_buffer = mdate();
-    p_block->i_buffer = kBufferSize;
-    p_block->i_length = kBufferSize;
-    p_block->i_dts = p_pict->date;
+  *(mtime_t*)p_block->p_buffer = mdate();
+  p_block->i_buffer = kBufferSize;
+  p_block->i_length = kBufferSize;
+  p_block->i_dts = p_pict->date;
 
-    msg_Dbg( p_enc, "putting %"PRIu64"ms",
-             *(mtime_t*)p_block->p_buffer / 1000 );
-    return p_block;
+  msg_Dbg( p_enc, "putting %"PRIu64"ms",
+     *(mtime_t*)p_block->p_buffer / 1000 );
+  return p_block;
 }
 
 /****************************************************************************
@@ -92,9 +92,9 @@ static block_t *EncodeVideo( encoder_t *p_enc, picture_t *p_pict )
  ****************************************************************************/
 static block_t *EncodeAudio( encoder_t *p_enc, aout_buffer_t *p_abuff )
 {
-    (void)p_abuff;
-    (void)p_enc;
-    return NULL;
+  (void)p_abuff;
+  (void)p_enc;
+  return NULL;
 }
 
 
@@ -103,8 +103,8 @@ static block_t *EncodeAudio( encoder_t *p_enc, aout_buffer_t *p_abuff )
  *****************************************************************************/
 void CloseEncoder ( vlc_object_t *p_this )
 {
-    encoder_t *p_enc = (encoder_t *)p_this;
+  encoder_t *p_enc = (encoder_t *)p_this;
 
-    msg_Dbg( p_this, "closing stats encoder" );
-    free( p_enc->p_sys );
+  msg_Dbg( p_this, "closing stats encoder" );
+  free( p_enc->p_sys );
 }

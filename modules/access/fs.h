@@ -1,7 +1,7 @@
 /*****************************************************************************
  * fs.h: file system access plug-in common header
  *****************************************************************************
- * Copyright (C) 2009 Rémi Denis-Courmont
+ * Copyright (C) 2009 Rémi Denis-Courmon
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

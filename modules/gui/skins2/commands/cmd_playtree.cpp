@@ -5,7 +5,7 @@
  * $Id: 6943d70548e20a5bed30710912fec21485ab07c0 $
  *
  * Authors: Antoine Cellerier <dionoea@videolan.org>
- *          Clément Stenac <zorglub@videolan.org>
+ *    Clément Stenac <zorglub@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,19 +29,19 @@
 
 void CmdPlaytreeDel::execute()
 {
-    m_rTree.delSelected();
+  m_rTree.delSelected();
 }
 
 void CmdPlaytreeSort::execute()
 {
-    /// \todo Choose sort method/order - Need more commands
-    /// \todo Choose the correct view
-    playlist_t *p_playlist = getIntf()->p_sys->p_playlist;
-    PL_LOCK;
-    playlist_RecursiveNodeSort( p_playlist, p_playlist->p_root_onelevel,
-                                SORT_TITLE, ORDER_NORMAL );
-    PL_UNLOCK;
+  /// \todo Choose sort method/order - Need more commands
+  /// \todo Choose the correct view
+  playlist_t *p_playlist = getIntf()->p_sys->p_playlist;
+  PL_LOCK;
+  playlist_RecursiveNodeSort( p_playlist, p_playlist->p_root_onelevel,
+            SORT_TITLE, ORDER_NORMAL );
+  PL_UNLOCK;
 
-    // Ask for rebuild
-    VlcProc::instance( getIntf() )->getPlaytreeVar().onChange();
+  // Ask for rebuild
+  VlcProc::instance( getIntf() )->getPlaytreeVar().onChange();
 }

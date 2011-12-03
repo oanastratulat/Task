@@ -25,7 +25,7 @@
  * Preamble
  *****************************************************************************/
 #ifndef  _GNU_SOURCE
-#   define  _GNU_SOURCE
+# define  _GNU_SOURCE
 #endif
 
 #ifdef HAVE_CONFIG_H
@@ -35,8 +35,8 @@
 #include <vlc_common.h>
 #include <vlc_vout.h>
 
-#include <lua.h>        /* Low level lua C API */
-#include <lauxlib.h>    /* Higher level C API */
+#include <lua.h>    /* Low level lua C API */
+#include <lauxlib.h>  /* Higher level C API */
 
 #include "../vlc.h"
 #include "../libs.h"
@@ -49,117 +49,117 @@
  *****************************************************************************/
 static int vlclua_object_release( lua_State *L )
 {
-    vlc_object_t **p_obj = (vlc_object_t **)luaL_checkudata( L, 1, "vlc_object" );
-    lua_pop( L, 1 );
-    vlc_object_release( *p_obj );
-    return 0;
+  vlc_object_t **p_obj = (vlc_object_t **)luaL_checkudata( L, 1, "vlc_object" );
+  lua_pop( L, 1 );
+  vlc_object_release( *p_obj );
+  return 0;
 }
 
 static int vlclua_object_find( lua_State *L )
 {
-    lua_pushnil( L );
-    return 1;
+  lua_pushnil( L );
+  return 1;
 }
 
 static int vlclua_get_libvlc( lua_State *L )
 {
-    libvlc_int_t *p_libvlc = vlclua_get_this( L )->p_libvlc;
-    vlc_object_hold( p_libvlc );
-    vlclua_push_vlc_object( L, p_libvlc );
-    return 1;
+  libvlc_int_t *p_libvlc = vlclua_get_this( L )->p_libvlc;
+  vlc_object_hold( p_libvlc );
+  vlclua_push_vlc_object( L, p_libvlc );
+  return 1;
 }
 
 static int vlclua_get_playlist( lua_State *L )
 {
-    playlist_t *p_playlist = vlclua_get_playlist_internal( L );
-    if( p_playlist )
-    {
-        vlc_object_hold( p_playlist );
-        vlclua_push_vlc_object( L, p_playlist );
-    }
-    else lua_pushnil( L );
-    return 1;
+  playlist_t *p_playlist = vlclua_get_playlist_internal( L );
+  if( p_playlist )
+  {
+    vlc_object_hold( p_playlist );
+    vlclua_push_vlc_object( L, p_playlist );
+  }
+  else lua_pushnil( L );
+  return 1;
 }
 
 static int vlclua_get_input( lua_State *L )
 {
-    input_thread_t *p_input = vlclua_get_input_internal( L );
-    if( p_input )
-    {
-        /* NOTE: p_input is already held by vlclua_get_input_internal() */
-        vlclua_push_vlc_object( L, p_input );
-    }
-    else lua_pushnil( L );
-    return 1;
+  input_thread_t *p_input = vlclua_get_input_internal( L );
+  if( p_input )
+  {
+    /* NOTE: p_input is already held by vlclua_get_input_internal() */
+    vlclua_push_vlc_object( L, p_input );
+  }
+  else lua_pushnil( L );
+  return 1;
 }
 
-#undef vlclua_push_vlc_object
+#undef vlclua_push_vlc_objec
 int vlclua_push_vlc_object( lua_State *L, vlc_object_t *p_obj )
 {
-    vlc_object_t **udata = (vlc_object_t **)
-        lua_newuserdata( L, sizeof( vlc_object_t * ) );
-    *udata = p_obj;
+  vlc_object_t **udata = (vlc_object_t **)
+    lua_newuserdata( L, sizeof( vlc_object_t * ) );
+  *udata = p_obj;
 
-    if( luaL_newmetatable( L, "vlc_object" ) )
-    {
-        /* Hide the metatable */
-        lua_pushliteral( L, "none of your business" );
-        lua_setfield( L, -2, "__metatable" );
-        /* Set the garbage collector if needed */
-        lua_pushcfunction( L, vlclua_object_release );
-        lua_setfield( L, -2, "__gc" );
-    }
-    lua_setmetatable( L, -2 );
-    return 1;
+  if( luaL_newmetatable( L, "vlc_object" ) )
+  {
+    /* Hide the metatable */
+    lua_pushliteral( L, "none of your business" );
+    lua_setfield( L, -2, "__metatable" );
+    /* Set the garbage collector if needed */
+    lua_pushcfunction( L, vlclua_object_release );
+    lua_setfield( L, -2, "__gc" );
+  }
+  lua_setmetatable( L, -2 );
+  return 1;
 }
 static int vlclua_get_vout( lua_State *L )
 {
-    input_thread_t *p_input= vlclua_get_input_internal( L );
-    if( p_input )
+  input_thread_t *p_input= vlclua_get_input_internal( L );
+  if( p_input )
+  {
+    vout_thread_t *p_vout = input_GetVout( p_input );
+    vlc_object_release( p_input );
+    if(p_vout)
     {
-        vout_thread_t *p_vout = input_GetVout( p_input );
-        vlc_object_release( p_input );
-        if(p_vout)
-        {
-            vlclua_push_vlc_object( L, (vlc_object_t *) p_vout );
-            return 1;
-        }
-    }
-    lua_pushnil( L );
+    vlclua_push_vlc_object( L, (vlc_object_t *) p_vout );
     return 1;
+    }
+  }
+  lua_pushnil( L );
+  return 1;
 }
 static int vlclua_get_aout( lua_State *L )
 {
-    input_thread_t *p_input= vlclua_get_input_internal( L );
-    if( p_input )
+  input_thread_t *p_input= vlclua_get_input_internal( L );
+  if( p_input )
+  {
+    audio_output_t *p_aout = input_GetAout( p_input );
+    vlc_object_release(p_input);
+    if(p_aout)
     {
-        audio_output_t *p_aout = input_GetAout( p_input );
-        vlc_object_release(p_input);
-        if(p_aout)
-        {
-            vlclua_push_vlc_object( L, (vlc_object_t *)p_aout );
-            return 1;
-        }
-    }
-    lua_pushnil( L );
+    vlclua_push_vlc_object( L, (vlc_object_t *)p_aout );
     return 1;
+    }
+  }
+  lua_pushnil( L );
+  return 1;
 }
 /*****************************************************************************
  *
  *****************************************************************************/
 static const luaL_Reg vlclua_object_reg[] = {
-    { "input", vlclua_get_input },
-    { "playlist", vlclua_get_playlist },
-    { "libvlc", vlclua_get_libvlc },
-    { "find", vlclua_object_find },
-    { "vout", vlclua_get_vout},
-    { "aout", vlclua_get_aout},
-    { NULL, NULL }
+  { "input", vlclua_get_input },
+  { "playlist", vlclua_get_playlist },
+  { "libvlc", vlclua_get_libvlc },
+  { "find", vlclua_object_find },
+  { "vout", vlclua_get_vout},
+  { "aout", vlclua_get_aout},
+  { NULL, NULL }
 };
 
 void luaopen_object( lua_State *L )
 {
-    lua_newtable( L );
-    luaL_register( L, NULL, vlclua_object_reg );
-    lua_setfield( L, -2, "object" );
+  lua_newtable( L );
+  luaL_register( L, NULL, vlclua_object_reg );
+  lua_setfield( L, -2, "object" );
 }

@@ -22,7 +22,7 @@
  *****************************************************************************/
 
 #ifndef DYNAMIC_OVERLAY_H
-#define DYNAMIC_OVERLAY_H   1
+#define DYNAMIC_OVERLAY_H 1
 
 #include <vlc_common.h>
 #include <vlc_filter.h>
@@ -32,13 +32,13 @@
  * buffer_t: Command and response buffer
  *****************************************************************************/
 
-typedef struct buffer_t
+typedef struct buffer_
 {
-    size_t i_size;                         /**< Size of the allocated memory */
-    size_t i_length;                          /**< Length of the stored data */
+  size_t i_size;         /**< Size of the allocated memory */
+  size_t i_length;          /**< Length of the stored data */
 
-    char *p_memory;                       /**< Start of the allocated memory */
-    char *p_begin;                             /**< Start of the stored data */
+  char *p_memory;         /**< Start of the allocated memory */
+  char *p_begin;           /**< Start of the stored data */
 } buffer_t;
 
 int BufferInit( buffer_t *p_buffer );
@@ -53,55 +53,55 @@ char *BufferGetToken( buffer_t *p_buffer );
  *****************************************************************************/
 
 /** struct commandparams_t - command params structure */
-typedef struct commandparams_t
+typedef struct commandparams_
 {
-    int32_t i_id;       /*< overlay id */
-    int32_t i_shmid;    /*< shared memory identifier */
+  int32_t i_id;   /*< overlay id */
+  int32_t i_shmid;  /*< shared memory identifier */
 
-    vlc_fourcc_t fourcc;/*< chroma */
+  vlc_fourcc_t fourcc;/*< chroma */
 
-    int32_t i_x;        /*< x position of overlay */
-    int32_t i_y;        /*< y position of overlay */
-    int32_t i_width;    /*< width of overlay */
-    int32_t i_height;   /*< height of overlay */
+  int32_t i_x;    /*< x position of overlay */
+  int32_t i_y;    /*< y position of overlay */
+  int32_t i_width;  /*< width of overlay */
+  int32_t i_height; /*< height of overlay */
 
-    int32_t i_alpha;    /*< alpha value of overlay */
+  int32_t i_alpha;  /*< alpha value of overlay */
 
-    text_style_t fontstyle; /*< text style */
+  text_style_t fontstyle; /*< text style */
 
-    bool b_visible; /*< visibility flag of overlay */
+  bool b_visible; /*< visibility flag of overlay */
 } commandparams_t;
 
 typedef int (*parser_func_t)(char *psz_command, char *psz_end, commandparams_t *p_params );
 typedef int (*execute_func_t)( filter_t *p_filter, const commandparams_t *p_params, commandparams_t *p_results );
 typedef int (*unparse_func_t)( const commandparams_t *p_results, buffer_t *p_output );
 
-typedef struct commanddesc_t
+typedef struct commanddesc_
 {
-    char *psz_command;
-    bool b_atomic;
-    parser_func_t pf_parser;
-    execute_func_t pf_execute;
-    unparse_func_t pf_unparse;
+  char *psz_command;
+  bool b_atomic;
+  parser_func_t pf_parser;
+  execute_func_t pf_execute;
+  unparse_func_t pf_unparse;
 } commanddesc_t;
 
-typedef struct commanddesc_static_t
+typedef struct commanddesc_static_
 {
-    const char *psz_command;
-    bool b_atomic;
-    parser_func_t pf_parser;
-    execute_func_t pf_execute;
-    unparse_func_t pf_unparse;
+  const char *psz_command;
+  bool b_atomic;
+  parser_func_t pf_parser;
+  execute_func_t pf_execute;
+  unparse_func_t pf_unparse;
 } commanddesc_static_t;
 
 
-typedef struct command_t
+typedef struct command_
 {
-    struct commanddesc_t *p_command;
-    int i_status;
-    commandparams_t params;
-    commandparams_t results;
-    struct command_t *p_next;
+  struct commanddesc_t *p_command;
+  int i_status;
+  commandparams_t params;
+  commandparams_t results;
+  struct command_t *p_next;
 } command_t;
 
 void RegisterCommand( filter_t *p_filter );
@@ -111,10 +111,10 @@ void UnregisterCommand( filter_t *p_filter );
  * queue_t: Command queue
  *****************************************************************************/
 
-typedef struct queue_t
+typedef struct queue_
 {
-    command_t *p_head;                  /**< Head (first entry) of the queue */
-    command_t *p_tail;                   /**< Tail (last entry) of the queue */
+  command_t *p_head;      /**< Head (first entry) of the queue */
+  command_t *p_tail;       /**< Tail (last entry) of the queue */
 } queue_t;
 
 int QueueInit( queue_t *p_queue );
@@ -127,18 +127,18 @@ int QueueTransfer( queue_t *p_sink, queue_t *p_source );
  * overlay_t: Overlay descriptor
  *****************************************************************************/
 
-typedef struct overlay_t
+typedef struct overlay_
 {
-    int i_x, i_y;
-    int i_alpha;
-    bool b_active;
+  int i_x, i_y;
+  int i_alpha;
+  bool b_active;
 
-    video_format_t format;
-    text_style_t *p_fontstyle;
-    union {
-        picture_t *p_pic;
-        char *p_text;
-    } data;
+  video_format_t format;
+  text_style_t *p_fontstyle;
+  union {
+    picture_t *p_pic;
+    char *p_text;
+  } data;
 } overlay_t;
 
 overlay_t *OverlayCreate( void );
@@ -148,9 +148,9 @@ int OverlayDestroy( overlay_t *p_ovl );
  * list_t: Command queue
  *****************************************************************************/
 
-typedef struct list_t
+typedef struct list_
 {
-    overlay_t **pp_head, **pp_tail;
+  overlay_t **pp_head, **pp_tail;
 } list_t;
 
 int ListInit( list_t *p_list );
@@ -164,21 +164,21 @@ overlay_t *ListWalk( list_t *p_list );
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
 
-struct filter_sys_t
+struct filter_sys_
 {
-    buffer_t input, output;
+  buffer_t input, output;
 
-    int i_inputfd, i_outputfd;
-    char *psz_inputfile, *psz_outputfile;
+  int i_inputfd, i_outputfd;
+  char *psz_inputfile, *psz_outputfile;
 
-    commanddesc_t **pp_commands; /* array of commands */
-    size_t i_commands;
+  commanddesc_t **pp_commands; /* array of commands */
+  size_t i_commands;
 
-    bool b_updated, b_atomic;
-    queue_t atomic, pending, processed;
-    list_t overlays;
+  bool b_updated, b_atomic;
+  queue_t atomic, pending, processed;
+  list_t overlays;
 
-    vlc_mutex_t lock;   /* lock to protect psz_inputfile and psz_outputfile */
+  vlc_mutex_t lock; /* lock to protect psz_inputfile and psz_outputfile */
 };
 
 #endif

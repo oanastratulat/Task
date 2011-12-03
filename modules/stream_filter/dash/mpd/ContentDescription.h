@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -34,23 +34,23 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class ContentDescription
     {
-        class ContentDescription
-        {
-            public:
-                ContentDescription          (std::map<std::string, std::string>  attributes);
-                virtual ~ContentDescription ();
+    public:
+      ContentDescription    (std::map<std::string, std::string>  attributes);
+      virtual ~ContentDescription ();
 
-                std::string         getSchemeIdUri          () throw(dash::exception::AttributeNotPresentException);
-                SchemeInformation*  getSchemeInformation    () throw(dash::exception::ElementNotPresentException);
-                void                setSchemeInformation    (SchemeInformation *schemeInfo);
+      std::string   getSchemeIdUri    () throw(dash::exception::AttributeNotPresentException);
+      SchemeInformation*  getSchemeInformation  () throw(dash::exception::ElementNotPresentException);
+      void      setSchemeInformation  (SchemeInformation *schemeInfo);
 
-            private:
-                std::map<std::string, std::string>  attributes;
-                SchemeInformation                   *schemeInformation;
-        };
-    }
+    private:
+      std::map<std::string, std::string>  attributes;
+      SchemeInformation       *schemeInformation;
+    };
+  }
 }
 
 #endif /* CONTENTDESCRIPTION_H_ */

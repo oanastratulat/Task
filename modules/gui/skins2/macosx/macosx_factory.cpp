@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 3efac86e7b69037ca9f108a60d9b23ade1738bd8 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,128 +33,128 @@
 
 
 MacOSXFactory::MacOSXFactory( intf_thread_t *pIntf ): OSFactory( pIntf ),
-    m_dirSep( "/" )
+  m_dirSep( "/" )
 {
-    // TODO
+  // TODO
 }
 
 
 MacOSXFactory::~MacOSXFactory()
 {
-    // TODO
+  // TODO
 }
 
 
 bool MacOSXFactory::init()
 {
-    // TODO
-    return true;
+  // TODO
+  return true;
 }
 
 
 OSGraphics *MacOSXFactory::createOSGraphics( int width, int height )
 {
-    return new MacOSXGraphics( getIntf(), width, height );
+  return new MacOSXGraphics( getIntf(), width, height );
 }
 
 
 OSLoop *MacOSXFactory::getOSLoop()
 {
-    return MacOSXLoop::instance( getIntf() );
+  return MacOSXLoop::instance( getIntf() );
 }
 
 
 void MacOSXFactory::destroyOSLoop()
 {
-    MacOSXLoop::destroy( getIntf() );
+  MacOSXLoop::destroy( getIntf() );
 }
 
 void MacOSXFactory::minimize()
 {
-    // TODO
+  // TODO
 }
 
 void MacOSXFactory::restore()
 {
-    // TODO
+  // TODO
 }
 
 void MacOSXFactory::addInTray()
 {
-    // TODO
+  // TODO
 }
 
 void MacOSXFactory::removeFromTray()
 {
-    // TODO
+  // TODO
 }
 
 void MacOSXFactory::addInTaskBar()
 {
-    // TODO
+  // TODO
 }
 
 void MacOSXFactory::removeFromTaskBar()
 {
-    // TODO
+  // TODO
 }
 
 OSTimer *MacOSXFactory::createOSTimer( CmdGeneric &rCmd )
 {
-    return new MacOSXTimer( getIntf(), rCmd );
+  return new MacOSXTimer( getIntf(), rCmd );
 }
 
 
 OSWindow *MacOSXFactory::createOSWindow( GenericWindow &rWindow, bool dragDrop,
-                                      bool playOnDrop, OSWindow *pParent )
+              bool playOnDrop, OSWindow *pParent )
 {
-    return new MacOSXWindow( getIntf(), rWindow, dragDrop,
-                             playOnDrop, (MacOSXWindow*)pParent );
+  return new MacOSXWindow( getIntf(), rWindow, dragDrop,
+           playOnDrop, (MacOSXWindow*)pParent );
 }
 
 
 OSTooltip *MacOSXFactory::createOSTooltip()
 {
-    return new MacOSXTooltip( getIntf() );
+  return new MacOSXTooltip( getIntf() );
 }
 
 
 OSPopup *MacOSXFactory::createOSPopup()
 {
-    return new MacOSXPopup( getIntf() );
+  return new MacOSXPopup( getIntf() );
 }
 
 
-int MacOSXFactory::getScreenWidth() const
+int MacOSXFactory::getScreenWidth() cons
 {
-    // TODO
-    return 0;
+  // TODO
+  return 0;
 }
 
 
-int MacOSXFactory::getScreenHeight() const
+int MacOSXFactory::getScreenHeight() cons
 {
-    // TODO
-    return 0;
+  // TODO
+  return 0;
 }
 
 
-SkinsRect MacOSXFactory::getWorkArea() const
+SkinsRect MacOSXFactory::getWorkArea() cons
 {
-    // XXX
-    return SkinsRect( 0, 0, getScreenWidth(), getScreenHeight() );
+  // XXX
+  return SkinsRect( 0, 0, getScreenWidth(), getScreenHeight() );
 }
 
 
-void MacOSXFactory::getMousePos( int &rXPos, int &rYPos ) const
+void MacOSXFactory::getMousePos( int &rXPos, int &rYPos ) cons
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXFactory::rmDir( const string &rPath )
 {
-    // TODO
+  // TODO
 }
 
 

@@ -1,5 +1,5 @@
 /*
- * AtmoOutputFilter.h: Post Processor for the color data retrieved from a CAtmoInput
+ * AtmoOutputFilter.h: Post Processor for the color data retrieved from a CAtmoInpu
  *
  * mostly 1:1 from Linux-src "filter.c" copied
  *
@@ -32,10 +32,10 @@ private:
 public:
 
 public:
-    CAtmoOutputFilter(CAtmoConfig *atmoConfig);
-    virtual ~CAtmoOutputFilter(void);
-    void ResetFilter(void);
-    pColorPacket Filtering(pColorPacket ColorPacket);
+  CAtmoOutputFilter(CAtmoConfig *atmoConfig);
+  virtual ~CAtmoOutputFilter(void);
+  void ResetFilter(void);
+  pColorPacket Filtering(pColorPacket ColorPacket);
 };
 
 #endif

@@ -22,14 +22,14 @@
 
 #include "fft.h"
 
-typedef struct MDCTContext
+typedef struct MDCTContex
 {
-    int n;     /* size of MDCT (i.e. number of input data * 2) */
-    int nbits; /* n = 2^nbits */
-    /* pre/post rotation tables */
-    int32_t *tcos;
-    int32_t *tsin;
-    FFTContext fft;
+  int n;   /* size of MDCT (i.e. number of input data * 2) */
+  int nbits; /* n = 2^nbits */
+  /* pre/post rotation tables */
+  int32_t *tcos;
+  int32_t *tsin;
+  FFTContext fft;
 }
 MDCTContext;
 

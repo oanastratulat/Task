@@ -5,12 +5,12 @@
  * $Id: 5720ae9d9a54603c88ccd2552de0c6add8792120 $
  *
  * Authors: Colin Delacroix <colin@zoy.org>
- *          Florian G. Pflug <fgp@phlo.org>
- *          Jon Lech Johansen <jon-vl@nanocrew.net>
- *          Derk-Jan Hartman <hartman at videolan dot org>
- *          Eric Petit <titer@m0k.org>
- *          Benjamin Pracht <bigben at videolan dot org>
- *          Damien Fouilleul <damienf at videolan dot org>
+ *    Florian G. Pflug <fgp@phlo.org>
+ *    Jon Lech Johansen <jon-vl@nanocrew.net>
+ *    Derk-Jan Hartman <hartman at videolan dot org>
+ *    Eric Petit <titer@m0k.org>
+ *    Benjamin Pracht <bigben at videolan dot org>
+ *    Damien Fouilleul <damienf at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,10 +34,10 @@
 
 #include <vlc_common.h>
 
-int  aglInit   ( vout_thread_t * p_vout );
-void aglEnd    ( vout_thread_t * p_vout );
+int  aglInit ( vout_thread_t * p_vout );
+void aglEnd  ( vout_thread_t * p_vout );
 int  aglManage ( vout_thread_t * p_vout );
 int  aglControl( vout_thread_t *, int, va_list );
-void aglSwap   ( vout_thread_t * p_vout );
-int  aglLock   ( vout_thread_t * p_vout );
+void aglSwap ( vout_thread_t * p_vout );
+int  aglLock ( vout_thread_t * p_vout );
 void aglUnlock ( vout_thread_t * p_vout );

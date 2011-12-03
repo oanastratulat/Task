@@ -26,41 +26,41 @@
  */
 
 /* defines */
-#define FREE_VALUE()    FREENULL( psz_value )
-#define FREE_KEY()      FREENULL( psz_key )
-#define FREE_ATT()      FREE_VALUE()
+#define FREE_VALUE()  FREENULL( psz_value )
+#define FREE_KEY()  FREENULL( psz_key )
+#define FREE_ATT()  FREE_VALUE()
 #define FREE_ATT_KEY()  do{ FREE_VALUE();FREE_KEY();} while(0)
 
 #define UNKNOWN_CONTENT 0
 #define SIMPLE_CONTENT 1
 #define COMPLEX_CONTENT 2
 
-#define SIMPLE_INTERFACE  (track_elem_t    *p_track,\
-                           const char      *psz_name,\
-                           char            *psz_value)
-#define COMPLEX_INTERFACE (demux_t         *p_demux,\
-                           input_item_node_t    *p_input_node,\
-                           track_elem_t    *p_track,\
-                           xml_reader_t    *p_xml_reader,\
-                           const char      *psz_element,\
-                           struct xml_elem_hnd  *p_handlers)
+#define SIMPLE_INTERFACE  (track_elem_t  *p_track,\
+         const char  *psz_name,\
+         char    *psz_value)
+#define COMPLEX_INTERFACE (demux_t   *p_demux,\
+         input_item_node_t  *p_input_node,\
+         track_elem_t  *p_track,\
+         xml_reader_t  *p_xml_reader,\
+         const char  *psz_element,\
+         struct xml_elem_hnd  *p_handlers)
 
 /* datatypes */
-typedef struct
+typedef struc
 {
-    char *name, *artist, *album, *genre, *trackNum, *location;
-    mtime_t duration;
+  char *name, *artist, *album, *genre, *trackNum, *location;
+  mtime_t duration;
 } track_elem_t;
 
 struct xml_elem_hnd
 {
-    const char *name;
-    int type;
-    union
-    {
-        bool (*smpl) SIMPLE_INTERFACE;
-        bool (*cmplx) COMPLEX_INTERFACE;
-    } pf_handler;
+  const char *name;
+  int type;
+  union
+  {
+    bool (*smpl) SIMPLE_INTERFACE;
+    bool (*cmplx) COMPLEX_INTERFACE;
+  } pf_handler;
 };
 typedef struct xml_elem_hnd xml_elem_hnd_t;
 

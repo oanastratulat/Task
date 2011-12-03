@@ -21,10 +21,10 @@
 #define VCD_ACCESS_H
 
 void VCDSetOrigin( access_t *p_access, lsn_t i_lsn, track_t i_track,
-                   const vcdinfo_itemid_t *p_itemid );
+       const vcdinfo_itemid_t *p_itemid );
 
-int  VCDOpen       ( vlc_object_t * );
-void VCDClose      ( vlc_object_t * );
+int  VCDOpen   ( vlc_object_t * );
+void VCDClose  ( vlc_object_t * );
 
 
 #endif /* VCD_ACCESS_H */

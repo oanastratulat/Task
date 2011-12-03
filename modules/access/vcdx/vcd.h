@@ -1,6 +1,6 @@
 /*****************************************************************************
  * vcd.h : VCD input module header for vlc
- *         using libcdio, libvcd and libvcdinfo
+ *   using libcdio, libvcd and libvcdinfo
  *****************************************************************************
  * Copyright (C) 2003, 2004 the VideoLAN team
  * $Id: 392f3090501d9100054fe5d6b5070935f9f9184e $
@@ -32,24 +32,24 @@
  *****************************************************************************/
 typedef struct {
 #ifdef FINISHED
-    vcdplay_ptr             vmg;
+  vcdplay_ptr     vmg;
 #endif
 
 #ifdef DEMUX_FINISHED
-    int                     i_audio_nb;
-    int                     i_spu_nb;
+  int       i_audio_nb;
+  int       i_spu_nb;
 #endif
 
-    int                     i_still_time;
-    bool              b_end_of_cell;
+  int       i_still_time;
+  bool      b_end_of_cell;
 
 #ifdef FINISHED
-    vcdplay_event_t         event;
-    vcdplay_ctrl_t          control;
-    vcdplay_highlight_t     hli;
+  vcdplay_event_t   event;
+  vcdplay_ctrl_t    control;
+  vcdplay_highlight_t   hli;
 #endif
 
 } vcd_data_t;
 
-int  VCDSetArea      ( access_t * );
-int  VCDSeek         ( access_t *, uint64_t );
+int  VCDSetArea  ( access_t * );
+int  VCDSeek   ( access_t *, uint64_t );

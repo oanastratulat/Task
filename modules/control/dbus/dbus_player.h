@@ -1,13 +1,13 @@
 /*****************************************************************************
- * dbus-player.h : dbus control module (mpris v1.0) - /Player object
+ * dbus-player.h : dbus control module (mpris v1.0) - /Player objec
  *****************************************************************************
  * Copyright © 2006-2008 Rafaël Carré
  * Copyright © 2007-2010 Mirsal Ennaime
  * Copyright © 2009-2010 The VideoLAN team
  * $Id: 20b00de7d05609819157c3b803cbead90e13f2a6 $
  *
- * Authors:    Mirsal Ennaime <mirsal at mirsal fr>
- *             Rafaël Carré <funman at videolanorg>
+ * Authors:  Mirsal Ennaime <mirsal at mirsal fr>
+ *     Rafaël Carré <funman at videolanorg>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include <vlc_interface.h>
 #include "dbus_common.h"
 
-#define DBUS_MPRIS_PLAYER_INTERFACE    "org.mpris.MediaPlayer2.Player"
+#define DBUS_MPRIS_PLAYER_INTERFACE  "org.mpris.MediaPlayer2.Player"
 
 #define LOOP_STATUS_NONE  "None"
 #define LOOP_STATUS_TRACK "Track"
@@ -42,31 +42,31 @@
 
 /* Handle incoming dbus messages */
 DBusHandlerResult handle_player ( DBusConnection *p_conn,
-                                  DBusMessage *p_from,
-                                  void *p_this );
+            DBusMessage *p_from,
+            void *p_this );
 
 /* Player capabilities */
 enum
 {
-     PLAYER_CAPS_NONE            = 0,
-     PLAYER_CAN_GO_NEXT          = 1 << 0,
-     PLAYER_CAN_GO_PREVIOUS      = 1 << 1,
-     PLAYER_CAN_PAUSE            = 1 << 2,
-     PLAYER_CAN_PLAY             = 1 << 3,
-     PLAYER_CAN_SEEK             = 1 << 4,
-     PLAYER_CAN_PROVIDE_METADATA = 1 << 5,
-     PLAYER_CAN_PROVIDE_POSITION = 1 << 6,
-     PLAYER_CAN_REPEAT           = 1 << 7,
-     PLAYER_CAN_LOOP             = 1 << 8,
-     PLAYER_CAN_SHUFFLE          = 1 << 9,
-     PLAYER_CAN_CONTROL_RATE     = 1 << 10,
-     PLAYER_CAN_PLAY_BACKWARDS   = 1 << 11
+   PLAYER_CAPS_NONE    = 0,
+   PLAYER_CAN_GO_NEXT    = 1 << 0,
+   PLAYER_CAN_GO_PREVIOUS  = 1 << 1,
+   PLAYER_CAN_PAUSE    = 1 << 2,
+   PLAYER_CAN_PLAY     = 1 << 3,
+   PLAYER_CAN_SEEK     = 1 << 4,
+   PLAYER_CAN_PROVIDE_METADATA = 1 << 5,
+   PLAYER_CAN_PROVIDE_POSITION = 1 << 6,
+   PLAYER_CAN_REPEAT     = 1 << 7,
+   PLAYER_CAN_LOOP     = 1 << 8,
+   PLAYER_CAN_SHUFFLE    = 1 << 9,
+   PLAYER_CAN_CONTROL_RATE   = 1 << 10,
+   PLAYER_CAN_PLAY_BACKWARDS = 1 << 11
 };
 
-int PlayerStatusChangedEmit     ( intf_thread_t * );
+int PlayerStatusChangedEmit   ( intf_thread_t * );
 int PlayerCapsChangedEmit ( intf_thread_t * );
 int PlayerMetadataChangedEmit( intf_thread_t*, input_item_t* );
-int TrackChangedEmit      ( intf_thread_t *, input_item_t * );
+int TrackChangedEmit  ( intf_thread_t *, input_item_t * );
 int SeekedEmit( intf_thread_t * );
 
 int PlayerPropertiesChangedEmit( intf_thread_t *, vlc_dictionary_t * );

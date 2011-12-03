@@ -34,7 +34,7 @@
  *
  * Copyright (C) 2006-2007 VLC authors and VideoLAN
  * Authors: Eric Petit <titer@m0k.org>
- *          Felix Kühne <fkuehne at videolan dot org>
+ *    Felix Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,21 +61,21 @@
 
 enum AppleRemoteEventIdentifier
 {
-    kRemoteButtonVolume_Plus        =1<<1,
-    kRemoteButtonVolume_Minus       =1<<2,
-    kRemoteButtonMenu               =1<<3,
-    kRemoteButtonPlay               =1<<4,
-    kRemoteButtonRight              =1<<5,
-    kRemoteButtonLeft               =1<<6,
-    kRemoteButtonRight_Hold         =1<<7,
-    kRemoteButtonLeft_Hold          =1<<8,
-    kRemoteButtonMenu_Hold          =1<<9,
-    kRemoteButtonPlay_Sleep         =1<<10,
-    kRemoteControl_Switched         =1<<11,
-    kRemoteButtonVolume_Plus_Hold   =1<<12,
-    kRemoteButtonVolume_Minus_Hold  =1<<13,
-    k2009RemoteButtonPlay			=1<<14,
-    k2009RemoteButtonFullscreen		=1<<15
+  kRemoteButtonVolume_Plus    =1<<1,
+  kRemoteButtonVolume_Minus   =1<<2,
+  kRemoteButtonMenu     =1<<3,
+  kRemoteButtonPlay     =1<<4,
+  kRemoteButtonRight      =1<<5,
+  kRemoteButtonLeft     =1<<6,
+  kRemoteButtonRight_Hold   =1<<7,
+  kRemoteButtonLeft_Hold    =1<<8,
+  kRemoteButtonMenu_Hold    =1<<9,
+  kRemoteButtonPlay_Sleep   =1<<10,
+  kRemoteControl_Switched   =1<<11,
+  kRemoteButtonVolume_Plus_Hold =1<<12,
+  kRemoteButtonVolume_Minus_Hold  =1<<13,
+  k2009RemoteButtonPlay			=1<<14,
+  k2009RemoteButtonFullscreen		=1<<15
 };
 typedef enum AppleRemoteEventIdentifier AppleRemoteEventIdentifier;
 
@@ -84,29 +84,29 @@ This class is implemented as a singleton as there is exactly one remote per mach
 The class is not thread safe
 */
 @interface AppleRemote : NSObject {
-    IOHIDDeviceInterface** hidDeviceInterface;
-    IOHIDQueueInterface**  queue;
-    NSMutableArray*        allCookies;
-    NSMutableDictionary*   cookieToButtonMapping;
-    CFRunLoopSourceRef     eventSource;
+  IOHIDDeviceInterface** hidDeviceInterface;
+  IOHIDQueueInterface**  queue;
+  NSMutableArray*    allCookies;
+  NSMutableDictionary* cookieToButtonMapping;
+  CFRunLoopSourceRef   eventSource;
 
-    BOOL openInExclusiveMode;
-    BOOL simulatePlusMinusHold;
-    BOOL processesBacklog;
+  BOOL openInExclusiveMode;
+  BOOL simulatePlusMinusHold;
+  BOOL processesBacklog;
 
-    /* state for simulating plus/minus hold */
-    BOOL lastEventSimulatedHold;
-    AppleRemoteEventIdentifier lastPlusMinusEvent;
-    NSTimeInterval lastPlusMinusEventTime;
+  /* state for simulating plus/minus hold */
+  BOOL lastEventSimulatedHold;
+  AppleRemoteEventIdentifier lastPlusMinusEvent;
+  NSTimeInterval lastPlusMinusEventTime;
 
-    int remoteId;
-    unsigned int clickCountEnabledButtons;
-    NSTimeInterval maxClickTimeDifference;
-    NSTimeInterval lastClickCountEventTime;
-    AppleRemoteEventIdentifier lastClickCountEvent;
-    unsigned int eventClickCount;
+  int remoteId;
+  unsigned int clickCountEnabledButtons;
+  NSTimeInterval maxClickTimeDifference;
+  NSTimeInterval lastClickCountEventTime;
+  AppleRemoteEventIdentifier lastClickCountEvent;
+  unsigned int eventClickCount;
 
-    IBOutlet id delegate;
+  IBOutlet id delegate;
 }
 + (AppleRemote *)sharedInstance;
 
@@ -195,7 +195,7 @@ The class is not thread safe
  * dependent on the activation state of your application.
  * All events are delegated to the original NSApplication delegate if necessary */
 @interface AppleRemoteApplicationDelegate : NSObject {
-    id applicationDelegate;
+  id applicationDelegate;
 }
 
 - (id) initWithApplicationDelegate: (id) delegate;

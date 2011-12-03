@@ -5,9 +5,9 @@
  * $Id: c3afae0c7989037a26aa45f6087ac68e6e1e68b2 $
  *
  * Authors: Colin Delacroix <colin@zoy.org>
- *          Eugenio Jarosiewicz <ej0@cise.ufl.edu>
- *          Florian G. Pflug <fgp@phlo.org>
- *          Jon Lech Johansen <jon-vl@nanocrew.net>
+ *    Eugenio Jarosiewicz <ej0@cise.ufl.edu>
+ *    Florian G. Pflug <fgp@phlo.org>
+ *    Jon Lech Johansen <jon-vl@nanocrew.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 /*****************************************************************************
  * Preamble
  *****************************************************************************/
-#include <stdlib.h>                                      /* malloc(), free() */
+#include <stdlib.h>              /* malloc(), free() */
 #include <string.h>
 
 #ifdef HAVE_CONFIG_H
@@ -40,8 +40,8 @@
 /*****************************************************************************
  * External prototypes
  *****************************************************************************/
-int  OpenIntf     ( vlc_object_t * );
-void CloseIntf    ( vlc_object_t * );
+int  OpenIntf   ( vlc_object_t * );
+void CloseIntf  ( vlc_object_t * );
 
 int  OpenVideoGL  ( vlc_object_t * );
 void CloseVideoGL ( vlc_object_t * );
@@ -51,22 +51,22 @@ void CloseVideoGL ( vlc_object_t * );
  *****************************************************************************/
 
 vlc_module_begin ()
-    /* Minimal interface. see intf.m */
-    set_shortname( "Minimal Macosx" )
-    add_shortcut( "minimal_macosx", "miosx" )
-    set_description( N_("Minimal Mac OS X interface") )
-    set_capability( "interface", 50 )
-    set_callbacks( OpenIntf, CloseIntf )
-    set_category( CAT_INTERFACE )
-    set_subcategory( SUBCAT_INTERFACE_MAIN )
+  /* Minimal interface. see intf.m */
+  set_shortname( "Minimal Macosx" )
+  add_shortcut( "minimal_macosx", "miosx" )
+  set_description( N_("Minimal Mac OS X interface") )
+  set_capability( "interface", 50 )
+  set_callbacks( OpenIntf, CloseIntf )
+  set_category( CAT_INTERFACE )
+  set_subcategory( SUBCAT_INTERFACE_MAIN )
 
-    add_submodule ()
-        /* Will be loaded even without interface module. see voutgl.m */
-        add_shortcut( "minimal_macosx", "miosx" )
-        set_description( N_("Minimal Mac OS X OpenGL video output (opens a borderless window)") )
-        set_capability( "opengl provider", 50 )
-        set_category( CAT_VIDEO)
-        set_subcategory( SUBCAT_VIDEO_VOUT )
-        set_callbacks( OpenVideoGL, CloseVideoGL )
+  add_submodule ()
+    /* Will be loaded even without interface module. see voutgl.m */
+    add_shortcut( "minimal_macosx", "miosx" )
+    set_description( N_("Minimal Mac OS X OpenGL video output (opens a borderless window)") )
+    set_capability( "opengl provider", 50 )
+    set_category( CAT_VIDEO)
+    set_subcategory( SUBCAT_VIDEO_VOUT )
+    set_callbacks( OpenVideoGL, CloseVideoGL )
 vlc_module_end ()
 

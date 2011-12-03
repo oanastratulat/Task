@@ -3,11 +3,11 @@
  * $Id: ec29983d4bc65ed0b19e51587c4992ef4a8e97e9 $
  *
  * Copyright 2000 Eugene Kuznetsov (divx@euro.ru)
- * Copyright (C) the Wine project
+ * Copyright (C) the Wine projec
  *
  * Originally distributed under LPGL 2.1 (or later) by the Wine project.
  *
- * Modified for use with MPlayer, detailed CVS changelog at
+ * Modified for use with MPlayer, detailed CVS changelog a
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  *
  * File now distributed as part of VLC media player with no modifications.
@@ -47,7 +47,7 @@ int _WritePrivateProfileStringA(const char* appname, const char* keyname,
 	const char* string, const char* filename);
 
 INT WINAPI LoadStringA( HINSTANCE instance, UINT resource_id,
-                            LPSTR buffer, INT buflen );
+          LPSTR buffer, INT buflen );
 
 #ifdef __cplusplus
 }

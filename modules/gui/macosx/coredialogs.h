@@ -5,7 +5,7 @@
  * $Id: 777ead12dc789d4adba64453fde2fa5b1d6a33b1 $
  *
  * Authors: Derk-Jan Hartman <hartman at videolan dot org>
- *          Felix Paul Kühne <fkuehne at videolan dot org>
+ *    Felix Paul Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,17 +30,17 @@
  * VLCErrorPanel interface
  *****************************************************************************/
 
-@interface VLCErrorPanel : NSObject
+@interface VLCErrorPanel : NSObjec
 {
-    IBOutlet id o_window;
-    IBOutlet id o_cleanup_button;
-    IBOutlet id o_error_table;
-    IBOutlet id o_messages_btn;
-    
-    NSMutableArray * o_errors;
-    NSMutableArray * o_icons;
-    
-    BOOL b_nib_loaded;
+  IBOutlet id o_window;
+  IBOutlet id o_cleanup_button;
+  IBOutlet id o_error_table;
+  IBOutlet id o_messages_btn;
+
+  NSMutableArray * o_errors;
+  NSMutableArray * o_icons;
+
+  BOOL b_nib_loaded;
 }
 - (IBAction)cleanupTable:(id)sender;
 - (IBAction)showMessages:(id)sender;
@@ -53,28 +53,28 @@
 /*****************************************************************************
  * VLCCoreDialogProvider interface
  *****************************************************************************/
-@interface VLCCoreDialogProvider : NSObject
+@interface VLCCoreDialogProvider : NSObjec
 {
-    VLCErrorPanel *o_error_panel;
+  VLCErrorPanel *o_error_panel;
 
-    /* authentication dialogue */
-    IBOutlet id o_auth_cancel_btn;
-    IBOutlet id o_auth_description_txt;
-    IBOutlet id o_auth_login_fld;
-    IBOutlet id o_auth_login_txt;
-    IBOutlet id o_auth_ok_btn;
-    IBOutlet id o_auth_pw_fld;
-    IBOutlet id o_auth_pw_txt;
-    IBOutlet id o_auth_title_txt;
-    IBOutlet id o_auth_win;
+  /* authentication dialogue */
+  IBOutlet id o_auth_cancel_btn;
+  IBOutlet id o_auth_description_txt;
+  IBOutlet id o_auth_login_fld;
+  IBOutlet id o_auth_login_txt;
+  IBOutlet id o_auth_ok_btn;
+  IBOutlet id o_auth_pw_fld;
+  IBOutlet id o_auth_pw_txt;
+  IBOutlet id o_auth_title_txt;
+  IBOutlet id o_auth_win;
 
-    /* progress dialogue */
-    IBOutlet NSProgressIndicator * o_prog_bar;
-    IBOutlet id o_prog_cancel_btn;
-    IBOutlet id o_prog_description_txt;
-    IBOutlet id o_prog_title_txt;
-    IBOutlet id o_prog_win;
-    BOOL b_progress_cancelled;
+  /* progress dialogue */
+  IBOutlet NSProgressIndicator * o_prog_bar;
+  IBOutlet id o_prog_cancel_btn;
+  IBOutlet id o_prog_description_txt;
+  IBOutlet id o_prog_title_txt;
+  IBOutlet id o_prog_win;
+  BOOL b_progress_cancelled;
 }
 + (VLCCoreDialogProvider *)sharedInstance;
 

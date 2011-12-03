@@ -32,9 +32,9 @@
 
 #ifdef LOADER
 /* Need the w32dll loader from mplayer */
-#   include <wine/winerror.h>
-#   include <ldt_keeper.h>
-#   include <wine/windef.h>
+# include <wine/winerror.h>
+# include <ldt_keeper.h>
+# include <wine/windef.h>
 
 void *WINAPI LoadLibraryA( char *name );
 void *WINAPI GetProcAddress( void *handle, char *func );
@@ -42,74 +42,74 @@ int WINAPI FreeLibrary( void *handle );
 #endif
 
 #ifndef WINAPI
-#   define WINAPI
+# define WINAPI
 #endif
 
 #ifndef WIN32
-#   include <dlfcn.h>
+# include <dlfcn.h>
 #endif
 
 typedef struct cmsg_data_s
 {
-    uint32_t data1;
-    uint32_t data2;
-    uint32_t* dimensions;
+  uint32_t data1;
+  uint32_t data2;
+  uint32_t* dimensions;
 } cmsg_data_t;
 
 typedef struct transform_in_s
 {
-    uint32_t len;
-    uint32_t unknown1;
-    uint32_t chunks;
-    uint32_t* extra;
-    uint32_t unknown2;
-    uint32_t timestamp;
+  uint32_t len;
+  uint32_t unknown1;
+  uint32_t chunks;
+  uint32_t* extra;
+  uint32_t unknown2;
+  uint32_t timestamp;
 } transform_in_t;
 
 // copypaste from demux_real.c - it should match to get it working!
 typedef struct dp_hdr_s
 {
-    uint32_t chunks;    // number of chunks
-    uint32_t timestamp;    // timestamp from packet header
-    uint32_t len;    // length of actual data
-    uint32_t chunktab;    // offset to chunk offset array
+  uint32_t chunks;  // number of chunks
+  uint32_t timestamp;  // timestamp from packet header
+  uint32_t len;  // length of actual data
+  uint32_t chunktab;  // offset to chunk offset array
 } dp_hdr_t;
 
 /* we need exact positions */
-struct rv_init_t
+struct rv_init_
 {
-    short unk1;
-    short w;
-    short h;
-    short unk3;
-    int unk2;
-    unsigned int * subformat;
-    int unk5;
-    unsigned int * format;
+  short unk1;
+  short w;
+  short h;
+  short unk3;
+  int unk2;
+  unsigned int * subformat;
+  int unk5;
+  unsigned int * format;
 } rv_init_t;
 
-struct decoder_sys_t
+struct decoder_sys_
 {
-    /* library */
+  /* library */
 #ifdef LOADER
-    ldt_fs_t    *ldt_fs;
+  ldt_fs_t  *ldt_fs;
 #endif
-    void        *handle;
-    void         *rv_handle;
-    int          inited;
-    char         *plane;
+  void    *handle;
+  void   *rv_handle;
+  int    inited;
+  char   *plane;
 };
 
 int dll_type = 1;
 
 static unsigned long (*rvyuv_custom_message)(cmsg_data_t* ,void*);
 static unsigned long (*rvyuv_free)(void*);
-static unsigned long (*rvyuv_init)(void*, void*); // initdata,context
+static unsigned long (*rvyuv_init)(void*, void*); // initdata,contex
 static unsigned long (*rvyuv_transform)(char*, char*,transform_in_t*,unsigned int*,void*);
 #ifdef WIN32
 static unsigned long WINAPI (*wrvyuv_custom_message)(cmsg_data_t* ,void*);
 static unsigned long WINAPI (*wrvyuv_free)(void*);
-static unsigned long WINAPI (*wrvyuv_init)(void*, void*); // initdata,context
+static unsigned long WINAPI (*wrvyuv_init)(void*, void*); // initdata,contex
 static unsigned long WINAPI (*wrvyuv_transform)(char*, char*,transform_in_t*,unsigned int*,void*);
 #endif
 
@@ -123,11 +123,11 @@ static void Close( vlc_object_t * );
 static picture_t *DecodeVideo( decoder_t *, block_t ** );
 
 vlc_module_begin ()
-    set_description( N_("RealVideo library decoder") )
-    set_capability( "decoder", 10 )
-    set_category( CAT_INPUT )
-    set_subcategory( SUBCAT_INPUT_VCODEC )
-    set_callbacks( Open, Close )
+  set_description( N_("RealVideo library decoder") )
+  set_capability( "decoder", 10 )
+  set_category( CAT_INPUT )
+  set_subcategory( SUBCAT_INPUT_VCODEC )
+  set_callbacks( Open, Close )
 vlc_module_end ()
 
 
@@ -136,64 +136,64 @@ vlc_module_end ()
  *****************************************************************************/
 
 #ifdef WIN32
-static void * load_syms(decoder_t *p_dec, const char *path) 
+static void * load_syms(decoder_t *p_dec, const char *path)
 {
-    void *handle;
+  void *handle;
 
-    msg_Dbg( p_dec, "opening win32 dll '%s'", path);
+  msg_Dbg( p_dec, "opening win32 dll '%s'", path);
 #ifdef LOADER
-    Setup_LDT_Keeper();
+  Setup_LDT_Keeper();
 #endif
-    handle = LoadLibraryA(path);
-    msg_Dbg( p_dec, "win32 real codec handle=%p",handle);
-    if (!handle)
-    {
-        msg_Err( p_dec, "Error loading dll");
-        return NULL;
-    }
+  handle = LoadLibraryA(path);
+  msg_Dbg( p_dec, "win32 real codec handle=%p",handle);
+  if (!handle)
+  {
+    msg_Err( p_dec, "Error loading dll");
+    return NULL;
+  }
 
-    wrvyuv_custom_message = GetProcAddress(handle, "RV20toYUV420CustomMessage");
-    wrvyuv_free = GetProcAddress(handle, "RV20toYUV420Free");
-    wrvyuv_init = GetProcAddress(handle, "RV20toYUV420Init");
-    wrvyuv_transform = GetProcAddress(handle, "RV20toYUV420Transform");
+  wrvyuv_custom_message = GetProcAddress(handle, "RV20toYUV420CustomMessage");
+  wrvyuv_free = GetProcAddress(handle, "RV20toYUV420Free");
+  wrvyuv_init = GetProcAddress(handle, "RV20toYUV420Init");
+  wrvyuv_transform = GetProcAddress(handle, "RV20toYUV420Transform");
 
-    if (wrvyuv_custom_message && wrvyuv_free && wrvyuv_init && wrvyuv_transform)
-    {
-        dll_type = 1;
-        return handle;
-    }
-    msg_Err( p_dec, "Error resolving symbols! (version incompatibility?)");
-    FreeLibrary(handle);
-    return NULL; // error
+  if (wrvyuv_custom_message && wrvyuv_free && wrvyuv_init && wrvyuv_transform)
+  {
+    dll_type = 1;
+    return handle;
+  }
+  msg_Err( p_dec, "Error resolving symbols! (version incompatibility?)");
+  FreeLibrary(handle);
+  return NULL; // error
 }
 #else
-static void * load_syms_linux(decoder_t *p_dec, const char *path) 
+static void * load_syms_linux(decoder_t *p_dec, const char *path)
 {
-    void *handle;
+  void *handle;
 
-    msg_Dbg( p_dec, "opening shared obj '%s'", path);
+  msg_Dbg( p_dec, "opening shared obj '%s'", path);
 
-    handle = dlopen (path, RTLD_LAZY);
-    if (!handle) 
-    {
-        msg_Err( p_dec,"Error: %s",dlerror());
-        return NULL;
-    }
+  handle = dlopen (path, RTLD_LAZY);
+  if (!handle)
+  {
+    msg_Err( p_dec,"Error: %s",dlerror());
+    return NULL;
+  }
 
-    rvyuv_custom_message = dlsym(handle, "RV20toYUV420CustomMessage");
-    rvyuv_free = dlsym(handle, "RV20toYUV420Free");
-    rvyuv_init = dlsym(handle, "RV20toYUV420Init");
-    rvyuv_transform = dlsym(handle, "RV20toYUV420Transform");
+  rvyuv_custom_message = dlsym(handle, "RV20toYUV420CustomMessage");
+  rvyuv_free = dlsym(handle, "RV20toYUV420Free");
+  rvyuv_init = dlsym(handle, "RV20toYUV420Init");
+  rvyuv_transform = dlsym(handle, "RV20toYUV420Transform");
 
-    if(rvyuv_custom_message && rvyuv_free && rvyuv_init && rvyuv_transform)
-    {
-        dll_type = 0;
-        return handle;
-    }
+  if(rvyuv_custom_message && rvyuv_free && rvyuv_init && rvyuv_transform)
+  {
+    dll_type = 0;
+    return handle;
+  }
 
-    msg_Err( p_dec,"Error resolving symbols! (version incompatibility?)");
-    dlclose(handle);
-    return 0;
+  msg_Err( p_dec,"Error resolving symbols! (version incompatibility?)");
+  dlclose(handle);
+  return 0;
 }
 #endif
 
@@ -201,161 +201,161 @@ static vlc_mutex_t rm_mutex = VLC_STATIC_MUTEX;
 
 static int InitVideo(decoder_t *p_dec)
 {
-    int result;
-    struct rv_init_t init_data;
-    char fcc[4];
-    char *g_decode_path;
+  int result;
+  struct rv_init_t init_data;
+  char fcc[4];
+  char *g_decode_path;
 
-    int  i_vide = p_dec->fmt_in.i_extra;
-    unsigned int *p_vide = p_dec->fmt_in.p_extra;
-    decoder_sys_t *p_sys = calloc( 1, sizeof( decoder_sys_t ) );
+  int  i_vide = p_dec->fmt_in.i_extra;
+  unsigned int *p_vide = p_dec->fmt_in.p_extra;
+  decoder_sys_t *p_sys = calloc( 1, sizeof( decoder_sys_t ) );
 
-    if( !p_sys )
-        return VLC_ENOMEM;
+  if( !p_sys )
+    return VLC_ENOMEM;
 
-    if( i_vide < 8 )
-    {
-            msg_Err( p_dec, "missing extra info" );
-            free( p_sys );
-            return VLC_EGENERIC;
-    }
-    free( p_sys->plane );
-    p_sys->plane = malloc (p_dec->fmt_in.video.i_width*p_dec->fmt_in.video.i_height*3/2 + 1024 );
-    if (NULL == p_sys->plane)
-    {
-        msg_Err( p_dec, "cannot alloc plane buffer" );
-        free( p_sys );
-        return VLC_EGENERIC;
-    }
+  if( i_vide < 8 )
+  {
+    msg_Err( p_dec, "missing extra info" );
+    free( p_sys );
+    return VLC_EGENERIC;
+  }
+  free( p_sys->plane );
+  p_sys->plane = malloc (p_dec->fmt_in.video.i_width*p_dec->fmt_in.video.i_height*3/2 + 1024 );
+  if (NULL == p_sys->plane)
+  {
+    msg_Err( p_dec, "cannot alloc plane buffer" );
+    free( p_sys );
+    return VLC_EGENERIC;
+  }
 
-    p_dec->p_sys = p_sys;
-    p_dec->pf_decode_video = DecodeVideo;
+  p_dec->p_sys = p_sys;
+  p_dec->pf_decode_video = DecodeVideo;
 
-    memcpy( fcc, &p_dec->fmt_in.i_codec, 4 );
-    init_data.unk1 = 11;
-    init_data.w = p_dec->fmt_in.video.i_width ;
-    init_data.h = p_dec->fmt_in.video.i_height ;
-    init_data.unk3 = 0;
-    init_data.unk2 = 0;
-    init_data.subformat = (unsigned int*)p_vide[0];
-    init_data.unk5 = 1;
-    init_data.format = (unsigned int*)p_vide[1];
+  memcpy( fcc, &p_dec->fmt_in.i_codec, 4 );
+  init_data.unk1 = 11;
+  init_data.w = p_dec->fmt_in.video.i_width ;
+  init_data.h = p_dec->fmt_in.video.i_height ;
+  init_data.unk3 = 0;
+  init_data.unk2 = 0;
+  init_data.subformat = (unsigned int*)p_vide[0];
+  init_data.unk5 = 1;
+  init_data.format = (unsigned int*)p_vide[1];
 
-    /* first try to load linux dlls, if failed and we're supporting win32 dlls,
-       then try to load the windows ones */
-    bool b_so_opened = false;
+  /* first try to load linux dlls, if failed and we're supporting win32 dlls,
+   then try to load the windows ones */
+  bool b_so_opened = false;
 
 #ifdef WIN32
-    g_decode_path="plugins\\drv43260.dll";
+  g_decode_path="plugins\\drv43260.dll";
 
-    if( (p_sys->rv_handle = load_syms(p_dec, g_decode_path)) )
-        b_so_opened = true;
+  if( (p_sys->rv_handle = load_syms(p_dec, g_decode_path)) )
+    b_so_opened = true;
 #else
-    static const char psz_paths[] =
+  static const char psz_paths[] =
+  {
+    "/usr/lib/win32\0"
+    "/usr/lib/codecs\0"
+    "/usr/local/RealPlayer8/Codecs\0"
+    "/usr/RealPlayer8/Codecs\0"
+    "/usr/lib/RealPlayer8/Codecs\0"
+    "/opt/RealPlayer8/Codecs\0"
+    "/usr/lib/RealPlayer9/users/Real/Codecs\0"
+    "/usr/lib/RealPlayer10/codecs\0"
+    "/usr/lib/RealPlayer10GOLD/codecs\0"
+    "/usr/lib/helix/player/codecs\0"
+    "/usr/lib64/RealPlayer8/Codecs\0"
+    "/usr/lib64/RealPlayer9/users/Real/Codecs\0"
+    "/usr/lib64/RealPlayer10/codecs\0"
+    "/usr/lib64/RealPlayer10GOLD/codecs\0"
+    "/usr/local/lib/codecs\0"
+    "\0"
+  };
+
+  for( size_t i = 0; psz_paths[i]; i += strlen( psz_paths + i ) + 1 )
+  {
+    if( asprintf( &g_decode_path, "%s/drv4.so.6.0", psz_paths + i ) != -1 )
     {
-        "/usr/lib/win32\0"
-        "/usr/lib/codecs\0"
-        "/usr/local/RealPlayer8/Codecs\0"
-        "/usr/RealPlayer8/Codecs\0"
-        "/usr/lib/RealPlayer8/Codecs\0"
-        "/opt/RealPlayer8/Codecs\0"
-        "/usr/lib/RealPlayer9/users/Real/Codecs\0"
-        "/usr/lib/RealPlayer10/codecs\0"
-        "/usr/lib/RealPlayer10GOLD/codecs\0"
-        "/usr/lib/helix/player/codecs\0"
-        "/usr/lib64/RealPlayer8/Codecs\0"
-        "/usr/lib64/RealPlayer9/users/Real/Codecs\0"
-        "/usr/lib64/RealPlayer10/codecs\0"
-        "/usr/lib64/RealPlayer10GOLD/codecs\0"
-        "/usr/local/lib/codecs\0"
-        "\0"
-    };
-
-    for( size_t i = 0; psz_paths[i]; i += strlen( psz_paths + i ) + 1 )
-    {
-        if( asprintf( &g_decode_path, "%s/drv4.so.6.0", psz_paths + i ) != -1 )
-        {
-            p_sys->rv_handle = load_syms_linux(p_dec, g_decode_path);
-            free( g_decode_path );
-        }
-        if( p_sys->rv_handle )
-        {
-            b_so_opened = true;
-            break;
-        }
-
-        if( asprintf( &g_decode_path, "%s/drv3.so.6.0", psz_paths + i ) != -1 )
-        {
-            p_sys->rv_handle = load_syms_linux(p_dec, g_decode_path);
-            free( g_decode_path );
-        }
-        if( p_sys->rv_handle )
-        {
-            b_so_opened = true;
-            break;
-        }
-
-        msg_Dbg( p_dec, "Cannot load real decoder library: %s", g_decode_path);
+    p_sys->rv_handle = load_syms_linux(p_dec, g_decode_path);
+    free( g_decode_path );
     }
+    if( p_sys->rv_handle )
+    {
+    b_so_opened = true;
+    break;
+    }
+
+    if( asprintf( &g_decode_path, "%s/drv3.so.6.0", psz_paths + i ) != -1 )
+    {
+    p_sys->rv_handle = load_syms_linux(p_dec, g_decode_path);
+    free( g_decode_path );
+    }
+    if( p_sys->rv_handle )
+    {
+    b_so_opened = true;
+    break;
+    }
+
+    msg_Dbg( p_dec, "Cannot load real decoder library: %s", g_decode_path);
+  }
 #endif
 
-    if(!b_so_opened )
-    {
-        msg_Err( p_dec, "Cannot any real decoder library" );
-        free( p_sys );
-        return VLC_EGENERIC;
+  if(!b_so_opened )
+  {
+    msg_Err( p_dec, "Cannot any real decoder library" );
+    free( p_sys );
+    return VLC_EGENERIC;
+  }
+
+  vlc_mutex_lock( &rm_mutex );
+
+  p_sys->handle=NULL;
+  #ifdef WIN32
+  if (dll_type == 1)
+    result=(*wrvyuv_init)(&init_data, &p_sys->handle);
+  else
+  #endif
+    result=(*rvyuv_init)(&init_data, &p_sys->handle);
+  if (result)
+  {
+    msg_Err( p_dec, "Cannot Init real decoder library: %s",  g_decode_path);
+    free( p_sys );
+    return VLC_EGENERIC;
+  }
+
+  /* setup rv30 codec (codec sub-type and image dimensions): */
+  /*if ( p_dec->fmt_in.i_codec == VLC_CODEC_RV30 )*/
+  if (p_vide[1]>=0x20200002)
+  {
+    int i, cmsg_cnt;
+    uint32_t cmsg24[16]={p_dec->fmt_in.video.i_width,p_dec->fmt_in.video.i_height};
+    cmsg_data_t cmsg_data={0x24,1+(p_vide[1]&7), &cmsg24[0]};
+    cmsg_cnt = (p_vide[1]&7)*2;
+    if (i_vide - 8 < cmsg_cnt) {
+        cmsg_cnt = i_vide - 8;
     }
-
-    vlc_mutex_lock( &rm_mutex );
-
-    p_sys->handle=NULL;
+    for (i = 0; i < cmsg_cnt; i++)
+    cmsg24[2+i] = p_vide[8+i]*4;
     #ifdef WIN32
     if (dll_type == 1)
-        result=(*wrvyuv_init)(&init_data, &p_sys->handle);
+    (*wrvyuv_custom_message)(&cmsg_data,p_sys->handle);
     else
     #endif
-        result=(*rvyuv_init)(&init_data, &p_sys->handle);
-    if (result)
-    {
-        msg_Err( p_dec, "Cannot Init real decoder library: %s",  g_decode_path);
-        free( p_sys );
-        return VLC_EGENERIC;
-    }
+    (*rvyuv_custom_message)(&cmsg_data,p_sys->handle);
+  }
+  /*
+  es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_YV12);
+  es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_YUYV);
+   */
+  es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_I420);
 
-    /* setup rv30 codec (codec sub-type and image dimensions): */
-    /*if ( p_dec->fmt_in.i_codec == VLC_CODEC_RV30 )*/
-    if (p_vide[1]>=0x20200002)
-    {
-        int i, cmsg_cnt;
-        uint32_t cmsg24[16]={p_dec->fmt_in.video.i_width,p_dec->fmt_in.video.i_height};
-        cmsg_data_t cmsg_data={0x24,1+(p_vide[1]&7), &cmsg24[0]};
-        cmsg_cnt = (p_vide[1]&7)*2;
-        if (i_vide - 8 < cmsg_cnt) {
-                    cmsg_cnt = i_vide - 8;
-        }
-        for (i = 0; i < cmsg_cnt; i++)
-            cmsg24[2+i] = p_vide[8+i]*4;
-        #ifdef WIN32
-        if (dll_type == 1)
-            (*wrvyuv_custom_message)(&cmsg_data,p_sys->handle);
-        else
-        #endif
-            (*rvyuv_custom_message)(&cmsg_data,p_sys->handle);
-    }
-    /*
-    es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_YV12);
-    es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_YUYV);
-     */
-    es_format_Init( &p_dec->fmt_out, VIDEO_ES, VLC_CODEC_I420);
-     
-    p_dec->fmt_out.video.i_width = p_dec->fmt_in.video.i_width;
-    p_dec->fmt_out.video.i_height= p_dec->fmt_in.video.i_height;
-    p_dec->fmt_out.video.i_sar_num = 1;
-    p_dec->fmt_out.video.i_sar_den = 1;
-    p_sys->inited = 0;
+  p_dec->fmt_out.video.i_width = p_dec->fmt_in.video.i_width;
+  p_dec->fmt_out.video.i_height= p_dec->fmt_in.video.i_height;
+  p_dec->fmt_out.video.i_sar_num = 1;
+  p_dec->fmt_out.video.i_sar_den = 1;
+  p_sys->inited = 0;
 
-    vlc_mutex_unlock( &rm_mutex );
-    return VLC_SUCCESS;
+  vlc_mutex_unlock( &rm_mutex );
+  return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -366,21 +366,21 @@ static int InitVideo(decoder_t *p_dec)
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {
-    decoder_t *p_dec = (decoder_t*)p_this;
+  decoder_t *p_dec = (decoder_t*)p_this;
 
-    switch ( p_dec->fmt_in.i_codec )
-    {
-    case VLC_CODEC_RV10: 
-    case VLC_CODEC_RV20: 
-    case VLC_CODEC_RV30:
-    case VLC_CODEC_RV40: 
-        p_dec->p_sys = NULL;
-        p_dec->pf_decode_video = DecodeVideo;
-        return InitVideo(p_dec);
+  switch ( p_dec->fmt_in.i_codec )
+  {
+  case VLC_CODEC_RV10:
+  case VLC_CODEC_RV20:
+  case VLC_CODEC_RV30:
+  case VLC_CODEC_RV40:
+    p_dec->p_sys = NULL;
+    p_dec->pf_decode_video = DecodeVideo;
+    return InitVideo(p_dec);
 
-    default:
-        return VLC_EGENERIC;
-    }
+  default:
+    return VLC_EGENERIC;
+  }
 }
 
 /*****************************************************************************
@@ -388,45 +388,45 @@ static int Open( vlc_object_t *p_this )
  *****************************************************************************/
 static void Close( vlc_object_t *p_this )
 {
-    decoder_t     *p_dec = (decoder_t*)p_this;
-    decoder_sys_t *p_sys = p_dec->p_sys;
+  decoder_t   *p_dec = (decoder_t*)p_this;
+  decoder_sys_t *p_sys = p_dec->p_sys;
 
-    /* get lock, avoid segfault */
-    vlc_mutex_lock( &rm_mutex );
+  /* get lock, avoid segfault */
+  vlc_mutex_lock( &rm_mutex );
 
-    #ifdef WIN32
-    if (dll_type == 1)
-    {
-        if (wrvyuv_free)
-            wrvyuv_free(p_sys->handle);
-    }
-    else
-    #endif
-        if (rvyuv_free)
-            rvyuv_free(p_sys->handle);
+  #ifdef WIN32
+  if (dll_type == 1)
+  {
+    if (wrvyuv_free)
+    wrvyuv_free(p_sys->handle);
+  }
+  else
+  #endif
+    if (rvyuv_free)
+    rvyuv_free(p_sys->handle);
 #ifdef WIN32
-    if (dll_type == 1)
-    {
-        if (p_sys->rv_handle)
-            FreeLibrary(p_sys->rv_handle);
-    }
-    else
+  if (dll_type == 1)
+  {
+    if (p_sys->rv_handle)
+    FreeLibrary(p_sys->rv_handle);
+  }
+  else
 #endif
-        p_sys->rv_handle=NULL;
+    p_sys->rv_handle=NULL;
 
-    free( p_sys->plane );
-    p_sys->plane = NULL;
+  free( p_sys->plane );
+  p_sys->plane = NULL;
 
-    msg_Dbg( p_dec, "FreeLibrary ok." );
+  msg_Dbg( p_dec, "FreeLibrary ok." );
 #ifdef LOADER
-    Restore_LDT_Keeper( p_sys->ldt_fs );
-    msg_Dbg( p_dec, "Restore_LDT_Keeper" );
+  Restore_LDT_Keeper( p_sys->ldt_fs );
+  msg_Dbg( p_dec, "Restore_LDT_Keeper" );
 #endif
-    p_sys->inited = 0;
+  p_sys->inited = 0;
 
-    vlc_mutex_unlock( &rm_mutex );
+  vlc_mutex_unlock( &rm_mutex );
 
-    free( p_sys );
+  free( p_sys );
 }
 
 /*****************************************************************************
@@ -434,119 +434,119 @@ static void Close( vlc_object_t *p_this )
  *****************************************************************************/
 static picture_t *DecodeVideo( decoder_t *p_dec, block_t **pp_block )
 {
-    decoder_sys_t *p_sys = p_dec->p_sys;
-    block_t       *p_block;
-    picture_t     *p_pic;
-    mtime_t       i_pts;
-    int           result;
+  decoder_sys_t *p_sys = p_dec->p_sys;
+  block_t   *p_block;
+  picture_t   *p_pic;
+  mtime_t   i_pts;
+  int     result;
 
-    /* We must do open and close in the same thread (unless we do
-     * Setup_LDT_Keeper in the main thread before all others */
-    if ( pp_block == NULL || *pp_block == NULL )
+  /* We must do open and close in the same thread (unless we do
+   * Setup_LDT_Keeper in the main thread before all others */
+  if ( pp_block == NULL || *pp_block == NULL )
+  {
+    return NULL;
+  }
+  p_block = *pp_block;
+  *pp_block = NULL;
+
+  i_pts = (p_block->i_pts > VLC_TS_INVALID) ? p_block->i_pts : p_block->i_dts;
+
+  vlc_mutex_lock( &rm_mutex );
+
+  p_pic = decoder_NewPicture( p_dec );
+
+  if ( p_pic )
+  {
+    unsigned int transform_out[5];
+    dp_hdr_t dp_hdr;
+    transform_in_t transform_in;
+    uint32_t pkg_len = ((uint32_t*)p_block->p_buffer)[0];
+    char* dp_data=((char*)p_block->p_buffer)+8;
+    uint32_t* extra=(uint32_t*)(((char*)p_block->p_buffer)+8+pkg_len);
+    uint32_t img_size;
+
+
+    dp_hdr.len = pkg_len;
+    dp_hdr.chunktab = 8 + pkg_len;
+    dp_hdr.chunks = ((uint32_t*)p_block->p_buffer)[1]-1;
+    dp_hdr.timestamp = i_pts;
+
+    memset(&transform_in, 0, sizeof(transform_in_t));
+
+    transform_in.len = dp_hdr.len;
+    transform_in.extra = extra;
+    transform_in.chunks = dp_hdr.chunks;
+    transform_in.timestamp = dp_hdr.timestamp;
+
+    memset (p_sys->plane, 0, p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height *3/2 );
+
+    #ifdef WIN32
+    if (dll_type == 1)
+    result=(*wrvyuv_transform)(dp_data, p_sys->plane, &transform_in, transform_out, p_sys->handle);
+    else
+    #endif
+    result=(*rvyuv_transform)(dp_data, p_sys->plane, &transform_in, transform_out, p_sys->handle);
+
+    /* msg_Warn(p_dec, "Real Size %d X %d", transform_out[3],
+       transform_out[4]); */
+    /* some bug rm file will print the messages :
+      [00000551] realvideo decoder warning: Real Size 320 X 240
+      [00000551] realvideo decoder warning: Real Size 480 X 272
+      [00000551] realvideo decoder warning: Real Size 320 X 240
+      [00000551] realvideo decoder warning: Real Size 320 X 240
+      ...
+    so it needs fixing!
+    */
+    if ( p_sys->inited == 0 )
     {
-        return NULL;
+    /* fix and get the correct image size! */
+    if ( p_dec->fmt_in.video.i_width != transform_out[3]
+     || p_dec->fmt_in.video.i_height  != transform_out[4] )
+    {
+      msg_Warn(p_dec, "Warning, Real's Header give a wrong "
+         "information about media's width and height!"
+         "\tRealHeader: \t %d X %d  \t %d X %d",
+         p_dec->fmt_in.video.i_width,
+         p_dec->fmt_in.video.i_height,
+         transform_out[3],transform_out[4]);
+
+      if ( p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height >= transform_out[3] * transform_out[4] )
+      {
+        p_dec->fmt_out.video.i_width =
+        p_dec->fmt_out.video.i_visible_width =
+        p_dec->fmt_in.video.i_width = transform_out[3] ;
+
+        p_dec->fmt_out.video.i_height=
+        p_dec->fmt_out.video.i_visible_height =
+        p_dec->fmt_in.video.i_height= transform_out[4];
+
+        p_dec->fmt_out.video.i_sar_num = 1;
+        p_dec->fmt_out.video.i_sar_den = 1;
+      }
+      else
+      {
+        // TODO: realloc plane's size! but [in fact] it maybe not happen!
+        msg_Err(p_dec,"plane space not enough ,skip");
+      }
     }
-    p_block = *pp_block;
-    *pp_block = NULL;
-
-    i_pts = (p_block->i_pts > VLC_TS_INVALID) ? p_block->i_pts : p_block->i_dts;
-
-    vlc_mutex_lock( &rm_mutex );
-
-    p_pic = decoder_NewPicture( p_dec );
-
-    if ( p_pic )
-    {
-        unsigned int transform_out[5];
-        dp_hdr_t dp_hdr;
-        transform_in_t transform_in;
-        uint32_t pkg_len = ((uint32_t*)p_block->p_buffer)[0];
-        char* dp_data=((char*)p_block->p_buffer)+8;
-        uint32_t* extra=(uint32_t*)(((char*)p_block->p_buffer)+8+pkg_len);
-        uint32_t img_size;
-
-
-        dp_hdr.len = pkg_len;
-        dp_hdr.chunktab = 8 + pkg_len;
-        dp_hdr.chunks = ((uint32_t*)p_block->p_buffer)[1]-1;
-        dp_hdr.timestamp = i_pts;
-
-        memset(&transform_in, 0, sizeof(transform_in_t));
-
-        transform_in.len = dp_hdr.len;
-        transform_in.extra = extra;
-        transform_in.chunks = dp_hdr.chunks;
-        transform_in.timestamp = dp_hdr.timestamp;
-
-        memset (p_sys->plane, 0, p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height *3/2 );
-
-        #ifdef WIN32
-        if (dll_type == 1)
-            result=(*wrvyuv_transform)(dp_data, p_sys->plane, &transform_in, transform_out, p_sys->handle);
-        else
-        #endif
-            result=(*rvyuv_transform)(dp_data, p_sys->plane, &transform_in, transform_out, p_sys->handle);
-
-        /* msg_Warn(p_dec, "Real Size %d X %d", transform_out[3],
-                 transform_out[4]); */
-        /* some bug rm file will print the messages :
-                [00000551] realvideo decoder warning: Real Size 320 X 240
-                [00000551] realvideo decoder warning: Real Size 480 X 272
-                [00000551] realvideo decoder warning: Real Size 320 X 240
-                [00000551] realvideo decoder warning: Real Size 320 X 240
-                ...
-            so it needs fixing!
-        */
-        if ( p_sys->inited == 0 )
-        {
-            /* fix and get the correct image size! */
-            if ( p_dec->fmt_in.video.i_width != transform_out[3]
-             || p_dec->fmt_in.video.i_height  != transform_out[4] )
-            {
-                msg_Warn(p_dec, "Warning, Real's Header give a wrong "
-                         "information about media's width and height!"
-                         "\tRealHeader: \t %d X %d  \t %d X %d",
-                         p_dec->fmt_in.video.i_width,
-                         p_dec->fmt_in.video.i_height,
-                         transform_out[3],transform_out[4]);
-                
-                if ( p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height >= transform_out[3] * transform_out[4] )
-                {
-                    p_dec->fmt_out.video.i_width = 
-                    p_dec->fmt_out.video.i_visible_width = 
-                    p_dec->fmt_in.video.i_width = transform_out[3] ;
-
-                    p_dec->fmt_out.video.i_height= 
-                    p_dec->fmt_out.video.i_visible_height = 
-                    p_dec->fmt_in.video.i_height= transform_out[4];
-
-                    p_dec->fmt_out.video.i_sar_num = 1;
-                    p_dec->fmt_out.video.i_sar_den = 1;
-                }
-                else
-                {
-                    // TODO: realloc plane's size! but [in fact] it maybe not happen! 
-                    msg_Err(p_dec,"plane space not enough ,skip");
-                }
-            }
-            p_sys->inited = 1;
-        }
-
-        img_size = p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height;
-        memcpy( p_pic->p[0].p_pixels, p_sys->plane,  img_size);
-        memcpy( p_pic->p[1].p_pixels, p_sys->plane + img_size, img_size/4);
-        memcpy( p_pic->p[2].p_pixels, p_sys->plane + img_size * 5/4, img_size/4);
-        p_pic->date = i_pts ;
-
-        /*  real video frame is small( frame and frame's time-shift is short), 
-            so it will become late picture easier (when render-time changed)and
-            droped by video-output.*/
-        p_pic->b_force = 1;
+    p_sys->inited = 1;
     }
 
-    vlc_mutex_unlock( &rm_mutex );
+    img_size = p_dec->fmt_in.video.i_width * p_dec->fmt_in.video.i_height;
+    memcpy( p_pic->p[0].p_pixels, p_sys->plane,  img_size);
+    memcpy( p_pic->p[1].p_pixels, p_sys->plane + img_size, img_size/4);
+    memcpy( p_pic->p[2].p_pixels, p_sys->plane + img_size * 5/4, img_size/4);
+    p_pic->date = i_pts ;
 
-    block_Release( p_block );
-    return p_pic;
+    /*  real video frame is small( frame and frame's time-shift is short),
+    so it will become late picture easier (when render-time changed)and
+    droped by video-output.*/
+    p_pic->b_force = 1;
+  }
+
+  vlc_mutex_unlock( &rm_mutex );
+
+  block_Release( p_block );
+  return p_pic;
 }
 

@@ -31,9 +31,9 @@
 
 /* Needed for Yadif, but also some others. */
 #define FFABS(a) ((a) >= 0 ? (a) : (-(a)))
-#define FFMAX(a,b)      __MAX(a,b)
-#define FFMAX3(a,b,c)   FFMAX(FFMAX(a,b),c)
-#define FFMIN(a,b)      __MIN(a,b)
-#define FFMIN3(a,b,c)   FFMIN(FFMIN(a,b),c)
+#define FFMAX(a,b)  __MAX(a,b)
+#define FFMAX3(a,b,c) FFMAX(FFMAX(a,b),c)
+#define FFMIN(a,b)  __MIN(a,b)
+#define FFMIN3(a,b,c) FFMIN(FFMIN(a,b),c)
 
 #endif

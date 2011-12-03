@@ -5,7 +5,7 @@
  * $Id: d5a015b047c7bc33795789091524430483840cb5 $
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
- *          Jean-Baptiste Kempf <jb@videolan.org>
+ *    Jean-Baptiste Kempf <jb@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,167 +38,167 @@
 #include <QPushButton>
 
 /* This Dialog has two main modes:
-    - General Mode that shows the current Played item, and the stats
-    - Single mode that shows the info on ONE SINGLE Item on the playlist
-   Please be Careful of not breaking one the modes behaviour... */
+  - General Mode that shows the current Played item, and the stats
+  - Single mode that shows the info on ONE SINGLE Item on the playlis
+ Please be Careful of not breaking one the modes behaviour... */
 
 MediaInfoDialog::MediaInfoDialog( intf_thread_t *_p_intf,
-                                  input_item_t *p_item ) :
-                                  QVLCFrame( _p_intf )
+            input_item_t *p_item ) :
+            QVLCFrame( _p_intf )
 {
-    isMainInputInfo = ( p_item == NULL );
+  isMainInputInfo = ( p_item == NULL );
 
-    setWindowTitle( qtr( "Media Information" ) );
-    setWindowRole( "vlc-media-info" );
+  setWindowTitle( qtr( "Media Information" ) );
+  setWindowRole( "vlc-media-info" );
 
-    setWindowFlags( Qt::Window | Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint );
+  setWindowFlags( Qt::Window | Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint );
 
-    /* TabWidgets and Tabs creation */
-    infoTabW = new QTabWidget;
+  /* TabWidgets and Tabs creation */
+  infoTabW = new QTabWidget;
 
-    MP = new MetaPanel( infoTabW, p_intf );
-    infoTabW->addTab( MP, qtr( "&General" ) );
-    EMP = new ExtraMetaPanel( infoTabW, p_intf );
-    infoTabW->addTab( EMP, qtr( "&Metadata" ) );
-    IP = new InfoPanel( infoTabW, p_intf );
-    infoTabW->addTab( IP, qtr( "&Codec" ) );
-    if( isMainInputInfo )
-    {
-        ISP = new InputStatsPanel( infoTabW, p_intf );
-        infoTabW->addTab( ISP, qtr( "S&tatistics" ) );
-    }
+  MP = new MetaPanel( infoTabW, p_intf );
+  infoTabW->addTab( MP, qtr( "&General" ) );
+  EMP = new ExtraMetaPanel( infoTabW, p_intf );
+  infoTabW->addTab( EMP, qtr( "&Metadata" ) );
+  IP = new InfoPanel( infoTabW, p_intf );
+  infoTabW->addTab( IP, qtr( "&Codec" ) );
+  if( isMainInputInfo )
+  {
+    ISP = new InputStatsPanel( infoTabW, p_intf );
+    infoTabW->addTab( ISP, qtr( "S&tatistics" ) );
+  }
 
-    QGridLayout *layout = new QGridLayout( this );
+  QGridLayout *layout = new QGridLayout( this );
 
-    /* No need to use a QDialogButtonBox here */
-    saveMetaButton = new QPushButton( qtr( "&Save Metadata" ) );
-    saveMetaButton->hide();
-    QPushButton *closeButton = new QPushButton( qtr( "&Close" ) );
-    closeButton->setDefault( true );
+  /* No need to use a QDialogButtonBox here */
+  saveMetaButton = new QPushButton( qtr( "&Save Metadata" ) );
+  saveMetaButton->hide();
+  QPushButton *closeButton = new QPushButton( qtr( "&Close" ) );
+  closeButton->setDefault( true );
 
-    QLabel *uriLabel = new QLabel( qtr( "Location:" ) );
-    uriLine = new QLineEdit;
-    uriLine->setReadOnly( true );
+  QLabel *uriLabel = new QLabel( qtr( "Location:" ) );
+  uriLine = new QLineEdit;
+  uriLine->setReadOnly( true );
 
-    layout->addWidget( infoTabW, 0, 0, 1, 8 );
-    layout->addWidget( uriLabel, 1, 0, 1, 1 );
-    layout->addWidget( uriLine, 1, 1, 1, 7 );
-    layout->addWidget( saveMetaButton, 2, 6 );
-    layout->addWidget( closeButton, 2, 7 );
+  layout->addWidget( infoTabW, 0, 0, 1, 8 );
+  layout->addWidget( uriLabel, 1, 0, 1, 1 );
+  layout->addWidget( uriLine, 1, 1, 1, 7 );
+  layout->addWidget( saveMetaButton, 2, 6 );
+  layout->addWidget( closeButton, 2, 7 );
 
-    BUTTONACT( closeButton, close() );
+  BUTTONACT( closeButton, close() );
 
-    /* The tabs buttons are shown in the main dialog for space and cosmetics */
-    BUTTONACT( saveMetaButton, saveMeta() );
+  /* The tabs buttons are shown in the main dialog for space and cosmetics */
+  BUTTONACT( saveMetaButton, saveMeta() );
 
-    /* Let the MetaData Panel update the URI */
-    CONNECT( MP, uriSet( const QString& ), this, updateURI( const QString& ) );
-    CONNECT( MP, editing(), saveMetaButton, show() );
+  /* Let the MetaData Panel update the URI */
+  CONNECT( MP, uriSet( const QString& ), this, updateURI( const QString& ) );
+  CONNECT( MP, editing(), saveMetaButton, show() );
 
-    /* Display the buttonBar according to the Tab selected */
-    CONNECT( infoTabW, currentChanged( int ), this, updateButtons( int ) );
+  /* Display the buttonBar according to the Tab selected */
+  CONNECT( infoTabW, currentChanged( int ), this, updateButtons( int ) );
 
-    /* If using the General Mode */
-    if( isMainInputInfo )
-    {
-        msg_Dbg( p_intf, "Using a general info windows" );
-        /**
-         * Connects on the various signals of input_Manager
-         * For the currently playing element
-         **/
-        DCONNECT( THEMIM->getIM(), infoChanged( input_item_t* ),
-                  IP, update( input_item_t* ) );
-        DCONNECT( THEMIM->getIM(), currentMetaChanged( input_item_t* ),
-                  MP, update( input_item_t* ) );
-        DCONNECT( THEMIM->getIM(), currentMetaChanged( input_item_t* ),
-                  EMP, update( input_item_t* ) );
-        DCONNECT( THEMIM->getIM(), statisticsUpdated( input_item_t* ),
-                  ISP, update( input_item_t* ) );
+  /* If using the General Mode */
+  if( isMainInputInfo )
+  {
+    msg_Dbg( p_intf, "Using a general info windows" );
+    /**
+   * Connects on the various signals of input_Manager
+   * For the currently playing elemen
+   **/
+    DCONNECT( THEMIM->getIM(), infoChanged( input_item_t* ),
+      IP, update( input_item_t* ) );
+    DCONNECT( THEMIM->getIM(), currentMetaChanged( input_item_t* ),
+      MP, update( input_item_t* ) );
+    DCONNECT( THEMIM->getIM(), currentMetaChanged( input_item_t* ),
+      EMP, update( input_item_t* ) );
+    DCONNECT( THEMIM->getIM(), statisticsUpdated( input_item_t* ),
+      ISP, update( input_item_t* ) );
 
-        if( THEMIM->getInput() )
-            p_item = input_GetItem( THEMIM->getInput() );
-    }
-    else
-        msg_Dbg( p_intf, "Using an item specific info windows" );
+    if( THEMIM->getInput() )
+    p_item = input_GetItem( THEMIM->getInput() );
+  }
+  else
+    msg_Dbg( p_intf, "Using an item specific info windows" );
 
-    /* Call update at start, so info is filled up at begginning */
-    if( p_item )
-        updateAllTabs( p_item );
+  /* Call update at start, so info is filled up at begginning */
+  if( p_item )
+    updateAllTabs( p_item );
 
-    readSettings( "Mediainfo", QSize( 600 , 480 ) );
+  readSettings( "Mediainfo", QSize( 600 , 480 ) );
 }
 
 MediaInfoDialog::~MediaInfoDialog()
 {
-    writeSettings( "Mediainfo" );
+  writeSettings( "Mediainfo" );
 }
 
 void MediaInfoDialog::showTab( int i_tab = 0 )
 {
-    infoTabW->setCurrentIndex( i_tab );
-    show();
+  infoTabW->setCurrentIndex( i_tab );
+  show();
 }
 
 void MediaInfoDialog::saveMeta()
 {
-    MP->saveMeta();
-    saveMetaButton->hide();
+  MP->saveMeta();
+  saveMetaButton->hide();
 }
 
 void MediaInfoDialog::updateAllTabs( input_item_t *p_item )
 {
-    IP->update( p_item );
-    MP->update( p_item );
-    EMP->update( p_item );
+  IP->update( p_item );
+  MP->update( p_item );
+  EMP->update( p_item );
 
-    if( isMainInputInfo ) ISP->update( p_item );
+  if( isMainInputInfo ) ISP->update( p_item );
 }
 
 void MediaInfoDialog::clearAllTabs()
 {
-    IP->clear();
-    MP->clear();
-    EMP->clear();
+  IP->clear();
+  MP->clear();
+  EMP->clear();
 
-    if( isMainInputInfo ) ISP->clear();
+  if( isMainInputInfo ) ISP->clear();
 }
 
 void MediaInfoDialog::close()
 {
-    hide();
+  hide();
 
-    /* if dialog is closed, revert editing if not saved */
-    if( MP->isInEditMode() )
-    {
-        MP->setEditMode( false );
-        updateButtons( 0 );
-    }
+  /* if dialog is closed, revert editing if not saved */
+  if( MP->isInEditMode() )
+  {
+    MP->setEditMode( false );
+    updateButtons( 0 );
+  }
 
-    if( !isMainInputInfo )
-        deleteLater();
+  if( !isMainInputInfo )
+    deleteLater();
 }
 
 void MediaInfoDialog::updateButtons( int i_tab )
 {
-    if( MP->isInEditMode() && i_tab == 0 )
-        saveMetaButton->show();
-    else
-        saveMetaButton->hide();
+  if( MP->isInEditMode() && i_tab == 0 )
+    saveMetaButton->show();
+  else
+    saveMetaButton->hide();
 }
 
 void MediaInfoDialog::updateURI( const QString& uri )
 {
-    QString location;
+  QString location;
 
-    /* If URI points to a local file, show the path instead of the URI */
-    char *path = make_path( qtu( uri ) );
-    if( path != NULL )
-    {
-        location = qfu( path );
-        free( path );
-    }
-    else
-        location = uri;
+  /* If URI points to a local file, show the path instead of the URI */
+  char *path = make_path( qtu( uri ) );
+  if( path != NULL )
+  {
+    location = qfu( path );
+    free( path );
+  }
+  else
+    location = uri;
 
-    uriLine->setText( location );
+  uriLine->setText( location );
 }

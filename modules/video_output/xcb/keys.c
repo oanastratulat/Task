@@ -3,9 +3,9 @@
  * @brief X C Bindings VLC keyboard event handling
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmont
+ * Copyright © 2009 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -38,10 +38,10 @@
 #include <X11/XF86keysym.h>
 #include <vlc_keys.h>
 
-struct key_handler_t
+struct key_handler_
 {
-    vlc_object_t      *obj;
-    xcb_key_symbols_t *syms;
+  vlc_object_t  *obj;
+  xcb_key_symbols_t *syms;
 };
 
 /**
@@ -55,60 +55,60 @@ struct key_handler_t
  */
 key_handler_t *CreateKeyHandler (vlc_object_t *obj, xcb_connection_t *conn)
 {
-    key_handler_t *ctx = malloc (sizeof (*ctx));
-    if (!ctx)
-        return NULL;
+  key_handler_t *ctx = malloc (sizeof (*ctx));
+  if (!ctx)
+    return NULL;
 
-    ctx->obj = obj;
-    ctx->syms = xcb_key_symbols_alloc (conn);
-    return ctx;
+  ctx->obj = obj;
+  ctx->syms = xcb_key_symbols_alloc (conn);
+  return ctx;
 }
 
 void DestroyKeyHandler (key_handler_t *ctx)
 {
-    xcb_key_symbols_free (ctx->syms);
-    free (ctx);
+  xcb_key_symbols_free (ctx->syms);
+  free (ctx);
 }
 
 static int keysymcmp (const void *pa, const void *pb)
 {
-    int a = *(const xcb_keysym_t *)pa;
-    int b = *(const xcb_keysym_t *)pb;
+  int a = *(const xcb_keysym_t *)pa;
+  int b = *(const xcb_keysym_t *)pb;
 
-    return a - b;
+  return a - b;
 }
 
 static uint_fast32_t ConvertKeySym (xcb_keysym_t sym)
 {
-    static const struct
-    {
-        xcb_keysym_t x11;
-        uint32_t vlc;
-    } *res, tab[] = {
+  static const struc
+  {
+    xcb_keysym_t x11;
+    uint32_t vlc;
+  } *res, tab[] = {
 #include "xcb_keysym.h"
-    }, old[] = {
+  }, old[] = {
 #include "keysym.h"
-    };
+  };
 
-    /* X11 Latin-1 range */
-    if (sym <= 0xff)
-        return sym;
-    /* X11 Unicode range */
-    if (sym >= 0x1000100 && sym <= 0x110ffff)
-        return sym - 0x1000000;
+  /* X11 Latin-1 range */
+  if (sym <= 0xff)
+    return sym;
+  /* X11 Unicode range */
+  if (sym >= 0x1000100 && sym <= 0x110ffff)
+    return sym - 0x1000000;
 
-    /* Special keys */
-    res = bsearch (&sym, tab, sizeof (tab) / sizeof (tab[0]), sizeof (tab[0]),
-                   keysymcmp);
-    if (res != NULL)
-        return res->vlc;
-    /* Legacy X11 symbols outside the Unicode range */
-    res = bsearch (&sym, old, sizeof (old) / sizeof (old[0]), sizeof (old[0]),
-                   keysymcmp);
-    if (res != NULL)
-        return res->vlc;
+  /* Special keys */
+  res = bsearch (&sym, tab, sizeof (tab) / sizeof (tab[0]), sizeof (tab[0]),
+       keysymcmp);
+  if (res != NULL)
+    return res->vlc;
+  /* Legacy X11 symbols outside the Unicode range */
+  res = bsearch (&sym, old, sizeof (old) / sizeof (old[0]), sizeof (old[0]),
+       keysymcmp);
+  if (res != NULL)
+    return res->vlc;
 
-    return KEY_UNSET;
+  return KEY_UNSET;
 }
 
 
@@ -121,70 +121,70 @@ static uint_fast32_t ConvertKeySym (xcb_keysym_t sym)
  */
 int ProcessKeyEvent (key_handler_t *ctx, xcb_generic_event_t *ev)
 {
-    assert (ctx);
+  assert (ctx);
 
-    switch (ev->response_type & 0x7f)
+  switch (ev->response_type & 0x7f)
+  {
+    case XCB_KEY_PRESS:
     {
-        case XCB_KEY_PRESS:
-        {
-            xcb_key_press_event_t *e = (xcb_key_press_event_t *)ev;
-            xcb_keysym_t sym = xcb_key_press_lookup_keysym (ctx->syms, e, 0);
-            uint_fast32_t vk = ConvertKeySym (sym);
+    xcb_key_press_event_t *e = (xcb_key_press_event_t *)ev;
+    xcb_keysym_t sym = xcb_key_press_lookup_keysym (ctx->syms, e, 0);
+    uint_fast32_t vk = ConvertKeySym (sym);
 
-            msg_Dbg (ctx->obj, "key: 0x%08"PRIxFAST32, vk);
-            if (vk == KEY_UNSET)
-                break;
-            if (e->state & XCB_MOD_MASK_SHIFT)
-                vk |= KEY_MODIFIER_SHIFT;
-            if (e->state & XCB_MOD_MASK_CONTROL)
-                vk |= KEY_MODIFIER_CTRL;
-            if (e->state & XCB_MOD_MASK_1)
-                vk |= KEY_MODIFIER_ALT;
-            if (e->state & XCB_MOD_MASK_4)
-                vk |= KEY_MODIFIER_META;
-            var_SetInteger (ctx->obj->p_libvlc, "key-pressed", vk);
-            break;
-        }
-
-        case XCB_KEY_RELEASE:
-            break;
-
-        case XCB_MAPPING_NOTIFY:
-        {
-            xcb_mapping_notify_event_t *e = (xcb_mapping_notify_event_t *)ev;
-            msg_Dbg (ctx->obj, "refreshing keyboard mapping");
-            xcb_refresh_keyboard_mapping (ctx->syms, e);
-            break;
-        }
-
-        default:
-            return -1;
+    msg_Dbg (ctx->obj, "key: 0x%08"PRIxFAST32, vk);
+    if (vk == KEY_UNSET)
+      break;
+    if (e->state & XCB_MOD_MASK_SHIFT)
+      vk |= KEY_MODIFIER_SHIFT;
+    if (e->state & XCB_MOD_MASK_CONTROL)
+      vk |= KEY_MODIFIER_CTRL;
+    if (e->state & XCB_MOD_MASK_1)
+      vk |= KEY_MODIFIER_ALT;
+    if (e->state & XCB_MOD_MASK_4)
+      vk |= KEY_MODIFIER_META;
+    var_SetInteger (ctx->obj->p_libvlc, "key-pressed", vk);
+    break;
     }
 
-    free (ev);
-    return 0;
+    case XCB_KEY_RELEASE:
+    break;
+
+    case XCB_MAPPING_NOTIFY:
+    {
+    xcb_mapping_notify_event_t *e = (xcb_mapping_notify_event_t *)ev;
+    msg_Dbg (ctx->obj, "refreshing keyboard mapping");
+    xcb_refresh_keyboard_mapping (ctx->syms, e);
+    break;
+    }
+
+    default:
+    return -1;
+  }
+
+  free (ev);
+  return 0;
 }
 
 #else /* HAVE_XCB_KEYSYMS */
 
 key_handler_t *CreateKeyHandler (vlc_object_t *obj, xcb_connection_t *conn)
 {
-    msg_Err (obj, "X11 key press support not compiled-in");
-    (void) conn;
-    return NULL;
+  msg_Err (obj, "X11 key press support not compiled-in");
+  (void) conn;
+  return NULL;
 }
 
 void DestroyKeyHandler (key_handler_t *ctx)
 {
-    (void) ctx;
-    abort ();
+  (void) ctx;
+  abort ();
 }
 
 int ProcessKeyEvent (key_handler_t *ctx, xcb_generic_event_t *ev)
 {
-    (void) ctx;
-    (void) ev;
-    abort ();
+  (void) ctx;
+  (void) ev;
+  abort ();
 }
 
 #endif /* HAVE_XCB_KEYSYMS */

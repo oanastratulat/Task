@@ -39,75 +39,75 @@ struct picture_t;
  * Algorithm-specific state for IVTC.
  * @see RenderIVTC()
  */
-typedef struct
+typedef struc
 {
-    int i_mode; /**< Detecting, hard TC, or soft TC. @see ivtc_mode */
-    int i_old_mode; /**< @see IVTCSoftTelecineDetect() */
+  int i_mode; /**< Detecting, hard TC, or soft TC. @see ivtc_mode */
+  int i_old_mode; /**< @see IVTCSoftTelecineDetect() */
 
-    int i_cadence_pos; /**< Cadence counter, 0..4. Runs when locked on. */
-    int i_tfd; /**< TFF or BFF telecine. Detected from the video. */
+  int i_cadence_pos; /**< Cadence counter, 0..4. Runs when locked on. */
+  int i_tfd; /**< TFF or BFF telecine. Detected from the video. */
 
-    /** Raw low-level detector output.
-     *
-     *  @see IVTCLowLevelDetect()
-     */
-    int pi_scores[IVTC_NUM_FIELD_PAIRS]; /**< Interlace scores. */
-    int pi_motion[IVTC_DETECTION_HISTORY_SIZE]; /**< 8x8 blocks with motion. */
-    int pi_top_rep[IVTC_DETECTION_HISTORY_SIZE]; /**< Hard top field repeat. */
-    int pi_bot_rep[IVTC_DETECTION_HISTORY_SIZE]; /**< Hard bot field repeat. */
+  /** Raw low-level detector output.
+   *
+   *  @see IVTCLowLevelDetect()
+   */
+  int pi_scores[IVTC_NUM_FIELD_PAIRS]; /**< Interlace scores. */
+  int pi_motion[IVTC_DETECTION_HISTORY_SIZE]; /**< 8x8 blocks with motion. */
+  int pi_top_rep[IVTC_DETECTION_HISTORY_SIZE]; /**< Hard top field repeat. */
+  int pi_bot_rep[IVTC_DETECTION_HISTORY_SIZE]; /**< Hard bot field repeat. */
 
-    /** Interlace scores of outgoing frames, used for judging IVTC output
-     *  (detecting cadence breaks).
-     *
-     *  @see IVTCOutputOrDropFrame()
-     */
-    int pi_final_scores[IVTC_DETECTION_HISTORY_SIZE];
+  /** Interlace scores of outgoing frames, used for judging IVTC outpu
+   *  (detecting cadence breaks).
+   *
+   *  @see IVTCOutputOrDropFrame()
+   */
+  int pi_final_scores[IVTC_DETECTION_HISTORY_SIZE];
 
-    /** Cadence position detection history (in ivtc_cadence_pos format).
-     *  Contains the detected cadence position and a corresponding
-     *  reliability flag for each algorithm.
-     *
-     *  s = scores, interlace scores based algorithm, original to this filter.
-     *  v = vektor, hard field repeat based algorithm, inspired by
-     *              the TVTime/Xine IVTC filter by Billy Biggs (Vektor).
-     *
-     *  Each algorithm may also keep internal, opaque data.
-     *
-     *  @see ivtc_cadence_pos
-     *  @see IVTCCadenceDetectAlgoScores()
-     *  @see IVTCCadenceDetectAlgoVektor()
-     */
-    int  pi_s_cadence_pos[IVTC_DETECTION_HISTORY_SIZE];
-    bool pb_s_reliable[IVTC_DETECTION_HISTORY_SIZE];
-    int  pi_v_raw[IVTC_DETECTION_HISTORY_SIZE]; /**< "vektor" algo internal */
-    int  pi_v_cadence_pos[IVTC_DETECTION_HISTORY_SIZE];
-    bool pb_v_reliable[IVTC_DETECTION_HISTORY_SIZE];
+  /** Cadence position detection history (in ivtc_cadence_pos format).
+   *  Contains the detected cadence position and a corresponding
+   *  reliability flag for each algorithm.
+   *
+   *  s = scores, interlace scores based algorithm, original to this filter.
+   *  v = vektor, hard field repeat based algorithm, inspired by
+   *      the TVTime/Xine IVTC filter by Billy Biggs (Vektor).
+   *
+   *  Each algorithm may also keep internal, opaque data.
+   *
+   *  @see ivtc_cadence_pos
+   *  @see IVTCCadenceDetectAlgoScores()
+   *  @see IVTCCadenceDetectAlgoVektor()
+   */
+  int  pi_s_cadence_pos[IVTC_DETECTION_HISTORY_SIZE];
+  bool pb_s_reliable[IVTC_DETECTION_HISTORY_SIZE];
+  int  pi_v_raw[IVTC_DETECTION_HISTORY_SIZE]; /**< "vektor" algo internal */
+  int  pi_v_cadence_pos[IVTC_DETECTION_HISTORY_SIZE];
+  bool pb_v_reliable[IVTC_DETECTION_HISTORY_SIZE];
 
-    /** Final result, chosen by IVTCCadenceDetectFinalize() from the results
-     *  given by the different detection algorithms.
-     *
-     *  @see IVTCCadenceDetectFinalize()
-     */
-    int pi_cadence_pos_history[IVTC_DETECTION_HISTORY_SIZE];
+  /** Final result, chosen by IVTCCadenceDetectFinalize() from the results
+   *  given by the different detection algorithms.
+   *
+   *  @see IVTCCadenceDetectFinalize()
+   */
+  int pi_cadence_pos_history[IVTC_DETECTION_HISTORY_SIZE];
 
-    /**
-     *  Set by cadence analyzer. Whether the sequence of last
-     *  IVTC_DETECTION_HISTORY_SIZE detected positions, stored in
-     *  pi_cadence_pos_history, looks like a valid telecine.
-     *
-     *  @see IVTCCadenceAnalyze()
-     */
-    bool b_sequence_valid;
+  /**
+   *  Set by cadence analyzer. Whether the sequence of las
+   *  IVTC_DETECTION_HISTORY_SIZE detected positions, stored in
+   *  pi_cadence_pos_history, looks like a valid telecine.
+   *
+   *  @see IVTCCadenceAnalyze()
+   */
+  bool b_sequence_valid;
 
-    /**
-     *  Set by cadence analyzer. True if detected position = "dea".
-     *  The three entries of this are used for detecting three progressive
-     *  stencil positions in a row, i.e. five progressive frames in a row;
-     *  this triggers exit from hard IVTC.
-     *
-     *  @see IVTCCadenceAnalyze()
-     */
-    bool pb_all_progressives[IVTC_DETECTION_HISTORY_SIZE];
+  /**
+   *  Set by cadence analyzer. True if detected position = "dea".
+   *  The three entries of this are used for detecting three progressive
+   *  stencil positions in a row, i.e. five progressive frames in a row;
+   *  this triggers exit from hard IVTC.
+   *
+   *  @see IVTCCadenceAnalyze()
+   */
+  bool pb_all_progressives[IVTC_DETECTION_HISTORY_SIZE];
 } ivtc_sys_t;
 
 /*****************************************************************************
@@ -167,7 +167,7 @@ void IVTCClearState( filter_t *p_filter );
  *
  * Summary:
  *
- * This is a "live IVTC" filter, which attempts to do in realtime what
+ * This is a "live IVTC" filter, which attempts to do in realtime wha
  * Transcode's ivtc->decimate->32detect chain does offline. Additionally,
  * it removes soft telecine. It is an original design, based on some ideas
  * from Transcode, some from TVTime/Xine, and some original.
@@ -229,7 +229,7 @@ void IVTCClearState( filter_t *p_filter );
  * of the available vertical resolution of those frames that are judged
  * interlaced. Some algorithms combining data from multiple frames may be
  * able to counter this to an extent, effectively performing something akin
- * to the frame reconstruction part of IVTC. A more serious problem is that
+ * to the frame reconstruction part of IVTC. A more serious problem is tha
  * any motion will stutter, because (even in the ideal case) one out of
  * every four film frames will be shown twice, while the other three will
  * be shown only once. Duplicate removal and framerate reduction - which are
@@ -253,7 +253,7 @@ void IVTCClearState( filter_t *p_filter );
  * Thus, each group of four film frames must become five frames in the NTSC
  * video stream. One cannot simply repeat one frame of every four, because
  * this would result in jerky motion. To slightly soften the jerkiness,
- * the extra frame is split into two extra fields, inserted at different
+ * the extra frame is split into two extra fields, inserted at differen
  * times. The content of the extra fields is (in classical telecine)
  * duplicated as-is from existing fields.
  *
@@ -261,14 +261,14 @@ void IVTCClearState( filter_t *p_filter );
  * is called the cadence. The output from 3:2 pulldown looks like this
  * (if the telecine is TFF, top field first):
  *
- * a  b  c  d  e     Telecined frame (actual frames stored on DVD)
- * T1 T1 T2 T3 T4    *T*op field content
- * B1 B2 B3 B3 B4    *B*ottom field content
+ * a  b  c  d  e   Telecined frame (actual frames stored on DVD)
+ * T1 T1 T2 T3 T4  *T*op field conten
+ * B1 B2 B3 B3 B4  *B*ottom field conten
  *
  * Numbers 1-4 denote the original film frames. E.g. T1 = top field of
  * original film frame 1. The field Tb, and one of either Bc or Bd, are
- * the extra fields inserted in the telecine. With exact duplication, it
- * of course doesn't matter whether Bc or Bd is the extra field, but
+ * the extra fields inserted in the telecine. With exact duplication, i
+ * of course doesn't matter whether Bc or Bd is the extra field, bu
  * with "full field blended" material (see below) this will affect how to
  * correctly extract film frame 3.
  *
@@ -299,7 +299,7 @@ void IVTCClearState( filter_t *p_filter );
  * In a hard telecine, the TFD and VFD must match for field renderers
  * (e.g. traditional DVD player + CRT TV) to work correctly; this should be
  * fairly obvious by considering the above telecine patterns and how a
- * field renderer displays the material (one field at a time, dominant
+ * field renderer displays the material (one field at a time, dominan
  * field first).
  *
  * The VFD may, *correctly*, flip mid-stream, if soft field repeats
@@ -314,7 +314,7 @@ void IVTCClearState( filter_t *p_filter );
  *
  * The reason for the words "classical telecine" above, when field
  * duplication was first mentioned, is that there exists a
- * "full field blended" version, where the added fields are not exact
+ * "full field blended" version, where the added fields are not exac
  * duplicates, but are blends of the original film frames. This is rare
  * in NTSC, but some material like this reportedly exists. See
  * http://www.animemusicvideos.org/guides/avtech/videogetb2a.html
@@ -328,7 +328,7 @@ void IVTCClearState( filter_t *p_filter );
  * To remove the telecine, the duplicate fields must be removed, and the
  * original progressive frames restored. Additionally, the presentation
  * timestamps (PTS) must be adjusted, and one frame out of five (containing
- * no new information) dropped. The duration of each frame in the output
+ * no new information) dropped. The duration of each frame in the outpu
  * becomes 5/4 of that in the input, i.e. 25% longer.
  *
  * Theoretically, this whole mess could be avoided by soft telecining, if the
@@ -365,7 +365,7 @@ void IVTCClearState( filter_t *p_filter );
  *
  * Note about chroma formats: 4:2:0 is very common at least on anime DVDs.
  * In the interlaced frames in a hard telecine, the chroma alternates
- * every chroma line, even if the chroma format is 4:2:0! This means that
+ * every chroma line, even if the chroma format is 4:2:0! This means tha
  * if the interlaced picture is viewed as-is, the luma alternates every line,
  * while the chroma alternates only every two lines of the picture.
  *
@@ -373,11 +373,11 @@ void IVTCClearState( filter_t *p_filter );
  * (numbers indicate which film frame the data comes from):
  *
  * luma  stored 4:2:0 chroma  displayed chroma
- * 1111  1111                 1111
- * 2222                       1111
- * 1111  2222                 2222
- * 2222                       2222
- * ...   ...                  ...
+ * 1111  1111       1111
+ * 2222         1111
+ * 1111  2222       2222
+ * 2222         2222
+ * ... ...      ...
  *
  * The deinterlace filter sees the stored 4:2:0 chroma. The "displayed chroma"
  * is only generated later in the filter chain (probably when YUV is converted
@@ -386,9 +386,9 @@ void IVTCClearState( filter_t *p_filter );
  *
  * Next, how NTSC soft telecine works:
  *
- * a  b  c  d     Frame index (actual frames stored on DVD)
- * T1 T2 T3 T4    *T*op field content
- * B1 B2 B3 B4    *B*ottom field content
+ * a  b  c  d   Frame index (actual frames stored on DVD)
+ * T1 T2 T3 T4  *T*op field conten
+ * B1 B2 B3 B4  *B*ottom field conten
  *
  * Here the progressive frames are stored as-is. The catch is in the stream
  * flags. For hard telecine, which was explained above, we have
@@ -396,9 +396,9 @@ void IVTCClearState( filter_t *p_filter );
  * true interlaced stream. Soft telecine, on the other hand, looks like this:
  *
  * a  b  c  d
- * 3  2  3  2     nb_fields
- * T  B  B  T     *Video* field dominance (for TFF telecine)
- * B  T  T  B     *Video* field dominance (for BFF telecine)
+ * 3  2  3  2   nb_fields
+ * T  B  B  T   *Video* field dominance (for TFF telecine)
+ * B  T  T  B   *Video* field dominance (for BFF telecine)
  *
  * Now the video field dominance flipflops every two frames!
  *
@@ -411,7 +411,7 @@ void IVTCClearState( filter_t *p_filter );
  * renderer (traditional interlaced equipment, or a framerate doubler)
  * should do with such a stream.
  *
- * In the IVTC filter, our job is to even out the frame durations, but
+ * In the IVTC filter, our job is to even out the frame durations, bu
  * disregard video field dominance and just pass the progressive pictures
  * through as-is.
  *
@@ -423,20 +423,20 @@ void IVTCClearState( filter_t *p_filter );
  * there are only three relevant nb_fields flag patterns for the three-frame
  * stencil concerning soft telecine:
  *
- * P C N   What is happening:
- * 2 3 2   Entering soft telecine at frame C, or running inside it already.
- * 3 2 3   Running inside soft telecine.
- * 3 2 2   Exiting soft telecine at frame C. C is the last frame that should
- *         be handled as soft-telecined. (If we do timing adjustments to the
- *         "3"s only, we can already exit soft telecine mode when we see
- *         this pattern.)
+ * P C N What is happening:
+ * 2 3 2 Entering soft telecine at frame C, or running inside it already.
+ * 3 2 3 Running inside soft telecine.
+ * 3 2 2 Exiting soft telecine at frame C. C is the last frame that should
+ *   be handled as soft-telecined. (If we do timing adjustments to the
+ *   "3"s only, we can already exit soft telecine mode when we see
+ *   this pattern.)
  *
  * Note that the same stream may alternate between soft and hard telecine,
  * but these cannot occur at the same time. The start and end of the
  * soft-telecined parts can be read off the stream flags, and the rest of
  * the stream can be handed to the hard IVTC part of the filter for analysis.
  *
- * Finally, note also that a stream may also request a lone field repeat
+ * Finally, note also that a stream may also request a lone field repea
  * (a sudden "3" surrounded by "2"s). Fortunately, these can be handled as
  * a two-frame soft telecine, as they match the first and third
  * flag patterns above.
@@ -451,51 +451,51 @@ void IVTCClearState( filter_t *p_filter );
  * three-frame stencil. Again, let P = previous, C = current, N = next.
  * A brief analysis leads to the following cadence tables.
  *
- * PCN                 = stencil position (Previous Current Next),
- * Dups.               = duplicate fields,
+ * PCN       = stencil position (Previous Current Next),
+ * Dups.     = duplicate fields,
  * Best field pairs... = combinations of fields which correctly reproduce
- *                       the original progressive frames,
- * *                   = see timestamp considerations below for why
- *                       this particular arrangement.
+ *         the original progressive frames,
+ * *       = see timestamp considerations below for why
+ *         this particular arrangement.
  *
  * For TFF:
  *
- * PCN   Dups.     Best field pairs for progressive (correct, theoretical)
- * abc   TP = TC   TPBP = frame 1, TCBP = frame 1, TNBC = frame 2
- * bcd   BC = BN   TCBP = frame 2, TNBC = frame 3, TNBN = frame 3
- * cde   BP = BC   TCBP = frame 3, TCBC = frame 3, TNBN = frame 4
- * dea   none      TPBP = frame 3, TCBC = frame 4, TNBN = frame 1
- * eab   TC = TN   TPBP = frame 4, TCBC = frame 1, TNBC = frame 1
+ * PCN Dups.   Best field pairs for progressive (correct, theoretical)
+ * abc TP = TC TPBP = frame 1, TCBP = frame 1, TNBC = frame 2
+ * bcd BC = BN TCBP = frame 2, TNBC = frame 3, TNBN = frame 3
+ * cde BP = BC TCBP = frame 3, TCBC = frame 3, TNBN = frame 4
+ * dea none  TPBP = frame 3, TCBC = frame 4, TNBN = frame 1
+ * eab TC = TN TPBP = frame 4, TCBC = frame 1, TNBC = frame 1
  *
  * (table cont'd)
- * PCN   Progressive output*
- * abc   frame 2 = TNBC (compose TN+BC)
- * bcd   frame 3 = TNBN (copy N)
- * cde   frame 4 = TNBN (copy N)
- * dea   (drop)
- * eab   frame 1 = TCBC (copy C), or TNBC (compose TN+BC)
+ * PCN Progressive output*
+ * abc frame 2 = TNBC (compose TN+BC)
+ * bcd frame 3 = TNBN (copy N)
+ * cde frame 4 = TNBN (copy N)
+ * dea (drop)
+ * eab frame 1 = TCBC (copy C), or TNBC (compose TN+BC)
  *
- * On the rows "dea" and "eab", frame 1 refers to a frame from the next
+ * On the rows "dea" and "eab", frame 1 refers to a frame from the nex
  * group of 4. "Compose TN+BC" means to construct a frame using the
  * top field of N, and the bottom field of C. See ComposeFrame().
  *
  * For BFF, swap all B and T, and rearrange the symbol pairs to again
  * read "TxBx". We have:
  *
- * PCN   Dups.     Best field pairs for progressive (correct, theoretical)
- * abc   BP = BC   TPBP = frame 1, TPBC = frame 1, TCBN = frame 2
- * bcd   TC = TN   TPBC = frame 2, TCBN = frame 3, TNBN = frame 3
- * cde   TP = TC   TPBC = frame 3, TCBC = frame 3, TNBN = frame 4
- * dea   none      TPBP = frame 3, TCBC = frame 4, TNBN = frame 1
- * eab   BC = BN   TPBP = frame 4, TCBC = frame 1, TCBN = frame 1
+ * PCN Dups.   Best field pairs for progressive (correct, theoretical)
+ * abc BP = BC TPBP = frame 1, TPBC = frame 1, TCBN = frame 2
+ * bcd TC = TN TPBC = frame 2, TCBN = frame 3, TNBN = frame 3
+ * cde TP = TC TPBC = frame 3, TCBC = frame 3, TNBN = frame 4
+ * dea none  TPBP = frame 3, TCBC = frame 4, TNBN = frame 1
+ * eab BC = BN TPBP = frame 4, TCBC = frame 1, TCBN = frame 1
  *
  * (table cont'd)
- * PCN   Progressive output*
- * abc   frame 2 = TCBN (compose TC+BN)
- * bcd   frame 3 = TNBN (copy N)
- * cde   frame 4 = TNBN (copy N)
- * dea   (drop)
- * eab   frame 1 = TCBC (copy C), or TCBN (compose TC+BN)
+ * PCN Progressive output*
+ * abc frame 2 = TCBN (compose TC+BN)
+ * bcd frame 3 = TNBN (copy N)
+ * cde frame 4 = TNBN (copy N)
+ * dea (drop)
+ * eab frame 1 = TCBC (copy C), or TCBN (compose TC+BN)
  *
  * From these cadence tables we can extract two strategies for
  * cadence detection. We use both.
@@ -510,9 +510,9 @@ void IVTCClearState( filter_t *p_filter );
  * to the cadence. This kind of strategy is used by the classic IVTC filter
  * in TVTime/Xine by Billy Biggs (Vektor), hence the name.
  *
- * "Conservative" here means that we do not rule anything out, but start at
+ * "Conservative" here means that we do not rule anything out, but start a
  * each stencil position by suggesting the position "dea", and then only add
- * to the list of possibilities based on field repeats that are detected at
+ * to the list of possibilities based on field repeats that are detected a
  * the present stencil position. This estimate is then filtered by ANDing
  * against a shifted (time-advanced) version of the estimate from the
  * previous stencil position. Once the detected position becomes unique,
@@ -547,7 +547,7 @@ void IVTCClearState( filter_t *p_filter );
  * duplicate. Importantly, this works with telecined input, too - the field
  * that changes "much" may be part of another film frame, while the "less"
  * changed one is actually a duplicate from the previous film frame.
- * If both fields change "about as much", then no hard field repeat
+ * If both fields change "about as much", then no hard field repea
  * is detected.
  *
  *
@@ -573,7 +573,7 @@ void IVTCClearState( filter_t *p_filter );
  * "eab" back to "abc", i.e. from the last row back to the first row.)
  * Furthermore, each sequence of three neighboring triplets is redundantly
  * unique (i.e. is unique, and reduces the chance of false positives).
- * (In practice, though, we already know which table to consider, from the fact
+ * (In practice, though, we already know which table to consider, from the fac
  * that TFD and VFD must match. Checking only the relevant table makes the
  * strategy slightly more robust.)
  *
@@ -597,7 +597,7 @@ void IVTCClearState( filter_t *p_filter );
  * triplet given in the appropriate table produces the smallest sum of
  * interlace scores. Unless we are at PCN = "dea" (which could also be pure
  * progressive!), this immediately gives us the most likely current cadence
- * position. Combined with a two-step history, the sequence of three most
+ * position. Combined with a two-step history, the sequence of three mos
  * likely positions found this way always allows us to make a more or less
  * reliable detection. (That is, when a reliable detection is possible; if the
  * video has no motion at all, every detection will report the position "dea".
@@ -646,9 +646,9 @@ void IVTCClearState( filter_t *p_filter );
  *
  * In this emergency mode, we simply output the least interlaced frame out of
  * the combinations TNBN, TNBC and TCBN (where only one of the last two is
- * tested, based on the stream TFF/BFF information). In this mode, we do not 
- * touch the timestamps, and just pass all five frames from each group right
- * through. This introduces some stutter, but in practice it is often not
+ * tested, based on the stream TFF/BFF information). In this mode, we do no
+ * touch the timestamps, and just pass all five frames from each group righ
+ * through. This introduces some stutter, but in practice it is often no
  * noticeable. This is because the kind of material that is likely to trip up
  * the cadence detector usually includes irregular 8fps/12fps motion. With
  * true 24fps motion, the cadence quickly locks on, and stays locked on.
@@ -665,25 +665,25 @@ void IVTCClearState( filter_t *p_filter );
  * "scratch paper" comments in pulldown.c of TVTime/Xine):
  *
  * NTSC input (29.97 fps)
- * a       b       c       d        e        a (from next group) ...
- * 0    3003    6006    9009    12012    15015
- * 0      3754      7508       11261     15015
- * 1         2         3           4         1 (from next group) ...
+ * a   b   c   d    e    a (from next group) ...
+ * 0  3003  6006  9009  12012  15015
+ * 0  3754  7508   11261   15015
+ * 1   2   3     4   1 (from next group) ...
  * Film output (23.976 fps)
  *
  * Three of the film frames have length 3754, and one has 3753
  * (it is 1/90000 sec shorter). This rounding was chosen so that the lengths
  * of the group of four sum to the original 15015.
  *
- * From the diagram we get these deltas for presentation timestamp adjustment
+ * From the diagram we get these deltas for presentation timestamp adjustmen
  * (in 90 kHz ticks, for illustration):
- * (1-a)   (2-b)  (3-c)   (4-d)   (skip)   (1-a) ...
- *     0   +751   +1502   +2252   (skip)       0 ...
+ * (1-a) (2-b)  (3-c) (4-d) (skip) (1-a) ...
+ *   0 +751 +1502 +2252 (skip)   0 ...
  *
  * In fractions of (p_next->date - p_cur->date), regardless of actual
  * time unit, the deltas are:
- * (1-a)   (2-b)  (3-c)   (4-d)   (skip)   (1-a) ...
- *     0   +0.25  +0.50   +0.75   (skip)       0 ...
+ * (1-a) (2-b)  (3-c) (4-d) (skip) (1-a) ...
+ *   0 +0.25  +0.50 +0.75 (skip)   0 ...
  *
  * This is what we actually use. In our implementation, the values are stored
  * multiplied by 4, as integers.
@@ -693,7 +693,7 @@ void IVTCClearState( filter_t *p_filter );
  * at time [original time of b + 751 ticks]. So, when we catch the cadence,
  * we will start mangling the timestamps according to the cadence position
  * of the "current" frame, using the deltas given above. This will cause
- * a one-time jerk, most noticeable if the cadence happens to catch at
+ * a one-time jerk, most noticeable if the cadence happens to catch a
  * position "d". (Alternatively, upon lock-on, we could wait until we are
  * at "a" before switching on IVTC, but this makes the maximal delay
  * [max. detection + max. wait] = 3 + 4 = 7 input frames, which comes to
@@ -714,7 +714,7 @@ void IVTCClearState( filter_t *p_filter );
  * When the filter falls out of film mode, the timestamps of the incoming
  * frames are left untouched. Thus, the output from this filter has a
  * variable framerate: 4/5 of the input framerate when IVTC is active
- * (whether hard or soft), and the same framerate as input when it is not
+ * (whether hard or soft), and the same framerate as input when it is no
  * (or when in emergency mode).
  *
  *
@@ -722,7 +722,7 @@ void IVTCClearState( filter_t *p_filter );
  * see the following:
  *
  * The classic filter by Billy Biggs (Vektor). Written in 2001-2003 for
- * TVTime, and adapted into Xine later. In xine-lib 1.1.19, it is at
+ * TVTime, and adapted into Xine later. In xine-lib 1.1.19, it is a
  * src/post/deinterlace/pulldown.*. Also needed are tvtime.*, and speedy.*.
  *
  * Transcode's ivtc->decimate->32detect chain by Thanassis Tsiodras.

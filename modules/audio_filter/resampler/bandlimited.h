@@ -22,23 +22,23 @@
  *****************************************************************************/
 
 /* Conversion constants */
-#define Nhc       8
-#define Npc      (1<<Nhc)
+#define Nhc   8
+#define Npc  (1<<Nhc)
 
 /* Description of constants:
  *
  * Npc - is the number of look-up values available for the lowpass filter
- *    between the beginning of its impulse response and the "cutoff time"
- *    of the filter.  The cutoff time is defined as the reciprocal of the
- *    lowpass-filter cut off frequence in Hz.  For example, if the
- *    lowpass filter were a sinc function, Npc would be the index of the
- *    impulse-response lookup-table corresponding to the first zero-
- *    crossing of the sinc function.  (The inverse first zero-crossing
- *    time of a sinc function equals its nominal cutoff frequency in Hz.)
- *    Npc must be a power of 2 due to the details of the current
- *    implementation. The default value of 512 is sufficiently high that
- *    using linear interpolation to fill in between the table entries
- *    gives approximately 16-bit accuracy in filter coefficients.
+ *  between the beginning of its impulse response and the "cutoff time"
+ *  of the filter.  The cutoff time is defined as the reciprocal of the
+ *  lowpass-filter cut off frequence in Hz.  For example, if the
+ *  lowpass filter were a sinc function, Npc would be the index of the
+ *  impulse-response lookup-table corresponding to the first zero-
+ *  crossing of the sinc function.  (The inverse first zero-crossing
+ *  time of a sinc function equals its nominal cutoff frequency in Hz.)
+ *  Npc must be a power of 2 due to the details of the curren
+ *  implementation. The default value of 512 is sufficiently high tha
+ *  using linear interpolation to fill in between the table entries
+ *  gives approximately 16-bit accuracy in filter coefficients.
  *
  * Nhc - is log base 2 of Npc.
  */

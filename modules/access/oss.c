@@ -5,9 +5,9 @@
  * $Id: 7590cac1dc7008345de05b034e4a29f40af4b125 $
  *
  * Authors: Benjamin Pracht <bigben at videolan dot org>
- *          Richard Hosking <richard at hovis dot net>
- *          Antoine Cellerier <dionoea at videolan d.t org>
- *          Dennis Lou <dlou99 at yahoo dot com>
+ *    Richard Hosking <richard at hovis dot net>
+ *    Antoine Cellerier <dionoea at videolan d.t org>
+ *    Dennis Lou <dlou99 at yahoo dot com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,29 +63,29 @@ static void DemuxClose( vlc_object_t * );
 
 #define STEREO_TEXT N_( "Stereo" )
 #define STEREO_LONGTEXT N_( \
-    "Capture the audio stream in stereo." )
+  "Capture the audio stream in stereo." )
 #define SAMPLERATE_TEXT N_( "Samplerate" )
 #define SAMPLERATE_LONGTEXT N_( \
-    "Samplerate of the captured audio stream, in Hz (eg: 11025, 22050, 44100, 48000)" )
+  "Samplerate of the captured audio stream, in Hz (eg: 11025, 22050, 44100, 48000)" )
 
 #define OSS_DEFAULT "/dev/dsp"
 
 #define CFG_PREFIX "oss-"
 
 vlc_module_begin ()
-    set_shortname( N_("OSS") )
-    set_description( N_("OSS input") )
-    set_category( CAT_INPUT )
-    set_subcategory( SUBCAT_INPUT_ACCESS )
+  set_shortname( N_("OSS") )
+  set_description( N_("OSS input") )
+  set_category( CAT_INPUT )
+  set_subcategory( SUBCAT_INPUT_ACCESS )
 
-    add_shortcut( "oss" )
-    set_capability( "access_demux", 10 )
-    set_callbacks( DemuxOpen, DemuxClose )
+  add_shortcut( "oss" )
+  set_capability( "access_demux", 10 )
+  set_callbacks( DemuxOpen, DemuxClose )
 
-    add_bool( CFG_PREFIX "stereo", true, STEREO_TEXT, STEREO_LONGTEXT,
-                true )
-    add_integer( CFG_PREFIX "samplerate", 48000, SAMPLERATE_TEXT,
-                SAMPLERATE_LONGTEXT, true )
+  add_bool( CFG_PREFIX "stereo", true, STEREO_TEXT, STEREO_LONGTEXT,
+      true )
+  add_integer( CFG_PREFIX "samplerate", 48000, SAMPLERATE_TEXT,
+      SAMPLERATE_LONGTEXT, true )
 vlc_module_end ()
 
 /*****************************************************************************
@@ -102,40 +102,40 @@ static int OpenAudioDev( demux_t * );
 static int OpenAudioDevOss( demux_t * );
 static bool ProbeAudioDevOss( demux_t *, const char *psz_device );
 
-struct buffer_t
+struct buffer_
 {
-    void *  start;
-    size_t  length;
+  void *  start;
+  size_t  length;
 };
 
-struct demux_sys_t
+struct demux_sys_
 {
-    const char *psz_device;  /* OSS device from MRL */
+  const char *psz_device;  /* OSS device from MRL */
 
-    int  i_fd;
+  int  i_fd;
 
-    /* Audio */
-    unsigned int i_sample_rate;
-    bool b_stereo;
-    size_t i_max_frame_size;
-    block_t *p_block;
-    es_out_id_t *p_es;
+  /* Audio */
+  unsigned int i_sample_rate;
+  bool b_stereo;
+  size_t i_max_frame_size;
+  block_t *p_block;
+  es_out_id_t *p_es;
 
-    int64_t i_next_demux_date; /* Used to handle oss:// as input-slave properly */
+  int64_t i_next_demux_date; /* Used to handle oss:// as input-slave properly */
 };
 
 static int FindMainDevice( demux_t *p_demux )
 {
-    msg_Dbg( p_demux, "opening device '%s'", p_demux->p_sys->psz_device );
-    if( ProbeAudioDevOss( p_demux, p_demux->p_sys->psz_device ) )
-    {
-        msg_Dbg( p_demux, "'%s' is an audio device", p_demux->p_sys->psz_device );
-        p_demux->p_sys->i_fd = OpenAudioDev( p_demux );
-    }
+  msg_Dbg( p_demux, "opening device '%s'", p_demux->p_sys->psz_device );
+  if( ProbeAudioDevOss( p_demux, p_demux->p_sys->psz_device ) )
+  {
+    msg_Dbg( p_demux, "'%s' is an audio device", p_demux->p_sys->psz_device );
+    p_demux->p_sys->i_fd = OpenAudioDev( p_demux );
+  }
 
-    if( p_demux->p_sys->i_fd < 0 )
-        return VLC_EGENERIC;
-    return VLC_SUCCESS;
+  if( p_demux->p_sys->i_fd < 0 )
+    return VLC_EGENERIC;
+  return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -147,41 +147,41 @@ static int FindMainDevice( demux_t *p_demux )
  *****************************************************************************/
 static int DemuxOpen( vlc_object_t *p_this )
 {
-    demux_t     *p_demux = (demux_t*)p_this;
-    demux_sys_t *p_sys;
+  demux_t   *p_demux = (demux_t*)p_this;
+  demux_sys_t *p_sys;
 
-    /* Only when selected */
-    if( *p_demux->psz_access == '\0' ) return VLC_EGENERIC;
+  /* Only when selected */
+  if( *p_demux->psz_access == '\0' ) return VLC_EGENERIC;
 
-    /* Set up p_demux */
-    p_demux->pf_control = DemuxControl;
-    p_demux->pf_demux = Demux;
-    p_demux->info.i_update = 0;
-    p_demux->info.i_title = 0;
-    p_demux->info.i_seekpoint = 0;
+  /* Set up p_demux */
+  p_demux->pf_control = DemuxControl;
+  p_demux->pf_demux = Demux;
+  p_demux->info.i_update = 0;
+  p_demux->info.i_title = 0;
+  p_demux->info.i_seekpoint = 0;
 
-    p_demux->p_sys = p_sys = calloc( 1, sizeof( demux_sys_t ) );
-    if( p_sys == NULL ) return VLC_ENOMEM;
+  p_demux->p_sys = p_sys = calloc( 1, sizeof( demux_sys_t ) );
+  if( p_sys == NULL ) return VLC_ENOMEM;
 
-    p_sys->i_sample_rate = var_InheritInteger( p_demux, CFG_PREFIX "samplerate" );
-    p_sys->b_stereo = var_InheritBool( p_demux, CFG_PREFIX "stereo" );
-    p_sys->i_fd = -1;
-    p_sys->p_es = NULL;
-    p_sys->p_block = NULL;
-    p_sys->i_next_demux_date = -1;
+  p_sys->i_sample_rate = var_InheritInteger( p_demux, CFG_PREFIX "samplerate" );
+  p_sys->b_stereo = var_InheritBool( p_demux, CFG_PREFIX "stereo" );
+  p_sys->i_fd = -1;
+  p_sys->p_es = NULL;
+  p_sys->p_block = NULL;
+  p_sys->i_next_demux_date = -1;
 
-    if( p_demux->psz_location && *p_demux->psz_location )
-        p_sys->psz_device = p_demux->psz_location;
-    else
-        p_sys->psz_device = OSS_DEFAULT;
+  if( p_demux->psz_location && *p_demux->psz_location )
+    p_sys->psz_device = p_demux->psz_location;
+  else
+    p_sys->psz_device = OSS_DEFAULT;
 
-    if( FindMainDevice( p_demux ) != VLC_SUCCESS )
-    {
-        DemuxClose( p_this );
-        return VLC_EGENERIC;
-    }
+  if( FindMainDevice( p_demux ) != VLC_SUCCESS )
+  {
+    DemuxClose( p_this );
+    return VLC_EGENERIC;
+  }
 
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -189,13 +189,13 @@ static int DemuxOpen( vlc_object_t *p_this )
  *****************************************************************************/
 static void DemuxClose( vlc_object_t *p_this )
 {
-    demux_t     *p_demux = (demux_t *)p_this;
-    demux_sys_t *p_sys   = p_demux->p_sys;
+  demux_t   *p_demux = (demux_t *)p_this;
+  demux_sys_t *p_sys = p_demux->p_sys;
 
-    if( p_sys->i_fd >= 0 ) close( p_sys->i_fd );
+  if( p_sys->i_fd >= 0 ) close( p_sys->i_fd );
 
-    if( p_sys->p_block ) block_Release( p_sys->p_block );
-    free( p_sys );
+  if( p_sys->p_block ) block_Release( p_sys->p_block );
+  free( p_sys );
 }
 
 /*****************************************************************************
@@ -203,41 +203,41 @@ static void DemuxClose( vlc_object_t *p_this )
  *****************************************************************************/
 static int DemuxControl( demux_t *p_demux, int i_query, va_list args )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    bool *pb;
-    int64_t    *pi64;
+  demux_sys_t *p_sys = p_demux->p_sys;
+  bool *pb;
+  int64_t  *pi64;
 
-    switch( i_query )
-    {
-        /* Special for access_demux */
-        case DEMUX_CAN_PAUSE:
-        case DEMUX_CAN_SEEK:
-        case DEMUX_CAN_CONTROL_PACE:
-            pb = (bool*)va_arg( args, bool * );
-            *pb = false;
-            return VLC_SUCCESS;
+  switch( i_query )
+  {
+    /* Special for access_demux */
+    case DEMUX_CAN_PAUSE:
+    case DEMUX_CAN_SEEK:
+    case DEMUX_CAN_CONTROL_PACE:
+    pb = (bool*)va_arg( args, bool * );
+    *pb = false;
+    return VLC_SUCCESS;
 
-        case DEMUX_GET_PTS_DELAY:
-            pi64 = (int64_t*)va_arg( args, int64_t * );
-            *pi64 = INT64_C(1000)
-                  * var_InheritInteger( p_demux, "live-caching" );
-            return VLC_SUCCESS;
+    case DEMUX_GET_PTS_DELAY:
+    pi64 = (int64_t*)va_arg( args, int64_t * );
+    *pi64 = INT64_C(1000)
+      * var_InheritInteger( p_demux, "live-caching" );
+    return VLC_SUCCESS;
 
-        case DEMUX_GET_TIME:
-            pi64 = (int64_t*)va_arg( args, int64_t * );
-            *pi64 = mdate();
-            return VLC_SUCCESS;
+    case DEMUX_GET_TIME:
+    pi64 = (int64_t*)va_arg( args, int64_t * );
+    *pi64 = mdate();
+    return VLC_SUCCESS;
 
-        case DEMUX_SET_NEXT_DEMUX_TIME:
-            p_sys->i_next_demux_date = (int64_t)va_arg( args, int64_t );
-            return VLC_SUCCESS;
+    case DEMUX_SET_NEXT_DEMUX_TIME:
+    p_sys->i_next_demux_date = (int64_t)va_arg( args, int64_t );
+    return VLC_SUCCESS;
 
-        /* TODO implement others */
-        default:
-            return VLC_EGENERIC;
-    }
-
+    /* TODO implement others */
+    default:
     return VLC_EGENERIC;
+  }
+
+  return VLC_EGENERIC;
 }
 
 /*****************************************************************************
@@ -245,42 +245,42 @@ static int DemuxControl( demux_t *p_demux, int i_query, va_list args )
  *****************************************************************************/
 static int Demux( demux_t *p_demux )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
+  demux_sys_t *p_sys = p_demux->p_sys;
 
-    struct pollfd fd;
-    fd.fd = p_sys->i_fd;
-    fd.events = POLLIN|POLLPRI;
-    fd.revents = 0;
+  struct pollfd fd;
+  fd.fd = p_sys->i_fd;
+  fd.events = POLLIN|POLLPRI;
+  fd.revents = 0;
 
-    block_t *p_block = NULL;
+  block_t *p_block = NULL;
 
-    do
-    {
-        if( p_block )
-        {
-            es_out_Send( p_demux->out, p_sys->p_es, p_block );
-            p_block = NULL;
-        }
-
-        /* Wait for data */
-        if( poll( &fd, 1, 10 ) ) /* Timeout after 0.01 seconds. Bigger delays are an issue when used with/as an input-slave since all the inputs run in the same thread. */
-        {
-            if( errno == EINTR )
-                continue;
-            if( fd.revents & (POLLIN|POLLPRI) )
-            {
-                p_block = GrabAudio( p_demux );
-                if( p_block )
-                    es_out_Control( p_demux->out, ES_OUT_SET_PCR, p_block->i_pts );
-            }
-        }
-    } while( p_block && p_sys->i_next_demux_date > 0 &&
-             p_block->i_pts < p_sys->i_next_demux_date );
-
+  do
+  {
     if( p_block )
-        es_out_Send( p_demux->out, p_sys->p_es, p_block );
+    {
+    es_out_Send( p_demux->out, p_sys->p_es, p_block );
+    p_block = NULL;
+    }
 
-    return 1;
+    /* Wait for data */
+    if( poll( &fd, 1, 10 ) ) /* Timeout after 0.01 seconds. Bigger delays are an issue when used with/as an input-slave since all the inputs run in the same thread. */
+    {
+    if( errno == EINTR )
+      continue;
+    if( fd.revents & (POLLIN|POLLPRI) )
+    {
+      p_block = GrabAudio( p_demux );
+      if( p_block )
+        es_out_Control( p_demux->out, ES_OUT_SET_PCR, p_block->i_pts );
+    }
+    }
+  } while( p_block && p_sys->i_next_demux_date > 0 &&
+     p_block->i_pts < p_sys->i_next_demux_date );
+
+  if( p_block )
+    es_out_Send( p_demux->out, p_sys->p_es, p_block );
+
+  return 1;
 }
 
 /*****************************************************************************
@@ -288,43 +288,43 @@ static int Demux( demux_t *p_demux )
  *****************************************************************************/
 static block_t* GrabAudio( demux_t *p_demux )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    struct audio_buf_info buf_info;
-    int i_read = 0, i_correct;
-    block_t *p_block;
+  demux_sys_t *p_sys = p_demux->p_sys;
+  struct audio_buf_info buf_info;
+  int i_read = 0, i_correct;
+  block_t *p_block;
 
-    if( p_sys->p_block ) p_block = p_sys->p_block;
-    else p_block = block_New( p_demux, p_sys->i_max_frame_size );
+  if( p_sys->p_block ) p_block = p_sys->p_block;
+  else p_block = block_New( p_demux, p_sys->i_max_frame_size );
 
-    if( !p_block )
-    {
-        msg_Warn( p_demux, "cannot get block" );
-        return NULL;
-    }
+  if( !p_block )
+  {
+    msg_Warn( p_demux, "cannot get block" );
+    return NULL;
+  }
 
-    p_sys->p_block = p_block;
+  p_sys->p_block = p_block;
 
-    i_read = read( p_sys->i_fd, p_block->p_buffer,
-                p_sys->i_max_frame_size );
+  i_read = read( p_sys->i_fd, p_block->p_buffer,
+      p_sys->i_max_frame_size );
 
-    if( i_read <= 0 ) return NULL;
+  if( i_read <= 0 ) return NULL;
 
-    p_block->i_buffer = i_read;
-    p_sys->p_block = NULL;
+  p_block->i_buffer = i_read;
+  p_sys->p_block = NULL;
 
-    /* Correct the date because of kernel buffering */
-    i_correct = i_read;
-    if( ioctl( p_sys->i_fd, SNDCTL_DSP_GETISPACE, &buf_info ) == 0 )
-    {
-        i_correct += buf_info.bytes;
-    }
+  /* Correct the date because of kernel buffering */
+  i_correct = i_read;
+  if( ioctl( p_sys->i_fd, SNDCTL_DSP_GETISPACE, &buf_info ) == 0 )
+  {
+    i_correct += buf_info.bytes;
+  }
 
-    /* Timestamp */
-    p_block->i_pts = p_block->i_dts =
-        mdate() - INT64_C(1000000) * (mtime_t)i_correct /
-        2 / ( p_sys->b_stereo ? 2 : 1) / p_sys->i_sample_rate;
+  /* Timestamp */
+  p_block->i_pts = p_block->i_dts =
+    mdate() - INT64_C(1000000) * (mtime_t)i_correct /
+    2 / ( p_sys->b_stereo ? 2 : 1) / p_sys->i_sample_rate;
 
-    return p_block;
+  return p_block;
 }
 
 /*****************************************************************************
@@ -332,77 +332,77 @@ static block_t* GrabAudio( demux_t *p_demux )
  *****************************************************************************/
 static int OpenAudioDevOss( demux_t *p_demux )
 {
-    int i_fd;
-    int i_format;
+  int i_fd;
+  int i_format;
 
-    i_fd = vlc_open( p_demux->p_sys->psz_device, O_RDONLY | O_NONBLOCK );
+  i_fd = vlc_open( p_demux->p_sys->psz_device, O_RDONLY | O_NONBLOCK );
 
-    if( i_fd < 0 )
-    {
-        msg_Err( p_demux, "cannot open OSS audio device (%m)" );
-        goto adev_fail;
-    }
+  if( i_fd < 0 )
+  {
+    msg_Err( p_demux, "cannot open OSS audio device (%m)" );
+    goto adev_fail;
+  }
 
-    i_format = AFMT_S16_LE;
-    if( ioctl( i_fd, SNDCTL_DSP_SETFMT, &i_format ) < 0
-        || i_format != AFMT_S16_LE )
-    {
-        msg_Err( p_demux,
-                 "cannot set audio format (16b little endian) (%m)" );
-        goto adev_fail;
-    }
+  i_format = AFMT_S16_LE;
+  if( ioctl( i_fd, SNDCTL_DSP_SETFMT, &i_format ) < 0
+    || i_format != AFMT_S16_LE )
+  {
+    msg_Err( p_demux,
+       "cannot set audio format (16b little endian) (%m)" );
+    goto adev_fail;
+  }
 
-    if( ioctl( i_fd, SNDCTL_DSP_STEREO,
-               &p_demux->p_sys->b_stereo ) < 0 )
-    {
-        msg_Err( p_demux, "cannot set audio channels count (%m)" );
-        goto adev_fail;
-    }
+  if( ioctl( i_fd, SNDCTL_DSP_STEREO,
+     &p_demux->p_sys->b_stereo ) < 0 )
+  {
+    msg_Err( p_demux, "cannot set audio channels count (%m)" );
+    goto adev_fail;
+  }
 
-    if( ioctl( i_fd, SNDCTL_DSP_SPEED,
-               &p_demux->p_sys->i_sample_rate ) < 0 )
-    {
-        msg_Err( p_demux, "cannot set audio sample rate (%m)" );
-        goto adev_fail;
-    }
+  if( ioctl( i_fd, SNDCTL_DSP_SPEED,
+     &p_demux->p_sys->i_sample_rate ) < 0 )
+  {
+    msg_Err( p_demux, "cannot set audio sample rate (%m)" );
+    goto adev_fail;
+  }
 
-    p_demux->p_sys->i_max_frame_size = 6 * 1024;
+  p_demux->p_sys->i_max_frame_size = 6 * 1024;
 
-    return i_fd;
+  return i_fd;
 
  adev_fail:
 
-    if( i_fd >= 0 ) close( i_fd );
-    return -1;
+  if( i_fd >= 0 ) close( i_fd );
+  return -1;
 }
 
 static int OpenAudioDev( demux_t *p_demux )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    int i_fd = OpenAudioDevOss( p_demux );
+  demux_sys_t *p_sys = p_demux->p_sys;
+  int i_fd = OpenAudioDevOss( p_demux );
 
-    if( i_fd < 0 )
-        return i_fd;
-
-    msg_Dbg( p_demux, "opened adev=`%s' %s %dHz",
-             p_sys->psz_device, p_sys->b_stereo ? "stereo" : "mono",
-             p_sys->i_sample_rate );
-
-    es_format_t fmt;
-    es_format_Init( &fmt, AUDIO_ES, VLC_CODEC_S16L );
-
-    fmt.audio.i_channels = p_sys->b_stereo ? 2 : 1;
-    fmt.audio.i_rate = p_sys->i_sample_rate;
-    fmt.audio.i_bitspersample = 16;
-    fmt.audio.i_blockalign = fmt.audio.i_channels * fmt.audio.i_bitspersample / 8;
-    fmt.i_bitrate = fmt.audio.i_channels * fmt.audio.i_rate * fmt.audio.i_bitspersample;
-
-    msg_Dbg( p_demux, "new audio es %d channels %dHz",
-             fmt.audio.i_channels, fmt.audio.i_rate );
-
-    p_sys->p_es = es_out_Add( p_demux->out, &fmt );
-
+  if( i_fd < 0 )
     return i_fd;
+
+  msg_Dbg( p_demux, "opened adev=`%s' %s %dHz",
+     p_sys->psz_device, p_sys->b_stereo ? "stereo" : "mono",
+     p_sys->i_sample_rate );
+
+  es_format_t fmt;
+  es_format_Init( &fmt, AUDIO_ES, VLC_CODEC_S16L );
+
+  fmt.audio.i_channels = p_sys->b_stereo ? 2 : 1;
+  fmt.audio.i_rate = p_sys->i_sample_rate;
+  fmt.audio.i_bitspersample = 16;
+  fmt.audio.i_blockalign = fmt.audio.i_channels * fmt.audio.i_bitspersample / 8;
+  fmt.i_bitrate = fmt.audio.i_channels * fmt.audio.i_rate * fmt.audio.i_bitspersample;
+
+  msg_Dbg( p_demux, "new audio es %d channels %dHz",
+     fmt.audio.i_channels, fmt.audio.i_rate );
+
+  p_sys->p_es = es_out_Add( p_demux->out, &fmt );
+
+  return i_fd;
 }
 
 /*****************************************************************************
@@ -410,27 +410,27 @@ static int OpenAudioDev( demux_t *p_demux )
  *****************************************************************************/
 static bool ProbeAudioDevOss( demux_t *p_demux, const char *psz_device )
 {
-    int i_caps;
-    int i_fd = vlc_open( psz_device, O_RDONLY | O_NONBLOCK );
+  int i_caps;
+  int i_fd = vlc_open( psz_device, O_RDONLY | O_NONBLOCK );
 
-    if( i_fd < 0 )
-    {
-        msg_Err( p_demux, "cannot open device %s for OSS audio (%m)", psz_device );
-        goto open_failed;
-    }
+  if( i_fd < 0 )
+  {
+    msg_Err( p_demux, "cannot open device %s for OSS audio (%m)", psz_device );
+    goto open_failed;
+  }
 
-    /* this will fail if the device is video */
-    if( ioctl( i_fd, SNDCTL_DSP_GETCAPS, &i_caps ) < 0 )
-    {
-        msg_Err( p_demux, "cannot get audio caps (%m)" );
-        goto open_failed;
-    }
+  /* this will fail if the device is video */
+  if( ioctl( i_fd, SNDCTL_DSP_GETCAPS, &i_caps ) < 0 )
+  {
+    msg_Err( p_demux, "cannot get audio caps (%m)" );
+    goto open_failed;
+  }
 
-    if( i_fd >= 0 ) close( i_fd );
+  if( i_fd >= 0 ) close( i_fd );
 
-    return true;
+  return true;
 
 open_failed:
-    if( i_fd >= 0 ) close( i_fd );
-    return false;
+  if( i_fd >= 0 ) close( i_fd );
+  return false;
 }

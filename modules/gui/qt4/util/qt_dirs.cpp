@@ -28,11 +28,11 @@
 
 QString toURI( const QString& s )
 {
-    char *psz = make_URI( qtu(s), NULL );
-    if( psz == NULL )
-        return qfu("");
+  char *psz = make_URI( qtu(s), NULL );
+  if( psz == NULL )
+    return qfu("");
 
-    QString uri = qfu( psz );
-    free( psz );
-    return uri;
+  QString uri = qfu( psz );
+  free( psz );
+  return uri;
 }

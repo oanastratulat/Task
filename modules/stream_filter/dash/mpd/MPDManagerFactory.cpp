@@ -5,7 +5,7 @@
  *
  * Created on: Apr 20, 2011
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -30,27 +30,27 @@
 using namespace dash::mpd;
 using namespace dash::xml;
 
-IMPDManager* MPDManagerFactory::create                  (Profile profile, Node *root)
+IMPDManager* MPDManagerFactory::create      (Profile profile, Node *root)
 {
-    switch(profile)
-    {
-        case mpd::Basic:    return new NullManager();
-        case mpd::BasicCM:  return createBasicCMManager(root);
-        case mpd::Full2011: return new NullManager();
-        case mpd::NotValid: return new NullManager();
+  switch(profile)
+  {
+    case mpd::Basic:  return new NullManager();
+    case mpd::BasicCM:  return createBasicCMManager(root);
+    case mpd::Full2011: return new NullManager();
+    case mpd::NotValid: return new NullManager();
 
-        default:            return new NullManager();
-    }
+    default:    return new NullManager();
+  }
 }
 
-IMPDManager* MPDManagerFactory::createBasicCMManager    (Node *root)
+IMPDManager* MPDManagerFactory::createBasicCMManager  (Node *root)
 {
-    BasicCMParser parser(root);
+  BasicCMParser parser(root);
 
-    if(!parser.parse())
-        return new NullManager();
+  if(!parser.parse())
+    return new NullManager();
 
-    BasicCMManager *manager =  new BasicCMManager(parser.getMPD());
+  BasicCMManager *manager =  new BasicCMManager(parser.getMPD());
 
-    return manager;
+  return manager;
 }

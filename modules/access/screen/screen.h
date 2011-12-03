@@ -5,7 +5,7 @@
  * $Id: d0197f6bd27662a67da3e655022c16e1df966247 $
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
- *          Antoine Cellerier <dionoea at videolan dot org>
+ *    Antoine Cellerier <dionoea at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,47 +27,47 @@
 #include <vlc_demux.h>
 
 #if !defined( HAVE_DARWIN )
-#   define SCREEN_SUBSCREEN
-#   define SCREEN_MOUSE
+# define SCREEN_SUBSCREEN
+# define SCREEN_MOUSE
 #endif
 
 #ifdef SCREEN_MOUSE
-#   include <vlc_image.h>
+# include <vlc_image.h>
 #endif
 
 typedef struct screen_data_t screen_data_t;
 
-struct demux_sys_t
+struct demux_sys_
 {
-    es_format_t fmt;
-    es_out_id_t *es;
+  es_format_t fmt;
+  es_out_id_t *es;
 
-    float f_fps;
-    mtime_t i_next_date;
-    int i_incr;
+  float f_fps;
+  mtime_t i_next_date;
+  int i_incr;
 
 #ifdef SCREEN_SUBSCREEN
-    bool b_follow_mouse;
-    unsigned int i_screen_height;
-    unsigned int i_screen_width;
+  bool b_follow_mouse;
+  unsigned int i_screen_height;
+  unsigned int i_screen_width;
 
-    unsigned int i_top;
-    unsigned int i_left;
-    unsigned int i_height;
-    unsigned int i_width;
+  unsigned int i_top;
+  unsigned int i_left;
+  unsigned int i_height;
+  unsigned int i_width;
 #endif
 
 #ifdef SCREEN_MOUSE
-    picture_t *p_mouse;
-    filter_t *p_blend;
-    picture_t dst;
+  picture_t *p_mouse;
+  filter_t *p_blend;
+  picture_t dst;
 #endif
 
-    screen_data_t *p_data;
+  screen_data_t *p_data;
 };
 
-int      screen_InitCapture ( demux_t * );
-int      screen_CloseCapture( demux_t * );
+int  screen_InitCapture ( demux_t * );
+int  screen_CloseCapture( demux_t * );
 block_t *screen_Capture( demux_t * );
 
 #ifdef SCREEN_SUBSCREEN

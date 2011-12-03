@@ -1,7 +1,7 @@
 /*****************************************************************************
  * external.cpp : Dialogs from other LibVLC core and other plugins
  ****************************************************************************
- * Copyright (C) 2009 Rémi Denis-Courmont
+ * Copyright (C) 2009 Rémi Denis-Courmon
  * Copyright (C) 2006 the VideoLAN team
  *
  * This program is free software; you can redistribute it and/or modify
@@ -39,223 +39,223 @@
 #include <QTimer>
 
 DialogHandler::DialogHandler (intf_thread_t *intf, QObject *_parent)
-    : QObject( _parent ), intf (intf),
-      critical (VLC_OBJECT(intf), "dialog-critical"),
-      login (VLC_OBJECT(intf), "dialog-login"),
-      question (VLC_OBJECT(intf), "dialog-question"),
-      progressBar (VLC_OBJECT(intf), "dialog-progress-bar")
+  : QObject( _parent ), intf (intf),
+  critical (VLC_OBJECT(intf), "dialog-critical"),
+  login (VLC_OBJECT(intf), "dialog-login"),
+  question (VLC_OBJECT(intf), "dialog-question"),
+  progressBar (VLC_OBJECT(intf), "dialog-progress-bar")
 {
-    var_Create (intf, "dialog-error", VLC_VAR_ADDRESS);
-    var_AddCallback (intf, "dialog-error", error, this);
-    connect (this, SIGNAL(error(const QString &, const QString &)),
-             SLOT(displayError(const QString &, const QString &)));
+  var_Create (intf, "dialog-error", VLC_VAR_ADDRESS);
+  var_AddCallback (intf, "dialog-error", error, this);
+  connect (this, SIGNAL(error(const QString &, const QString &)),
+     SLOT(displayError(const QString &, const QString &)));
 
-    connect (&critical, SIGNAL(pointerChanged(vlc_object_t *, void *)),
-             SLOT(displayCritical(vlc_object_t *, void *)),
-             Qt::BlockingQueuedConnection);
-    connect (&login, SIGNAL(pointerChanged(vlc_object_t *, void *)),
-             SLOT(requestLogin(vlc_object_t *, void *)),
-             Qt::BlockingQueuedConnection);
-    connect (&question, SIGNAL(pointerChanged(vlc_object_t *, void *)),
-             SLOT(requestAnswer(vlc_object_t *, void *)),
-             Qt::BlockingQueuedConnection);
-    connect (&progressBar, SIGNAL(pointerChanged(vlc_object_t *, void *)),
-             SLOT(startProgressBar(vlc_object_t *, void *)),
-             Qt::BlockingQueuedConnection);
-    connect (this,
-             SIGNAL(progressBarDestroyed(QWidget *)),
-             SLOT(stopProgressBar(QWidget *)));
+  connect (&critical, SIGNAL(pointerChanged(vlc_object_t *, void *)),
+     SLOT(displayCritical(vlc_object_t *, void *)),
+     Qt::BlockingQueuedConnection);
+  connect (&login, SIGNAL(pointerChanged(vlc_object_t *, void *)),
+     SLOT(requestLogin(vlc_object_t *, void *)),
+     Qt::BlockingQueuedConnection);
+  connect (&question, SIGNAL(pointerChanged(vlc_object_t *, void *)),
+     SLOT(requestAnswer(vlc_object_t *, void *)),
+     Qt::BlockingQueuedConnection);
+  connect (&progressBar, SIGNAL(pointerChanged(vlc_object_t *, void *)),
+     SLOT(startProgressBar(vlc_object_t *, void *)),
+     Qt::BlockingQueuedConnection);
+  connect (this,
+     SIGNAL(progressBarDestroyed(QWidget *)),
+     SLOT(stopProgressBar(QWidget *)));
 
-    dialog_Register (intf);
+  dialog_Register (intf);
 }
 
 DialogHandler::~DialogHandler (void)
 {
-    dialog_Unregister (intf);
+  dialog_Unregister (intf);
 
-    var_DelCallback (intf, "dialog-error", error, this);
-    var_Destroy (intf, "dialog-error");
+  var_DelCallback (intf, "dialog-error", error, this);
+  var_Destroy (intf, "dialog-error");
 }
 
 int DialogHandler::error (vlc_object_t *obj, const char *,
-                          vlc_value_t, vlc_value_t value, void *data)
+          vlc_value_t, vlc_value_t value, void *data)
 {
-    const dialog_fatal_t *dialog = (const dialog_fatal_t *)value.p_address;
-    DialogHandler *self = static_cast<DialogHandler *>(data);
+  const dialog_fatal_t *dialog = (const dialog_fatal_t *)value.p_address;
+  DialogHandler *self = static_cast<DialogHandler *>(data);
 
-    if (var_InheritBool (obj, "qt-error-dialogs"))
-        emit self->error (qfu(dialog->title), qfu(dialog->message));
-    return VLC_SUCCESS;
+  if (var_InheritBool (obj, "qt-error-dialogs"))
+    emit self->error (qfu(dialog->title), qfu(dialog->message));
+  return VLC_SUCCESS;
 }
 
 void DialogHandler::displayError (const QString& title, const QString& message)
 {
-    ErrorsDialog::getInstance (intf)->addError(title, message);
+  ErrorsDialog::getInstance (intf)->addError(title, message);
 }
 
 void DialogHandler::displayCritical (vlc_object_t *, void *value)
 {
-    const dialog_fatal_t *dialog = (const dialog_fatal_t *)value;
+  const dialog_fatal_t *dialog = (const dialog_fatal_t *)value;
 
-    QMessageBox::critical (NULL, qfu(dialog->title), qfu(dialog->message),
-                           QMessageBox::Ok);
+  QMessageBox::critical (NULL, qfu(dialog->title), qfu(dialog->message),
+         QMessageBox::Ok);
 }
 
 void DialogHandler::requestLogin (vlc_object_t *, void *value)
 {
-    dialog_login_t *data = (dialog_login_t *)value;
-    QDialog *dialog = new QDialog;
-    QLayout *layout = new QVBoxLayout (dialog);
+  dialog_login_t *data = (dialog_login_t *)value;
+  QDialog *dialog = new QDialog;
+  QLayout *layout = new QVBoxLayout (dialog);
 
-    dialog->setWindowTitle (qfu(data->title));
-    dialog->setWindowRole ("vlc-login");
-    layout->setMargin (2);
+  dialog->setWindowTitle (qfu(data->title));
+  dialog->setWindowRole ("vlc-login");
+  layout->setMargin (2);
 
-    /* User name and password fields */
-    QWidget *panel = new QWidget (dialog);
-    QGridLayout *grid = new QGridLayout;
-    grid->addWidget (new QLabel (qfu(data->message)), 0, 0, 1, 2);
+  /* User name and password fields */
+  QWidget *panel = new QWidget (dialog);
+  QGridLayout *grid = new QGridLayout;
+  grid->addWidget (new QLabel (qfu(data->message)), 0, 0, 1, 2);
 
-    QLineEdit *userLine = new QLineEdit;
-    grid->addWidget (new QLabel (qtr("User name")), 1, 0);
-    grid->addWidget (userLine, 1, 1);
+  QLineEdit *userLine = new QLineEdit;
+  grid->addWidget (new QLabel (qtr("User name")), 1, 0);
+  grid->addWidget (userLine, 1, 1);
 
-    QLineEdit *passLine = new QLineEdit;
-    passLine->setEchoMode (QLineEdit::Password);
-    grid->addWidget (new QLabel (qtr("Password")), 2, 0);
-    grid->addWidget (passLine, 2, 1);
+  QLineEdit *passLine = new QLineEdit;
+  passLine->setEchoMode (QLineEdit::Password);
+  grid->addWidget (new QLabel (qtr("Password")), 2, 0);
+  grid->addWidget (passLine, 2, 1);
 
-    panel->setLayout (grid);
-    layout->addWidget (panel);
+  panel->setLayout (grid);
+  layout->addWidget (panel);
 
-    /* OK, Cancel buttons */
-    QDialogButtonBox *buttonBox = new QDialogButtonBox;
-    QPushButton *okButton = new QPushButton( "&Ok" );
-    QPushButton *cancelButton = new QPushButton( "&Cancel" );
-    buttonBox->addButton( okButton, QDialogButtonBox::AcceptRole );
-    buttonBox->addButton( cancelButton, QDialogButtonBox::RejectRole );
+  /* OK, Cancel buttons */
+  QDialogButtonBox *buttonBox = new QDialogButtonBox;
+  QPushButton *okButton = new QPushButton( "&Ok" );
+  QPushButton *cancelButton = new QPushButton( "&Cancel" );
+  buttonBox->addButton( okButton, QDialogButtonBox::AcceptRole );
+  buttonBox->addButton( cancelButton, QDialogButtonBox::RejectRole );
 
-    CONNECT( buttonBox, accepted(), dialog, accept() );
-    CONNECT( buttonBox, rejected(), dialog, reject() );
-    layout->addWidget (buttonBox);
+  CONNECT( buttonBox, accepted(), dialog, accept() );
+  CONNECT( buttonBox, rejected(), dialog, reject() );
+  layout->addWidget (buttonBox);
 
-    /* Run the dialog */
-    dialog->setLayout (layout);
+  /* Run the dialog */
+  dialog->setLayout (layout);
 
-    if (dialog->exec ())
-    {
-        *data->username = strdup (qtu(userLine->text ()));
-        *data->password = strdup (qtu(passLine->text ()));
-    }
-    else
-        *data->username = *data->password = NULL;
+  if (dialog->exec ())
+  {
+    *data->username = strdup (qtu(userLine->text ()));
+    *data->password = strdup (qtu(passLine->text ()));
+  }
+  else
+    *data->username = *data->password = NULL;
 
-    delete dialog;
+  delete dialog;
 }
 
 void DialogHandler::requestAnswer (vlc_object_t *, void *value)
 {
-    dialog_question_t *data = (dialog_question_t *)value;
+  dialog_question_t *data = (dialog_question_t *)value;
 
-    QMessageBox *box = new QMessageBox (QMessageBox::Question,
-                                        qfu(data->title), qfu(data->message));
-    QAbstractButton *yes = (data->yes != NULL)
-        ? box->addButton ("&" + qfu(data->yes), QMessageBox::YesRole) : NULL;
-    QAbstractButton *no = (data->no != NULL)
-        ? box->addButton ("&" + qfu(data->no), QMessageBox::NoRole) : NULL;
-    if (data->cancel != NULL)
-        box->addButton ("&" + qfu(data->cancel), QMessageBox::RejectRole);
+  QMessageBox *box = new QMessageBox (QMessageBox::Question,
+              qfu(data->title), qfu(data->message));
+  QAbstractButton *yes = (data->yes != NULL)
+    ? box->addButton ("&" + qfu(data->yes), QMessageBox::YesRole) : NULL;
+  QAbstractButton *no = (data->no != NULL)
+    ? box->addButton ("&" + qfu(data->no), QMessageBox::NoRole) : NULL;
+  if (data->cancel != NULL)
+    box->addButton ("&" + qfu(data->cancel), QMessageBox::RejectRole);
 
-    box->exec ();
+  box->exec ();
 
-    int answer;
-    if (box->clickedButton () == yes)
-        answer = 1;
-    else
-    if (box->clickedButton () == no)
-        answer = 2;
-    else
-        answer = 3;
+  int answer;
+  if (box->clickedButton () == yes)
+    answer = 1;
+  else
+  if (box->clickedButton () == no)
+    answer = 2;
+  else
+    answer = 3;
 
-    delete box;
-    data->answer = answer;
+  delete box;
+  data->answer = answer;
 }
 
 
 QVLCProgressDialog::QVLCProgressDialog (DialogHandler *parent,
-                                        struct dialog_progress_bar_t *data)
-    : QProgressDialog ( ),
-      handler (parent),
-      cancelled (false)
+              struct dialog_progress_bar_t *data)
+  : QProgressDialog ( ),
+  handler (parent),
+  cancelled (false)
 {
-    setLabelText( qfu(data->message) );
-    setRange( 0, 0 );
-    if ( data->cancel )
-        setWindowModality ( Qt::ApplicationModal );
+  setLabelText( qfu(data->message) );
+  setRange( 0, 0 );
+  if ( data->cancel )
+    setWindowModality ( Qt::ApplicationModal );
 
-    if( data->cancel )
-        setCancelButton( new QPushButton( "&" + qfu(data->cancel) ) );
-    if (data->title != NULL)
-        setWindowTitle (qfu(data->title));
+  if( data->cancel )
+    setCancelButton( new QPushButton( "&" + qfu(data->cancel) ) );
+  if (data->title != NULL)
+    setWindowTitle (qfu(data->title));
 
-    setWindowRole ("vlc-progress");
-    setMinimumDuration (300);
-    setValue( 0 );
+  setWindowRole ("vlc-progress");
+  setMinimumDuration (300);
+  setValue( 0 );
 
-    connect (this, SIGNAL(progressed(int)), SLOT(setValue(int)));
-    connect (this, SIGNAL(described(const QString&)),
-                   SLOT(setLabelText(const QString&)));
-    connect (this, SIGNAL(canceled(void)), SLOT(saveCancel(void)));
+  connect (this, SIGNAL(progressed(int)), SLOT(setValue(int)));
+  connect (this, SIGNAL(described(const QString&)),
+       SLOT(setLabelText(const QString&)));
+  connect (this, SIGNAL(canceled(void)), SLOT(saveCancel(void)));
 
-    data->pf_update = update;
-    data->pf_check = check;
-    data->pf_destroy = destroy;
-    data->p_sys = this;
+  data->pf_update = update;
+  data->pf_check = check;
+  data->pf_destroy = destroy;
+  data->p_sys = this;
 }
 
 
 void QVLCProgressDialog::update (void *priv, const char *text, float value)
 {
-    QVLCProgressDialog *self = static_cast<QVLCProgressDialog *>(priv);
-    if( value > 0 )
-        self->setRange( 0, 1000 );
-    if (text != NULL)
-        emit self->described (qfu(text));
-    emit self->progressed ((int)(value * 1000.));
+  QVLCProgressDialog *self = static_cast<QVLCProgressDialog *>(priv);
+  if( value > 0 )
+    self->setRange( 0, 1000 );
+  if (text != NULL)
+    emit self->described (qfu(text));
+  emit self->progressed ((int)(value * 1000.));
 }
 
 static QMutex cancel_mutex;
 
 bool QVLCProgressDialog::check (void *priv)
 {
-    QVLCProgressDialog *self = static_cast<QVLCProgressDialog *>(priv);
-    QMutexLocker locker (&cancel_mutex);
-    return self->cancelled;
+  QVLCProgressDialog *self = static_cast<QVLCProgressDialog *>(priv);
+  QMutexLocker locker (&cancel_mutex);
+  return self->cancelled;
 }
 
 void QVLCProgressDialog::destroy (void *priv)
 {
-    QVLCProgressDialog *self = static_cast<QVLCProgressDialog *>(priv);
+  QVLCProgressDialog *self = static_cast<QVLCProgressDialog *>(priv);
 
-    emit self->handler->progressBarDestroyed (self);
+  emit self->handler->progressBarDestroyed (self);
 }
 
 void QVLCProgressDialog::saveCancel (void)
 {
-    QMutexLocker locker (&cancel_mutex);
-    cancelled = true;
+  QMutexLocker locker (&cancel_mutex);
+  cancelled = true;
 }
 
 void DialogHandler::startProgressBar (vlc_object_t *, void *value)
 {
-    dialog_progress_bar_t *data = (dialog_progress_bar_t *)value;
-    QWidget *dlg = new QVLCProgressDialog (this, data);
+  dialog_progress_bar_t *data = (dialog_progress_bar_t *)value;
+  QWidget *dlg = new QVLCProgressDialog (this, data);
 
-    QTimer::singleShot( 300, dlg, SLOT( show() ) );
-//    dlg->show ();
+  QTimer::singleShot( 300, dlg, SLOT( show() ) );
+//  dlg->show ();
 }
 
 void DialogHandler::stopProgressBar (QWidget *dlg)
 {
-    delete dlg;
+  delete dlg;
 }

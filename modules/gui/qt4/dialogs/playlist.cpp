@@ -34,55 +34,55 @@
 #include <QHBoxLayout>
 
 PlaylistDialog::PlaylistDialog( intf_thread_t *_p_intf )
-                : QVLCMW( _p_intf )
+      : QVLCMW( _p_intf )
 {
-    QWidget *main = new QWidget( this );
-    setCentralWidget( main );
-    setWindowTitle( qtr( "Playlist" ) );
-    setWindowRole( "vlc-playlist" );
-    setWindowOpacity( var_InheritFloat( p_intf, "qt-opacity" ) );
+  QWidget *main = new QWidget( this );
+  setCentralWidget( main );
+  setWindowTitle( qtr( "Playlist" ) );
+  setWindowRole( "vlc-playlist" );
+  setWindowOpacity( var_InheritFloat( p_intf, "qt-opacity" ) );
 
-    QHBoxLayout *l = new QHBoxLayout( centralWidget() );
+  QHBoxLayout *l = new QHBoxLayout( centralWidget() );
 
-    getSettings()->beginGroup("playlistdialog");
+  getSettings()->beginGroup("playlistdialog");
 
-    playlistWidget = new PlaylistWidget( p_intf, this );
-    l->addWidget( playlistWidget );
+  playlistWidget = new PlaylistWidget( p_intf, this );
+  l->addWidget( playlistWidget );
 
-    readSettings( getSettings(), QSize( 600,700 ) );
+  readSettings( getSettings(), QSize( 600,700 ) );
 
-    getSettings()->endGroup();
+  getSettings()->endGroup();
 }
 
 PlaylistDialog::~PlaylistDialog()
 {
-    getSettings()->beginGroup("playlistdialog");
-    writeSettings( getSettings() );
-    getSettings()->endGroup();
+  getSettings()->beginGroup("playlistdialog");
+  writeSettings( getSettings() );
+  getSettings()->endGroup();
 }
 
 void PlaylistDialog::dropEvent( QDropEvent *event )
 {
-     const QMimeData *mimeData = event->mimeData();
-     foreach( const QUrl &url, mimeData->urls() ) {
-        QString s = toNativeSeparators( url.toString() );
-        if( s.length() > 0 ) {
-            playlist_Add( THEPL, qtu(s), NULL,
-                          PLAYLIST_APPEND, PLAYLIST_END, true, false );
-        }
-     }
-     event->acceptProposedAction();
+   const QMimeData *mimeData = event->mimeData();
+   foreach( const QUrl &url, mimeData->urls() ) {
+    QString s = toNativeSeparators( url.toString() );
+    if( s.length() > 0 ) {
+    playlist_Add( THEPL, qtu(s), NULL,
+          PLAYLIST_APPEND, PLAYLIST_END, true, false );
+    }
+   }
+   event->acceptProposedAction();
 }
 void PlaylistDialog::dragEnterEvent( QDragEnterEvent *event )
 {
-     event->acceptProposedAction();
+   event->acceptProposedAction();
 }
 void PlaylistDialog::dragMoveEvent( QDragMoveEvent *event )
 {
-     event->acceptProposedAction();
+   event->acceptProposedAction();
 }
 void PlaylistDialog::dragLeaveEvent( QDragLeaveEvent *event )
 {
-     event->accept();
+   event->accept();
 }
 

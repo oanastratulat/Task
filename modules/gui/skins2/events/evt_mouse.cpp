@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 2bac8baf0ba8ee5420f43ac487d60b37f91fc40c $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
- *          Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ *    Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,33 +25,33 @@
 #include "evt_mouse.hpp"
 
 
-const string EvtMouse::getAsString() const
+const string EvtMouse::getAsString() cons
 {
-    string event = "mouse";
+  string event = "mouse";
 
-    // Add the button
-    if( m_button == kLeft )
-        event += ":left";
-    else if( m_button == kMiddle )
-        event += ":middle";
-    else if( m_button == kRight )
-        event += ":right";
-    else
-        msg_Warn( getIntf(), "unknown button type" );
+  // Add the button
+  if( m_button == kLeft )
+    event += ":left";
+  else if( m_button == kMiddle )
+    event += ":middle";
+  else if( m_button == kRight )
+    event += ":right";
+  else
+    msg_Warn( getIntf(), "unknown button type" );
 
-    // Add the action
-    if( m_action == kDown )
-        event += ":down";
-    else if( m_action == kUp )
-        event += ":up";
-    else if( m_action == kDblClick )
-        event += ":dblclick";
-    else
-        msg_Warn( getIntf(), "unknown action type" );
+  // Add the action
+  if( m_action == kDown )
+    event += ":down";
+  else if( m_action == kUp )
+    event += ":up";
+  else if( m_action == kDblClick )
+    event += ":dblclick";
+  else
+    msg_Warn( getIntf(), "unknown action type" );
 
-    // Add the modifier
-    addModifier( event );
+  // Add the modifier
+  addModifier( event );
 
-    return event;
+  return event;
 }
 

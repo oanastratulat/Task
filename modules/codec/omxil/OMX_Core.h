@@ -48,14 +48,14 @@ extern "C" {
  */
 typedef enum OMX_COMMANDTYPE
 {
-    OMX_CommandStateSet,    /**< Change the component state */
-    OMX_CommandFlush,       /**< Flush the data queue(s) of a component */
-    OMX_CommandPortDisable, /**< Disable a port on a component. */
-    OMX_CommandPortEnable,  /**< Enable a port on a component. */
-    OMX_CommandMarkBuffer,  /**< Mark a component/buffer for observation */
-    OMX_CommandKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
-    OMX_CommandVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
-    OMX_CommandMax = 0X7FFFFFFF
+  OMX_CommandStateSet,  /**< Change the component state */
+  OMX_CommandFlush,   /**< Flush the data queue(s) of a component */
+  OMX_CommandPortDisable, /**< Disable a port on a component. */
+  OMX_CommandPortEnable,  /**< Enable a port on a component. */
+  OMX_CommandMarkBuffer,  /**< Mark a component/buffer for observation */
+  OMX_CommandKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
+  OMX_CommandVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+  OMX_CommandMax = 0X7FFFFFFF
 } OMX_COMMANDTYPE;
 
 
@@ -91,26 +91,26 @@ typedef enum OMX_COMMANDTYPE
 
 typedef enum OMX_STATETYPE
 {
-    OMX_StateInvalid,      /**< component has detected that it's internal data 
-                                structures are corrupted to the point that
-                                it cannot determine it's state properly */
-    OMX_StateLoaded,      /**< component has been loaded but has not completed
-                                initialization.  The OMX_SetParameter macro
-                                and the OMX_GetParameter macro are the only 
-                                valid macros allowed to be sent to the 
-                                component in this state. */
-    OMX_StateIdle,        /**< component initialization has been completed
-                                successfully and the component is ready to
-                                to start. */
-    OMX_StateExecuting,   /**< component has accepted the start command and
-                                is processing data (if data is available) */
-    OMX_StatePause,       /**< component has received pause command */
-    OMX_StateWaitForResources, /**< component is waiting for resources, either after 
-                                preemption or before it gets the resources requested.
-                                See specification for complete details. */
-    OMX_StateKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
-    OMX_StateVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
-    OMX_StateMax = 0X7FFFFFFF
+  OMX_StateInvalid,  /**< component has detected that it's internal data 
+            structures are corrupted to the point that
+            it cannot determine it's state properly */
+  OMX_StateLoaded,  /**< component has been loaded but has not completed
+            initialization.  The OMX_SetParameter macro
+            and the OMX_GetParameter macro are the only 
+            valid macros allowed to be sent to the 
+            component in this state. */
+  OMX_StateIdle,    /**< component initialization has been completed
+            successfully and the component is ready to
+            to start. */
+  OMX_StateExecuting, /**< component has accepted the start command and
+            is processing data (if data is available) */
+  OMX_StatePause,   /**< component has received pause command */
+  OMX_StateWaitForResources, /**< component is waiting for resources, either after 
+            preemption or before it gets the resources requested.
+            See specification for complete details. */
+  OMX_StateKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
+  OMX_StateVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+  OMX_StateMax = 0X7FFFFFFF
 } OMX_STATETYPE;
 
 /** The OMX_ERRORTYPE enumeration defines the standard OMX Errors.  These 
@@ -118,10 +118,10 @@ typedef enum OMX_STATETYPE
  *  vendors are free to add additional error messages of their own as 
  *  long as they follow these rules:
  *  1.  Vendor error messages shall be in the range of 0x90000000 to
- *      0x9000FFFF.
+ *  0x9000FFFF.
  *  2.  Vendor error messages shall be defined in a header file provided
- *      with the component.  No error messages are allowed that are
- *      not defined.
+ *  with the component.  No error messages are allowed that are
+ *  not defined.
  */
 typedef enum OMX_ERRORTYPE
 {
@@ -140,7 +140,7 @@ typedef enum OMX_ERRORTYPE
   OMX_ErrorComponentNotFound = (OMX_S32) 0x80001003,
 
   /** The component specified did not have a "OMX_ComponentInit" or
-      "OMX_ComponentDeInit entry point */
+  "OMX_ComponentDeInit entry point */
   OMX_ErrorInvalidComponent = (OMX_S32) 0x80001004,
 
   /** One or more parameters were not valid */
@@ -168,7 +168,7 @@ typedef enum OMX_ERRORTYPE
   OMX_ErrorPortsNotCompatible = (OMX_S32) 0x8000100C,
 
   /** Resources allocated to an idle component have been
-      lost resulting in the component returning to the loaded state */
+  lost resulting in the component returning to the loaded state */
   OMX_ErrorResourcesLost = (OMX_S32) 0x8000100D,
 
   /** No more indicies can be enumerated */
@@ -187,25 +187,25 @@ typedef enum OMX_ERRORTYPE
   OMX_ErrorSameState = (OMX_S32) 0x80001012,
 
   /** Resources allocated to an executing or paused component have been 
-      preempted, causing the component to return to the idle state */
+  preempted, causing the component to return to the idle state */
   OMX_ErrorResourcesPreempted = (OMX_S32) 0x80001013, 
 
   /** A non-supplier port sends this error to the IL client (via the EventHandler callback) 
-      during the allocation of buffers (on a transition from the LOADED to the IDLE state or
-      on a port restart) when it deems that it has waited an unusually long time for the supplier 
-      to send it an allocated buffer via a UseBuffer call. */
+  during the allocation of buffers (on a transition from the LOADED to the IDLE state or
+  on a port restart) when it deems that it has waited an unusually long time for the supplier 
+  to send it an allocated buffer via a UseBuffer call. */
   OMX_ErrorPortUnresponsiveDuringAllocation = (OMX_S32) 0x80001014,
 
   /** A non-supplier port sends this error to the IL client (via the EventHandler callback) 
-      during the deallocation of buffers (on a transition from the IDLE to LOADED state or 
-      on a port stop) when it deems that it has waited an unusually long time for the supplier 
-      to request the deallocation of a buffer header via a FreeBuffer call. */
+  during the deallocation of buffers (on a transition from the IDLE to LOADED state or 
+  on a port stop) when it deems that it has waited an unusually long time for the supplier 
+  to request the deallocation of a buffer header via a FreeBuffer call. */
   OMX_ErrorPortUnresponsiveDuringDeallocation = (OMX_S32) 0x80001015,
 
   /** A supplier port sends this error to the IL client (via the EventHandler callback) 
-      during the stopping of a port (either on a transition from the IDLE to LOADED 
-      state or a port stop) when it deems that it has waited an unusually long time for 
-      the non-supplier to return a buffer via an EmptyThisBuffer or FillThisBuffer call. */
+  during the stopping of a port (either on a transition from the IDLE to LOADED 
+  state or a port stop) when it deems that it has waited an unusually long time for 
+  the non-supplier to return a buffer via an EmptyThisBuffer or FillThisBuffer call. */
   OMX_ErrorPortUnresponsiveDuringStop = (OMX_S32) 0x80001016,
 
   /** Attempting a state transtion that is not allowed */
@@ -262,7 +262,7 @@ typedef OMX_ERRORTYPE (* OMX_COMPONENTINITTYPE)(OMX_IN  OMX_HANDLETYPE hComponen
 /** @ingroup core */
 typedef struct OMX_COMPONENTREGISTERTYPE
 {
-  const char          * pName;       /* Component name, 128 byte limit (including '\0') applies */
+  const char    * pName;   /* Component name, 128 byte limit (including '\0') applies */
   OMX_COMPONENTINITTYPE pInitialize; /* Component instance initialization function */
 } OMX_COMPONENTREGISTERTYPE;
 
@@ -271,10 +271,10 @@ extern OMX_COMPONENTREGISTERTYPE OMX_ComponentRegistered[];
 
 /** @ingroup rpm */
 typedef struct OMX_PRIORITYMGMTTYPE {
- OMX_U32 nSize;             /**< size of the structure in bytes */
+ OMX_U32 nSize;     /**< size of the structure in bytes */
  OMX_VERSIONTYPE nVersion;  /**< OMX specification version information */
- OMX_U32 nGroupPriority;            /**< Priority of the component group */
- OMX_U32 nGroupID;                  /**< ID of the component group */
+ OMX_U32 nGroupPriority;    /**< Priority of the component group */
+ OMX_U32 nGroupID;      /**< ID of the component group */
 } OMX_PRIORITYMGMTTYPE;
 
 /* Component name and Role names are limited to 128 characters including the terminating '\0'. */
@@ -282,9 +282,9 @@ typedef struct OMX_PRIORITYMGMTTYPE {
 
 /** @ingroup comp */
 typedef struct OMX_PARAM_COMPONENTROLETYPE {
-    OMX_U32 nSize;              /**< size of the structure in bytes */
-    OMX_VERSIONTYPE nVersion;   /**< OMX specification version information */
-    OMX_U8 cRole[OMX_MAX_STRINGNAME_SIZE];  /**< name of standard component which defines component role */
+  OMX_U32 nSize;      /**< size of the structure in bytes */
+  OMX_VERSIONTYPE nVersion; /**< OMX specification version information */
+  OMX_U8 cRole[OMX_MAX_STRINGNAME_SIZE];  /**< name of standard component which defines component role */
 } OMX_PARAM_COMPONENTROLETYPE;
 
 /** End of Stream Buffer Flag: 
@@ -397,49 +397,49 @@ typedef struct OMX_PARAM_COMPONENTROLETYPE {
 /** @ingroup buf */
 typedef struct OMX_BUFFERHEADERTYPE
 {
-    OMX_U32 nSize;              /**< size of the structure in bytes */
-    OMX_VERSIONTYPE nVersion;   /**< OMX specification version information */
-    OMX_U8* pBuffer;            /**< Pointer to actual block of memory 
-                                     that is acting as the buffer */
-    OMX_U32 nAllocLen;          /**< size of the buffer allocated, in bytes */
-    OMX_U32 nFilledLen;         /**< number of bytes currently in the 
-                                     buffer */
-    OMX_U32 nOffset;            /**< start offset of valid data in bytes from
-                                     the start of the buffer */
-    OMX_PTR pAppPrivate;        /**< pointer to any data the application
-                                     wants to associate with this buffer */
-    OMX_PTR pPlatformPrivate;   /**< pointer to any data the platform
-                                     wants to associate with this buffer */ 
-    OMX_PTR pInputPortPrivate;  /**< pointer to any data the input port
-                                     wants to associate with this buffer */
-    OMX_PTR pOutputPortPrivate; /**< pointer to any data the output port
-                                     wants to associate with this buffer */
-    OMX_HANDLETYPE hMarkTargetComponent; /**< The component that will generate a 
-                                              mark event upon processing this buffer. */
-    OMX_PTR pMarkData;          /**< Application specific data associated with 
-                                     the mark sent on a mark event to disambiguate 
-                                     this mark from others. */
-    OMX_U32 nTickCount;         /**< Optional entry that the component and
-                                     application can update with a tick count
-                                     when they access the component.  This
-                                     value should be in microseconds.  Since
-                                     this is a value relative to an arbitrary
-                                     starting point, this value cannot be used 
-                                     to determine absolute time.  This is an
-                                     optional entry and not all components
-                                     will update it.*/
- OMX_TICKS nTimeStamp;          /**< Timestamp corresponding to the sample 
-                                     starting at the first logical sample 
-                                     boundary in the buffer. Timestamps of 
-                                     successive samples within the buffer may
-                                     be inferred by adding the duration of the 
-                                     of the preceding buffer to the timestamp
-                                     of the preceding buffer.*/
-  OMX_U32     nFlags;           /**< buffer specific flags */
-  OMX_U32 nOutputPortIndex;     /**< The index of the output port (if any) using 
-                                     this buffer */
-  OMX_U32 nInputPortIndex;      /**< The index of the input port (if any) using
-                                     this buffer */
+  OMX_U32 nSize;      /**< size of the structure in bytes */
+  OMX_VERSIONTYPE nVersion; /**< OMX specification version information */
+  OMX_U8* pBuffer;    /**< Pointer to actual block of memory 
+             that is acting as the buffer */
+  OMX_U32 nAllocLen;    /**< size of the buffer allocated, in bytes */
+  OMX_U32 nFilledLen;   /**< number of bytes currently in the 
+             buffer */
+  OMX_U32 nOffset;    /**< start offset of valid data in bytes from
+             the start of the buffer */
+  OMX_PTR pAppPrivate;    /**< pointer to any data the application
+             wants to associate with this buffer */
+  OMX_PTR pPlatformPrivate; /**< pointer to any data the platform
+             wants to associate with this buffer */ 
+  OMX_PTR pInputPortPrivate;  /**< pointer to any data the input port
+             wants to associate with this buffer */
+  OMX_PTR pOutputPortPrivate; /**< pointer to any data the output port
+             wants to associate with this buffer */
+  OMX_HANDLETYPE hMarkTargetComponent; /**< The component that will generate a 
+                mark event upon processing this buffer. */
+  OMX_PTR pMarkData;    /**< Application specific data associated with 
+             the mark sent on a mark event to disambiguate 
+             this mark from others. */
+  OMX_U32 nTickCount;   /**< Optional entry that the component and
+             application can update with a tick count
+             when they access the component.  This
+             value should be in microseconds.  Since
+             this is a value relative to an arbitrary
+             starting point, this value cannot be used 
+             to determine absolute time.  This is an
+             optional entry and not all components
+             will update it.*/
+ OMX_TICKS nTimeStamp;    /**< Timestamp corresponding to the sample 
+             starting at the first logical sample 
+             boundary in the buffer. Timestamps of 
+             successive samples within the buffer may
+             be inferred by adding the duration of the 
+             of the preceding buffer to the timestamp
+             of the preceding buffer.*/
+  OMX_U32   nFlags;     /**< buffer specific flags */
+  OMX_U32 nOutputPortIndex;   /**< The index of the output port (if any) using 
+             this buffer */
+  OMX_U32 nInputPortIndex;  /**< The index of the input port (if any) using
+             this buffer */
 } OMX_BUFFERHEADERTYPE;
 
 /** The OMX_EXTRADATATYPE enumeration is used to define the 
@@ -450,162 +450,162 @@ typedef struct OMX_BUFFERHEADERTYPE
  */
 typedef enum OMX_EXTRADATATYPE
 {
-   OMX_ExtraDataNone = 0,                       /**< Indicates that no more extra data sections follow */        
-   OMX_ExtraDataQuantization,                   /**< The data payload contains quantization data */
-   OMX_ExtraDataKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
-   OMX_ExtraDataVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
-   OMX_ExtraDataMax = 0x7FFFFFFF
+ OMX_ExtraDataNone = 0,         /**< Indicates that no more extra data sections follow */    
+ OMX_ExtraDataQuantization,       /**< The data payload contains quantization data */
+ OMX_ExtraDataKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
+ OMX_ExtraDataVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+ OMX_ExtraDataMax = 0x7FFFFFFF
 } OMX_EXTRADATATYPE;
 
 
 typedef struct OMX_OTHER_EXTRADATATYPE  {
-    OMX_U32 nSize;
-    OMX_VERSIONTYPE nVersion;               
-    OMX_U32 nPortIndex;
-    OMX_EXTRADATATYPE eType;       /* Extra Data type */
-    OMX_U32 nDataSize;   /* Size of the supporting data to follow */
-    OMX_U8  data[1];     /* Supporting data hint  */
+  OMX_U32 nSize;
+  OMX_VERSIONTYPE nVersion;     
+  OMX_U32 nPortIndex;
+  OMX_EXTRADATATYPE eType;   /* Extra Data type */
+  OMX_U32 nDataSize; /* Size of the supporting data to follow */
+  OMX_U8  data[1];   /* Supporting data hint  */
 } OMX_OTHER_EXTRADATATYPE;
 
 /** @ingroup comp */
 typedef struct OMX_PORT_PARAM_TYPE {
-    OMX_U32 nSize;              /**< size of the structure in bytes */
-    OMX_VERSIONTYPE nVersion;   /**< OMX specification version information */
-    OMX_U32 nPorts;             /**< The number of ports for this component */
-    OMX_U32 nStartPortNumber;   /** first port number for this type of port */
+  OMX_U32 nSize;      /**< size of the structure in bytes */
+  OMX_VERSIONTYPE nVersion; /**< OMX specification version information */
+  OMX_U32 nPorts;     /**< The number of ports for this component */
+  OMX_U32 nStartPortNumber; /** first port number for this type of port */
 } OMX_PORT_PARAM_TYPE; 
 
 /** @ingroup comp */
 typedef enum OMX_EVENTTYPE
 {
-    OMX_EventCmdComplete,         /**< component has sucessfully completed a command */
-    OMX_EventError,               /**< component has detected an error condition */
-    OMX_EventMark,                /**< component has detected a buffer mark */
-    OMX_EventPortSettingsChanged, /**< component is reported a port settings change */
-    OMX_EventBufferFlag,          /**< component has detected an EOS */ 
-    OMX_EventResourcesAcquired,   /**< component has been granted resources and is
-                                       automatically starting the state change from
-                                       OMX_StateWaitForResources to OMX_StateIdle. */
-   OMX_EventComponentResumed,     /**< Component resumed due to reacquisition of resources */
-   OMX_EventDynamicResourcesAvailable, /**< Component has acquired previously unavailable dynamic resources */
-   OMX_EventPortFormatDetected,      /**< Component has detected a supported format. */
-   OMX_EventKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
-   OMX_EventVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
-   OMX_EventMax = 0x7FFFFFFF
+  OMX_EventCmdComplete,   /**< component has sucessfully completed a command */
+  OMX_EventError,     /**< component has detected an error condition */
+  OMX_EventMark,      /**< component has detected a buffer mark */
+  OMX_EventPortSettingsChanged, /**< component is reported a port settings change */
+  OMX_EventBufferFlag,    /**< component has detected an EOS */ 
+  OMX_EventResourcesAcquired, /**< component has been granted resources and is
+             automatically starting the state change from
+             OMX_StateWaitForResources to OMX_StateIdle. */
+ OMX_EventComponentResumed,   /**< Component resumed due to reacquisition of resources */
+ OMX_EventDynamicResourcesAvailable, /**< Component has acquired previously unavailable dynamic resources */
+ OMX_EventPortFormatDetected,  /**< Component has detected a supported format. */
+ OMX_EventKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
+ OMX_EventVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+ OMX_EventMax = 0x7FFFFFFF
 } OMX_EVENTTYPE;
 
 typedef struct OMX_CALLBACKTYPE
 {
-    /** The EventHandler method is used to notify the application when an
-        event of interest occurs.  Events are defined in the OMX_EVENTTYPE
-        enumeration.  Please see that enumeration for details of what will
-        be returned for each type of event. Callbacks should not return
-        an error to the component, so if an error occurs, the application 
-        shall handle it internally.  This is a blocking call.
+  /** The EventHandler method is used to notify the application when an
+    event of interest occurs.  Events are defined in the OMX_EVENTTYPE
+    enumeration.  Please see that enumeration for details of what will
+    be returned for each type of event. Callbacks should not return
+    an error to the component, so if an error occurs, the application 
+    shall handle it internally.  This is a blocking call.
 
-        The application should return from this call within 5 msec to avoid
-        blocking the component for an excessively long period of time.
+    The application should return from this call within 5 msec to avoid
+    blocking the component for an excessively long period of time.
 
-        @param hComponent
-            handle of the component to access.  This is the component
-            handle returned by the call to the GetHandle function.
-        @param pAppData
-            pointer to an application defined value that was provided in the 
-            pAppData parameter to the OMX_GetHandle method for the component.
-            This application defined value is provided so that the application 
-            can have a component specific context when receiving the callback.
-        @param eEvent
-            Event that the component wants to notify the application about.
-        @param nData1
-            nData will be the OMX_ERRORTYPE for an error event and will be 
-            an OMX_COMMANDTYPE for a command complete event and OMX_INDEXTYPE for a OMX_PortSettingsChanged event.
-         @param nData2
-            nData2 will hold further information related to the event. Can be OMX_STATETYPE for
-            a OMX_CommandStateSet command or port index for a OMX_PortSettingsChanged event.
-            Default value is 0 if not used. )
-        @param pEventData
-            Pointer to additional event-specific data (see spec for meaning).
-      */
+    @param hComponent
+    handle of the component to access.  This is the component
+    handle returned by the call to the GetHandle function.
+    @param pAppData
+    pointer to an application defined value that was provided in the 
+    pAppData parameter to the OMX_GetHandle method for the component.
+    This application defined value is provided so that the application 
+    can have a component specific context when receiving the callback.
+    @param eEvent
+    Event that the component wants to notify the application about.
+    @param nData1
+    nData will be the OMX_ERRORTYPE for an error event and will be 
+    an OMX_COMMANDTYPE for a command complete event and OMX_INDEXTYPE for a OMX_PortSettingsChanged event.
+   @param nData2
+    nData2 will hold further information related to the event. Can be OMX_STATETYPE for
+    a OMX_CommandStateSet command or port index for a OMX_PortSettingsChanged event.
+    Default value is 0 if not used. )
+    @param pEventData
+    Pointer to additional event-specific data (see spec for meaning).
+  */
 
-   OMX_ERRORTYPE (*EventHandler)(
-        OMX_IN OMX_HANDLETYPE hComponent,
-        OMX_IN OMX_PTR pAppData,
-        OMX_IN OMX_EVENTTYPE eEvent,
-        OMX_IN OMX_U32 nData1,
-        OMX_IN OMX_U32 nData2,
-        OMX_IN OMX_PTR pEventData);
+ OMX_ERRORTYPE (*EventHandler)(
+    OMX_IN OMX_HANDLETYPE hComponent,
+    OMX_IN OMX_PTR pAppData,
+    OMX_IN OMX_EVENTTYPE eEvent,
+    OMX_IN OMX_U32 nData1,
+    OMX_IN OMX_U32 nData2,
+    OMX_IN OMX_PTR pEventData);
 
-    /** The EmptyBufferDone method is used to return emptied buffers from an
-        input port back to the application for reuse.  This is a blocking call 
-        so the application should not attempt to refill the buffers during this
-        call, but should queue them and refill them in another thread.  There
-        is no error return, so the application shall handle any errors generated
-        internally.  
-        
-        The application should return from this call within 5 msec.
-        
-        @param hComponent
-            handle of the component to access.  This is the component
-            handle returned by the call to the GetHandle function.
-        @param pAppData
-            pointer to an application defined value that was provided in the 
-            pAppData parameter to the OMX_GetHandle method for the component.
-            This application defined value is provided so that the application 
-            can have a component specific context when receiving the callback.
-        @param pBuffer
-            pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
-            or AllocateBuffer indicating the buffer that was emptied.
-        @ingroup buf
-     */
-    OMX_ERRORTYPE (*EmptyBufferDone)(
-        OMX_IN OMX_HANDLETYPE hComponent,
-        OMX_IN OMX_PTR pAppData,
-        OMX_IN OMX_BUFFERHEADERTYPE* pBuffer);
+  /** The EmptyBufferDone method is used to return emptied buffers from an
+    input port back to the application for reuse.  This is a blocking call 
+    so the application should not attempt to refill the buffers during this
+    call, but should queue them and refill them in another thread.  There
+    is no error return, so the application shall handle any errors generated
+    internally.  
+    
+    The application should return from this call within 5 msec.
+    
+    @param hComponent
+    handle of the component to access.  This is the component
+    handle returned by the call to the GetHandle function.
+    @param pAppData
+    pointer to an application defined value that was provided in the 
+    pAppData parameter to the OMX_GetHandle method for the component.
+    This application defined value is provided so that the application 
+    can have a component specific context when receiving the callback.
+    @param pBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
+    or AllocateBuffer indicating the buffer that was emptied.
+    @ingroup buf
+   */
+  OMX_ERRORTYPE (*EmptyBufferDone)(
+    OMX_IN OMX_HANDLETYPE hComponent,
+    OMX_IN OMX_PTR pAppData,
+    OMX_IN OMX_BUFFERHEADERTYPE* pBuffer);
 
-    /** The FillBufferDone method is used to return filled buffers from an
-        output port back to the application for emptying and then reuse.  
-        This is a blocking call so the application should not attempt to 
-        empty the buffers during this call, but should queue the buffers 
-        and empty them in another thread.  There is no error return, so 
-        the application shall handle any errors generated internally.  The 
-        application shall also update the buffer header to indicate the
-        number of bytes placed into the buffer.  
+  /** The FillBufferDone method is used to return filled buffers from an
+    output port back to the application for emptying and then reuse.  
+    This is a blocking call so the application should not attempt to 
+    empty the buffers during this call, but should queue the buffers 
+    and empty them in another thread.  There is no error return, so 
+    the application shall handle any errors generated internally.  The 
+    application shall also update the buffer header to indicate the
+    number of bytes placed into the buffer.  
 
-        The application should return from this call within 5 msec.
-        
-        @param hComponent
-            handle of the component to access.  This is the component
-            handle returned by the call to the GetHandle function.
-        @param pAppData
-            pointer to an application defined value that was provided in the 
-            pAppData parameter to the OMX_GetHandle method for the component.
-            This application defined value is provided so that the application 
-            can have a component specific context when receiving the callback.
-        @param pBuffer
-            pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
-            or AllocateBuffer indicating the buffer that was filled.
-        @ingroup buf
-     */
-    OMX_ERRORTYPE (*FillBufferDone)(
-        OMX_OUT OMX_HANDLETYPE hComponent,
-        OMX_OUT OMX_PTR pAppData,
-        OMX_OUT OMX_BUFFERHEADERTYPE* pBuffer);
+    The application should return from this call within 5 msec.
+    
+    @param hComponent
+    handle of the component to access.  This is the component
+    handle returned by the call to the GetHandle function.
+    @param pAppData
+    pointer to an application defined value that was provided in the 
+    pAppData parameter to the OMX_GetHandle method for the component.
+    This application defined value is provided so that the application 
+    can have a component specific context when receiving the callback.
+    @param pBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
+    or AllocateBuffer indicating the buffer that was filled.
+    @ingroup buf
+   */
+  OMX_ERRORTYPE (*FillBufferDone)(
+    OMX_OUT OMX_HANDLETYPE hComponent,
+    OMX_OUT OMX_PTR pAppData,
+    OMX_OUT OMX_BUFFERHEADERTYPE* pBuffer);
 
 } OMX_CALLBACKTYPE;
 
 /** The OMX_BUFFERSUPPLIERTYPE enumeration is used to dictate port supplier
-    preference when tunneling between two ports.
-    @ingroup tun buf
+  preference when tunneling between two ports.
+  @ingroup tun buf
 */
 typedef enum OMX_BUFFERSUPPLIERTYPE
 {
-    OMX_BufferSupplyUnspecified = 0x0, /**< port supplying the buffers is unspecified,
-                                              or don't care */
-    OMX_BufferSupplyInput,             /**< input port supplies the buffers */
-    OMX_BufferSupplyOutput,            /**< output port supplies the buffers */
-    OMX_BufferSupplyKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
-    OMX_BufferSupplyVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
-    OMX_BufferSupplyMax = 0x7FFFFFFF
+  OMX_BufferSupplyUnspecified = 0x0, /**< port supplying the buffers is unspecified,
+                or don't care */
+  OMX_BufferSupplyInput,     /**< input port supplies the buffers */
+  OMX_BufferSupplyOutput,    /**< output port supplies the buffers */
+  OMX_BufferSupplyKhronosExtensions = 0x6F000000, /**< Reserved region for introducing Khronos Standard Extensions */ 
+  OMX_BufferSupplyVendorStartUnused = 0x7F000000, /**< Reserved region for introducing Vendor Extensions */
+  OMX_BufferSupplyMax = 0x7FFFFFFF
 } OMX_BUFFERSUPPLIERTYPE;
 
 
@@ -613,814 +613,814 @@ typedef enum OMX_BUFFERSUPPLIERTYPE
  * @ingroup tun
  */
 typedef struct OMX_PARAM_BUFFERSUPPLIERTYPE {
-    OMX_U32 nSize; /**< size of the structure in bytes */
-    OMX_VERSIONTYPE nVersion; /**< OMX specification version information */
-    OMX_U32 nPortIndex; /**< port that this structure applies to */
-    OMX_BUFFERSUPPLIERTYPE eBufferSupplier; /**< buffer supplier */
+  OMX_U32 nSize; /**< size of the structure in bytes */
+  OMX_VERSIONTYPE nVersion; /**< OMX specification version information */
+  OMX_U32 nPortIndex; /**< port that this structure applies to */
+  OMX_BUFFERSUPPLIERTYPE eBufferSupplier; /**< buffer supplier */
 } OMX_PARAM_BUFFERSUPPLIERTYPE;
 
 
 /**< indicates that buffers received by an input port of a tunnel 
-     may not modify the data in the buffers 
-     @ingroup tun
+   may not modify the data in the buffers 
+   @ingroup tun
  */
 #define OMX_PORTTUNNELFLAG_READONLY 0x00000001 
 
 
 /** The OMX_TUNNELSETUPTYPE structure is used to pass data from an output
-    port to an input port as part the two ComponentTunnelRequest calls
-    resulting from a OMX_SetupTunnel call from the IL Client. 
-    @ingroup tun
- */   
+  port to an input port as part the two ComponentTunnelRequest calls
+  resulting from a OMX_SetupTunnel call from the IL Client. 
+  @ingroup tun
+ */ 
 typedef struct OMX_TUNNELSETUPTYPE
 {
-    OMX_U32 nTunnelFlags;             /**< bit flags for tunneling */
-    OMX_BUFFERSUPPLIERTYPE eSupplier; /**< supplier preference */
+  OMX_U32 nTunnelFlags;     /**< bit flags for tunneling */
+  OMX_BUFFERSUPPLIERTYPE eSupplier; /**< supplier preference */
 } OMX_TUNNELSETUPTYPE; 
 
 /* OMX Component headers is included to enable the core to use
-   macros for functions into the component for OMX release 1.0.  
-   Developers should not access any structures or data from within
-   the component header directly */
+ macros for functions into the component for OMX release 1.0.  
+ Developers should not access any structures or data from within
+ the component header directly */
 /* TO BE REMOVED - #include <OMX_Component.h> */
 
 /** GetComponentVersion will return information about the component.  
-    This is a blocking call.  This macro will go directly from the
-    application to the component (via a core macro).  The
-    component will return from this call within 5 msec.
-    @param [in] hComponent
-        handle of component to execute the command
-    @param [out] pComponentName
-        pointer to an empty string of length 128 bytes.  The component 
-        will write its name into this string.  The name will be 
-        terminated by a single zero byte.  The name of a component will 
-        be 127 bytes or less to leave room for the trailing zero byte.  
-        An example of a valid component name is "OMX.ABC.ChannelMixer\0".
-    @param [out] pComponentVersion
-        pointer to an OMX Version structure that the component will fill 
-        in.  The component will fill in a value that indicates the 
-        component version.  NOTE: the component version is NOT the same 
-        as the OMX Specification version (found in all structures).  The 
-        component version is defined by the vendor of the component and 
-        its value is entirely up to the component vendor.
-    @param [out] pSpecVersion
-        pointer to an OMX Version structure that the component will fill 
-        in.  The SpecVersion is the version of the specification that the 
-        component was built against.  Please note that this value may or 
-        may not match the structure's version.  For example, if the 
-        component was built against the 2.0 specification, but the 
-        application (which creates the structure is built against the 
-        1.0 specification the versions would be different.
-    @param [out] pComponentUUID
-        pointer to the UUID of the component which will be filled in by 
-        the component.  The UUID is a unique identifier that is set at 
-        RUN time for the component and is unique to each instantion of 
-        the component.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  This is a blocking call.  This macro will go directly from the
+  application to the component (via a core macro).  The
+  component will return from this call within 5 msec.
+  @param [in] hComponent
+    handle of component to execute the command
+  @param [out] pComponentName
+    pointer to an empty string of length 128 bytes.  The component 
+    will write its name into this string.  The name will be 
+    terminated by a single zero byte.  The name of a component will 
+    be 127 bytes or less to leave room for the trailing zero byte.  
+    An example of a valid component name is "OMX.ABC.ChannelMixer\0".
+  @param [out] pComponentVersion
+    pointer to an OMX Version structure that the component will fill 
+    in.  The component will fill in a value that indicates the 
+    component version.  NOTE: the component version is NOT the same 
+    as the OMX Specification version (found in all structures).  The 
+    component version is defined by the vendor of the component and 
+    its value is entirely up to the component vendor.
+  @param [out] pSpecVersion
+    pointer to an OMX Version structure that the component will fill 
+    in.  The SpecVersion is the version of the specification that the 
+    component was built against.  Please note that this value may or 
+    may not match the structure's version.  For example, if the 
+    component was built against the 2.0 specification, but the 
+    application (which creates the structure is built against the 
+    1.0 specification the versions would be different.
+  @param [out] pComponentUUID
+    pointer to the UUID of the component which will be filled in by 
+    the component.  The UUID is a unique identifier that is set at 
+    RUN time for the component and is unique to each instantion of 
+    the component.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_GetComponentVersion(                            \
-        hComponent,                                         \
-        pComponentName,                                     \
-        pComponentVersion,                                  \
-        pSpecVersion,                                       \
-        pComponentUUID)                                     \
-    ((OMX_COMPONENTTYPE*)hComponent)->GetComponentVersion(  \
-        hComponent,                                         \
-        pComponentName,                                     \
-        pComponentVersion,                                  \
-        pSpecVersion,                                       \
-        pComponentUUID)                 /* Macro End */
+#define OMX_GetComponentVersion(          \
+    hComponent,               \
+    pComponentName,             \
+    pComponentVersion,            \
+    pSpecVersion,             \
+    pComponentUUID)             \
+  ((OMX_COMPONENTTYPE*)hComponent)->GetComponentVersion(  \
+    hComponent,               \
+    pComponentName,             \
+    pComponentVersion,            \
+    pSpecVersion,             \
+    pComponentUUID)       /* Macro End */
 
 
 /** Send a command to the component.  This call is a non-blocking call.
-    The component should check the parameters and then queue the command
-    to the component thread to be executed.  The component thread shall 
-    send the EventHandler() callback at the conclusion of the command. 
-    This macro will go directly from the application to the component (via
-    a core macro).  The component will return from this call within 5 msec.
-    
-    When the command is "OMX_CommandStateSet" the component will queue a
-    state transition to the new state idenfied in nParam.
-    
-    When the command is "OMX_CommandFlush", to flush a port's buffer queues,
-    the command will force the component to return all buffers NOT CURRENTLY 
-    BEING PROCESSED to the application, in the order in which the buffers 
-    were received.
-    
-    When the command is "OMX_CommandPortDisable" or 
-    "OMX_CommandPortEnable", the component's port (given by the value of
-    nParam) will be stopped or restarted. 
-    
-    When the command "OMX_CommandMarkBuffer" is used to mark a buffer, the
-    pCmdData will point to a OMX_MARKTYPE structure containing the component
-    handle of the component to examine the buffer chain for the mark.  nParam1
-    contains the index of the port on which the buffer mark is applied.
+  The component should check the parameters and then queue the command
+  to the component thread to be executed.  The component thread shall 
+  send the EventHandler() callback at the conclusion of the command. 
+  This macro will go directly from the application to the component (via
+  a core macro).  The component will return from this call within 5 msec.
+  
+  When the command is "OMX_CommandStateSet" the component will queue a
+  state transition to the new state idenfied in nParam.
+  
+  When the command is "OMX_CommandFlush", to flush a port's buffer queues,
+  the command will force the component to return all buffers NOT CURRENTLY 
+  BEING PROCESSED to the application, in the order in which the buffers 
+  were received.
+  
+  When the command is "OMX_CommandPortDisable" or 
+  "OMX_CommandPortEnable", the component's port (given by the value of
+  nParam) will be stopped or restarted. 
+  
+  When the command "OMX_CommandMarkBuffer" is used to mark a buffer, the
+  pCmdData will point to a OMX_MARKTYPE structure containing the component
+  handle of the component to examine the buffer chain for the mark.  nParam1
+  contains the index of the port on which the buffer mark is applied.
 
-    Specification text for more details. 
-    
-    @param [in] hComponent
-        handle of component to execute the command
-    @param [in] Cmd
-        Command for the component to execute
-    @param [in] nParam
-        Parameter for the command to be executed.  When Cmd has the value 
-        OMX_CommandStateSet, value is a member of OMX_STATETYPE.  When Cmd has 
-        the value OMX_CommandFlush, value of nParam indicates which port(s) 
-        to flush. -1 is used to flush all ports a single port index will 
-        only flush that port.  When Cmd has the value "OMX_CommandPortDisable"
-        or "OMX_CommandPortEnable", the component's port is given by 
-        the value of nParam.  When Cmd has the value "OMX_CommandMarkBuffer"
-        the components pot is given by the value of nParam.
-    @param [in] pCmdData
-        Parameter pointing to the OMX_MARKTYPE structure when Cmd has the value
-        "OMX_CommandMarkBuffer".     
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  Specification text for more details. 
+  
+  @param [in] hComponent
+    handle of component to execute the command
+  @param [in] Cmd
+    Command for the component to execute
+  @param [in] nParam
+    Parameter for the command to be executed.  When Cmd has the value 
+    OMX_CommandStateSet, value is a member of OMX_STATETYPE.  When Cmd has 
+    the value OMX_CommandFlush, value of nParam indicates which port(s) 
+    to flush. -1 is used to flush all ports a single port index will 
+    only flush that port.  When Cmd has the value "OMX_CommandPortDisable"
+    or "OMX_CommandPortEnable", the component's port is given by 
+    the value of nParam.  When Cmd has the value "OMX_CommandMarkBuffer"
+    the components pot is given by the value of nParam.
+  @param [in] pCmdData
+    Parameter pointing to the OMX_MARKTYPE structure when Cmd has the value
+    "OMX_CommandMarkBuffer".   
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_SendCommand(                                    \
-         hComponent,                                        \
-         Cmd,                                               \
-         nParam,                                            \
-         pCmdData)                                          \
-     ((OMX_COMPONENTTYPE*)hComponent)->SendCommand(         \
-         hComponent,                                        \
-         Cmd,                                               \
-         nParam,                                            \
-         pCmdData)                          /* Macro End */
+#define OMX_SendCommand(            \
+   hComponent,              \
+   Cmd,                 \
+   nParam,                \
+   pCmdData)              \
+   ((OMX_COMPONENTTYPE*)hComponent)->SendCommand(   \
+   hComponent,              \
+   Cmd,                 \
+   nParam,                \
+   pCmdData)          /* Macro End */
 
 
 /** The OMX_GetParameter macro will get one of the current parameter 
-    settings from the component.  This macro cannot only be invoked when 
-    the component is in the OMX_StateInvalid state.  The nParamIndex
-    parameter is used to indicate which structure is being requested from
-    the component.  The application shall allocate the correct structure 
-    and shall fill in the structure size and version information before 
-    invoking this macro.  When the parameter applies to a port, the
-    caller shall fill in the appropriate nPortIndex value indicating the
-    port on which the parameter applies. If the component has not had 
-    any settings changed, then the component should return a set of 
-    valid DEFAULT  parameters for the component.  This is a blocking 
-    call.  
-    
-    The component should return from this call within 20 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] nParamIndex
-        Index of the structure to be filled.  This value is from the
-        OMX_INDEXTYPE enumeration.
-    @param [in,out] pComponentParameterStructure
-        Pointer to application allocated structure to be filled by the 
-        component.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  settings from the component.  This macro cannot only be invoked when 
+  the component is in the OMX_StateInvalid state.  The nParamIndex
+  parameter is used to indicate which structure is being requested from
+  the component.  The application shall allocate the correct structure 
+  and shall fill in the structure size and version information before 
+  invoking this macro.  When the parameter applies to a port, the
+  caller shall fill in the appropriate nPortIndex value indicating the
+  port on which the parameter applies. If the component has not had 
+  any settings changed, then the component should return a set of 
+  valid DEFAULT  parameters for the component.  This is a blocking 
+  call.  
+  
+  The component should return from this call within 20 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] nParamIndex
+    Index of the structure to be filled.  This value is from the
+    OMX_INDEXTYPE enumeration.
+  @param [in,out] pComponentParameterStructure
+    Pointer to application allocated structure to be filled by the 
+    component.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_GetParameter(                                   \
-        hComponent,                                         \
-        nParamIndex,                                        \
-        pComponentParameterStructure)                        \
-    ((OMX_COMPONENTTYPE*)hComponent)->GetParameter(         \
-        hComponent,                                         \
-        nParamIndex,                                        \
-        pComponentParameterStructure)    /* Macro End */
+#define OMX_GetParameter(             \
+    hComponent,               \
+    nParamIndex,              \
+    pComponentParameterStructure)        \
+  ((OMX_COMPONENTTYPE*)hComponent)->GetParameter(   \
+    hComponent,               \
+    nParamIndex,              \
+    pComponentParameterStructure)  /* Macro End */
 
 
 /** The OMX_SetParameter macro will send an initialization parameter
-    structure to a component.  Each structure shall be sent one at a time,
-    in a separate invocation of the macro.  This macro can only be
-    invoked when the component is in the OMX_StateLoaded state, or the
-    port is disabled (when the parameter applies to a port). The 
-    nParamIndex parameter is used to indicate which structure is being
-    passed to the component.  The application shall allocate the 
-    correct structure and shall fill in the structure size and version 
-    information (as well as the actual data) before invoking this macro.
-    The application is free to dispose of this structure after the call
-    as the component is required to copy any data it shall retain.  This 
-    is a blocking call.  
-    
-    The component should return from this call within 20 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] nIndex
-        Index of the structure to be sent.  This value is from the
-        OMX_INDEXTYPE enumeration.
-    @param [in] pComponentParameterStructure
-        pointer to application allocated structure to be used for
-        initialization by the component.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  structure to a component.  Each structure shall be sent one at a time,
+  in a separate invocation of the macro.  This macro can only be
+  invoked when the component is in the OMX_StateLoaded state, or the
+  port is disabled (when the parameter applies to a port). The 
+  nParamIndex parameter is used to indicate which structure is being
+  passed to the component.  The application shall allocate the 
+  correct structure and shall fill in the structure size and version 
+  information (as well as the actual data) before invoking this macro.
+  The application is free to dispose of this structure after the call
+  as the component is required to copy any data it shall retain.  This 
+  is a blocking call.  
+  
+  The component should return from this call within 20 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] nIndex
+    Index of the structure to be sent.  This value is from the
+    OMX_INDEXTYPE enumeration.
+  @param [in] pComponentParameterStructure
+    pointer to application allocated structure to be used for
+    initialization by the component.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_SetParameter(                                   \
-        hComponent,                                         \
-        nParamIndex,                                        \
-        pComponentParameterStructure)                        \
-    ((OMX_COMPONENTTYPE*)hComponent)->SetParameter(         \
-        hComponent,                                         \
-        nParamIndex,                                        \
-        pComponentParameterStructure)    /* Macro End */
+#define OMX_SetParameter(             \
+    hComponent,               \
+    nParamIndex,              \
+    pComponentParameterStructure)        \
+  ((OMX_COMPONENTTYPE*)hComponent)->SetParameter(   \
+    hComponent,               \
+    nParamIndex,              \
+    pComponentParameterStructure)  /* Macro End */
 
 
 /** The OMX_GetConfig macro will get one of the configuration structures 
-    from a component.  This macro can be invoked anytime after the 
-    component has been loaded.  The nParamIndex call parameter is used to 
-    indicate which structure is being requested from the component.  The 
-    application shall allocate the correct structure and shall fill in the 
-    structure size and version information before invoking this macro.  
-    If the component has not had this configuration parameter sent before, 
-    then the component should return a set of valid DEFAULT values for the 
-    component.  This is a blocking call.  
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] nIndex
-        Index of the structure to be filled.  This value is from the
-        OMX_INDEXTYPE enumeration.
-    @param [in,out] pComponentConfigStructure
-        pointer to application allocated structure to be filled by the 
-        component.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
-*/        
-#define OMX_GetConfig(                                      \
-        hComponent,                                         \
-        nConfigIndex,                                       \
-        pComponentConfigStructure)                           \
-    ((OMX_COMPONENTTYPE*)hComponent)->GetConfig(            \
-        hComponent,                                         \
-        nConfigIndex,                                       \
-        pComponentConfigStructure)       /* Macro End */
+  from a component.  This macro can be invoked anytime after the 
+  component has been loaded.  The nParamIndex call parameter is used to 
+  indicate which structure is being requested from the component.  The 
+  application shall allocate the correct structure and shall fill in the 
+  structure size and version information before invoking this macro.  
+  If the component has not had this configuration parameter sent before, 
+  then the component should return a set of valid DEFAULT values for the 
+  component.  This is a blocking call.  
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] nIndex
+    Index of the structure to be filled.  This value is from the
+    OMX_INDEXTYPE enumeration.
+  @param [in,out] pComponentConfigStructure
+    pointer to application allocated structure to be filled by the 
+    component.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
+*/    
+#define OMX_GetConfig(              \
+    hComponent,               \
+    nConfigIndex,             \
+    pComponentConfigStructure)         \
+  ((OMX_COMPONENTTYPE*)hComponent)->GetConfig(    \
+    hComponent,               \
+    nConfigIndex,             \
+    pComponentConfigStructure)   /* Macro End */
 
 
 /** The OMX_SetConfig macro will send one of the configuration 
-    structures to a component.  Each structure shall be sent one at a time,
-    each in a separate invocation of the macro.  This macro can be invoked 
-    anytime after the component has been loaded.  The application shall 
-    allocate the correct structure and shall fill in the structure size 
-    and version information (as well as the actual data) before invoking 
-    this macro.  The application is free to dispose of this structure after 
-    the call as the component is required to copy any data it shall retain.  
-    This is a blocking call.  
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] nConfigIndex
-        Index of the structure to be sent.  This value is from the
-        OMX_INDEXTYPE enumeration above.
-    @param [in] pComponentConfigStructure
-        pointer to application allocated structure to be used for
-        initialization by the component.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  structures to a component.  Each structure shall be sent one at a time,
+  each in a separate invocation of the macro.  This macro can be invoked 
+  anytime after the component has been loaded.  The application shall 
+  allocate the correct structure and shall fill in the structure size 
+  and version information (as well as the actual data) before invoking 
+  this macro.  The application is free to dispose of this structure after 
+  the call as the component is required to copy any data it shall retain.  
+  This is a blocking call.  
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] nConfigIndex
+    Index of the structure to be sent.  This value is from the
+    OMX_INDEXTYPE enumeration above.
+  @param [in] pComponentConfigStructure
+    pointer to application allocated structure to be used for
+    initialization by the component.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_SetConfig(                                      \
-        hComponent,                                         \
-        nConfigIndex,                                       \
-        pComponentConfigStructure)                           \
-    ((OMX_COMPONENTTYPE*)hComponent)->SetConfig(            \
-        hComponent,                                         \
-        nConfigIndex,                                       \
-        pComponentConfigStructure)       /* Macro End */
+#define OMX_SetConfig(              \
+    hComponent,               \
+    nConfigIndex,             \
+    pComponentConfigStructure)         \
+  ((OMX_COMPONENTTYPE*)hComponent)->SetConfig(    \
+    hComponent,               \
+    nConfigIndex,             \
+    pComponentConfigStructure)   /* Macro End */
 
 
 /** The OMX_GetExtensionIndex macro will invoke a component to translate 
-    a vendor specific configuration or parameter string into an OMX 
-    structure index.  There is no requirement for the vendor to support 
-    this command for the indexes already found in the OMX_INDEXTYPE 
-    enumeration (this is done to save space in small components).  The 
-    component shall support all vendor supplied extension indexes not found
-    in the master OMX_INDEXTYPE enumeration.  This is a blocking call.  
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the GetHandle function.
-    @param [in] cParameterName
-        OMX_STRING that shall be less than 128 characters long including
-        the trailing null byte.  This is the string that will get 
-        translated by the component into a configuration index.
-    @param [out] pIndexType
-        a pointer to a OMX_INDEXTYPE to receive the index value.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  a vendor specific configuration or parameter string into an OMX 
+  structure index.  There is no requirement for the vendor to support 
+  this command for the indexes already found in the OMX_INDEXTYPE 
+  enumeration (this is done to save space in small components).  The 
+  component shall support all vendor supplied extension indexes not found
+  in the master OMX_INDEXTYPE enumeration.  This is a blocking call.  
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the GetHandle function.
+  @param [in] cParameterName
+    OMX_STRING that shall be less than 128 characters long including
+    the trailing null byte.  This is the string that will get 
+    translated by the component into a configuration index.
+  @param [out] pIndexType
+    a pointer to a OMX_INDEXTYPE to receive the index value.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_GetExtensionIndex(                              \
-        hComponent,                                         \
-        cParameterName,                                     \
-        pIndexType)                                         \
-    ((OMX_COMPONENTTYPE*)hComponent)->GetExtensionIndex(    \
-        hComponent,                                         \
-        cParameterName,                                     \
-        pIndexType)                     /* Macro End */
+#define OMX_GetExtensionIndex(          \
+    hComponent,               \
+    cParameterName,             \
+    pIndexType)               \
+  ((OMX_COMPONENTTYPE*)hComponent)->GetExtensionIndex(  \
+    hComponent,               \
+    cParameterName,             \
+    pIndexType)       /* Macro End */
 
 
 /** The OMX_GetState macro will invoke the component to get the current 
-    state of the component and place the state value into the location
-    pointed to by pState.  
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [out] pState
-        pointer to the location to receive the state.  The value returned
-        is one of the OMX_STATETYPE members 
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp
+  state of the component and place the state value into the location
+  pointed to by pState.  
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [out] pState
+    pointer to the location to receive the state.  The value returned
+    is one of the OMX_STATETYPE members 
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp
  */
-#define OMX_GetState(                                       \
-        hComponent,                                         \
-        pState)                                             \
-    ((OMX_COMPONENTTYPE*)hComponent)->GetState(             \
-        hComponent,                                         \
-        pState)                         /* Macro End */
+#define OMX_GetState(             \
+    hComponent,               \
+    pState)               \
+  ((OMX_COMPONENTTYPE*)hComponent)->GetState(     \
+    hComponent,               \
+    pState)         /* Macro End */
 
 
 /** The OMX_UseBuffer macro will request that the component use
-    a buffer (and allocate its own buffer header) already allocated 
-    by another component, or by the IL Client. This is a blocking 
-    call.
-    
-    The component should return from this call within 20 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [out] ppBuffer
-        pointer to an OMX_BUFFERHEADERTYPE structure used to receive the 
-        pointer to the buffer header
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp buf
+  a buffer (and allocate its own buffer header) already allocated 
+  by another component, or by the IL Client. This is a blocking 
+  call.
+  
+  The component should return from this call within 20 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [out] ppBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure used to receive the 
+    pointer to the buffer header
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp buf
  */
 
-#define OMX_UseBuffer(                                      \
-           hComponent,                                      \
-           ppBufferHdr,                                     \
-           nPortIndex,                                      \
-           pAppPrivate,                                     \
-           nSizeBytes,                                      \
-           pBuffer)                                         \
-    ((OMX_COMPONENTTYPE*)hComponent)->UseBuffer(            \
-           hComponent,                                      \
-           ppBufferHdr,                                     \
-           nPortIndex,                                      \
-           pAppPrivate,                                     \
-           nSizeBytes,                                      \
-           pBuffer)
+#define OMX_UseBuffer(              \
+     hComponent,              \
+     ppBufferHdr,             \
+     nPortIndex,              \
+     pAppPrivate,             \
+     nSizeBytes,              \
+     pBuffer)               \
+  ((OMX_COMPONENTTYPE*)hComponent)->UseBuffer(    \
+     hComponent,              \
+     ppBufferHdr,             \
+     nPortIndex,              \
+     pAppPrivate,             \
+     nSizeBytes,              \
+     pBuffer)
 
 
 /** The OMX_AllocateBuffer macro will request that the component allocate 
-    a new buffer and buffer header.  The component will allocate the 
-    buffer and the buffer header and return a pointer to the buffer 
-    header.  This is a blocking call.
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [out] ppBuffer
-        pointer to an OMX_BUFFERHEADERTYPE structure used to receive 
-        the pointer to the buffer header
-    @param [in] nPortIndex
-        nPortIndex is used to select the port on the component the buffer will
-        be used with.  The port can be found by using the nPortIndex
-        value as an index into the Port Definition array of the component.
-    @param [in] pAppPrivate
-        pAppPrivate is used to initialize the pAppPrivate member of the 
-        buffer header structure.
-    @param [in] nSizeBytes
-        size of the buffer to allocate.  Used when bAllocateNew is true.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp buf
- */    
-#define OMX_AllocateBuffer(                                 \
-        hComponent,                                         \
-        ppBuffer,                                           \
-        nPortIndex,                                         \
-        pAppPrivate,                                        \
-        nSizeBytes)                                         \
-    ((OMX_COMPONENTTYPE*)hComponent)->AllocateBuffer(       \
-        hComponent,                                         \
-        ppBuffer,                                           \
-        nPortIndex,                                         \
-        pAppPrivate,                                        \
-        nSizeBytes)                     /* Macro End */
+  a new buffer and buffer header.  The component will allocate the 
+  buffer and the buffer header and return a pointer to the buffer 
+  header.  This is a blocking call.
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [out] ppBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure used to receive 
+    the pointer to the buffer header
+  @param [in] nPortIndex
+    nPortIndex is used to select the port on the component the buffer will
+    be used with.  The port can be found by using the nPortIndex
+    value as an index into the Port Definition array of the component.
+  @param [in] pAppPrivate
+    pAppPrivate is used to initialize the pAppPrivate member of the 
+    buffer header structure.
+  @param [in] nSizeBytes
+    size of the buffer to allocate.  Used when bAllocateNew is true.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp buf
+ */  
+#define OMX_AllocateBuffer(           \
+    hComponent,               \
+    ppBuffer,               \
+    nPortIndex,               \
+    pAppPrivate,              \
+    nSizeBytes)               \
+  ((OMX_COMPONENTTYPE*)hComponent)->AllocateBuffer(   \
+    hComponent,               \
+    ppBuffer,               \
+    nPortIndex,               \
+    pAppPrivate,              \
+    nSizeBytes)       /* Macro End */
 
 
 /** The OMX_FreeBuffer macro will release a buffer header from the component
-    which was allocated using either OMX_AllocateBuffer or OMX_UseBuffer. If  
-    the component allocated the buffer (see the OMX_UseBuffer macro) then 
-    the component shall free the buffer and buffer header. This is a 
-    blocking call. 
-    
-    The component should return from this call within 20 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] nPortIndex
-        nPortIndex is used to select the port on the component the buffer will
-        be used with.
-    @param [in] pBuffer
-        pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
-        or AllocateBuffer.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp buf
+  which was allocated using either OMX_AllocateBuffer or OMX_UseBuffer. If  
+  the component allocated the buffer (see the OMX_UseBuffer macro) then 
+  the component shall free the buffer and buffer header. This is a 
+  blocking call. 
+  
+  The component should return from this call within 20 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] nPortIndex
+    nPortIndex is used to select the port on the component the buffer will
+    be used with.
+  @param [in] pBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
+    or AllocateBuffer.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp buf
  */
-#define OMX_FreeBuffer(                                     \
-        hComponent,                                         \
-        nPortIndex,                                         \
-        pBuffer)                                            \
-    ((OMX_COMPONENTTYPE*)hComponent)->FreeBuffer(           \
-        hComponent,                                         \
-        nPortIndex,                                         \
-        pBuffer)                        /* Macro End */
+#define OMX_FreeBuffer(             \
+    hComponent,               \
+    nPortIndex,               \
+    pBuffer)                \
+  ((OMX_COMPONENTTYPE*)hComponent)->FreeBuffer(     \
+    hComponent,               \
+    nPortIndex,               \
+    pBuffer)        /* Macro End */
 
 
 /** The OMX_EmptyThisBuffer macro will send a buffer full of data to an 
-    input port of a component.  The buffer will be emptied by the component
-    and returned to the application via the EmptyBufferDone call back.
-    This is a non-blocking call in that the component will record the buffer
-    and return immediately and then empty the buffer, later, at the proper 
-    time.  As expected, this macro may be invoked only while the component 
-    is in the OMX_StateExecuting.  If nPortIndex does not specify an input
-    port, the component shall return an error.  
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] pBuffer
-        pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
-        or AllocateBuffer.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp buf
+  input port of a component.  The buffer will be emptied by the component
+  and returned to the application via the EmptyBufferDone call back.
+  This is a non-blocking call in that the component will record the buffer
+  and return immediately and then empty the buffer, later, at the proper 
+  time.  As expected, this macro may be invoked only while the component 
+  is in the OMX_StateExecuting.  If nPortIndex does not specify an input
+  port, the component shall return an error.  
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] pBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
+    or AllocateBuffer.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp buf
  */
-#define OMX_EmptyThisBuffer(                                \
-        hComponent,                                         \
-        pBuffer)                                            \
-    ((OMX_COMPONENTTYPE*)hComponent)->EmptyThisBuffer(      \
-        hComponent,                                         \
-        pBuffer)                        /* Macro End */
+#define OMX_EmptyThisBuffer(            \
+    hComponent,               \
+    pBuffer)                \
+  ((OMX_COMPONENTTYPE*)hComponent)->EmptyThisBuffer(  \
+    hComponent,               \
+    pBuffer)        /* Macro End */
 
 
 /** The OMX_FillThisBuffer macro will send an empty buffer to an 
-    output port of a component.  The buffer will be filled by the component
-    and returned to the application via the FillBufferDone call back.
-    This is a non-blocking call in that the component will record the buffer
-    and return immediately and then fill the buffer, later, at the proper 
-    time.  As expected, this macro may be invoked only while the component 
-    is in the OMX_ExecutingState.  If nPortIndex does not specify an output
-    port, the component shall return an error.  
-    
-    The component should return from this call within 5 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [in] pBuffer
-        pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
-        or AllocateBuffer.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp buf
+  output port of a component.  The buffer will be filled by the component
+  and returned to the application via the FillBufferDone call back.
+  This is a non-blocking call in that the component will record the buffer
+  and return immediately and then fill the buffer, later, at the proper 
+  time.  As expected, this macro may be invoked only while the component 
+  is in the OMX_ExecutingState.  If nPortIndex does not specify an output
+  port, the component shall return an error.  
+  
+  The component should return from this call within 5 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [in] pBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure allocated with UseBuffer
+    or AllocateBuffer.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp buf
  */
-#define OMX_FillThisBuffer(                                 \
-        hComponent,                                         \
-        pBuffer)                                            \
-    ((OMX_COMPONENTTYPE*)hComponent)->FillThisBuffer(       \
-        hComponent,                                         \
-        pBuffer)                        /* Macro End */
+#define OMX_FillThisBuffer(           \
+    hComponent,               \
+    pBuffer)                \
+  ((OMX_COMPONENTTYPE*)hComponent)->FillThisBuffer(   \
+    hComponent,               \
+    pBuffer)        /* Macro End */
 
 
 
 /** The OMX_UseEGLImage macro will request that the component use
-    a EGLImage provided by EGL (and allocate its own buffer header)
-    This is a blocking call.
-    
-    The component should return from this call within 20 msec.
-    
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the OMX_GetHandle function.
-    @param [out] ppBuffer
-        pointer to an OMX_BUFFERHEADERTYPE structure used to receive the 
-        pointer to the buffer header.  Note that the memory location used
-        for this buffer is NOT visible to the IL Client.
-    @param [in] nPortIndex
-        nPortIndex is used to select the port on the component the buffer will
-        be used with.  The port can be found by using the nPortIndex
-        value as an index into the Port Definition array of the component.
-    @param [in] pAppPrivate
-        pAppPrivate is used to initialize the pAppPrivate member of the 
-        buffer header structure.
-    @param [in] eglImage
-        eglImage contains the handle of the EGLImage to use as a buffer on the
-        specified port.  The component is expected to validate properties of 
-        the EGLImage against the configuration of the port to ensure the component
-        can use the EGLImage as a buffer.          
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup comp buf
+  a EGLImage provided by EGL (and allocate its own buffer header)
+  This is a blocking call.
+  
+  The component should return from this call within 20 msec.
+  
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the OMX_GetHandle function.
+  @param [out] ppBuffer
+    pointer to an OMX_BUFFERHEADERTYPE structure used to receive the 
+    pointer to the buffer header.  Note that the memory location used
+    for this buffer is NOT visible to the IL Client.
+  @param [in] nPortIndex
+    nPortIndex is used to select the port on the component the buffer will
+    be used with.  The port can be found by using the nPortIndex
+    value as an index into the Port Definition array of the component.
+  @param [in] pAppPrivate
+    pAppPrivate is used to initialize the pAppPrivate member of the 
+    buffer header structure.
+  @param [in] eglImage
+    eglImage contains the handle of the EGLImage to use as a buffer on the
+    specified port.  The component is expected to validate properties of 
+    the EGLImage against the configuration of the port to ensure the component
+    can use the EGLImage as a buffer.    
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup comp buf
  */
-#define OMX_UseEGLImage(                                    \
-           hComponent,                                      \
-           ppBufferHdr,                                     \
-           nPortIndex,                                      \
-           pAppPrivate,                                     \
-           eglImage)                                        \
-    ((OMX_COMPONENTTYPE*)hComponent)->UseEGLImage(          \
-           hComponent,                                      \
-           ppBufferHdr,                                     \
-           nPortIndex,                                      \
-           pAppPrivate,                                     \
-           eglImage)
+#define OMX_UseEGLImage(            \
+     hComponent,              \
+     ppBufferHdr,             \
+     nPortIndex,              \
+     pAppPrivate,             \
+     eglImage)              \
+  ((OMX_COMPONENTTYPE*)hComponent)->UseEGLImage(    \
+     hComponent,              \
+     ppBufferHdr,             \
+     nPortIndex,              \
+     pAppPrivate,             \
+     eglImage)
 
 /** The OMX_Init method is used to initialize the OMX core.  It shall be the
-    first call made into OMX and it should only be executed one time without
-    an interviening OMX_Deinit call.  
-    
-    The core should return from this call within 20 msec.
+  first call made into OMX and it should only be executed one time without
+  an interviening OMX_Deinit call.  
+  
+  The core should return from this call within 20 msec.
 
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup core
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_Init(void);
 
 
 /** The OMX_Deinit method is used to deinitialize the OMX core.  It shall be 
-    the last call made into OMX. In the event that the core determines that 
-    thare are components loaded when this call is made, the core may return 
-    with an error rather than try to unload the components.
-        
-    The core should return from this call within 20 msec.
+  the last call made into OMX. In the event that the core determines that 
+  thare are components loaded when this call is made, the core may return 
+  with an error rather than try to unload the components.
     
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup core
+  The core should return from this call within 20 msec.
+  
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_Deinit(void);
 
 
 /** The OMX_ComponentNameEnum method will enumerate through all the names of
-    recognised valid components in the system. This function is provided
-    as a means to detect all the components in the system run-time. There is
-    no strict ordering to the enumeration order of component names, although
-    each name will only be enumerated once.  If the OMX core supports run-time
-    installation of new components, it is only requried to detect newly
-    installed components when the first call to enumerate component names
-    is made (i.e. when nIndex is 0x0).
-    
-    The core should return from this call in 20 msec.
-    
-    @param [out] cComponentName
-        pointer to a null terminated string with the component name.  The
-        names of the components are strings less than 127 bytes in length
-        plus the trailing null for a maximum size of 128 bytes.  An example 
-        of a valid component name is "OMX.TI.AUDIO.DSP.MIXER\0".  Names are 
-        assigned by the vendor, but shall start with "OMX." and then have 
-        the Vendor designation next.
-    @param [in] nNameLength
-        number of characters in the cComponentName string.  With all 
-        component name strings restricted to less than 128 characters 
-        (including the trailing null) it is recomended that the caller
-        provide a input string for the cComponentName of 128 characters.
-    @param [in] nIndex
-        number containing the enumeration index for the component. 
-        Multiple calls to OMX_ComponentNameEnum with increasing values
-        of nIndex will enumerate through the component names in the
-        system until OMX_ErrorNoMore is returned.  The value of nIndex
-        is 0 to (N-1), where N is the number of valid installed components
-        in the system.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  When the value of nIndex exceeds the number of 
-        components in the system minus 1, OMX_ErrorNoMore will be
-        returned. Otherwise the appropriate OMX error will be returned.
-    @ingroup core
+  recognised valid components in the system. This function is provided
+  as a means to detect all the components in the system run-time. There is
+  no strict ordering to the enumeration order of component names, although
+  each name will only be enumerated once.  If the OMX core supports run-time
+  installation of new components, it is only requried to detect newly
+  installed components when the first call to enumerate component names
+  is made (i.e. when nIndex is 0x0).
+  
+  The core should return from this call in 20 msec.
+  
+  @param [out] cComponentName
+    pointer to a null terminated string with the component name.  The
+    names of the components are strings less than 127 bytes in length
+    plus the trailing null for a maximum size of 128 bytes.  An example 
+    of a valid component name is "OMX.TI.AUDIO.DSP.MIXER\0".  Names are 
+    assigned by the vendor, but shall start with "OMX." and then have 
+    the Vendor designation next.
+  @param [in] nNameLength
+    number of characters in the cComponentName string.  With all 
+    component name strings restricted to less than 128 characters 
+    (including the trailing null) it is recomended that the caller
+    provide a input string for the cComponentName of 128 characters.
+  @param [in] nIndex
+    number containing the enumeration index for the component. 
+    Multiple calls to OMX_ComponentNameEnum with increasing values
+    of nIndex will enumerate through the component names in the
+    system until OMX_ErrorNoMore is returned.  The value of nIndex
+    is 0 to (N-1), where N is the number of valid installed components
+    in the system.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  When the value of nIndex exceeds the number of 
+    components in the system minus 1, OMX_ErrorNoMore will be
+    returned. Otherwise the appropriate OMX error will be returned.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_ComponentNameEnum(
-    OMX_OUT OMX_STRING cComponentName,
-    OMX_IN  OMX_U32 nNameLength,
-    OMX_IN  OMX_U32 nIndex);
+  OMX_OUT OMX_STRING cComponentName,
+  OMX_IN  OMX_U32 nNameLength,
+  OMX_IN  OMX_U32 nIndex);
 
 
 /** The OMX_GetHandle method will locate the component specified by the
-    component name given, load that component into memory and then invoke
-    the component's methods to create an instance of the component.  
-    
-    The core should return from this call within 20 msec.
-    
-    @param [out] pHandle
-        pointer to an OMX_HANDLETYPE pointer to be filled in by this method.
-    @param [in] cComponentName
-        pointer to a null terminated string with the component name.  The
-        names of the components are strings less than 127 bytes in length
-        plus the trailing null for a maximum size of 128 bytes.  An example 
-        of a valid component name is "OMX.TI.AUDIO.DSP.MIXER\0".  Names are 
-        assigned by the vendor, but shall start with "OMX." and then have 
-        the Vendor designation next.
-    @param [in] pAppData
-        pointer to an application defined value that will be returned
-        during callbacks so that the application can identify the source
-        of the callback.
-    @param [in] pCallBacks
-        pointer to a OMX_CALLBACKTYPE structure that will be passed to the
-        component to initialize it with.  
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup core
+  component name given, load that component into memory and then invoke
+  the component's methods to create an instance of the component.  
+  
+  The core should return from this call within 20 msec.
+  
+  @param [out] pHandle
+    pointer to an OMX_HANDLETYPE pointer to be filled in by this method.
+  @param [in] cComponentName
+    pointer to a null terminated string with the component name.  The
+    names of the components are strings less than 127 bytes in length
+    plus the trailing null for a maximum size of 128 bytes.  An example 
+    of a valid component name is "OMX.TI.AUDIO.DSP.MIXER\0".  Names are 
+    assigned by the vendor, but shall start with "OMX." and then have 
+    the Vendor designation next.
+  @param [in] pAppData
+    pointer to an application defined value that will be returned
+    during callbacks so that the application can identify the source
+    of the callback.
+  @param [in] pCallBacks
+    pointer to a OMX_CALLBACKTYPE structure that will be passed to the
+    component to initialize it with.  
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_GetHandle(
-    OMX_OUT OMX_HANDLETYPE* pHandle, 
-    OMX_IN  OMX_STRING cComponentName,
-    OMX_IN  OMX_PTR pAppData,
-    OMX_IN  OMX_CALLBACKTYPE* pCallBacks);
+  OMX_OUT OMX_HANDLETYPE* pHandle, 
+  OMX_IN  OMX_STRING cComponentName,
+  OMX_IN  OMX_PTR pAppData,
+  OMX_IN  OMX_CALLBACKTYPE* pCallBacks);
 
 
 /** The OMX_FreeHandle method will free a handle allocated by the OMX_GetHandle 
-    method.  If the component reference count goes to zero, the component will
-    be unloaded from memory.  
-    
-    The core should return from this call within 20 msec when the component is 
-    in the OMX_StateLoaded state.
+  method.  If the component reference count goes to zero, the component will
+  be unloaded from memory.  
+  
+  The core should return from this call within 20 msec when the component is 
+  in the OMX_StateLoaded state.
 
-    @param [in] hComponent
-        Handle of the component to be accessed.  This is the component
-        handle returned by the call to the GetHandle function.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-    @ingroup core
+  @param [in] hComponent
+    Handle of the component to be accessed.  This is the component
+    handle returned by the call to the GetHandle function.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_FreeHandle(
-    OMX_IN  OMX_HANDLETYPE hComponent);
+  OMX_IN  OMX_HANDLETYPE hComponent);
 
 
 
 /** The OMX_SetupTunnel method will handle the necessary calls to the components
-    to setup the specified tunnel the two components.  NOTE: This is
-    an actual method (not a #define macro).  This method will make calls into
-    the component ComponentTunnelRequest method to do the actual tunnel 
-    connection.  
+  to setup the specified tunnel the two components.  NOTE: This is
+  an actual method (not a #define macro).  This method will make calls into
+  the component ComponentTunnelRequest method to do the actual tunnel 
+  connection.  
 
-    The ComponentTunnelRequest method on both components will be called. 
-    This method shall not be called unless the component is in the 
-    OMX_StateLoaded state except when the ports used for the tunnel are
-    disabled. In this case, the component may be in the OMX_StateExecuting,
-    OMX_StatePause, or OMX_StateIdle states. 
+  The ComponentTunnelRequest method on both components will be called. 
+  This method shall not be called unless the component is in the 
+  OMX_StateLoaded state except when the ports used for the tunnel are
+  disabled. In this case, the component may be in the OMX_StateExecuting,
+  OMX_StatePause, or OMX_StateIdle states. 
 
-    The core should return from this call within 20 msec.
+  The core should return from this call within 20 msec.
+  
+  @param [in] hOutput
+    Handle of the component to be accessed.  Also this is the handle
+    of the component whose port, specified in the nPortOutput parameter
+    will be used the source for the tunnel. This is the component handle
+    returned by the call to the OMX_GetHandle function.  There is a 
+    requirement that hOutput be the source for the data when
+    tunelling (i.e. nPortOutput is an output port).  If 0x0, the component
+    specified in hInput will have it's port specified in nPortInput
+    setup for communication with the application / IL client.
+  @param [in] nPortOutput
+    nPortOutput is used to select the source port on component to be
+    used in the tunnel. 
+  @param [in] hInput
+    This is the component to setup the tunnel with. This is the handle
+    of the component whose port, specified in the nPortInput parameter
+    will be used the destination for the tunnel. This is the component handle
+    returned by the call to the OMX_GetHandle function.  There is a 
+    requirement that hInput be the destination for the data when
+    tunelling (i.e. nPortInut is an input port). If 0x0, the component
+    specified in hOutput will have it's port specified in nPortPOutput
+    setup for communication with the application / IL client.
+  @param [in] nPortInput
+    nPortInput is used to select the destination port on component to be
+    used in the tunnel.
+  @return OMX_ERRORTYPE
+    If the command successfully executes, the return code will be
+    OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
+    When OMX_ErrorNotImplemented is returned, one or both components is 
+    a non-interop component and does not support tunneling.
     
-    @param [in] hOutput
-        Handle of the component to be accessed.  Also this is the handle
-        of the component whose port, specified in the nPortOutput parameter
-        will be used the source for the tunnel. This is the component handle
-        returned by the call to the OMX_GetHandle function.  There is a 
-        requirement that hOutput be the source for the data when
-        tunelling (i.e. nPortOutput is an output port).  If 0x0, the component
-        specified in hInput will have it's port specified in nPortInput
-        setup for communication with the application / IL client.
-    @param [in] nPortOutput
-        nPortOutput is used to select the source port on component to be
-        used in the tunnel. 
-    @param [in] hInput
-        This is the component to setup the tunnel with. This is the handle
-        of the component whose port, specified in the nPortInput parameter
-        will be used the destination for the tunnel. This is the component handle
-        returned by the call to the OMX_GetHandle function.  There is a 
-        requirement that hInput be the destination for the data when
-        tunelling (i.e. nPortInut is an input port).   If 0x0, the component
-        specified in hOutput will have it's port specified in nPortPOutput
-        setup for communication with the application / IL client.
-    @param [in] nPortInput
-        nPortInput is used to select the destination port on component to be
-        used in the tunnel.
-    @return OMX_ERRORTYPE
-        If the command successfully executes, the return code will be
-        OMX_ErrorNone.  Otherwise the appropriate OMX error will be returned.
-        When OMX_ErrorNotImplemented is returned, one or both components is 
-        a non-interop component and does not support tunneling.
-        
-        On failure, the ports of both components are setup for communication
-        with the application / IL Client.
-    @ingroup core tun
+    On failure, the ports of both components are setup for communication
+    with the application / IL Client.
+  @ingroup core tun
  */
 OMX_API OMX_ERRORTYPE OMX_APIENTRY OMX_SetupTunnel(
-    OMX_IN  OMX_HANDLETYPE hOutput,
-    OMX_IN  OMX_U32 nPortOutput,
-    OMX_IN  OMX_HANDLETYPE hInput,
-    OMX_IN  OMX_U32 nPortInput);
-    
+  OMX_IN  OMX_HANDLETYPE hOutput,
+  OMX_IN  OMX_U32 nPortOutput,
+  OMX_IN  OMX_HANDLETYPE hInput,
+  OMX_IN  OMX_U32 nPortInput);
+  
 /** @ingroup cp */
-OMX_API OMX_ERRORTYPE   OMX_GetContentPipe(
-    OMX_OUT OMX_HANDLETYPE *hPipe,
-    OMX_IN OMX_STRING szURI);
+OMX_API OMX_ERRORTYPE OMX_GetContentPipe(
+  OMX_OUT OMX_HANDLETYPE *hPipe,
+  OMX_IN OMX_STRING szURI);
 
 /** The OMX_GetComponentsOfRole method will return the number of components that support the given
-    role and (if the compNames field is non-NULL) the names of those components. The call will fail if 
-    an insufficiently sized array of names is supplied. To ensure the array is sufficiently sized the
-    client should:
-        * first call this function with the compNames field NULL to determine the number of component names
-        * second call this function with the compNames field pointing to an array of names allocated 
-          according to the number returned by the first call.
+  role and (if the compNames field is non-NULL) the names of those components. The call will fail if 
+  an insufficiently sized array of names is supplied. To ensure the array is sufficiently sized the
+  client should:
+    * first call this function with the compNames field NULL to determine the number of component names
+    * second call this function with the compNames field pointing to an array of names allocated 
+    according to the number returned by the first call.
 
-    The core should return from this call within 5 msec.
-    
-    @param [in] role
-        This is generic standard component name consisting only of component class 
-        name and the type within that class (e.g. 'audio_decoder.aac').
-    @param [inout] pNumComps
-        This is used both as input and output. 
+  The core should return from this call within 5 msec.
+  
+  @param [in] role
+    This is generic standard component name consisting only of component class 
+    name and the type within that class (e.g. 'audio_decoder.aac').
+  @param [inout] pNumComps
+    This is used both as input and output. 
  
-        If compNames is NULL, the input is ignored and the output specifies how many components support
-        the given role.
-     
-        If compNames is not NULL, on input it bounds the size of the input structure and 
-        on output, it specifies the number of components string names listed within the compNames parameter.
-    @param [inout] compNames
-        If NULL this field is ignored. If non-NULL this points to an array of 128-byte strings which accepts 
-        a list of the names of all physical components that implement the specified standard component name. 
-        Each name is NULL terminated. numComps indicates the number of names.
-    @ingroup core
+    If compNames is NULL, the input is ignored and the output specifies how many components support
+    the given role.
+   
+    If compNames is not NULL, on input it bounds the size of the input structure and 
+    on output, it specifies the number of components string names listed within the compNames parameter.
+  @param [inout] compNames
+    If NULL this field is ignored. If non-NULL this points to an array of 128-byte strings which accepts 
+    a list of the names of all physical components that implement the specified standard component name. 
+    Each name is NULL terminated. numComps indicates the number of names.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_GetComponentsOfRole ( 
-	OMX_IN      OMX_STRING role,
-    OMX_INOUT   OMX_U32 *pNumComps,
-    OMX_INOUT   OMX_U8  **compNames);
+	OMX_IN  OMX_STRING role,
+  OMX_INOUT OMX_U32 *pNumComps,
+  OMX_INOUT OMX_U8  **compNames);
 
 /** The OMX_GetRolesOfComponent method will return the number of roles supported by the given
-    component and (if the roles field is non-NULL) the names of those roles. The call will fail if 
-    an insufficiently sized array of names is supplied. To ensure the array is sufficiently sized the
-    client should:
-        * first call this function with the roles field NULL to determine the number of role names
-        * second call this function with the roles field pointing to an array of names allocated 
-          according to the number returned by the first call.
+  component and (if the roles field is non-NULL) the names of those roles. The call will fail if 
+  an insufficiently sized array of names is supplied. To ensure the array is sufficiently sized the
+  client should:
+    * first call this function with the roles field NULL to determine the number of role names
+    * second call this function with the roles field pointing to an array of names allocated 
+    according to the number returned by the first call.
 
-    The core should return from this call within 5 msec.
+  The core should return from this call within 5 msec.
 
-    @param [in] compName
-        This is the name of the component being queried about.
-    @param [inout] pNumRoles
-        This is used both as input and output. 
+  @param [in] compName
+    This is the name of the component being queried about.
+  @param [inout] pNumRoles
+    This is used both as input and output. 
  
-        If roles is NULL, the input is ignored and the output specifies how many roles the component supports.
-     
-        If compNames is not NULL, on input it bounds the size of the input structure and 
-        on output, it specifies the number of roles string names listed within the roles parameter.
-    @param [out] roles
-        If NULL this field is ignored. If non-NULL this points to an array of 128-byte strings 
-        which accepts a list of the names of all standard components roles implemented on the 
-        specified component name. numComps indicates the number of names.
-    @ingroup core
+    If roles is NULL, the input is ignored and the output specifies how many roles the component supports.
+   
+    If compNames is not NULL, on input it bounds the size of the input structure and 
+    on output, it specifies the number of roles string names listed within the roles parameter.
+  @param [out] roles
+    If NULL this field is ignored. If non-NULL this points to an array of 128-byte strings 
+    which accepts a list of the names of all standard components roles implemented on the 
+    specified component name. numComps indicates the number of names.
+  @ingroup core
  */
 OMX_API OMX_ERRORTYPE OMX_GetRolesOfComponent ( 
-	OMX_IN      OMX_STRING compName, 
-    OMX_INOUT   OMX_U32 *pNumRoles,
-    OMX_OUT     OMX_U8 **roles);
+	OMX_IN  OMX_STRING compName, 
+  OMX_INOUT OMX_U32 *pNumRoles,
+  OMX_OUT   OMX_U8 **roles);
 
 #ifdef __cplusplus
 }

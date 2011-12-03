@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,17 +33,17 @@
 
 namespace dash
 {
-    namespace logic
+  namespace logic
+  {
+    class NullAdaptationLogic : public AbstractAdaptationLogic
     {
-        class NullAdaptationLogic : public AbstractAdaptationLogic
-        {
-            public:
-                NullAdaptationLogic         (dash::mpd::IMPDManager *mpdManager) : AbstractAdaptationLogic(mpdManager)  {}
-                virtual ~NullAdaptationLogic()                                                                          {}
+    public:
+      NullAdaptationLogic   (dash::mpd::IMPDManager *mpdManager) : AbstractAdaptationLogic(mpdManager)  {}
+      virtual ~NullAdaptationLogic()                          {}
 
-                dash::http::Chunk* getNextChunk () throw(dash::exception::EOFException) { throw dash::exception::EOFException(); }
-        };
-    }
+      dash::http::Chunk* getNextChunk () throw(dash::exception::EOFException) { throw dash::exception::EOFException(); }
+    };
+  }
 }
 
 #endif /* NULLADAPTATIONLOGIC_H_ */

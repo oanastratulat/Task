@@ -5,7 +5,7 @@
  * $Id: 9800918b8b1571f9af12de1b23cb59623f6ac583 $
  *
  * Authors: Johan Bilien <jobi@via.ecp.fr>
- *          Gildas Bazin <gbazin@netcourrier.com>
+ *    Gildas Bazin <gbazin@netcourrier.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@
 #define MSF_TO_LBA2(min, sec, frame) ((int)frame + 75 * (sec -2 + 60 * min))
 /* Converts BCD to Binary data */
 #define BCD_TO_BIN(i) \
-    (uint8_t)((uint8_t)(0xf & (uint8_t)i)+((uint8_t)10*((uint8_t)i >> 4)))
+  (uint8_t)((uint8_t)(0xf & (uint8_t)i)+((uint8_t)10*((uint8_t)i >> 4)))
 
 typedef struct vcddev_s vcddev_t;
 
@@ -61,9 +61,9 @@ typedef struct vcddev_s vcddev_t;
  *****************************************************************************/
 typedef struct msf_s
 {
-    uint8_t minute;
-    uint8_t second;
-    uint8_t frame;
+  uint8_t minute;
+  uint8_t second;
+  uint8_t frame;
 } msf_t;
 
 /*****************************************************************************
@@ -71,32 +71,32 @@ typedef struct msf_s
  *****************************************************************************/
 typedef struct entries_sect_s
 {
-    char psz_id[8];                                 /* "ENTRYVCD" */
-    uint8_t i_version;                              /* 0x02 VCD2.0
-                                                       0x01 SVCD  */
-    uint8_t i_sys_prof_tag;                         /* 0x01 if VCD1.1
-                                                       0x00 else */
-    uint16_t i_entries_nb;                          /* entries number <= 500 */
+  char psz_id[8];           /* "ENTRYVCD" */
+  uint8_t i_version;          /* 0x02 VCD2.0
+                   0x01 SVCD  */
+  uint8_t i_sys_prof_tag;         /* 0x01 if VCD1.1
+                   0x00 else */
+  uint16_t i_entries_nb;          /* entries number <= 500 */
 
-    struct
-    {
-        uint8_t i_track;                            /* track number */
-        msf_t   msf;                                /* msf location
-                                                       (in BCD format) */
-    } entry[500];
-    uint8_t zeros[36];                              /* should be 0x00 */
+  struc
+  {
+    uint8_t i_track;          /* track number */
+    msf_t msf;            /* msf location
+                   (in BCD format) */
+  } entry[500];
+  uint8_t zeros[36];          /* should be 0x00 */
 } entries_sect_t;
 
 /*****************************************************************************
  * Prototypes
  *****************************************************************************/
-vcddev_t *ioctl_Open         ( vlc_object_t *, const char * );
-void      ioctl_Close        ( vlc_object_t *, vcddev_t * );
-int       ioctl_GetTracksMap ( vlc_object_t *, const vcddev_t *, int ** );
-int       ioctl_ReadSectors  ( vlc_object_t *, const vcddev_t *,
-                               int, uint8_t *, int, int );
+vcddev_t *ioctl_Open   ( vlc_object_t *, const char * );
+void  ioctl_Close    ( vlc_object_t *, vcddev_t * );
+int   ioctl_GetTracksMap ( vlc_object_t *, const vcddev_t *, int ** );
+int   ioctl_ReadSectors  ( vlc_object_t *, const vcddev_t *,
+           int, uint8_t *, int, int );
 
 /* CDDA only
  * The track 0 is for album meta data */
-int       ioctl_GetCdText( vlc_object_t *, const vcddev_t *,
-                           vlc_meta_t ***ppp_tracks, int *pi_tracks );
+int   ioctl_GetCdText( vlc_object_t *, const vcddev_t *,
+         vlc_meta_t ***ppp_tracks, int *pi_tracks );

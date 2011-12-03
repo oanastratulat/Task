@@ -24,13 +24,13 @@
 
 
 struct ColorPacketItem {
-    pColorPacket packet;
+  pColorPacket packet;
 #if defined(_ATMO_VLC_PLUGIN_)
-    mtime_t tickcount;
+  mtime_t tickcount;
 #else
-    DWORD tickcount;
+  DWORD tickcount;
 #endif
-    ColorPacketItem *next;
+  ColorPacketItem *next;
 };
 typedef ColorPacketItem* pColorPacketItem;
 
@@ -40,62 +40,62 @@ class CAtmoPacketQueue
 {
 public:
 #if defined(_ATMO_VLC_PLUGIN_)
-    CAtmoPacketQueue();
+  CAtmoPacketQueue();
 #else
-    CAtmoPacketQueue(CAtmoPacketQueueStatus *statusMonitor);
+  CAtmoPacketQueue(CAtmoPacketQueueStatus *statusMonitor);
 #endif
-    ~CAtmoPacketQueue(void);
+  ~CAtmoPacketQueue(void);
 
 protected:
-    int m_waitcounter;
-    int m_skipcounter;
-    int m_framecounter;
-    int m_nullpackets;
-    DWORD m_avgWait;
-    DWORD m_avgDelay;
+  int m_waitcounter;
+  int m_skipcounter;
+  int m_framecounter;
+  int m_nullpackets;
+  DWORD m_avgWait;
+  DWORD m_avgDelay;
 
 #if !defined(_ATMO_VLC_PLUGIN_)
-    CAtmoPacketQueueStatus *m_StatusMonitor;
+  CAtmoPacketQueueStatus *m_StatusMonitor;
 #endif
 
 private:
-    volatile pColorPacketItem m_first;
-    volatile pColorPacketItem m_last;
+  volatile pColorPacketItem m_first;
+  volatile pColorPacketItem m_last;
 
 #if defined(_ATMO_VLC_PLUGIN_)
-    vlc_cond_t   m_PacketArrivedCond;
-    vlc_mutex_t  m_PacketArrivedLock;
-    volatile ATMO_BOOL m_PacketArrived;
-    vlc_mutex_t  m_Lock;
+  vlc_cond_t m_PacketArrivedCond;
+  vlc_mutex_t  m_PacketArrivedLock;
+  volatile ATMO_BOOL m_PacketArrived;
+  vlc_mutex_t  m_Lock;
 #else
-    CRITICAL_SECTION m_lock;
-    HANDLE m_hPacketArrivedEvent;
+  CRITICAL_SECTION m_lock;
+  HANDLE m_hPacketArrivedEvent;
 #endif
 
 private:
-    void Lock();
-    void Unlock();
-    void SignalEvent();
-    void UnSignalEvent();
+  void Lock();
+  void Unlock();
+  void SignalEvent();
+  void UnSignalEvent();
 
 private:
-    pColorPacket GetNextPacket();
-    pColorPacketItem GetNextPacketContainer();
+  pColorPacket GetNextPacket();
+  pColorPacketItem GetNextPacketContainer();
 
 public:
-    void AddPacket(pColorPacket newPacket);
+  void AddPacket(pColorPacket newPacket);
 
-    // timecode = GetTickCount() - framedelay;
+  // timecode = GetTickCount() - framedelay;
 #if defined(_ATMO_VLC_PLUGIN_)
-    void ShowQueueStatus(vlc_object_t *p_this);
-    pColorPacket GetNextPacket(mtime_t timecode, ATMO_BOOL withWait, vlc_object_t *p_this, mtime_t &packet_time );
+  void ShowQueueStatus(vlc_object_t *p_this);
+  pColorPacket GetNextPacket(mtime_t timecode, ATMO_BOOL withWait, vlc_object_t *p_this, mtime_t &packet_time );
 #else
-    pColorPacket GetNextPacket(DWORD timecode, ATMO_BOOL withWait, DWORD &packet_time );
+  pColorPacket GetNextPacket(DWORD timecode, ATMO_BOOL withWait, DWORD &packet_time );
 #endif
 
-    void ClearQueue();
+  void ClearQueue();
 
-    ATMO_BOOL WaitForNextPacket(DWORD timeout);
+  ATMO_BOOL WaitForNextPacket(DWORD timeout);
 
 };
 

@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: b09a0517c1fd57d71d26e795e5f9d1d2d223cc76 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
- *          Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ *    Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,20 +30,20 @@ const string VarPercent::m_type = "percent";
 
 void VarPercent::set( float percentage )
 {
-    if( percentage < 0 )
-    {
-        percentage = 0;
-    }
-    if( percentage > 1 )
-    {
-        percentage = 1;
-    }
+  if( percentage < 0 )
+  {
+    percentage = 0;
+  }
+  if( percentage > 1 )
+  {
+    percentage = 1;
+  }
 
-    // If the value has changed, notify the observers
-    if( m_value != percentage )
-    {
-        m_value = percentage;
-        notify( NULL );
-    }
+  // If the value has changed, notify the observers
+  if( m_value != percentage )
+  {
+    m_value = percentage;
+    notify( NULL );
+  }
 }
 

@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -39,45 +39,45 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class Group
     {
-        class Group
-        {
-            public:
-                Group           (std::map<std::string, std::string>  attributes);
-                virtual ~Group  ();
+    public:
+      Group     (std::map<std::string, std::string>  attributes);
+      virtual ~Group  ();
 
-                std::string                     getWidth                () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getHeight               () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getParX                 () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getParY                 () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getLang                 () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getMimeType             () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getFrameRate            () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getNumberOfChannels     () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getSamplingRate         () throw(dash::exception::AttributeNotPresentException);
-                std::string                     getSubSegmentAlignment  () throw(dash::exception::AttributeNotPresentException);
-                std::vector<Representation *>   getRepresentations      ();
-                Viewpoint*                      getViewpoint            () throw(dash::exception::ElementNotPresentException);
-                ContentProtection*              getContentProtection    () throw(dash::exception::ElementNotPresentException);
-                Accessibility*                  getAccessibility        () throw(dash::exception::ElementNotPresentException);
-                Rating*                         getRating               () throw(dash::exception::ElementNotPresentException);
+      std::string       getWidth      () throw(dash::exception::AttributeNotPresentException);
+      std::string       getHeight     () throw(dash::exception::AttributeNotPresentException);
+      std::string       getParX       () throw(dash::exception::AttributeNotPresentException);
+      std::string       getParY       () throw(dash::exception::AttributeNotPresentException);
+      std::string       getLang       () throw(dash::exception::AttributeNotPresentException);
+      std::string       getMimeType     () throw(dash::exception::AttributeNotPresentException);
+      std::string       getFrameRate    () throw(dash::exception::AttributeNotPresentException);
+      std::string       getNumberOfChannels   () throw(dash::exception::AttributeNotPresentException);
+      std::string       getSamplingRate   () throw(dash::exception::AttributeNotPresentException);
+      std::string       getSubSegmentAlignment  () throw(dash::exception::AttributeNotPresentException);
+      std::vector<Representation *> getRepresentations  ();
+      Viewpoint*        getViewpoint    () throw(dash::exception::ElementNotPresentException);
+      ContentProtection*      getContentProtection  () throw(dash::exception::ElementNotPresentException);
+      Accessibility*      getAccessibility    () throw(dash::exception::ElementNotPresentException);
+      Rating*         getRating     () throw(dash::exception::ElementNotPresentException);
 
-                void addRepresentation      (Representation *rep);
-                void setViewpoint           (Viewpoint *viewpoint);
-                void setContentProtection   (ContentProtection *protection);
-                void setAccessibility       (Accessibility *accessibility);
-                void setRating              (Rating *rating);
+      void addRepresentation  (Representation *rep);
+      void setViewpoint     (Viewpoint *viewpoint);
+      void setContentProtection (ContentProtection *protection);
+      void setAccessibility   (Accessibility *accessibility);
+      void setRating      (Rating *rating);
 
-            private:
-                std::map<std::string, std::string>  attributes;
-                std::vector<Representation *>       representations;
-                ContentProtection                   *contentProtection;
-                Accessibility                       *accessibility;
-                Viewpoint                           *viewpoint;
-                Rating                              *rating;
-        };
-    }
+    private:
+      std::map<std::string, std::string>  attributes;
+      std::vector<Representation *>   representations;
+      ContentProtection       *contentProtection;
+      Accessibility         *accessibility;
+      Viewpoint         *viewpoint;
+      Rating          *rating;
+    };
+  }
 }
 
 #endif /* GROUP_H_ */

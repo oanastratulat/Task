@@ -22,19 +22,19 @@
  *****************************************************************************/
 
 typedef struct {
-    uint64_t offset;
-    uint64_t size;
-    uint64_t cummulated_size;
+  uint64_t offset;
+  uint64_t size;
+  uint64_t cummulated_size;
 } rar_file_chunk_t;
 
 typedef struct {
-    char     *name;
-    uint64_t size;
-    bool     is_complete;
+  char   *name;
+  uint64_t size;
+  bool   is_complete;
 
-    int              chunk_count;
-    rar_file_chunk_t **chunk;
-    uint64_t         real_size;  /* Gathered size */
+  int      chunk_count;
+  rar_file_chunk_t **chunk;
+  uint64_t   real_size;  /* Gathered size */
 } rar_file_t;
 
 int  RarProbe(stream_t *);

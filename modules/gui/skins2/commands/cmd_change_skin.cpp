@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: da59ec89eafe9a55618f072a809633d976d5bda2 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
- *          Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ *    Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,45 +36,45 @@
 
 void CmdChangeSkin::execute()
 {
-    // Save the old theme to restore it in case of problem
-    Theme *pOldTheme = getIntf()->p_sys->p_theme;
+  // Save the old theme to restore it in case of problem
+  Theme *pOldTheme = getIntf()->p_sys->p_theme;
 
-    if( pOldTheme )
-    {
-        pOldTheme->getWindowManager().saveVisibility();
-        pOldTheme->getWindowManager().hideAll();
-    }
+  if( pOldTheme )
+  {
+    pOldTheme->getWindowManager().saveVisibility();
+    pOldTheme->getWindowManager().hideAll();
+  }
 
-    VoutManager::instance( getIntf() )->saveVoutConfig();
+  VoutManager::instance( getIntf() )->saveVoutConfig();
 
-    ThemeLoader loader( getIntf() );
-    if( loader.load( m_file ) )
-    {
-        // Everything went well
-        msg_Info( getIntf(), "new theme successfully loaded (%s)",
-                 m_file.c_str() );
-        delete pOldTheme;
+  ThemeLoader loader( getIntf() );
+  if( loader.load( m_file ) )
+  {
+    // Everything went well
+    msg_Info( getIntf(), "new theme successfully loaded (%s)",
+       m_file.c_str() );
+    delete pOldTheme;
 
-        // restore vout config
-        VoutManager::instance( getIntf() )->restoreVoutConfig( true );
-    }
-    else if( pOldTheme )
-    {
-        msg_Warn( getIntf(), "a problem occurred when loading the new theme,"
-                  " restoring the previous one" );
-        getIntf()->p_sys->p_theme = pOldTheme;
-        VoutManager::instance( getIntf() )->restoreVoutConfig( false );
-        pOldTheme->getWindowManager().restoreVisibility();
-    }
-    else
-    {
-        msg_Err( getIntf(), "cannot load the theme, aborting" );
-        // Quit
-        CmdQuit cmd( getIntf() );
-        cmd.execute();
-    }
+    // restore vout config
+    VoutManager::instance( getIntf() )->restoreVoutConfig( true );
+  }
+  else if( pOldTheme )
+  {
+    msg_Warn( getIntf(), "a problem occurred when loading the new theme,"
+      " restoring the previous one" );
+    getIntf()->p_sys->p_theme = pOldTheme;
+    VoutManager::instance( getIntf() )->restoreVoutConfig( false );
+    pOldTheme->getWindowManager().restoreVisibility();
+  }
+  else
+  {
+    msg_Err( getIntf(), "cannot load the theme, aborting" );
+    // Qui
+    CmdQuit cmd( getIntf() );
+    cmd.execute();
+  }
 
-   // update the repository
-   ThemeRepository::instance( getIntf() )->updateRepository();
+ // update the repository
+ ThemeRepository::instance( getIntf() )->updateRepository();
 }
 

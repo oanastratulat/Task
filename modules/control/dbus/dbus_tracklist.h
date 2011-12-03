@@ -1,13 +1,13 @@
 /*****************************************************************************
- * dbus-tracklist.h : dbus control module (mpris v1.0) - /TrackList object
+ * dbus-tracklist.h : dbus control module (mpris v1.0) - /TrackList objec
  *****************************************************************************
  * Copyright © 2006-2008 Rafaël Carré
  * Copyright © 2007-2010 Mirsal Ennaime
  * Copyright © 2009-2010 The VideoLAN team
  * $Id: 5aba14a6dde15c14b10002667fa2e96f80df8b1e $
  *
- * Authors:    Mirsal Ennaime <mirsal at mirsal fr>
- *             Rafaël Carré <funman at videolanorg>
+ * Authors:  Mirsal Ennaime <mirsal at mirsal fr>
+ *     Rafaël Carré <funman at videolanorg>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,13 +31,13 @@
 #include <vlc_interface.h>
 #include "dbus_common.h"
 
-#define DBUS_MPRIS_TRACKLIST_INTERFACE    "org.mpris.MediaPlayer2.TrackList"
-#define DBUS_MPRIS_TRACKLIST_PATH         "/org/mpris/MediaPlayer2/TrackList"
+#define DBUS_MPRIS_TRACKLIST_INTERFACE  "org.mpris.MediaPlayer2.TrackList"
+#define DBUS_MPRIS_TRACKLIST_PATH   "/org/mpris/MediaPlayer2/TrackList"
 
 /* Handle incoming dbus messages */
 DBusHandlerResult handle_tracklist ( DBusConnection *p_conn,
-                                     DBusMessage *p_from,
-                                     void *p_this );
+             DBusMessage *p_from,
+             void *p_this );
 
 int TrackListPropertiesChangedEmit( intf_thread_t *, vlc_dictionary_t * );
 

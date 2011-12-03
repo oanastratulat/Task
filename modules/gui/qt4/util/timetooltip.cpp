@@ -30,107 +30,107 @@
 #define TIP_HEIGHT 5
 
 TimeTooltip::TimeTooltip( QWidget *parent ) :
-    QWidget( parent )
+  QWidget( parent )
 {
-    setWindowFlags( Qt::Window                  |
-                    Qt::WindowStaysOnTopHint    |
-                    Qt::FramelessWindowHint     |
-                    Qt::X11BypassWindowManagerHint );
+  setWindowFlags( Qt::Window      |
+        Qt::WindowStaysOnTopHint  |
+        Qt::FramelessWindowHint   |
+        Qt::X11BypassWindowManagerHint );
 
-    // Tell Qt that it doesn't need to erase the background before
-    // a paintEvent occurs. This should save some CPU cycles.
-    setAttribute( Qt::WA_OpaquePaintEvent );
+  // Tell Qt that it doesn't need to erase the background before
+  // a paintEvent occurs. This should save some CPU cycles.
+  setAttribute( Qt::WA_OpaquePaintEvent );
 
 #ifdef Q_WS_WIN
-    /*
-    - This attribute is required on Windows to avoid focus stealing of other windows.
-    - When set on Linux the TimeTooltip appears behind the FSController in fullscreen.
-    */
-    setAttribute( Qt::WA_ShowWithoutActivating );
+  /*
+  - This attribute is required on Windows to avoid focus stealing of other windows.
+  - When set on Linux the TimeTooltip appears behind the FSController in fullscreen.
+  */
+  setAttribute( Qt::WA_ShowWithoutActivating );
 #endif
 
-    // Inherit from the system default font size -5
-    mFont = QFont( "Verdana", qMax( qApp->font().pointSize() - 5, 7 ) );
-    mPreviousMetricsWidth = 0;
+  // Inherit from the system default font size -5
+  mFont = QFont( "Verdana", qMax( qApp->font().pointSize() - 5, 7 ) );
+  mPreviousMetricsWidth = 0;
 
-    // Set default text
-    setText( "00:00:00", "" );
+  // Set default tex
+  setText( "00:00:00", "" );
 }
 
 void TimeTooltip::buildPath()
 {
-    QFontMetrics metrics( mFont );
+  QFontMetrics metrics( mFont );
 
-    // Get the bounding box required to print the text and add some padding
-    QRect textbox = metrics.boundingRect( mDisplayedText ).adjusted( -2, -2, 2, 2 );
+  // Get the bounding box required to print the text and add some padding
+  QRect textbox = metrics.boundingRect( mDisplayedText ).adjusted( -2, -2, 2, 2 );
 
-    if ( mPreviousMetricsWidth == textbox.width() )
-        return; //same width == same path
-    else
-        mPreviousMetricsWidth = textbox.width();
+  if ( mPreviousMetricsWidth == textbox.width() )
+    return; //same width == same path
+  else
+    mPreviousMetricsWidth = textbox.width();
 
-    mBox = QRect( 0, 0, textbox.width(), textbox.height() );
+  mBox = QRect( 0, 0, textbox.width(), textbox.height() );
 
-    // Resize the widget to fit our needs
-    resize( mBox.width() + 1, mBox.height() + TIP_HEIGHT + 1 );
+  // Resize the widget to fit our needs
+  resize( mBox.width() + 1, mBox.height() + TIP_HEIGHT + 1 );
 
-    // Prepare the painter path for future use so
-    // we only have to generate the text at runtime.
+  // Prepare the painter path for future use so
+  // we only have to generate the text at runtime.
 
-    // Draw the text box
-    mPainterPath = QPainterPath();
-    mPainterPath.addRect( mBox );
+  // Draw the text box
+  mPainterPath = QPainterPath();
+  mPainterPath.addRect( mBox );
 
-    // Draw the tip
-    int center = mBox.width() / 2;
-    QPolygon polygon;
-    polygon << QPoint( center - 3,   mBox.height() )
-            << QPoint( center,       mBox.height() + TIP_HEIGHT )
-            << QPoint( center + 3,   mBox.height() );
+  // Draw the tip
+  int center = mBox.width() / 2;
+  QPolygon polygon;
+  polygon << QPoint( center - 3, mBox.height() )
+    << QPoint( center,   mBox.height() + TIP_HEIGHT )
+    << QPoint( center + 3, mBox.height() );
 
-    mPainterPath.addPolygon( polygon );
+  mPainterPath.addPolygon( polygon );
 
-    // Store the simplified version of the path
-    mPainterPath = mPainterPath.simplified();
+  // Store the simplified version of the path
+  mPainterPath = mPainterPath.simplified();
 
-    // Create the mask used to erase the background
-    // Note: this is a binary bitmap (black & white)
-    mMask = QBitmap( size() );
-    QPainter painter( &mMask );
-    painter.fillRect( mMask.rect(), Qt::white );
-    painter.setPen( QColor( 0, 0, 0 ) );
-    painter.setBrush( QColor( 0, 0, 0 ) );
-    painter.drawPath( mPainterPath );
-    painter.end();
+  // Create the mask used to erase the background
+  // Note: this is a binary bitmap (black & white)
+  mMask = QBitmap( size() );
+  QPainter painter( &mMask );
+  painter.fillRect( mMask.rect(), Qt::white );
+  painter.setPen( QColor( 0, 0, 0 ) );
+  painter.setBrush( QColor( 0, 0, 0 ) );
+  painter.drawPath( mPainterPath );
+  painter.end();
 
-    setMask( mMask );
+  setMask( mMask );
 }
 
 void TimeTooltip::setText( const QString& time, const QString& text )
 {
-    mDisplayedText = time;
-    if ( !mText.isEmpty() ) mDisplayedText.append( " - " + text );
+  mDisplayedText = time;
+  if ( !mText.isEmpty() ) mDisplayedText.append( " - " + text );
 
-    if ( time.length() != mTime.length() || mText != text )
-        buildPath();
+  if ( time.length() != mTime.length() || mText != text )
+    buildPath();
 
-    mTime = time;
-    mText = text;
-    update();
+  mTime = time;
+  mText = text;
+  update();
 }
 
 void TimeTooltip::paintEvent( QPaintEvent * )
 {
-    QPainter p( this );
-    p.setRenderHints( QPainter::HighQualityAntialiasing | QPainter::TextAntialiasing );
+  QPainter p( this );
+  p.setRenderHints( QPainter::HighQualityAntialiasing | QPainter::TextAntialiasing );
 
-    p.setPen( Qt::black );
-    p.setBrush( qApp->palette().base() );
-    p.drawPath( mPainterPath );
+  p.setPen( Qt::black );
+  p.setBrush( qApp->palette().base() );
+  p.drawPath( mPainterPath );
 
-    p.setFont( mFont );
-    p.setPen( QPen( qApp->palette().text(), 1 ) );
-    p.drawText( mBox, Qt::AlignCenter, mDisplayedText );
+  p.setFont( mFont );
+  p.setPen( QPen( qApp->palette().text(), 1 ) );
+  p.drawText( mBox, Qt::AlignCenter, mDisplayedText );
 }
 
 #undef TIP_HEIGHT

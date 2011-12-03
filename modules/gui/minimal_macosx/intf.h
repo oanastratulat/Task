@@ -5,9 +5,9 @@
  * $Id: 93ab46c657e18763ef1b7bd92b471afe64dde5a1 $
  *
  * Authors: Jon Lech Johansen <jon-vl@nanocrew.net>
- *          Christophe Massiot <massiot@via.ecp.fr>
- *          Derk-Jan Hartman <hartman at videolan dot org>
- *          Felix Kühne <fkuehne at videolan dot org>
+ *    Christophe Massiot <massiot@via.ecp.fr>
+ *    Derk-Jan Hartman <hartman at videolan dot org>
+ *    Felix Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 #ifdef HAVE_CONFIG_H
-#   include "config.h"
+# include "config.h"
 #endif
 
 #include <vlc_common.h>
@@ -44,11 +44,11 @@
 /*****************************************************************************
  * intf_sys_t: description and status of the interface
  *****************************************************************************/
-struct intf_sys_t
+struct intf_sys_
 {
-    int nothing_for_now;
+  int nothing_for_now;
 
-    vlc_mutex_t lock;
-    vlc_cond_t wait;
+  vlc_mutex_t lock;
+  vlc_cond_t wait;
 };
 

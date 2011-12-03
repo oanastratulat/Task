@@ -5,7 +5,7 @@
  *
  * Created on: Apr 20, 2011
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -34,23 +34,23 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class NullManager : public IMPDManager
     {
-        class NullManager : public IMPDManager
-        {
-            public:
-                const std::vector<Period *>&   getPeriods              () const;
-                Period*                 getFirstPeriod          ();
-                Period*                 getNextPeriod           (Period *period);
-                Representation*         getBestRepresentation   (Period *period);
-                std::vector<ISegment *> getSegments             (Representation *rep);
-                Representation*         getRepresentation       (Period *period, long bitrate);
+    public:
+      const std::vector<Period *>& getPeriods      () const;
+      Period*       getFirstPeriod    ();
+      Period*       getNextPeriod     (Period *period);
+      Representation*   getBestRepresentation (Period *period);
+      std::vector<ISegment *> getSegments     (Representation *rep);
+      Representation*   getRepresentation   (Period *period, long bitrate);
 
-            private:
-                std::vector<Period *>   periods;
-                std::vector<ISegment *> segments;
-        };
-    }
+    private:
+      std::vector<Period *> periods;
+      std::vector<ISegment *> segments;
+    };
+  }
 }
 
 #endif /* NULLMANAGER_H_ */

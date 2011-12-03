@@ -27,124 +27,124 @@
 
 static inline int mediapool_hash( int media_id )
 {
-    return media_id % ML_MEDIAPOOL_HASH_LENGTH;
+  return media_id % ML_MEDIAPOOL_HASH_LENGTH;
 }
 
 /**
  * @brief Get a media from the pool
- * @param p_ml ML object
- * @param media_id The media id of the object to get
+ * @param p_ml ML objec
+ * @param media_id The media id of the object to ge
  * @return the found media or NULL if not found
  */
 ml_media_t* pool_GetMedia( media_library_t* p_ml, int media_id )
 {
-    vlc_mutex_lock( &p_ml->p_sys->pool_mutex );
-    ml_media_t* p_media = NULL;
-    mp_foreachlist( p_ml->p_sys->p_mediapool[ mediapool_hash( media_id ) ], p_item )
+  vlc_mutex_lock( &p_ml->p_sys->pool_mutex );
+  ml_media_t* p_media = NULL;
+  mp_foreachlist( p_ml->p_sys->p_mediapool[ mediapool_hash( media_id ) ], p_item )
+  {
+    if( p_item->p_media->i_id == media_id )
     {
-        if( p_item->p_media->i_id == media_id )
-        {
-            p_media = p_item->p_media;
-            break;
-        }
+    p_media = p_item->p_media;
+    break;
     }
-    if( p_media )
-        ml_gc_incref( p_media );
-    vlc_mutex_unlock( &p_ml->p_sys->pool_mutex );
-    return p_media;
+  }
+  if( p_media )
+    ml_gc_incref( p_media );
+  vlc_mutex_unlock( &p_ml->p_sys->pool_mutex );
+  return p_media;
 }
 
 /**
  * @brief Insert a media into the media pool
- * @param p_ml ML object
- * @param p_media Media object to insert
+ * @param p_ml ML objec
+ * @param p_media Media object to inser
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
 int pool_InsertMedia( media_library_t* p_ml, ml_media_t* p_media, bool locked )
 {
-    if( !locked )
-        ml_LockMedia( p_media );
-    assert( p_media );
-    assert( p_media->i_id > 0 );
-    vlc_spin_lock( &p_media->ml_gc_data.spin );
-    if( p_media->ml_gc_data.pool )
+  if( !locked )
+    ml_LockMedia( p_media );
+  assert( p_media );
+  assert( p_media->i_id > 0 );
+  vlc_spin_lock( &p_media->ml_gc_data.spin );
+  if( p_media->ml_gc_data.pool )
+  {
+    msg_Dbg( p_ml, "Already in pool! %s %d", p_media->psz_uri, p_media->i_id );
+    ml_UnlockMedia( p_media );
+    return VLC_EGENERIC;
+  }
+  p_media->ml_gc_data.pool = true;
+  vlc_spin_unlock( &p_media->ml_gc_data.spin );
+  int i_ret = VLC_SUCCESS;
+  vlc_mutex_lock( &p_ml->p_sys->pool_mutex );
+  mp_foreachlist( p_ml->p_sys->p_mediapool[ (mediapool_hash(p_media->i_id)) ], p_item )
+  {
+    if( p_media == p_item->p_media )
     {
-        msg_Dbg( p_ml, "Already in pool! %s %d", p_media->psz_uri, p_media->i_id );
-        ml_UnlockMedia( p_media );
-        return VLC_EGENERIC;
+    i_ret = VLC_EGENERIC;
+    break;
     }
-    p_media->ml_gc_data.pool = true;
-    vlc_spin_unlock( &p_media->ml_gc_data.spin );
-    int i_ret = VLC_SUCCESS;
-    vlc_mutex_lock( &p_ml->p_sys->pool_mutex );
-    mp_foreachlist( p_ml->p_sys->p_mediapool[ (mediapool_hash(p_media->i_id)) ], p_item )
+    else if( p_media->i_id == p_item->p_media->i_id )
     {
-        if( p_media == p_item->p_media )
-        {
-            i_ret = VLC_EGENERIC;
-            break;
-        }
-        else if( p_media->i_id == p_item->p_media->i_id )
-        {
-            i_ret = VLC_EGENERIC;
-            msg_Warn( p_ml, "A media of the same id was found, but in different objects!" );
-            break;
-        }
+    i_ret = VLC_EGENERIC;
+    msg_Warn( p_ml, "A media of the same id was found, but in different objects!" );
+    break;
     }
-    if( i_ret == VLC_SUCCESS )
+  }
+  if( i_ret == VLC_SUCCESS )
+  {
+    ml_poolobject_t* p_new = ( ml_poolobject_t * ) calloc( 1, sizeof( ml_poolobject_t* ) );
+    if( !p_new )
+    i_ret = VLC_EGENERIC;
+    else
     {
-        ml_poolobject_t* p_new = ( ml_poolobject_t * ) calloc( 1, sizeof( ml_poolobject_t* ) );
-        if( !p_new )
-            i_ret = VLC_EGENERIC;
-        else
-        {
-            ml_gc_incref( p_media );
-            p_new->p_media = p_media;
-            p_new->p_next = p_ml->p_sys->p_mediapool[ ( mediapool_hash( p_media->i_id ) ) ];
-            p_ml->p_sys->p_mediapool[ ( mediapool_hash( p_media->i_id ) ) ] = p_new;
-        }
+    ml_gc_incref( p_media );
+    p_new->p_media = p_media;
+    p_new->p_next = p_ml->p_sys->p_mediapool[ ( mediapool_hash( p_media->i_id ) ) ];
+    p_ml->p_sys->p_mediapool[ ( mediapool_hash( p_media->i_id ) ) ] = p_new;
     }
-    vlc_mutex_unlock( &p_ml->p_sys->pool_mutex );
-    if( !locked )
-        ml_UnlockMedia( p_media );
-    return i_ret;
+  }
+  vlc_mutex_unlock( &p_ml->p_sys->pool_mutex );
+  if( !locked )
+    ml_UnlockMedia( p_media );
+  return i_ret;
 }
 
 /**
  * @brief Perform a single garbage collection scan on the media pool
- * @param p_ml The ML object
+ * @param p_ml The ML objec
  * @note Scans all media and removes any medias not held by any other objects.
  */
 void pool_GC( media_library_t* p_ml )
 {
-    vlc_mutex_lock( &p_ml->p_sys->pool_mutex );
-    ml_poolobject_t* p_prev = NULL;
-    ml_media_t* p_media = NULL;
-    for( int i_idx = 0; i_idx < ML_MEDIAPOOL_HASH_LENGTH; i_idx++ )
+  vlc_mutex_lock( &p_ml->p_sys->pool_mutex );
+  ml_poolobject_t* p_prev = NULL;
+  ml_media_t* p_media = NULL;
+  for( int i_idx = 0; i_idx < ML_MEDIAPOOL_HASH_LENGTH; i_idx++ )
+  {
+    p_prev = NULL;
+    for( ml_poolobject_t* p_item = p_ml->p_sys->p_mediapool[ i_idx ];
+      p_item != NULL; p_item = p_item->p_next )
     {
-        p_prev = NULL;
-        for( ml_poolobject_t* p_item = p_ml->p_sys->p_mediapool[ i_idx ];
-                p_item != NULL; p_item = p_item->p_next )
-        {
-            p_media = p_item->p_media;
-            int refs;
-            vlc_spin_lock( &p_media->ml_gc_data.spin );
-            refs = p_media->ml_gc_data.refs;
-            vlc_spin_unlock( &p_media->ml_gc_data.spin );
-            if( refs == 1 )
-            {
-                if( p_prev == NULL )
-                    p_ml->p_sys->p_mediapool[i_idx] = p_item->p_next;
-                else
-                    p_prev->p_next = p_item->p_next;
-                vlc_spin_lock( &p_media->ml_gc_data.spin );
-                p_media->ml_gc_data.pool = false;
-                vlc_spin_unlock( &p_media->ml_gc_data.spin );
-                ml_gc_decref( p_item->p_media );//This should destroy the object
-                free( p_item );
-            }
-            p_prev = p_item;
-        }
+    p_media = p_item->p_media;
+    int refs;
+    vlc_spin_lock( &p_media->ml_gc_data.spin );
+    refs = p_media->ml_gc_data.refs;
+    vlc_spin_unlock( &p_media->ml_gc_data.spin );
+    if( refs == 1 )
+    {
+      if( p_prev == NULL )
+        p_ml->p_sys->p_mediapool[i_idx] = p_item->p_next;
+      else
+        p_prev->p_next = p_item->p_next;
+      vlc_spin_lock( &p_media->ml_gc_data.spin );
+      p_media->ml_gc_data.pool = false;
+      vlc_spin_unlock( &p_media->ml_gc_data.spin );
+      ml_gc_decref( p_item->p_media );//This should destroy the objec
+      free( p_item );
     }
-    vlc_mutex_unlock( &p_ml->p_sys->pool_mutex );
+    p_prev = p_item;
+    }
+  }
+  vlc_mutex_unlock( &p_ml->p_sys->pool_mutex );
 }

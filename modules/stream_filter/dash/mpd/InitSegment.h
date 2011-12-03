@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,20 +33,20 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class InitSegment : public ISegmen
     {
-        class InitSegment : public ISegment
-        {
-            public:
-                InitSegment         (std::map<std::string, std::string>  attributes);
-                virtual ~InitSegment();
+    public:
+      InitSegment   (std::map<std::string, std::string>  attributes);
+      virtual ~InitSegment();
 
-                std::string getSourceUrl() throw(dash::exception::AttributeNotPresentException);
+      std::string getSourceUrl() throw(dash::exception::AttributeNotPresentException);
 
-            private:
-                std::map<std::string, std::string>  attributes;
-        };
-    }
+    private:
+      std::map<std::string, std::string>  attributes;
+    };
+  }
 }
 
 #endif /* INITSEGMENT_H_ */

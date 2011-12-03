@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 23aea45431919ae0c5f3a4c991646ab8048705f4 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,82 +28,82 @@
 
 
 MacOSXGraphics::MacOSXGraphics( intf_thread_t *pIntf, int width, int height ):
-    OSGraphics( pIntf ), m_width( width ), m_height( height )
+  OSGraphics( pIntf ), m_width( width ), m_height( height )
 {
-    // TODO
+  // TODO
 }
 
 
 MacOSXGraphics::~MacOSXGraphics()
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::clear()
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::drawGraphics( const OSGraphics &rGraphics, int xSrc,
-                                   int ySrc, int xDest, int yDest, int width,
-                                   int height )
+             int ySrc, int xDest, int yDest, int width,
+             int height )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::drawBitmap( const GenericBitmap &rBitmap, int xSrc,
-                                 int ySrc, int xDest, int yDest, int width,
-                                 int height, bool blend )
+           int ySrc, int xDest, int yDest, int width,
+           int height, bool blend )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::fillRect( int left, int top, int width, int height,
-                               uint32_t color )
+           uint32_t color )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::drawRect( int left, int top, int width, int height,
-                            uint32_t color )
+          uint32_t color )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::applyMaskToWindow( OSWindow &rWindow )
 {
-    // TODO
+  // TODO
 }
 
 
 void MacOSXGraphics::copyToWindow( OSWindow &rWindow, int xSrc,  int ySrc,
-                                int width, int height, int xDest, int yDest )
+            int width, int height, int xDest, int yDest )
 {
-    // Get the graphics context
-    WindowRef win = ((MacOSXWindow&)rWindow).getWindowRef();
-    SetPortWindowPort( win );
-    GrafPtr port = GetWindowPort( win );
-    CGContextRef gc;
-    QDBeginCGContext( port, &gc );
+  // Get the graphics contex
+  WindowRef win = ((MacOSXWindow&)rWindow).getWindowRef();
+  SetPortWindowPort( win );
+  GrafPtr port = GetWindowPort( win );
+  CGContextRef gc;
+  QDBeginCGContext( port, &gc );
 
-//    CGContextSetRGBFillColor( gc, 1, 0, 0, 1 );
-//    CGContextFillRect( gc, CGRectMake( 0, 0, 50, 50 ));
+//  CGContextSetRGBFillColor( gc, 1, 0, 0, 1 );
+//  CGContextFillRect( gc, CGRectMake( 0, 0, 50, 50 ));
 
-    // Release the graphics context
-    QDEndCGContext( port, &gc );
+  // Release the graphics contex
+  QDEndCGContext( port, &gc );
 }
 
 
-bool MacOSXGraphics::hit( int x, int y ) const
+bool MacOSXGraphics::hit( int x, int y ) cons
 {
-    // TODO
-    return false;
+  // TODO
+  return false;
 }
 
 #endif

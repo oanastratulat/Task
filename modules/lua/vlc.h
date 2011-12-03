@@ -5,7 +5,7 @@
  * $Id: 5d87914c5a20480028845d4f7bc49fce1cb13f22 $
  *
  * Authors: Antoine Cellerier <dionoea at videolan tod org>
- *          Pierre d'Herbemont <pdherbemont # videolan.org>
+ *    Pierre d'Herbemont <pdherbemont # videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,9 +36,9 @@
 #include <vlc_strings.h>
 #include <vlc_stream.h>
 
-#include <lua.h>        /* Low level lua C API */
-#include <lauxlib.h>    /* Higher level C API */
-#include <lualib.h>     /* Lua libs */
+#include <lua.h>    /* Low level lua C API */
+#include <lauxlib.h>  /* Higher level C API */
+#include <lualib.h>   /* Lua libs */
 
 /*****************************************************************************
  * Module entry points
@@ -69,10 +69,10 @@ void Close_LuaSD( vlc_object_t * );
  *****************************************************************************/
 static inline void lua_Dbg( vlc_object_t * p_this, const char * ppz_fmt, ... )
 {
-    va_list ap;
-    va_start( ap, ppz_fmt );
-    msg_GenericVa( p_this, VLC_MSG_DBG, MODULE_STRING, ppz_fmt, ap );
-    va_end( ap );
+  va_list ap;
+  va_start( ap, ppz_fmt );
+  msg_GenericVa( p_this, VLC_MSG_DBG, MODULE_STRING, ppz_fmt, ap );
+  va_end( ap );
 }
 
 /*****************************************************************************
@@ -80,27 +80,27 @@ static inline void lua_Dbg( vlc_object_t * p_this, const char * ppz_fmt, ... )
  *****************************************************************************/
 static inline bool luaL_checkboolean( lua_State *L, int narg )
 {
-    luaL_checktype( L, narg, LUA_TBOOLEAN ); /* can raise an error */
-    return lua_toboolean( L, narg );
+  luaL_checktype( L, narg, LUA_TBOOLEAN ); /* can raise an error */
+  return lua_toboolean( L, narg );
 }
 
 static inline int luaL_optboolean( lua_State *L, int narg, int def )
 {
-    return luaL_opt( L, luaL_checkboolean, narg, def );
+  return luaL_opt( L, luaL_checkboolean, narg, def );
 }
 
 static inline const char *luaL_nilorcheckstring( lua_State *L, int narg )
 {
-    if( lua_isnil( L, narg ) )
-        return NULL;
-    return luaL_checkstring( L, narg );
+  if( lua_isnil( L, narg ) )
+    return NULL;
+  return luaL_checkstring( L, narg );
 }
 
 static inline char *luaL_strdupornull( lua_State *L, int narg )
 {
-    if( lua_isstring( L, narg ) )
-        return strdup( luaL_checkstring( L, narg ) );
-    return NULL;
+  if( lua_isstring( L, narg ) )
+    return strdup( luaL_checkstring( L, narg ) );
+  return NULL;
 }
 
 void vlclua_set_this( lua_State *, vlc_object_t * );
@@ -121,8 +121,8 @@ int vlclua_push_ret( lua_State *, int i_error );
  * success.
  *****************************************************************************/
 int vlclua_scripts_batch_execute( vlc_object_t *p_this, const char * luadirname,
-        int (*func)(vlc_object_t *, const char *, void *),
-        void * user_data );
+    int (*func)(vlc_object_t *, const char *, void *),
+    void * user_data );
 int vlclua_dir_list( vlc_object_t *p_this, const char *luadirname, char ***pppsz_dir_list );
 void vlclua_dir_list_free( char **ppsz_dir_list );
 char *vlclua_find_file( vlc_object_t *p_this, const char *psz_luadirname, const char *psz_name );
@@ -140,10 +140,10 @@ void vlclua_read_options( vlc_object_t *, lua_State *, int *, char *** );
 void vlclua_read_meta_data( vlc_object_t *, lua_State *, input_item_t * );
 #define vlclua_read_meta_data( a, b, c ) vlclua_read_meta_data( VLC_OBJECT( a ), b, c )
 void vlclua_read_custom_meta_data( vlc_object_t *, lua_State *,
-                                   input_item_t *);
+             input_item_t *);
 #define vlclua_read_custom_meta_data( a, b, c ) vlclua_read_custom_meta_data( VLC_OBJECT( a ), b, c )
 int vlclua_playlist_add_internal( vlc_object_t *, lua_State *, playlist_t *,
-                                  input_item_t *, bool );
+            input_item_t *, bool );
 #define vlclua_playlist_add_internal( a, b, c, d, e ) vlclua_playlist_add_internal( VLC_OBJECT( a ), b, c, d, e )
 
 int vlclua_add_modules_path( vlc_object_t *, lua_State *, const char *psz_filename );
@@ -152,15 +152,15 @@ int vlclua_add_modules_path( vlc_object_t *, lua_State *, const char *psz_filena
 /**
  * Per-interface private state
  */
-struct intf_sys_t
+struct intf_sys_
 {
-    char *psz_filename;
-    lua_State *L;
+  char *psz_filename;
+  lua_State *L;
 
-    vlc_thread_t thread;
-    vlc_mutex_t lock;
-    vlc_cond_t wait;
-    bool exiting;
+  vlc_thread_t thread;
+  vlc_mutex_t lock;
+  vlc_cond_t wait;
+  bool exiting;
 };
 
 #endif /* VLC_LUA_H */

@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -29,69 +29,69 @@
 
 using namespace dash::xml;
 
-const std::string   Node::EmptyString = "";
+const std::string Node::EmptyString = "";
 
 Node::Node  ()
 {
 }
 Node::~Node ()
 {
-    for(size_t i = 0; i < this->subNodes.size(); i++)
-        delete(this->subNodes.at(i));
+  for(size_t i = 0; i < this->subNodes.size(); i++)
+    delete(this->subNodes.at(i));
 }
 
-const std::vector<Node*>&            Node::getSubNodes           () const
+const std::vector<Node*>&    Node::getSubNodes     () cons
 {
-    return this->subNodes;
+  return this->subNodes;
 }
-void                                Node::addSubNode            (Node *node)
+void            Node::addSubNode    (Node *node)
 {
-    this->subNodes.push_back(node);
+  this->subNodes.push_back(node);
 }
-const std::string&                  Node::getName               () const
+const std::string&      Node::getName     () cons
 {
-    return this->name;
+  return this->name;
 }
-void                                Node::setName               (const std::string& name)
+void            Node::setName     (const std::string& name)
 {
-    this->name = name;
-}
-
-const std::string&                  Node::getAttributeValue     (const std::string& key) const
-{
-    std::map<std::string, std::string>::const_iterator  it = this->attributes.find( key );
-
-    if ( it != this->attributes.end() )
-        return it->second;
-    return EmptyString;
+  this->name = name;
 }
 
-void                                Node::addAttribute          ( const std::string& key, const std::string& value)
+const std::string&      Node::getAttributeValue   (const std::string& key) cons
 {
-    this->attributes[key] = value;
-}
-std::vector<std::string>            Node::getAttributeKeys      () const
-{
-    std::vector<std::string> keys;
-    std::map<std::string, std::string>::const_iterator it;
+  std::map<std::string, std::string>::const_iterator  it = this->attributes.find( key );
 
-    for(it = this->attributes.begin(); it != this->attributes.end(); ++it)
-    {
-        keys.push_back(it->first);
-    }
-    return keys;
+  if ( it != this->attributes.end() )
+    return it->second;
+  return EmptyString;
 }
 
-bool                                Node::hasText               () const
+void            Node::addAttribute    ( const std::string& key, const std::string& value)
 {
-    return false;
+  this->attributes[key] = value;
+}
+std::vector<std::string>    Node::getAttributeKeys  () cons
+{
+  std::vector<std::string> keys;
+  std::map<std::string, std::string>::const_iterator it;
+
+  for(it = this->attributes.begin(); it != this->attributes.end(); ++it)
+  {
+    keys.push_back(it->first);
+  }
+  return keys;
 }
 
-const std::string&                         Node::getText               () const
+bool            Node::hasText     () cons
 {
-    return EmptyString;
+  return false;
 }
-const std::map<std::string,std::string>&   Node::getAttributes         () const
+
+const std::string&         Node::getText     () cons
 {
-    return this->attributes;
+  return EmptyString;
+}
+const std::map<std::string,std::string>& Node::getAttributes   () cons
+{
+  return this->attributes;
 }

@@ -24,12 +24,12 @@
 #include "chroma.h"
 /* VLC <-> avcodec tables */
 int GetFfmpegCodec( vlc_fourcc_t i_fourcc, int *pi_cat,
-                    int *pi_ffmpeg_codec, const char **ppsz_name );
+        int *pi_ffmpeg_codec, const char **ppsz_name );
 int GetVlcFourcc( int i_ffmpeg_codec, int *pi_cat,
-                  vlc_fourcc_t *pi_fourcc, const char **ppsz_name );
+      vlc_fourcc_t *pi_fourcc, const char **ppsz_name );
 void GetVlcAudioFormat( vlc_fourcc_t *, unsigned *pi_bits, int i_sample_fmt );
 
-picture_t * DecodeVideo    ( decoder_t *, block_t ** );
+picture_t * DecodeVideo  ( decoder_t *, block_t ** );
 aout_buffer_t * DecodeAudio( decoder_t *, block_t ** );
 subpicture_t *DecodeSubtitle( decoder_t *p_dec, block_t ** );
 
@@ -49,17 +49,17 @@ void InitLibavcodec( vlc_object_t *p_object );
 
 /* Video Decoder */
 int InitVideoDec( decoder_t *p_dec, AVCodecContext *p_context,
-                  AVCodec *p_codec, int i_codec_id, const char *psz_namecodec );
+      AVCodec *p_codec, int i_codec_id, const char *psz_namecodec );
 void EndVideoDec( decoder_t *p_dec );
 
 /* Audio Decoder */
 int InitAudioDec( decoder_t *p_dec, AVCodecContext *p_context,
-                  AVCodec *p_codec, int i_codec_id, const char *psz_namecodec );
+      AVCodec *p_codec, int i_codec_id, const char *psz_namecodec );
 void EndAudioDec( decoder_t *p_dec );
 
 /* Subtitle Decoder */
 int InitSubtitleDec( decoder_t *p_dec, AVCodecContext *p_context,
-                     AVCodec *p_codec, int i_codec_id, const char *psz_namecodec );
+       AVCodec *p_codec, int i_codec_id, const char *psz_namecodec );
 void EndSubtitleDec( decoder_t *p_dec );
 
 /* Initialize decoder */
@@ -74,43 +74,43 @@ int ffmpeg_OpenCodec( decoder_t *p_dec );
 
 #define ERROR_TEXT N_("Error resilience")
 #define ERROR_LONGTEXT N_( \
-    "FFmpeg can do error resilience.\n" \
-    "However, with a buggy encoder (such as the ISO MPEG-4 encoder from M$) " \
-    "this can produce a lot of errors.\n" \
-    "Valid values range from 0 to 4 (0 disables all errors resilience).")
+  "FFmpeg can do error resilience.\n" \
+  "However, with a buggy encoder (such as the ISO MPEG-4 encoder from M$) " \
+  "this can produce a lot of errors.\n" \
+  "Valid values range from 0 to 4 (0 disables all errors resilience).")
 
 #define BUGS_TEXT N_("Workaround bugs")
 #define BUGS_LONGTEXT N_( \
-    "Try to fix some bugs:\n" \
-    "1  autodetect\n" \
-    "2  old msmpeg4\n" \
-    "4  xvid interlaced\n" \
-    "8  ump4 \n" \
-    "16 no padding\n" \
-    "32 ac vlc\n" \
-    "64 Qpel chroma.\n" \
-    "This must be the sum of the values. For example, to fix \"ac vlc\" and " \
-    "\"ump4\", enter 40.")
+  "Try to fix some bugs:\n" \
+  "1  autodetect\n" \
+  "2  old msmpeg4\n" \
+  "4  xvid interlaced\n" \
+  "8  ump4 \n" \
+  "16 no padding\n" \
+  "32 ac vlc\n" \
+  "64 Qpel chroma.\n" \
+  "This must be the sum of the values. For example, to fix \"ac vlc\" and " \
+  "\"ump4\", enter 40.")
 
 #define HURRYUP_TEXT N_("Hurry up")
 #define HURRYUP_LONGTEXT N_( \
-    "The decoder can partially decode or skip frame(s) " \
-    "when there is not enough time. It's useful with low CPU power " \
-    "but it can produce distorted pictures.")
+  "The decoder can partially decode or skip frame(s) " \
+  "when there is not enough time. It's useful with low CPU power " \
+  "but it can produce distorted pictures.")
 
 #define FAST_TEXT N_("Allow speed tricks")
 #define FAST_LONGTEXT N_( \
-    "Allow non specification compliant speedup tricks. Faster but error-prone.")
+  "Allow non specification compliant speedup tricks. Faster but error-prone.")
 
 #define SKIP_FRAME_TEXT N_("Skip frame (default=0)")
 #define SKIP_FRAME_LONGTEXT N_( \
-    "Force skipping of frames to speed up decoding " \
-    "(-1=None, 0=Default, 1=B-frames, 2=P-frames, 3=B+P frames, 4=all frames)." )
+  "Force skipping of frames to speed up decoding " \
+  "(-1=None, 0=Default, 1=B-frames, 2=P-frames, 3=B+P frames, 4=all frames)." )
 
 #define SKIP_IDCT_TEXT N_("Skip idct (default=0)")
 #define SKIP_IDCT_LONGTEXT N_( \
-    "Force skipping of idct to speed up decoding for frame types" \
-    "(-1=None, 0=Default, 1=B-frames, 2=P-frames, 3=B+P frames, 4=all frames)." )
+  "Force skipping of idct to speed up decoding for frame types" \
+  "(-1=None, 0=Default, 1=B-frames, 2=P-frames, 3=B+P frames, 4=all frames)." )
 
 #define DEBUG_TEXT N_( "Debug mask" )
 #define DEBUG_LONGTEXT N_( "Set FFmpeg debug mask" )
@@ -121,21 +121,21 @@ int ffmpeg_OpenCodec( decoder_t *p_dec );
 /* TODO: Use a predefined list, with 0,1,2,4,7 */
 #define VISMV_TEXT N_( "Visualize motion vectors" )
 #define VISMV_LONGTEXT N_( \
-    "You can overlay the motion vectors (arrows showing how the images move) "\
-    "on the image. This value is a mask, based on these values:\n"\
-    "1 - visualize forward predicted MVs of P frames\n" \
-    "2 - visualize forward predicted MVs of B frames\n" \
-    "4 - visualize backward predicted MVs of B frames\n" \
-    "To visualize all vectors, the value should be 7." )
+  "You can overlay the motion vectors (arrows showing how the images move) "\
+  "on the image. This value is a mask, based on these values:\n"\
+  "1 - visualize forward predicted MVs of P frames\n" \
+  "2 - visualize forward predicted MVs of B frames\n" \
+  "4 - visualize backward predicted MVs of B frames\n" \
+  "To visualize all vectors, the value should be 7." )
 
 #define LOWRES_TEXT N_( "Low resolution decoding" )
 #define LOWRES_LONGTEXT N_( "Only decode a low resolution version of " \
-    "the video. This requires less processing power" )
+  "the video. This requires less processing power" )
 
 #define SKIPLOOPF_TEXT N_( "Skip the loop filter for H.264 decoding" )
 #define SKIPLOOPF_LONGTEXT N_( "Skipping the loop filter (aka deblocking) " \
-    "usually has a detrimental effect on quality. However it provides a big " \
-    "speedup for high definition streams." )
+  "usually has a detrimental effect on quality. However it provides a big " \
+  "speedup for high definition streams." )
 
 #define HW_TEXT N_("Hardware decoding")
 #define HW_LONGTEXT N_("This allows hardware decoding when available.")
@@ -256,23 +256,23 @@ int ffmpeg_OpenCodec( decoder_t *p_dec );
 
 #define ENC_PROFILE_TEXT N_( "Specify AAC audio profile to use" )
 #define ENC_PROFILE_LONGTEXT N_( "Specify the AAC audio profile to use " \
-   "for encoding the audio bitstream. It takes the following options: " \
-   "main, low, ssr (not supported) and ltp (default: main)" )
+ "for encoding the audio bitstream. It takes the following options: " \
+ "main, low, ssr (not supported) and ltp (default: main)" )
 
-#define AVCODEC_COMMON_MEMBERS   \
-    int i_cat;                  \
-    int i_codec_id;             \
-    const char *psz_namecodec;  \
-    AVCodecContext *p_context;  \
-    AVCodec        *p_codec;    \
-    bool b_delayed_open;
+#define AVCODEC_COMMON_MEMBERS \
+  int i_cat;      \
+  int i_codec_id;     \
+  const char *psz_namecodec;  \
+  AVCodecContext *p_context;  \
+  AVCodec    *p_codec;  \
+  bool b_delayed_open;
 
 #ifndef AV_VERSION_INT
-#   define AV_VERSION_INT(a, b, c) ((a)<<16 | (b)<<8 | (c))
+# define AV_VERSION_INT(a, b, c) ((a)<<16 | (b)<<8 | (c))
 #endif
 
 #if defined(FF_THREAD_FRAME)
-#   define HAVE_AVCODEC_MT
+# define HAVE_AVCODEC_MT
 #endif
 
 /* Uncomment it to enable compilation with vaapi/dxva2 (you also must change the build
@@ -283,32 +283,32 @@ int ffmpeg_OpenCodec( decoder_t *p_dec );
 /* Ugly ifdefinitions to provide backwards compatibility with older ffmpeg/libav
  * versions */
 #ifndef AV_CPU_FLAG_FORCE
-#   define AV_CPU_FLAG_FORCE       FF_MM_FORCE
-#   define AV_CPU_FLAG_MMX         FF_MM_MMX
-#   define AV_CPU_FLAG_3DNOW       FF_MM_3DNOW
-#   define AV_CPU_FLAG_MMX2        FF_MM_MMX2
-#   define AV_CPU_FLAG_SSE         FF_MM_SSE
-#   define AV_CPU_FLAG_SSE2        FF_MM_SSE2
-#   define AV_CPU_FLAG_SSE2SLOW    FF_MM_SSE2SLOW
-#   define AV_CPU_FLAG_3DNOWEXT    FF_MM_3DNOWEXT
-#   define AV_CPU_FLAG_SSE3        FF_MM_SSE3
-#   define AV_CPU_FLAG_SSE3SLOW    FF_MM_SSE3SLOW
-#   define AV_CPU_FLAG_SSSE3       FF_MM_SSSE3
-#   define AV_CPU_FLAG_SSE4        FF_MM_SSE4
-#   define AV_CPU_FLAG_SSE42       FF_MM_SSE42
-#   define AV_CPU_FLAG_IWMMXT      FF_MM_IWMMXT
-#   define AV_CPU_FLAG_ALTIVEC     FF_MM_ALTIVEC
+# define AV_CPU_FLAG_FORCE   FF_MM_FORCE
+# define AV_CPU_FLAG_MMX   FF_MM_MMX
+# define AV_CPU_FLAG_3DNOW   FF_MM_3DNOW
+# define AV_CPU_FLAG_MMX2    FF_MM_MMX2
+# define AV_CPU_FLAG_SSE   FF_MM_SSE
+# define AV_CPU_FLAG_SSE2    FF_MM_SSE2
+# define AV_CPU_FLAG_SSE2SLOW  FF_MM_SSE2SLOW
+# define AV_CPU_FLAG_3DNOWEXT  FF_MM_3DNOWEXT
+# define AV_CPU_FLAG_SSE3    FF_MM_SSE3
+# define AV_CPU_FLAG_SSE3SLOW  FF_MM_SSE3SLOW
+# define AV_CPU_FLAG_SSSE3   FF_MM_SSSE3
+# define AV_CPU_FLAG_SSE4    FF_MM_SSE4
+# define AV_CPU_FLAG_SSE42   FF_MM_SSE42
+# define AV_CPU_FLAG_IWMMXT  FF_MM_IWMMXT
+# define AV_CPU_FLAG_ALTIVEC   FF_MM_ALTIVEC
 #endif
 
 #if LIBAVCODEC_VERSION_MAJOR < 53
-#   define AVMediaType             CodecType
-#   define AVMEDIA_TYPE_AUDIO      CODEC_TYPE_AUDIO
-#   define AVMEDIA_TYPE_VIDEO      CODEC_TYPE_VIDEO
-#   define AVMEDIA_TYPE_SUBTITLE   CODEC_TYPE_SUBTITLE
-#   define AVMEDIA_TYPE_DATA       CODEC_TYPE_DATA
-#   define AVMEDIA_TYPE_ATTACHMENT CODEC_TYPE_ATTACHMENT
+# define AVMediaType     CodecType
+# define AVMEDIA_TYPE_AUDIO  CODEC_TYPE_AUDIO
+# define AVMEDIA_TYPE_VIDEO  CODEC_TYPE_VIDEO
+# define AVMEDIA_TYPE_SUBTITLE CODEC_TYPE_SUBTITLE
+# define AVMEDIA_TYPE_DATA   CODEC_TYPE_DATA
+# define AVMEDIA_TYPE_ATTACHMENT CODEC_TYPE_ATTACHMENT
 #endif
 
 #ifndef AV_PKT_FLAG_KEY
-#   define AV_PKT_FLAG_KEY         PKT_FLAG_KEY
+# define AV_PKT_FLAG_KEY   PKT_FLAG_KEY
 #endif

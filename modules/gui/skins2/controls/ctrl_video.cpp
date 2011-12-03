@@ -4,7 +4,7 @@
  * Copyright (C) 2004 the VideoLAN team
  * $Id: 2ed026bdee14a3055fe3a546d56e209c02564d91 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,203 +33,203 @@
 
 
 CtrlVideo::CtrlVideo( intf_thread_t *pIntf, GenericLayout &rLayout,
-                      bool autoResize, const UString &rHelp,
-                      VarBool *pVisible ):
-    CtrlGeneric( pIntf, rHelp, pVisible ), m_rLayout( rLayout ),
-    m_bAutoResize( autoResize), m_xShift( 0 ), m_yShift( 0 ),
-    m_bIsUseable( false), m_pVoutWindow( NULL )
+        bool autoResize, const UString &rHelp,
+        VarBool *pVisible ):
+  CtrlGeneric( pIntf, rHelp, pVisible ), m_rLayout( rLayout ),
+  m_bAutoResize( autoResize), m_xShift( 0 ), m_yShift( 0 ),
+  m_bIsUseable( false), m_pVoutWindow( NULL )
 {
-    VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
-    rFullscreen.addObserver( this );
+  VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
+  rFullscreen.addObserver( this );
 
-    // if global parameter set to no resize, override skins behavior
-    if( !var_InheritBool( pIntf, "qt-video-autoresize" ) )
-        m_bAutoResize = false;
+  // if global parameter set to no resize, override skins behavior
+  if( !var_InheritBool( pIntf, "qt-video-autoresize" ) )
+    m_bAutoResize = false;
 }
 
 
 CtrlVideo::~CtrlVideo()
 {
-    VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
-    rFullscreen.delObserver( this );
+  VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
+  rFullscreen.delObserver( this );
 }
 
 
 void CtrlVideo::handleEvent( EvtGeneric &rEvent )
 {
-    (void)rEvent;
+  (void)rEvent;
 }
 
 
-bool CtrlVideo::mouseOver( int x, int y ) const
+bool CtrlVideo::mouseOver( int x, int y ) cons
 {
-    (void)x; (void)y;
-    return false;
+  (void)x; (void)y;
+  return false;
 }
 
 
 void CtrlVideo::onResize()
 {
-    const Position *pPos = getPosition();
-    if( pPos && m_pVoutWindow )
-    {
-        m_pVoutWindow->move( pPos->getLeft(), pPos->getTop() );
-        m_pVoutWindow->resize( pPos->getWidth(), pPos->getHeight() );
-    }
+  const Position *pPos = getPosition();
+  if( pPos && m_pVoutWindow )
+  {
+    m_pVoutWindow->move( pPos->getLeft(), pPos->getTop() );
+    m_pVoutWindow->resize( pPos->getWidth(), pPos->getHeight() );
+  }
 }
 
 
 void CtrlVideo::onPositionChange()
 {
-    // Compute the difference between layout size and video size
-    m_xShift = m_rLayout.getWidth() - getPosition()->getWidth();
-    m_yShift = m_rLayout.getHeight() - getPosition()->getHeight();
+  // Compute the difference between layout size and video size
+  m_xShift = m_rLayout.getWidth() - getPosition()->getWidth();
+  m_yShift = m_rLayout.getHeight() - getPosition()->getHeight();
 }
 
 
 void CtrlVideo::draw( OSGraphics &rImage, int xDest, int yDest, int w, int h)
 {
-    const Position *pPos = getPosition();
-    rect region( pPos->getLeft(), pPos->getTop(),
-                 pPos->getWidth(), pPos->getHeight() );
-    rect clip( xDest, yDest, w, h );
-    rect inter;
+  const Position *pPos = getPosition();
+  rect region( pPos->getLeft(), pPos->getTop(),
+       pPos->getWidth(), pPos->getHeight() );
+  rect clip( xDest, yDest, w, h );
+  rect inter;
 
-    if( rect::intersect( region, clip, &inter ) )
-    {
-        // Draw a black rectangle under the video to avoid transparency
-        rImage.fillRect( inter.x, inter.y, inter.width, inter.height, 0 );
-    }
+  if( rect::intersect( region, clip, &inter ) )
+  {
+    // Draw a black rectangle under the video to avoid transparency
+    rImage.fillRect( inter.x, inter.y, inter.width, inter.height, 0 );
+  }
 
-    if( m_pVoutWindow )
-    {
-        m_pVoutWindow->show();
-    }
+  if( m_pVoutWindow )
+  {
+    m_pVoutWindow->show();
+  }
 }
 
 
 void CtrlVideo::setLayout( GenericLayout *pLayout,
-                           const Position &rPosition )
+         const Position &rPosition )
 {
-    CtrlGeneric::setLayout( pLayout, rPosition );
-    m_pLayout->getActiveVar().addObserver( this );
+  CtrlGeneric::setLayout( pLayout, rPosition );
+  m_pLayout->getActiveVar().addObserver( this );
 
-    m_bIsUseable = isVisible() && m_pLayout->getActiveVar().get();
+  m_bIsUseable = isVisible() && m_pLayout->getActiveVar().get();
 
-    // register Video Control
-    VoutManager::instance( getIntf() )->registerCtrlVideo( this );
+  // register Video Control
+  VoutManager::instance( getIntf() )->registerCtrlVideo( this );
 
-    msg_Dbg( getIntf(),"New VideoControl detected(%p), useability=%s",
-                           this, m_bIsUseable ? "true" : "false" );
+  msg_Dbg( getIntf(),"New VideoControl detected(%p), useability=%s",
+         this, m_bIsUseable ? "true" : "false" );
 }
 
 
 void CtrlVideo::unsetLayout()
 {
-    m_pLayout->getActiveVar().delObserver( this );
-    CtrlGeneric::unsetLayout();
+  m_pLayout->getActiveVar().delObserver( this );
+  CtrlGeneric::unsetLayout();
 }
 
 
 void CtrlVideo::resizeControl( int width, int height )
 {
-    if( !m_bAutoResize )
-        return;
+  if( !m_bAutoResize )
+    return;
 
-    WindowManager &rWindowManager =
-        getIntf()->p_sys->p_theme->getWindowManager();
+  WindowManager &rWindowManager =
+    getIntf()->p_sys->p_theme->getWindowManager();
 
-    const Position *pPos = getPosition();
+  const Position *pPos = getPosition();
 
-    if( width != pPos->getWidth() || height != pPos->getHeight() )
+  if( width != pPos->getWidth() || height != pPos->getHeight() )
+  {
+    // new layout dimensions
+    int newWidth = width + m_xShift;
+    int newHeight = height + m_yShift;
+
+    // Resize the layou
+    rWindowManager.startResize( m_rLayout, WindowManager::kResizeSE );
+    rWindowManager.resize( m_rLayout, newWidth, newHeight );
+    rWindowManager.stopResize();
+
+    if( m_pVoutWindow )
     {
-        // new layout dimensions
-        int newWidth = width + m_xShift;
-        int newHeight = height + m_yShift;
-
-        // Resize the layout
-        rWindowManager.startResize( m_rLayout, WindowManager::kResizeSE );
-        rWindowManager.resize( m_rLayout, newWidth, newHeight );
-        rWindowManager.stopResize();
-
-        if( m_pVoutWindow )
-        {
-            m_pVoutWindow->resize( pPos->getWidth(), pPos->getHeight() );
-            m_pVoutWindow->move( pPos->getLeft(), pPos->getTop() );
-        }
+    m_pVoutWindow->resize( pPos->getWidth(), pPos->getHeight() );
+    m_pVoutWindow->move( pPos->getLeft(), pPos->getTop() );
     }
+  }
 }
 
 
 void CtrlVideo::onUpdate( Subject<VarBool> &rVariable, void *arg  )
 {
-    (void)arg;
+  (void)arg;
 
-    // Visibility changed
-    if( &rVariable == m_pVisible )
-    {
-        msg_Dbg( getIntf(), "VideoCtrl : Visibility changed (visible=%d)",
-                                  isVisible() );
-        notifyLayout();
-    }
+  // Visibility changed
+  if( &rVariable == m_pVisible )
+  {
+    msg_Dbg( getIntf(), "VideoCtrl : Visibility changed (visible=%d)",
+            isVisible() );
+    notifyLayout();
+  }
 
-    // Active Layout changed
-    if( &rVariable == &m_pLayout->getActiveVar() )
-    {
-        msg_Dbg( getIntf(), "VideoCtrl : Active Layout changed (isActive=%d)",
-                      m_pLayout->getActiveVar().get() );
-    }
+  // Active Layout changed
+  if( &rVariable == &m_pLayout->getActiveVar() )
+  {
+    msg_Dbg( getIntf(), "VideoCtrl : Active Layout changed (isActive=%d)",
+        m_pLayout->getActiveVar().get() );
+  }
 
-    VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
-    if( &rVariable == &rFullscreen )
-    {
-        msg_Dbg( getIntf(), "VideoCtrl : fullscreen toggled (fullscreen = %d)",
-                      rFullscreen.get() );
-    }
+  VarBool &rFullscreen = VlcProc::instance( getIntf() )->getFullscreenVar();
+  if( &rVariable == &rFullscreen )
+  {
+    msg_Dbg( getIntf(), "VideoCtrl : fullscreen toggled (fullscreen = %d)",
+        rFullscreen.get() );
+  }
 
-    m_bIsUseable = isVisible() &&
-                   m_pLayout->getActiveVar().get() &&
-                   !rFullscreen.get();
+  m_bIsUseable = isVisible() &&
+       m_pLayout->getActiveVar().get() &&
+       !rFullscreen.get();
 
-    if( m_bIsUseable && !isUsed() )
-    {
-        VoutManager::instance( getIntf() )->requestVout( this );
-    }
-    else if( !m_bIsUseable && isUsed() )
-    {
-        VoutManager::instance( getIntf() )->discardVout( this );
-    }
+  if( m_bIsUseable && !isUsed() )
+  {
+    VoutManager::instance( getIntf() )->requestVout( this );
+  }
+  else if( !m_bIsUseable && isUsed() )
+  {
+    VoutManager::instance( getIntf() )->discardVout( this );
+  }
 }
 
 void CtrlVideo::attachVoutWindow( VoutWindow* pVoutWindow, int width, int height )
 {
-    width = ( width < 0 ) ? pVoutWindow->getOriginalWidth() : width;
-    height = ( height < 0 ) ? pVoutWindow->getOriginalHeight() : height;
+  width = ( width < 0 ) ? pVoutWindow->getOriginalWidth() : width;
+  height = ( height < 0 ) ? pVoutWindow->getOriginalHeight() : height;
 
-    WindowManager &rWindowManager =
-        getIntf()->p_sys->p_theme->getWindowManager();
-    TopWindow* pWin = getWindow();
-    rWindowManager.show( *pWin );
+  WindowManager &rWindowManager =
+    getIntf()->p_sys->p_theme->getWindowManager();
+  TopWindow* pWin = getWindow();
+  rWindowManager.show( *pWin );
 
-    if( m_bAutoResize && width && height )
-    {
-        int newWidth = width + m_xShift;
-        int newHeight = height + m_yShift;
+  if( m_bAutoResize && width && height )
+  {
+    int newWidth = width + m_xShift;
+    int newHeight = height + m_yShift;
 
-        rWindowManager.startResize( m_rLayout, WindowManager::kResizeSE );
-        rWindowManager.resize( m_rLayout, newWidth, newHeight );
-        rWindowManager.stopResize();
-    }
+    rWindowManager.startResize( m_rLayout, WindowManager::kResizeSE );
+    rWindowManager.resize( m_rLayout, newWidth, newHeight );
+    rWindowManager.stopResize();
+  }
 
-    pVoutWindow->setCtrlVideo( this );
+  pVoutWindow->setCtrlVideo( this );
 
-    m_pVoutWindow = pVoutWindow;
+  m_pVoutWindow = pVoutWindow;
 }
 
 
 void CtrlVideo::detachVoutWindow( )
 {
-    m_pVoutWindow->setCtrlVideo( NULL );
-    m_pVoutWindow = NULL;
+  m_pVoutWindow->setCtrlVideo( NULL );
+  m_pVoutWindow = NULL;
 }
 

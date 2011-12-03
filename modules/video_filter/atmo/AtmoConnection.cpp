@@ -18,25 +18,25 @@
 CAtmoConnection::CAtmoConnection(CAtmoConfig *cfg)
 {
 	 this->m_pAtmoConfig = cfg;	
-     m_ChannelAssignment = NULL;
-     m_NumAssignedChannels = 0;
+   m_ChannelAssignment = NULL;
+   m_NumAssignedChannels = 0;
 
 #if defined(_ATMO_VLC_PLUGIN_)
-     vlc_mutex_init( &m_AccessConnection );
+   vlc_mutex_init( &m_AccessConnection );
 #else
-     InitializeCriticalSection( &m_AccessConnection );
+   InitializeCriticalSection( &m_AccessConnection );
 #endif
 }
 
 CAtmoConnection::~CAtmoConnection(void)
 {
   if(isOpen())
-     CloseConnection();
+   CloseConnection();
 
 #if defined(_ATMO_VLC_PLUGIN_)
-     vlc_mutex_destroy( &m_AccessConnection );
+   vlc_mutex_destroy( &m_AccessConnection );
 #else
-     DeleteCriticalSection( &m_AccessConnection );
+   DeleteCriticalSection( &m_AccessConnection );
 #endif
 }
 
@@ -44,18 +44,18 @@ void CAtmoConnection::SetChannelAssignment(CAtmoChannelAssignment *ca)
 {
   if(ca)
   {
-      Lock();
-      delete m_ChannelAssignment;
-      m_ChannelAssignment = ca->getMapArrayClone(m_NumAssignedChannels);
-      Unlock();
+  Lock();
+  delete m_ChannelAssignment;
+  m_ChannelAssignment = ca->getMapArrayClone(m_NumAssignedChannels);
+  Unlock();
   }
 }
 
 #if !defined(_ATMO_VLC_PLUGIN_)
 ATMO_BOOL CAtmoConnection::ShowConfigDialog(HINSTANCE hInst, HWND parent, CAtmoConfig *cfg)
 {
-    MessageBox(parent, "This device doesn't have a special config dialog", "Info", 0);
-    return ATMO_FALSE;
+  MessageBox(parent, "This device doesn't have a special config dialog", "Info", 0);
+  return ATMO_FALSE;
 }
 #endif
 
@@ -63,16 +63,16 @@ ATMO_BOOL CAtmoConnection::ShowConfigDialog(HINSTANCE hInst, HWND parent, CAtmoC
 void CAtmoConnection::Lock()
 {
 #if defined(_ATMO_VLC_PLUGIN_)
-    vlc_mutex_lock( &m_AccessConnection );
+  vlc_mutex_lock( &m_AccessConnection );
 #else
-    EnterCriticalSection( &m_AccessConnection );
+  EnterCriticalSection( &m_AccessConnection );
 #endif
 }
 void CAtmoConnection::Unlock()
 {
 #if defined(_ATMO_VLC_PLUGIN_)
-    vlc_mutex_unlock( &m_AccessConnection );
+  vlc_mutex_unlock( &m_AccessConnection );
 #else
-    LeaveCriticalSection( &m_AccessConnection );
+  LeaveCriticalSection( &m_AccessConnection );
 #endif
 }

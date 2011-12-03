@@ -1,9 +1,9 @@
 /*****************************************************************************
  * karaoke.c : karaoke mode
  *****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmont
+ * Copyright © 2011 Rémi Denis-Courmon
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify i
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -32,48 +32,48 @@
 static int Open (vlc_object_t *);
 
 vlc_module_begin ()
-    set_shortname (N_("Karaoke"))
-    set_description (N_("Simple Karaoke filter"))
-    set_category (CAT_AUDIO)
-    set_subcategory (SUBCAT_AUDIO_AFILTER)
+  set_shortname (N_("Karaoke"))
+  set_description (N_("Simple Karaoke filter"))
+  set_category (CAT_AUDIO)
+  set_subcategory (SUBCAT_AUDIO_AFILTER)
 
-    set_capability ("audio filter", 0)
-    set_callbacks (Open, NULL)
+  set_capability ("audio filter", 0)
+  set_callbacks (Open, NULL)
 vlc_module_end ()
 
 static block_t *Process (filter_t *, block_t *);
 
 static int Open (vlc_object_t *obj)
 {
-    filter_t *filter = (filter_t *)obj;
+  filter_t *filter = (filter_t *)obj;
 
-    if (filter->fmt_in.audio.i_format != VLC_CODEC_FL32
-     || !AOUT_FMTS_IDENTICAL(&filter->fmt_in.audio, &filter->fmt_out.audio))
-        return VLC_EGENERIC;
+  if (filter->fmt_in.audio.i_format != VLC_CODEC_FL32
+   || !AOUT_FMTS_IDENTICAL(&filter->fmt_in.audio, &filter->fmt_out.audio))
+    return VLC_EGENERIC;
 
-    if (filter->fmt_in.audio.i_channels != 2)
-    {
-        msg_Err (filter, "voice removal requires stereo");
-        return VLC_EGENERIC;
-    }
+  if (filter->fmt_in.audio.i_channels != 2)
+  {
+    msg_Err (filter, "voice removal requires stereo");
+    return VLC_EGENERIC;
+  }
 
-    filter->pf_audio_filter = Process;
-    return VLC_SUCCESS;
+  filter->pf_audio_filter = Process;
+  return VLC_SUCCESS;
 }
 
 static block_t *Process (filter_t *filter, block_t *block)
 {
-    const float factor = .70710678 /* 1. / sqrtf (2) */;
-    float *spl = (float *)block->p_buffer;
+  const float factor = .70710678 /* 1. / sqrtf (2) */;
+  float *spl = (float *)block->p_buffer;
 
-    for (unsigned i = block->i_nb_samples; i > 0; i--)
-    {
-        float s = (spl[0] - spl[1]) * factor;
+  for (unsigned i = block->i_nb_samples; i > 0; i--)
+  {
+    float s = (spl[0] - spl[1]) * factor;
 
-        *(spl++) = s;
-        *(spl++) = s;
-        /* TODO: set output format to mono */
-    }
-    (void) filter;
-    return block;
+    *(spl++) = s;
+    *(spl++) = s;
+    /* TODO: set output format to mono */
+  }
+  (void) filter;
+  return block;
 }

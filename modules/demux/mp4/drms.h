@@ -27,9 +27,9 @@
 extern void *drms_alloc( const char *psz_homedir );
 extern void drms_free( void *p_drms );
 extern int drms_init( void *p_drms, uint32_t i_type,
-                      uint8_t *p_info, uint32_t i_len );
+        uint8_t *p_info, uint32_t i_len );
 extern void drms_decrypt( void *p_drms, uint32_t *p_buffer,
-                          uint32_t i_len, uint32_t *p_key );
+          uint32_t i_len, uint32_t *p_key );
 extern void drms_get_p_key( void *p_drms, uint32_t *p_key );
 
 #endif

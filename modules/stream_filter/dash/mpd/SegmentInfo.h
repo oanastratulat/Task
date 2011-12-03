@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -35,25 +35,25 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class SegmentInfo
     {
-        class SegmentInfo
-        {
-            public:
-                SegmentInfo             ( const std::map<std::string, std::string>& attr);
-                virtual ~SegmentInfo    ();
+    public:
+      SegmentInfo     ( const std::map<std::string, std::string>& attr);
+      virtual ~SegmentInfo  ();
 
-                InitSegment*            getInitSegment  () throw(dash::exception::ElementNotPresentException);
-                const std::vector<Segment *>&   getSegments () const;
-                void                    setInitSegment  (InitSegment *initSeg);
-                void                    addSegment      (Segment *seg);
+      InitSegment*    getInitSegment  () throw(dash::exception::ElementNotPresentException);
+      const std::vector<Segment *>& getSegments () const;
+      void        setInitSegment  (InitSegment *initSeg);
+      void        addSegment  (Segment *seg);
 
-            private:
-                std::map<std::string, std::string>  attributes;
-                InitSegment                         *initSeg;
-                std::vector<Segment *>              segments;
-        };
-    }
+    private:
+      std::map<std::string, std::string>  attributes;
+      InitSegment         *initSeg;
+      std::vector<Segment *>      segments;
+    };
+  }
 }
 
 #endif /* SEGMENTINFO_H_ */

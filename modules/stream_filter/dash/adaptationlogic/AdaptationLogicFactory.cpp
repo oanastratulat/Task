@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -33,13 +33,13 @@ using namespace dash::mpd;
 
 IAdaptationLogic* AdaptationLogicFactory::create (IAdaptationLogic::LogicType logic, IMPDManager *mpdManager)
 {
-    switch(logic)
-    {
-        case IAdaptationLogic::Default:         return new NullAdaptationLogic          (mpdManager);
-        case IAdaptationLogic::AlwaysBest:      return new AlwaysBestAdaptationLogic    (mpdManager);
-        case IAdaptationLogic::AlwaysLowest:    return new NullAdaptationLogic          (mpdManager);
-        case IAdaptationLogic::RateBased:       return new RateBasedAdaptationLogic     (mpdManager);
+  switch(logic)
+  {
+    case IAdaptationLogic::Default:   return new NullAdaptationLogic    (mpdManager);
+    case IAdaptationLogic::AlwaysBest:  return new AlwaysBestAdaptationLogic  (mpdManager);
+    case IAdaptationLogic::AlwaysLowest:  return new NullAdaptationLogic    (mpdManager);
+    case IAdaptationLogic::RateBased:   return new RateBasedAdaptationLogic   (mpdManager);
 
-        default:                                return new NullAdaptationLogic          (mpdManager);
-    }
+    default:            return new NullAdaptationLogic    (mpdManager);
+  }
 }

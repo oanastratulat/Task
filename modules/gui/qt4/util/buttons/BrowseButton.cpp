@@ -25,65 +25,65 @@
 #include <QStyleOptionToolButton>
 
 BrowseButton::BrowseButton( QWidget* parent, BrowseButton::Type type )
-    : RoundButton( parent )
+  : RoundButton( parent )
 {
-    setIconSize( QSize( 16, 16 ) );
-    setType( type );
+  setIconSize( QSize( 16, 16 ) );
+  setType( type );
 }
 
-BrowseButton::Type BrowseButton::type() const
+BrowseButton::Type BrowseButton::type() cons
 {
-    return mType;
+  return mType;
 }
 
 void BrowseButton::setType( BrowseButton::Type type )
 {
-    //FIXME
-    switch ( type ) {
-        case BrowseButton::Backward:
-            setIcon( QIcon::fromTheme( "media-seek-backward" ) );
-            break;
-        case BrowseButton::Forward:
-            setIcon( QIcon::fromTheme( "media-seek-forward" ) );
-            break;
-    }
+  //FIXME
+  switch ( type ) {
+    case BrowseButton::Backward:
+    setIcon( QIcon::fromTheme( "media-seek-backward" ) );
+    break;
+    case BrowseButton::Forward:
+    setIcon( QIcon::fromTheme( "media-seek-forward" ) );
+    break;
+  }
 
-    mType = type;
+  mType = type;
 }
 
-QSize BrowseButton::sizeHint() const
+QSize BrowseButton::sizeHint() cons
 {
-    return QSize( 50, 26 );
+  return QSize( 50, 26 );
 }
 
 void BrowseButton::paintEvent( QPaintEvent* event )
 {
-    /*RoundButton::paintEvent( event );
-    return;*/
+  /*RoundButton::paintEvent( event );
+  return;*/
 
-    Q_UNUSED( event );
+  Q_UNUSED( event );
 
-    const int corner = 5;
-    const int margin = 5;
-    QPainter painter( this );
-    QStyleOptionToolButton option;
+  const int corner = 5;
+  const int margin = 5;
+  QPainter painter( this );
+  QStyleOptionToolButton option;
 
-    initStyleOption( &option );
-    painter.setRenderHint( QPainter::Antialiasing );
+  initStyleOption( &option );
+  painter.setRenderHint( QPainter::Antialiasing );
 
-    painter.setPen( QPen( pen( &option ), 1 ) );
-    painter.setBrush( brush( &option ) );
-    painter.drawRoundedRect( rect().adjusted( 1, 1, -1, -1 ), corner, corner );
+  painter.setPen( QPen( pen( &option ), 1 ) );
+  painter.setBrush( brush( &option ) );
+  painter.drawRoundedRect( rect().adjusted( 1, 1, -1, -1 ), corner, corner );
 
-    switch ( mType ) {
-        case BrowseButton::Backward:
-            option.rect = option.rect.adjusted( 0, 0, -height() +margin, 0 );
-            break;
-        case BrowseButton::Forward:
-            option.rect = option.rect.adjusted( height() -margin, 0, 0, 0 );
-            break;
-    }
+  switch ( mType ) {
+    case BrowseButton::Backward:
+    option.rect = option.rect.adjusted( 0, 0, -height() +margin, 0 );
+    break;
+    case BrowseButton::Forward:
+    option.rect = option.rect.adjusted( height() -margin, 0, 0, 0 );
+    break;
+  }
 
-    style()->drawControl( QStyle::CE_ToolButtonLabel, &option, &painter, this );
+  style()->drawControl( QStyle::CE_ToolButtonLabel, &option, &painter, this );
 }
 

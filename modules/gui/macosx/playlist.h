@@ -5,7 +5,7 @@
  * $Id: 6f30ba1be7e912adfb18032c76a8c1ab5723043f $
  *
  * Authors: Jon Lech Johansen <jon-vl@nanocrew.net>
- *          Derk-Jan Hartman <hartman at videolan dot org>
+ *    Derk-Jan Hartman <hartman at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,17 +38,17 @@
  *****************************************************************************/
 @interface VLCPlaylistCommon : NSObject <NSOutlineViewDataSource, NSOutlineViewDelegate>
 {
-    IBOutlet id o_tc_name;
-    IBOutlet id o_tc_author;
-    IBOutlet id o_tc_duration;
-    IBOutlet VLCPlaylistView* o_outline_view;
+  IBOutlet id o_tc_name;
+  IBOutlet id o_tc_author;
+  IBOutlet id o_tc_duration;
+  IBOutlet VLCPlaylistView* o_outline_view;
 
-    IBOutlet id o_tc_name_other;
-    IBOutlet id o_tc_author_other;
-    IBOutlet id o_tc_duration_other;
-    IBOutlet VLCPlaylistView* o_outline_view_other;
+  IBOutlet id o_tc_name_other;
+  IBOutlet id o_tc_author_other;
+  IBOutlet id o_tc_duration_other;
+  IBOutlet VLCPlaylistView* o_outline_view_other;
 
-    NSMutableDictionary *o_outline_dict;
+  NSMutableDictionary *o_outline_dict;
 }
 
 - (void)initStrings;
@@ -73,50 +73,50 @@
  *****************************************************************************/
 @interface VLCPlaylist : VLCPlaylistCommon
 {
-    IBOutlet id o_controller;
-    IBOutlet id o_playlist_wizard;
+  IBOutlet id o_controller;
+  IBOutlet id o_playlist_wizard;
 
-    IBOutlet id o_btn_playlist;
-    IBOutlet id o_playlist_view;
-    IBOutlet id o_search_field;
-    IBOutlet id o_search_field_other;
-    IBOutlet id o_mi_save_playlist;
-    IBOutlet id o_ctx_menu;
+  IBOutlet id o_btn_playlist;
+  IBOutlet id o_playlist_view;
+  IBOutlet id o_search_field;
+  IBOutlet id o_search_field_other;
+  IBOutlet id o_mi_save_playlist;
+  IBOutlet id o_ctx_menu;
 
-    IBOutlet id o_mi_play;
-    IBOutlet id o_mi_delete;
-    IBOutlet id o_mi_info;
-    IBOutlet id o_mi_preparse;
-    IBOutlet id o_mi_revealInFinder;
-    IBOutlet id o_mm_mi_revealInFinder;
-    IBOutlet id o_mi_dl_cover_art;
-    IBOutlet id o_mi_selectall;
-    IBOutlet id o_mi_sort_name;
-    IBOutlet id o_mi_sort_author;
-    IBOutlet id o_mi_recursive_expand;
+  IBOutlet id o_mi_play;
+  IBOutlet id o_mi_delete;
+  IBOutlet id o_mi_info;
+  IBOutlet id o_mi_preparse;
+  IBOutlet id o_mi_revealInFinder;
+  IBOutlet id o_mm_mi_revealInFinder;
+  IBOutlet id o_mi_dl_cover_art;
+  IBOutlet id o_mi_selectall;
+  IBOutlet id o_mi_sort_name;
+  IBOutlet id o_mi_sort_author;
+  IBOutlet id o_mi_recursive_expand;
 
-    /* "services discovery" menu in the playlist menu */
-    IBOutlet id o_mi_services;
-    IBOutlet id o_mu_services;
+  /* "services discovery" menu in the playlist menu */
+  IBOutlet id o_mi_services;
+  IBOutlet id o_mu_services;
 
-    /* "services discovery" menu in the main menu */
-    IBOutlet id o_mm_mi_services;
-    IBOutlet id o_mm_mu_services;
+  /* "services discovery" menu in the main menu */
+  IBOutlet id o_mm_mi_services;
+  IBOutlet id o_mm_mu_services;
 
-    IBOutlet id o_save_accessory_view;
-    IBOutlet id o_save_accessory_popup;
-    IBOutlet id o_save_accessory_text;
+  IBOutlet id o_save_accessory_view;
+  IBOutlet id o_save_accessory_popup;
+  IBOutlet id o_save_accessory_text;
 
 
-    NSImage *o_descendingSortingImage;
-    NSImage *o_ascendingSortingImage;
+  NSImage *o_descendingSortingImage;
+  NSImage *o_ascendingSortingImage;
 
-    NSMutableArray *o_nodes_array;
-    NSMutableArray *o_items_array;
+  NSMutableArray *o_nodes_array;
+  NSMutableArray *o_items_array;
 
-    BOOL b_selected_item_met;
-    BOOL b_isSortDescending;
-    id o_tc_sortColumn;
+  BOOL b_selected_item_met;
+  BOOL b_isSortDescending;
+  id o_tc_sortColumn;
 }
 
 - (void)searchfieldChanged:(NSNotification *)o_notification;

@@ -25,15 +25,15 @@
 
 
 @interface VLCLoginPanel : NSPanel {
-    IBOutlet NSButton * _cancelButton;
-    IBOutlet NSButton * _okayButton;
-    IBOutlet NSTextField * _userNameLabel;
-    IBOutlet NSTextField * _userNameField;
-    IBOutlet NSTextField * _passwordLabel;
-    IBOutlet NSSecureTextField * _passwordField;
-    IBOutlet NSTextField * _titleField;
-    IBOutlet NSTextField * _informativeTextField;
-    IBOutlet NSImageView * _iconView;
+  IBOutlet NSButton * _cancelButton;
+  IBOutlet NSButton * _okayButton;
+  IBOutlet NSTextField * _userNameLabel;
+  IBOutlet NSTextField * _userNameField;
+  IBOutlet NSTextField * _passwordLabel;
+  IBOutlet NSSecureTextField * _passwordField;
+  IBOutlet NSTextField * _titleField;
+  IBOutlet NSTextField * _informativeTextField;
+  IBOutlet NSImageView * _iconView;
 }
 
 - (IBAction)buttonAction:(id)sender;

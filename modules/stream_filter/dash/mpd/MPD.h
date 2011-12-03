@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -37,33 +37,33 @@
 
 namespace dash
 {
-    namespace mpd
+  namespace mpd
+  {
+    class MPD
     {
-        class MPD
-        {
-            typedef std::map<std::string, std::string>      AttributesMap;
+    typedef std::map<std::string, std::string>  AttributesMap;
 
-            public:
-                MPD         (const AttributesMap& attributes);
-                virtual ~MPD();
+    public:
+      MPD   (const AttributesMap& attributes);
+      virtual ~MPD();
 
-                const std::string&             getType                 () const throw(dash::exception::AttributeNotPresentException);
-                const std::string&             getDuration             () const throw(dash::exception::AttributeNotPresentException);
-                const std::string&             getMinBufferTime        () const throw(dash::exception::AttributeNotPresentException);
-                const std::vector<BaseUrl *>&  getBaseUrls      () const;
-                const std::vector<Period *>&   getPeriods       () const;
-                ProgramInformation*     getProgramInformation   () throw(dash::exception::ElementNotPresentException);
+      const std::string&     getType       () const throw(dash::exception::AttributeNotPresentException);
+      const std::string&     getDuration     () const throw(dash::exception::AttributeNotPresentException);
+      const std::string&     getMinBufferTime    () const throw(dash::exception::AttributeNotPresentException);
+      const std::vector<BaseUrl *>&  getBaseUrls  () const;
+      const std::vector<Period *>& getPeriods   () const;
+      ProgramInformation*   getProgramInformation () throw(dash::exception::ElementNotPresentException);
 
-                void    addPeriod               (Period *period);
-                void    addBaseUrl              (BaseUrl *url);
-                void    setProgramInformation   (ProgramInformation *progInfo);
+      void  addPeriod     (Period *period);
+      void  addBaseUrl      (BaseUrl *url);
+      void  setProgramInformation (ProgramInformation *progInfo);
 
-            private:
-                AttributesMap                       attributes;
-                std::vector<Period *>               periods;
-                std::vector<BaseUrl *>              baseUrls;
-                ProgramInformation                  *programInfo;
-        };
-    }
+    private:
+      AttributesMap         attributes;
+      std::vector<Period *>     periods;
+      std::vector<BaseUrl *>      baseUrls;
+      ProgramInformation      *programInfo;
+    };
+  }
 }
 #endif /* MPD_H_ */

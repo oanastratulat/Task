@@ -4,8 +4,8 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 7bded8c3b29bb64679013df125ba8a2b8ef0a608 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
- *          Olivier Teulière <ipkiss@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
+ *    Olivier Teulière <ipkiss@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,148 +33,148 @@
 
 
 CtrlGeneric::CtrlGeneric( intf_thread_t *pIntf, const UString &rHelp,
-                          VarBool *pVisible):
-    SkinObject( pIntf ), m_pLayout( NULL ), m_pVisible( pVisible ),
-    m_pPosition( NULL ), m_help( rHelp )
+          VarBool *pVisible):
+  SkinObject( pIntf ), m_pLayout( NULL ), m_pVisible( pVisible ),
+  m_pPosition( NULL ), m_help( rHelp )
 {
-    // Observe the visibility variable
-    if( m_pVisible )
-    {
-        m_pVisible->addObserver( this );
-    }
+  // Observe the visibility variable
+  if( m_pVisible )
+  {
+    m_pVisible->addObserver( this );
+  }
 }
 
 
 CtrlGeneric::~CtrlGeneric()
 {
-    if( m_pVisible )
-    {
-        m_pVisible->delObserver( this );
-    }
+  if( m_pVisible )
+  {
+    m_pVisible->delObserver( this );
+  }
 }
 
 
 void CtrlGeneric::setLayout( GenericLayout *pLayout,
-                             const Position &rPosition )
+           const Position &rPosition )
 {
-    assert( !m_pLayout && pLayout);
+  assert( !m_pLayout && pLayout);
 
-    m_pLayout = pLayout;
-    m_pPosition = new Position( rPosition );
-    onPositionChange();
+  m_pLayout = pLayout;
+  m_pPosition = new Position( rPosition );
+  onPositionChange();
 }
 
 void CtrlGeneric::unsetLayout()
 {
-    assert( m_pLayout );
+  assert( m_pLayout );
 
-    delete m_pPosition;
-    m_pPosition = NULL;
-    m_pLayout = NULL;
+  delete m_pPosition;
+  m_pPosition = NULL;
+  m_pLayout = NULL;
 }
 
 void CtrlGeneric::notifyLayout( int width, int height,
-                                int xOffSet, int yOffSet )
+            int xOffSet, int yOffSet )
 {
-    width = ( width > 0 ) ? width : m_pPosition->getWidth();
-    height = ( height > 0 ) ? height : m_pPosition->getHeight();
+  width = ( width > 0 ) ? width : m_pPosition->getWidth();
+  height = ( height > 0 ) ? height : m_pPosition->getHeight();
 
-    // Notify the layout
-    if( m_pLayout )
-    {
-        m_pLayout->onControlUpdate( *this, width, height, xOffSet, yOffSet );
-    }
+  // Notify the layou
+  if( m_pLayout )
+  {
+    m_pLayout->onControlUpdate( *this, width, height, xOffSet, yOffSet );
+  }
 }
 
 
 void CtrlGeneric::notifyLayoutMaxSize( const Box *pImg1, const Box *pImg2 )
 {
-    if( pImg1 == NULL )
+  if( pImg1 == NULL )
+  {
+    if( pImg2 == NULL )
     {
-        if( pImg2 == NULL )
-        {
-            notifyLayout();
-        }
-        else
-        {
-            notifyLayout( pImg2->getWidth(), pImg2->getHeight() );
-        }
+    notifyLayout();
     }
     else
     {
-        if( pImg2 == NULL )
-        {
-            notifyLayout( pImg1->getWidth(), pImg1->getHeight() );
-        }
-        else
-        {
-            notifyLayout( max( pImg1->getWidth(), pImg2->getWidth() ),
-                          max( pImg1->getHeight(), pImg2->getHeight() ) );
-        }
+    notifyLayout( pImg2->getWidth(), pImg2->getHeight() );
     }
-}
-
-
-void CtrlGeneric::captureMouse() const
-{
-    // Tell the layout we want to capture the mouse
-    if( m_pLayout )
+  }
+  else
+  {
+    if( pImg2 == NULL )
     {
-        m_pLayout->onControlCapture( *this );
+    notifyLayout( pImg1->getWidth(), pImg1->getHeight() );
     }
-}
-
-
-void CtrlGeneric::releaseMouse() const
-{
-    // Tell the layout we want to release the mouse
-    if( m_pLayout )
+    else
     {
-        m_pLayout->onControlRelease( *this );
+    notifyLayout( max( pImg1->getWidth(), pImg2->getWidth() ),
+          max( pImg1->getHeight(), pImg2->getHeight() ) );
     }
+  }
 }
 
 
-void CtrlGeneric::notifyTooltipChange() const
+void CtrlGeneric::captureMouse() cons
 {
-    TopWindow *pWin = getWindow();
-    if( pWin )
-    {
-        // Notify the window
-        pWin->onTooltipChange( *this );
-    }
+  // Tell the layout we want to capture the mouse
+  if( m_pLayout )
+  {
+    m_pLayout->onControlCapture( *this );
+  }
 }
 
 
-TopWindow *CtrlGeneric::getWindow() const
+void CtrlGeneric::releaseMouse() cons
 {
-    if( m_pLayout )
-    {
-        return m_pLayout->getWindow();
-    }
-    return NULL;
+  // Tell the layout we want to release the mouse
+  if( m_pLayout )
+  {
+    m_pLayout->onControlRelease( *this );
+  }
 }
 
 
-bool CtrlGeneric::isVisible() const
+void CtrlGeneric::notifyTooltipChange() cons
 {
-    return !m_pVisible || m_pVisible->get();
+  TopWindow *pWin = getWindow();
+  if( pWin )
+  {
+    // Notify the window
+    pWin->onTooltipChange( *this );
+  }
+}
+
+
+TopWindow *CtrlGeneric::getWindow() cons
+{
+  if( m_pLayout )
+  {
+    return m_pLayout->getWindow();
+  }
+  return NULL;
+}
+
+
+bool CtrlGeneric::isVisible() cons
+{
+  return !m_pVisible || m_pVisible->get();
 }
 
 
 void CtrlGeneric::onUpdate( Subject<VarBool> &rVariable, void *arg  )
 {
-    (void)arg;
-    // Is it the visibility variable ?
-    if( &rVariable == m_pVisible )
-    {
-        // Redraw the layout
-        notifyLayout();
-    }
-    else
-    {
-        // Call the user-defined callback
-        onVarBoolUpdate( (VarBool&)rVariable );
-    }
+  (void)arg;
+  // Is it the visibility variable ?
+  if( &rVariable == m_pVisible )
+  {
+    // Redraw the layou
+    notifyLayout();
+  }
+  else
+  {
+    // Call the user-defined callback
+    onVarBoolUpdate( (VarBool&)rVariable );
+  }
 }
 

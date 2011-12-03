@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -38,24 +38,24 @@
 
 namespace dash
 {
-    namespace logic
+  namespace logic
+  {
+    class AlwaysBestAdaptationLogic : public AbstractAdaptationLogic
     {
-        class AlwaysBestAdaptationLogic : public AbstractAdaptationLogic
-        {
-            public:
-                AlwaysBestAdaptationLogic           (dash::mpd::IMPDManager *mpdManager);
-                virtual ~AlwaysBestAdaptationLogic  ();
+    public:
+      AlwaysBestAdaptationLogic     (dash::mpd::IMPDManager *mpdManager);
+      virtual ~AlwaysBestAdaptationLogic  ();
 
-                dash::http::Chunk* getNextChunk () throw(dash::exception::EOFException);
+      dash::http::Chunk* getNextChunk () throw(dash::exception::EOFException);
 
-            private:
-                std::vector<dash::mpd::ISegment *>  schedule;
-                dash::mpd::IMPDManager              *mpdManager;
-                size_t                              count;
+    private:
+      std::vector<dash::mpd::ISegment *>  schedule;
+      dash::mpd::IMPDManager      *mpdManager;
+      size_t          count;
 
-                void initSchedule();
-        };
-    }
+      void initSchedule();
+    };
+  }
 }
 
 #endif /* ALWAYSBESTADAPTATIONLOGIC_H_ */

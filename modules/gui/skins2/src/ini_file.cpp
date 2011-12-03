@@ -4,7 +4,7 @@
  * Copyright (C) 2006 the VideoLAN team
  * $Id: 7142da5a3e32c43d2c3896d81974f10199d3436e $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,62 +27,62 @@
 
 
 IniFile::IniFile( intf_thread_t *pIntf, const string &rName,
-                  const string &rPath ):
-    SkinObject( pIntf ), m_name( rName ), m_path( rPath )
+      const string &rPath ):
+  SkinObject( pIntf ), m_name( rName ), m_path( rPath )
 {
 }
 
 
 void IniFile::parseFile()
 {
-    VarManager *pVarManager = VarManager::instance( getIntf() );
+  VarManager *pVarManager = VarManager::instance( getIntf() );
 
-    // Open the file
-    fstream fs( m_path.c_str(), fstream::in );
-    if( fs.is_open() )
+  // Open the file
+  fstream fs( m_path.c_str(), fstream::in );
+  if( fs.is_open() )
+  {
+    string section;
+    string line;
+    while( !fs.eof() )
     {
-        string section;
-        string line;
-        while( !fs.eof() )
-        {
-            // Read the next line
-            fs >> line;
+    // Read the next line
+    fs >> line;
 
-            switch( line[0] )
-            {
-            // "[section]" line ?
-            case '[':
-                section = line.substr( 1, line.size() - 2);
-                break;
-
-            // Comment
-            case ';':
-            case '#':
-                break;
-
-            // Variable declaration
-            default:
-                size_t eqPos = line.find( '=' );
-                string var = line.substr( 0, eqPos );
-                string val = line.substr( eqPos + 1, line.size() - eqPos - 1);
-
-                string name = m_name + "." + section + "." + var;
-
-                // Convert to lower case because of some buggy winamp2 skins
-                for( size_t i = 0; i < name.size(); i++ )
-                {
-                    name[i] = tolower( (unsigned char)name[i] );
-                }
-
-                // Register the value in the var manager
-                pVarManager->registerConst( name, val );
-            }
-        }
-        fs.close();
-    }
-    else
+    switch( line[0] )
     {
-        msg_Err( getIntf(), "Failed to open INI file %s", m_path.c_str() );
+    // "[section]" line ?
+    case '[':
+      section = line.substr( 1, line.size() - 2);
+      break;
+
+    // Commen
+    case ';':
+    case '#':
+      break;
+
+    // Variable declaration
+    default:
+      size_t eqPos = line.find( '=' );
+      string var = line.substr( 0, eqPos );
+      string val = line.substr( eqPos + 1, line.size() - eqPos - 1);
+
+      string name = m_name + "." + section + "." + var;
+
+      // Convert to lower case because of some buggy winamp2 skins
+      for( size_t i = 0; i < name.size(); i++ )
+      {
+        name[i] = tolower( (unsigned char)name[i] );
+      }
+
+      // Register the value in the var manager
+      pVarManager->registerConst( name, val );
     }
+    }
+    fs.close();
+  }
+  else
+  {
+    msg_Err( getIntf(), "Failed to open INI file %s", m_path.c_str() );
+  }
 }
 

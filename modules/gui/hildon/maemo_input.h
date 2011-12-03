@@ -28,9 +28,9 @@
 
 #define EVENT_ITEM_STATE_CHANGE (1<<0)
 #define EVENT_PLAYLIST_CURRENT  (1<<1)
-#define EVENT_ACTIVITY          (1<<2)
-#define EVENT_ITEM_CHANGED      (1<<3)
-#define EVENT_INTF_CHANGED      (1<<4)
+#define EVENT_ACTIVITY    (1<<2)
+#define EVENT_ITEM_CHANGED  (1<<3)
+#define EVENT_INTF_CHANGED  (1<<4)
 
 void post_event( intf_thread_t *p_intf, int event );
 
@@ -38,9 +38,9 @@ void set_input( intf_thread_t *p_intf, input_thread_t *p_input );
 void delete_input( intf_thread_t *p_intf );
 
 int playlist_current_cb( vlc_object_t *p_this, const char *psz_var,
-                         vlc_value_t oldval, vlc_value_t newval, void *param );
+         vlc_value_t oldval, vlc_value_t newval, void *param );
 int activity_cb( vlc_object_t *p_this, const char *psz_var,
-                 vlc_value_t oldval, vlc_value_t newval, void *param );
+       vlc_value_t oldval, vlc_value_t newval, void *param );
 
 int item_changed_cb( vlc_object_t *p_this, const char *psz_var,
-                     vlc_value_t oldval, vlc_value_t newval, void *param );
+       vlc_value_t oldval, vlc_value_t newval, void *param );

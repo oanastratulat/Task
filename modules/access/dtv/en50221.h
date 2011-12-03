@@ -4,9 +4,9 @@
  * Copyright (C) 1998-2010 the VideoLAN team
  *
  * Authors: Johan Bilien <jobi@via.ecp.fr>
- *          Jean-Paul Saman <jpsaman _at_ videolan _dot_ org>
- *          Christopher Ross <chris@tebibyte.org>
- *          Christophe Massiot <massiot@via.ecp.fr>
+ *    Jean-Paul Saman <jpsaman _at_ videolan _dot_ org>
+ *    Christopher Ross <chris@tebibyte.org>
+ *    Christophe Massiot <massiot@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,12 +15,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.    See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA    02111, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
  *****************************************************************************/
 
 typedef struct cam cam_t;
@@ -32,5 +32,5 @@ int en50221_SetCAPMT( cam_t *, struct dvbpsi_pmt_s * );
 char *en50221_Status( cam_t *, char *req );
 void en50221_End( cam_t * );
 
-#define STRINGIFY( z )   UGLY_KLUDGE( z )
+#define STRINGIFY( z ) UGLY_KLUDGE( z )
 #define UGLY_KLUDGE( z ) #z

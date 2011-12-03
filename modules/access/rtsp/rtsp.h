@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2003 the xine project
+ * Copyright (C) 2002-2003 the xine projec
  *
  * This file is part of xine, a free video player.
  *
@@ -22,28 +22,28 @@
  * a minimalistic implementation of rtsp protocol,
  * *not* RFC 2326 compilant yet.
  */
- 
+
 #ifndef HAVE_RTSP_H
 #define HAVE_RTSP_H
 
 /* some codes returned by rtsp_request_* functions */
 
 #define RTSP_STATUS_SET_PARAMETER  10
-#define RTSP_STATUS_OK            200
+#define RTSP_STATUS_OK    200
 
 typedef struct rtsp_s rtsp_t;
 
-typedef struct
+typedef struc
 {
-    void *p_userdata;
+  void *p_userdata;
 
-    int (*pf_connect)( void *p_userdata, char *p_server, int i_port );
-    int (*pf_disconnect)( void *p_userdata );
-    int (*pf_read)( void *p_userdata, uint8_t *p_buffer, int i_buffer );
-    int (*pf_read_line)( void *p_userdata, uint8_t *p_buffer, int i_buffer );
-    int (*pf_write)( void *p_userdata, uint8_t *p_buffer, int i_buffer );
+  int (*pf_connect)( void *p_userdata, char *p_server, int i_port );
+  int (*pf_disconnect)( void *p_userdata );
+  int (*pf_read)( void *p_userdata, uint8_t *p_buffer, int i_buffer );
+  int (*pf_read_line)( void *p_userdata, uint8_t *p_buffer, int i_buffer );
+  int (*pf_write)( void *p_userdata, uint8_t *p_buffer, int i_buffer );
 
-    rtsp_t *p_private;
+  rtsp_t *p_private;
 
 } rtsp_client_t;
 

@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -34,21 +34,21 @@
 
 namespace dash
 {
-    namespace logic
+  namespace logic
+  {
+    class RateBasedAdaptationLogic : public AbstractAdaptationLogic
     {
-        class RateBasedAdaptationLogic : public AbstractAdaptationLogic
-        {
-            public:
-                RateBasedAdaptationLogic            (dash::mpd::IMPDManager *mpdManager);
+    public:
+      RateBasedAdaptationLogic    (dash::mpd::IMPDManager *mpdManager);
 
-                dash::http::Chunk* getNextChunk () throw(dash::exception::EOFException);
+      dash::http::Chunk* getNextChunk () throw(dash::exception::EOFException);
 
-            private:
-                dash::mpd::IMPDManager  *mpdManager;
-                size_t                  count;
-                dash::mpd::Period       *currentPeriod;
-        };
-    }
+    private:
+      dash::mpd::IMPDManager  *mpdManager;
+      size_t      count;
+      dash::mpd::Period   *currentPeriod;
+    };
+  }
 }
 
 #endif /* RATEBASEDADAPTATIONLOGIC_H_ */

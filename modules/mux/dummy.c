@@ -5,7 +5,7 @@
  * $Id: e1eec70061635e1c738ca186171676ed0cc0f9e7 $
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr>
- *          Eric Petit <titer@videolan.org>
+ *    Eric Petit <titer@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,16 +38,16 @@
 /*****************************************************************************
  * Module descriptor
  *****************************************************************************/
-static int  Open   ( vlc_object_t * );
+static int  Open ( vlc_object_t * );
 static void Close  ( vlc_object_t * );
 
 vlc_module_begin ()
-    set_description( N_("Dummy/Raw muxer") )
-    set_capability( "sout mux", 5 )
-    set_category( CAT_SOUT )
-    set_subcategory( SUBCAT_SOUT_MUX )
-    add_shortcut( "dummy", "raw", "es" )
-    set_callbacks( Open, Close )
+  set_description( N_("Dummy/Raw muxer") )
+  set_capability( "sout mux", 5 )
+  set_category( CAT_SOUT )
+  set_subcategory( SUBCAT_SOUT_MUX )
+  add_shortcut( "dummy", "raw", "es" )
+  set_callbacks( Open, Close )
 vlc_module_end ()
 
 /*****************************************************************************
@@ -56,13 +56,13 @@ vlc_module_end ()
 static int Control( sout_mux_t *, int, va_list );
 static int AddStream( sout_mux_t *, sout_input_t * );
 static int DelStream( sout_mux_t *, sout_input_t * );
-static int Mux      ( sout_mux_t * );
+static int Mux  ( sout_mux_t * );
 
-struct sout_mux_sys_t
+struct sout_mux_sys_
 {
-    /* Some streams have special initialization data, we'll output this
-     * data as an header in the stream. */
-    bool b_header;
+  /* Some streams have special initialization data, we'll output this
+   * data as an header in the stream. */
+  bool b_header;
 };
 
 /*****************************************************************************
@@ -70,23 +70,23 @@ struct sout_mux_sys_t
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {
-    sout_mux_t *p_mux = (sout_mux_t*)p_this;
-    sout_mux_sys_t  *p_sys;
+  sout_mux_t *p_mux = (sout_mux_t*)p_this;
+  sout_mux_sys_t  *p_sys;
 
-    msg_Dbg( p_mux, "Dummy/Raw muxer opened" );
-    msg_Info( p_mux, "Open" );
+  msg_Dbg( p_mux, "Dummy/Raw muxer opened" );
+  msg_Info( p_mux, "Open" );
 
-    p_mux->pf_control   = Control;
-    p_mux->pf_addstream = AddStream;
-    p_mux->pf_delstream = DelStream;
-    p_mux->pf_mux       = Mux;
+  p_mux->pf_control = Control;
+  p_mux->pf_addstream = AddStream;
+  p_mux->pf_delstream = DelStream;
+  p_mux->pf_mux   = Mux;
 
-    p_mux->p_sys = p_sys = malloc( sizeof( sout_mux_sys_t ) );
-    if( !p_sys )
-        return VLC_ENOMEM;
-    p_sys->b_header      = true;
+  p_mux->p_sys = p_sys = malloc( sizeof( sout_mux_sys_t ) );
+  if( !p_sys )
+    return VLC_ENOMEM;
+  p_sys->b_header  = true;
 
-    return VLC_SUCCESS;
+  return VLC_SUCCESS;
 }
 
 /*****************************************************************************
@@ -95,85 +95,85 @@ static int Open( vlc_object_t *p_this )
 
 static void Close( vlc_object_t * p_this )
 {
-    sout_mux_t *p_mux = (sout_mux_t*)p_this;
-    sout_mux_sys_t *p_sys = p_mux->p_sys;
+  sout_mux_t *p_mux = (sout_mux_t*)p_this;
+  sout_mux_sys_t *p_sys = p_mux->p_sys;
 
-    msg_Dbg( p_mux, "Dummy/Raw muxer closed" );
-    free( p_sys );
+  msg_Dbg( p_mux, "Dummy/Raw muxer closed" );
+  free( p_sys );
 }
 
 static int Control( sout_mux_t *p_mux, int i_query, va_list args )
 {
-    VLC_UNUSED(p_mux);
-    bool *pb_bool;
+  VLC_UNUSED(p_mux);
+  bool *pb_bool;
 
-    switch( i_query )
-    {
-        case MUX_CAN_ADD_STREAM_WHILE_MUXING:
-            pb_bool = (bool*)va_arg( args, bool * );
-            *pb_bool = true;
-            return VLC_SUCCESS;
+  switch( i_query )
+  {
+    case MUX_CAN_ADD_STREAM_WHILE_MUXING:
+    pb_bool = (bool*)va_arg( args, bool * );
+    *pb_bool = true;
+    return VLC_SUCCESS;
 
-        case MUX_GET_ADD_STREAM_WAIT:
-            pb_bool = (bool*)va_arg( args, bool * );
-            *pb_bool = false;
-            return VLC_SUCCESS;
+    case MUX_GET_ADD_STREAM_WAIT:
+    pb_bool = (bool*)va_arg( args, bool * );
+    *pb_bool = false;
+    return VLC_SUCCESS;
 
-        case MUX_GET_MIME:   /* Unknown */
-        default:
-            return VLC_EGENERIC;
-   }
+    case MUX_GET_MIME: /* Unknown */
+    default:
+    return VLC_EGENERIC;
+ }
 }
 
 static int AddStream( sout_mux_t *p_mux, sout_input_t *p_input )
 {
-    VLC_UNUSED(p_input);
-    msg_Dbg( p_mux, "adding input" );
-    return VLC_SUCCESS;
+  VLC_UNUSED(p_input);
+  msg_Dbg( p_mux, "adding input" );
+  return VLC_SUCCESS;
 }
 
 static int DelStream( sout_mux_t *p_mux, sout_input_t *p_input )
 {
-    VLC_UNUSED(p_input);
-    msg_Dbg( p_mux, "removing input" );
-    return VLC_SUCCESS;
+  VLC_UNUSED(p_input);
+  msg_Dbg( p_mux, "removing input" );
+  return VLC_SUCCESS;
 }
 
 static int Mux( sout_mux_t *p_mux )
 {
-    sout_mux_sys_t *p_sys = p_mux->p_sys;
-    int i;
+  sout_mux_sys_t *p_sys = p_mux->p_sys;
+  int i;
 
-    for( i = 0; i < p_mux->i_nb_inputs; i++ )
+  for( i = 0; i < p_mux->i_nb_inputs; i++ )
+  {
+    block_fifo_t *p_fifo;
+    int i_count;
+
+    if( p_sys->b_header && p_mux->pp_inputs[i]->p_fmt->i_extra )
     {
-        block_fifo_t *p_fifo;
-        int i_count;
+    /* Write header data */
+    block_t *p_data;
+    p_data = block_New( p_mux, p_mux->pp_inputs[i]->p_fmt->i_extra );
 
-        if( p_sys->b_header && p_mux->pp_inputs[i]->p_fmt->i_extra )
-        {
-            /* Write header data */
-            block_t *p_data;
-            p_data = block_New( p_mux, p_mux->pp_inputs[i]->p_fmt->i_extra );
+    memcpy( p_data->p_buffer, p_mux->pp_inputs[i]->p_fmt->p_extra,
+        p_mux->pp_inputs[i]->p_fmt->i_extra );
 
-            memcpy( p_data->p_buffer, p_mux->pp_inputs[i]->p_fmt->p_extra,
-                    p_mux->pp_inputs[i]->p_fmt->i_extra );
-
-            msg_Dbg( p_mux, "writing header data" );
-            sout_AccessOutWrite( p_mux->p_access, p_data );
-        }
-
-        p_fifo = p_mux->pp_inputs[i]->p_fifo;
-        i_count = block_FifoCount( p_fifo );
-        while( i_count > 0 )
-        {
-            block_t *p_data = block_FifoGet( p_fifo );
-
-            sout_AccessOutWrite( p_mux->p_access, p_data );
-
-            i_count--;
-        }
+    msg_Dbg( p_mux, "writing header data" );
+    sout_AccessOutWrite( p_mux->p_access, p_data );
     }
-    p_sys->b_header = false;
 
-    return VLC_SUCCESS;
+    p_fifo = p_mux->pp_inputs[i]->p_fifo;
+    i_count = block_FifoCount( p_fifo );
+    while( i_count > 0 )
+    {
+    block_t *p_data = block_FifoGet( p_fifo );
+
+    sout_AccessOutWrite( p_mux->p_access, p_data );
+
+    i_count--;
+    }
+  }
+  p_sys->b_header = false;
+
+  return VLC_SUCCESS;
 }

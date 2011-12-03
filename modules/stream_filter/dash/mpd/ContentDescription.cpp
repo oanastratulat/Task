@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -32,30 +32,30 @@ using namespace dash::exception;
 
 ContentDescription::ContentDescription  (std::map<std::string,std::string> attributes)
 {
-    this->attributes        = attributes;
-    this->schemeInformation = NULL;
+  this->attributes    = attributes;
+  this->schemeInformation = NULL;
 }
 ContentDescription::~ContentDescription ()
 {
-    delete(this->schemeInformation);
+  delete(this->schemeInformation);
 }
 
-SchemeInformation*  ContentDescription::getSchemeInformation    () throw(ElementNotPresentException)
+SchemeInformation*  ContentDescription::getSchemeInformation  () throw(ElementNotPresentException)
 {
-    if(this->schemeInformation == NULL)
-        throw ElementNotPresentException();
+  if(this->schemeInformation == NULL)
+    throw ElementNotPresentException();
 
-    return this->schemeInformation;
+  return this->schemeInformation;
 }
-std::string         ContentDescription::getSchemeIdUri          () throw(AttributeNotPresentException)
+std::string   ContentDescription::getSchemeIdUri    () throw(AttributeNotPresentException)
 {
-    if(this->attributes.find("schemeIdUri") == this->attributes.end())
-        throw AttributeNotPresentException();
+  if(this->attributes.find("schemeIdUri") == this->attributes.end())
+    throw AttributeNotPresentException();
 
-    return this->attributes["schmeIdUri"];
+  return this->attributes["schmeIdUri"];
 
 }
-void                ContentDescription::setSchemeInformation    (SchemeInformation *schemeInfo)
+void      ContentDescription::setSchemeInformation  (SchemeInformation *schemeInfo)
 {
-    this->schemeInformation = schemeInfo;
+  this->schemeInformation = schemeInfo;
 }

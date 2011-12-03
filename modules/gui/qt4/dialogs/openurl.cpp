@@ -1,5 +1,5 @@
 /*****************************************************************************
- * openurl.cpp: Open a MRL or clipboard content
+ * openurl.cpp: Open a MRL or clipboard conten
  *****************************************************************************
  * Copyright © 2009 the VideoLAN team
  * $Id: 56ab915b86efa9ea7f608663da5a75c5b876ba7b $
@@ -41,65 +41,65 @@
 #include <assert.h>
 
 OpenUrlDialog::OpenUrlDialog( intf_thread_t *_p_intf,
-                              bool _bClipboard ) :
-        QVLCDialog( (QWidget*)_p_intf->p_sys->p_mi, _p_intf ), bClipboard( _bClipboard )
+          bool _bClipboard ) :
+    QVLCDialog( (QWidget*)_p_intf->p_sys->p_mi, _p_intf ), bClipboard( _bClipboard )
 {
-    setWindowTitle( qtr( "Open URL" ) );
-    setWindowRole( "vlc-open-url" );
+  setWindowTitle( qtr( "Open URL" ) );
+  setWindowRole( "vlc-open-url" );
 
-    /* Buttons */
-    QPushButton *but;
+  /* Buttons */
+  QPushButton *but;
 
-    QDialogButtonBox *box = new QDialogButtonBox( this );
-    but = box->addButton( qtr( "&Play" ), QDialogButtonBox::AcceptRole );
-    CONNECT( but, clicked(), this, play() );
+  QDialogButtonBox *box = new QDialogButtonBox( this );
+  but = box->addButton( qtr( "&Play" ), QDialogButtonBox::AcceptRole );
+  CONNECT( but, clicked(), this, play() );
 
-    but = box->addButton( qtr( "&Enqueue" ), QDialogButtonBox::AcceptRole );
-    CONNECT( but, clicked(), this, enqueue() );
+  but = box->addButton( qtr( "&Enqueue" ), QDialogButtonBox::AcceptRole );
+  CONNECT( but, clicked(), this, enqueue() );
 
-    but = box->addButton( qtr( "&Cancel" ) , QDialogButtonBox::RejectRole );
-    CONNECT( box, rejected(), this, reject() );
+  but = box->addButton( qtr( "&Cancel" ) , QDialogButtonBox::RejectRole );
+  CONNECT( box, rejected(), this, reject() );
 
-    /* Info label and line edit */
-    edit = new ClickLineEdit( qtr( "Enter URL here..." ), this );
+  /* Info label and line edit */
+  edit = new ClickLineEdit( qtr( "Enter URL here..." ), this );
 
-    QLabel *info = new QLabel( qtr( "Please enter the URL or path "
-                                    "to the media you want to play"),
-                               this );
+  QLabel *info = new QLabel( qtr( "Please enter the URL or path "
+            "to the media you want to play"),
+           this );
 
-    setToolTip( qtr( "If your clipboard contains a valid URL\n"
-                     "or the path to a file on your computer,\n"
-                     "it will be automatically selected." ) );
+  setToolTip( qtr( "If your clipboard contains a valid URL\n"
+       "or the path to a file on your computer,\n"
+       "it will be automatically selected." ) );
 
-    /* Layout */
-    QVBoxLayout *vlay = new QVBoxLayout( this );
+  /* Layout */
+  QVBoxLayout *vlay = new QVBoxLayout( this );
 
-    vlay->addWidget( info );
-    vlay->addWidget( edit );
-    vlay->addWidget( box );
+  vlay->addWidget( info );
+  vlay->addWidget( edit );
+  vlay->addWidget( box );
 }
 
 void OpenUrlDialog::enqueue()
 {
-    bShouldEnqueue = true;
-    lastUrl = edit->text();
-    accept();
+  bShouldEnqueue = true;
+  lastUrl = edit->text();
+  accept();
 }
 
 void OpenUrlDialog::play()
 {
-    lastUrl = edit->text();
-    accept();
+  lastUrl = edit->text();
+  accept();
 }
 
-QString OpenUrlDialog::url() const
+QString OpenUrlDialog::url() cons
 {
-    return lastUrl;
+  return lastUrl;
 }
 
-bool OpenUrlDialog::shouldEnqueue() const
+bool OpenUrlDialog::shouldEnqueue() cons
 {
-    return bShouldEnqueue;
+  return bShouldEnqueue;
 }
 
 /** Show Event:
@@ -110,28 +110,28 @@ bool OpenUrlDialog::shouldEnqueue() const
  **/
 void OpenUrlDialog::showEvent( QShowEvent *ev )
 {
-    (void) ev;
-    bShouldEnqueue = false;
-    edit->setFocus( Qt::OtherFocusReason );
-    if( !lastUrl.isEmpty() && edit->text().isEmpty() )
-    {
-        /* The text should not have been changed, excepted if the user
-        has clicked Cancel before */
-        edit->setText( lastUrl );
-    }
-    else
-        edit->clear();
+  (void) ev;
+  bShouldEnqueue = false;
+  edit->setFocus( Qt::OtherFocusReason );
+  if( !lastUrl.isEmpty() && edit->text().isEmpty() )
+  {
+    /* The text should not have been changed, excepted if the user
+    has clicked Cancel before */
+    edit->setText( lastUrl );
+  }
+  else
+    edit->clear();
 
-    if( bClipboard )
-    {
-        QClipboard *clipboard = QApplication::clipboard();
-        assert( clipboard != NULL );
-        QString txt = clipboard->text( QClipboard::Selection ).trimmed();
+  if( bClipboard )
+  {
+    QClipboard *clipboard = QApplication::clipboard();
+    assert( clipboard != NULL );
+    QString txt = clipboard->text( QClipboard::Selection ).trimmed();
 
-        if( txt.isEmpty() || ( !txt.contains("://") && !QFile::exists(txt) ) )
-            txt = clipboard->text( QClipboard::Clipboard ).trimmed();
+    if( txt.isEmpty() || ( !txt.contains("://") && !QFile::exists(txt) ) )
+    txt = clipboard->text( QClipboard::Clipboard ).trimmed();
 
-        if( txt.contains( "://" ) || QFile::exists( txt ) )
-            edit->setText( txt );
-    }
+    if( txt.contains( "://" ) || QFile::exists( txt ) )
+    edit->setText( txt );
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Modified for use with MPlayer, detailed CVS changelog at
+ * Modified for use with MPlayer, detailed CVS changelog a
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  * $Id: a6472355d3dd6b6b269ed2b96051cda4d4fa2e9c $
  */
@@ -30,12 +30,12 @@ void CoTaskMemFree(void* cb);
 
 #ifndef GUID_TYPE
 #define GUID_TYPE
-typedef struct
+typedef struc
 {
-    uint32_t f1;
-    uint16_t f2;
-    uint16_t f3;
-    uint8_t  f4[8];
+  uint32_t f1;
+  uint16_t f2;
+  uint16_t f3;
+  uint8_t  f4[8];
 } GUID;
 #endif
 
@@ -52,33 +52,33 @@ int UnregisterComClass(const GUID* clsid, GETCLASSOBJECT gcs);
 
 struct IUnknown;
 struct IClassFactory;
-struct IUnknown_vt
+struct IUnknown_v
 {
-    long STDCALL (*QueryInterface)(struct IUnknown* _this, const GUID* iid, void** ppv);
-    long STDCALL (*AddRef)(struct IUnknown* _this) ;
-    long STDCALL (*Release)(struct IUnknown* _this) ;
+  long STDCALL (*QueryInterface)(struct IUnknown* _this, const GUID* iid, void** ppv);
+  long STDCALL (*AddRef)(struct IUnknown* _this) ;
+  long STDCALL (*Release)(struct IUnknown* _this) ;
 } ;
 
 typedef struct IUnknown
 {
-    struct IUnknown_vt* vt;
+  struct IUnknown_vt* vt;
 } IUnknown;
 
-struct IClassFactory_vt
+struct IClassFactory_v
 {
-    long STDCALL (*QueryInterface)(struct IUnknown* _this, const GUID* iid, void** ppv);
-    long STDCALL (*AddRef)(struct IUnknown* _this) ;
-    long STDCALL (*Release)(struct IUnknown* _this) ;
-    long STDCALL (*CreateInstance)(struct IClassFactory* _this, struct IUnknown* pUnkOuter, const GUID* riid, void** ppvObject);
+  long STDCALL (*QueryInterface)(struct IUnknown* _this, const GUID* iid, void** ppv);
+  long STDCALL (*AddRef)(struct IUnknown* _this) ;
+  long STDCALL (*Release)(struct IUnknown* _this) ;
+  long STDCALL (*CreateInstance)(struct IClassFactory* _this, struct IUnknown* pUnkOuter, const GUID* riid, void** ppvObject);
 };
 
 struct IClassFactory
 {
-    struct IClassFactory_vt* vt;
+  struct IClassFactory_vt* vt;
 };
 
 long CoCreateInstance(GUID* rclsid, struct IUnknown* pUnkOuter,
-		      long dwClsContext, const GUID* riid, void** ppv);
+		  long dwClsContext, const GUID* riid, void** ppv);
 
 #ifdef __cplusplus
 };

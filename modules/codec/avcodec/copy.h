@@ -25,19 +25,19 @@
 #define _VLC_AVCODEC_COPY_H 1
 
 typedef struct {
-    uint8_t *buffer;
-    size_t  size;
+  uint8_t *buffer;
+  size_t  size;
 } copy_cache_t;
 
 int  CopyInitCache(copy_cache_t *cache, unsigned width);
 void CopyCleanCache(copy_cache_t *cache);
 
 void CopyFromNv12(picture_t *dst, uint8_t *src[2], size_t src_pitch[2],
-                  unsigned width, unsigned height,
-                  copy_cache_t *cache);
+      unsigned width, unsigned height,
+      copy_cache_t *cache);
 void CopyFromYv12(picture_t *dst, uint8_t *src[3], size_t src_pitch[3],
-                  unsigned width, unsigned height,
-                  copy_cache_t *cache);
+      unsigned width, unsigned height,
+      copy_cache_t *cache);
 
 #endif
 

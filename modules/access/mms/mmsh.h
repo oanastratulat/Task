@@ -24,50 +24,50 @@
 #ifndef _MMSH_H_
 #define _MMSH_H_ 1
 
-typedef struct
+typedef struc
 {
-    uint16_t i_type;
-    uint16_t i_size;
+  uint16_t i_type;
+  uint16_t i_size;
 
-    uint32_t i_sequence;
-    uint16_t i_unknown;
+  uint32_t i_sequence;
+  uint16_t i_unknown;
 
-    uint16_t i_size2;
+  uint16_t i_size2;
 
-    int      i_data;
-    uint8_t  *p_data;
+  int  i_data;
+  uint8_t  *p_data;
 
 } chunk_t;
 
 #define BUFFER_SIZE 65536
-struct access_sys_t
+struct access_sys_
 {
-    int             i_proto;
+  int     i_proto;
 
-    int             fd;
-    vlc_url_t       url;
+  int     fd;
+  vlc_url_t   url;
 
-    bool      b_proxy;
-    vlc_url_t       proxy;
+  bool  b_proxy;
+  vlc_url_t   proxy;
 
-    int             i_request_context;
+  int     i_request_context;
 
-    uint8_t         buffer[BUFFER_SIZE + 1];
+  uint8_t   buffer[BUFFER_SIZE + 1];
 
-    bool      b_broadcast;
+  bool  b_broadcast;
 
-    uint8_t         *p_header;
-    int             i_header;
+  uint8_t   *p_header;
+  int     i_header;
 
-    uint8_t         *p_packet;
-    uint32_t        i_packet_sequence;
-    unsigned int    i_packet_used;
-    unsigned int    i_packet_length;
+  uint8_t   *p_packet;
+  uint32_t    i_packet_sequence;
+  unsigned int  i_packet_used;
+  unsigned int  i_packet_length;
 
-    uint64_t        i_start;
+  uint64_t    i_start;
 
-    asf_header_t    asfh;
-    guid_t          guid;
+  asf_header_t  asfh;
+  guid_t    guid;
 };
 
 #endif

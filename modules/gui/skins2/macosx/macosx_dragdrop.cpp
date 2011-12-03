@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 966d16a5d20ec8234e34c15ddcf7f197744ec8d9 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@
 
 
 MacOSXDragDrop::MacOSXDragDrop( intf_thread_t *pIntf, bool playOnDrop ):
-    SkinObject( pIntf ), m_playOnDrop( playOnDrop )
+  SkinObject( pIntf ), m_playOnDrop( playOnDrop )
 {
-    // TODO
+  // TODO
 }
 
 

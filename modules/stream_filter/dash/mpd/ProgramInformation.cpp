@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -32,50 +32,50 @@ using namespace dash::exception;
 
 ProgramInformation::ProgramInformation  (std::map<std::string, std::string> attr)
 {
-    this->attributes    = attr;
+  this->attributes  = attr;
 }
 ProgramInformation::~ProgramInformation ()
 {
 }
 
-std::string ProgramInformation::getTitle                () throw(ElementNotPresentException)
+std::string ProgramInformation::getTitle      () throw(ElementNotPresentException)
 {
-    if(this->title.empty())
-        throw ElementNotPresentException();
+  if(this->title.empty())
+    throw ElementNotPresentException();
 
-    return this->title;
+  return this->title;
 }
-std::string ProgramInformation::getCopyright            () throw(ElementNotPresentException)
+std::string ProgramInformation::getCopyright    () throw(ElementNotPresentException)
 {
-    if(this->copyright.empty())
-        throw ElementNotPresentException();
+  if(this->copyright.empty())
+    throw ElementNotPresentException();
 
-    return this->copyright;
+  return this->copyright;
 }
-std::string ProgramInformation::getSource               () throw(ElementNotPresentException)
+std::string ProgramInformation::getSource     () throw(ElementNotPresentException)
 {
-    if(this->source.empty())
-        throw ElementNotPresentException();
+  if(this->source.empty())
+    throw ElementNotPresentException();
 
-    return this->source;
+  return this->source;
 }
-std::string ProgramInformation::getMoreInformationUrl   () throw(AttributeNotPresentException)
+std::string ProgramInformation::getMoreInformationUrl () throw(AttributeNotPresentException)
 {
-    if(this->attributes.find("moreInformationURL") == this->attributes.end())
-        throw AttributeNotPresentException();
+  if(this->attributes.find("moreInformationURL") == this->attributes.end())
+    throw AttributeNotPresentException();
 
-    return this->attributes["moreInformationURL"];
+  return this->attributes["moreInformationURL"];
 
 }
-void        ProgramInformation::setTitle                (std::string title)
+void    ProgramInformation::setTitle      (std::string title)
 {
-    this->title = title;
+  this->title = title;
 }
-void        ProgramInformation::setCopyright            (std::string copyright)
+void    ProgramInformation::setCopyright    (std::string copyright)
 {
-    this->copyright = copyright;
+  this->copyright = copyright;
 }
-void        ProgramInformation::setSource               (std::string source)
+void    ProgramInformation::setSource     (std::string source)
 {
-    this->source = source;
+  this->source = source;
 }

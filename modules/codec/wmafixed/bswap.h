@@ -39,15 +39,15 @@
 
 static inline uint64_t ByteSwap64(uint64_t x)
 {
-    union { 
-        uint64_t ll;
-        struct {
-           uint32_t l,h;
-        } l;
-    } r;
-    r.l.l = bswap_32 (x);
-    r.l.h = bswap_32 (x>>32);
-    return r.ll;
+  union {
+    uint64_t ll;
+    struct {
+     uint32_t l,h;
+    } l;
+  } r;
+  r.l.l = bswap_32 (x);
+  r.l.h = bswap_32 (x>>32);
+  return r.ll;
 }
 #define bswap_64(x) ByteSwap64(x)
 
@@ -55,9 +55,9 @@ static inline uint64_t ByteSwap64(uint64_t x)
 static inline unsigned short ByteSwap16(unsigned short x)
 {
   __asm("xchgb %b0,%h0"	:
-        "=q" (x)	:
-        "0" (x));
-    return x;
+    "=q" (x)	:
+    "0" (x));
+  return x;
 }
 #define bswap_16(x) ByteSwap16(x)
 
@@ -65,14 +65,14 @@ static inline unsigned int ByteSwap32(unsigned int x)
 {
 #if __CPU__ > 386
  __asm("bswap	%0":
-      "=r" (x)     :
+  "=r" (x)   :
 #else
  __asm("xchgb	%b0,%h0\n"
-      "	rorl	$16,%0\n"
-      "	xchgb	%b0,%h0":
-      "=q" (x)		:
+  "	rorl	$16,%0\n"
+  "	xchgb	%b0,%h0":
+  "=q" (x)		:
 #endif
-      "0" (x));
+  "0" (x));
   return x;
 }
 #define bswap_32(x) ByteSwap32(x)
@@ -80,10 +80,10 @@ static inline unsigned int ByteSwap32(unsigned int x)
 static inline unsigned long long int ByteSwap64(unsigned long long int x)
 {
   register union { __extension__ uint64_t __ll;
-          uint32_t __l[2]; } __x;
+    uint32_t __l[2]; } __x;
   asm("xchgl	%0,%1":
-      "=r"(__x.__l[0]),"=r"(__x.__l[1]):
-      "0"(bswap_32((unsigned long)x)),"1"(bswap_32((unsigned long)(x>>32))));
+  "=r"(__x.__l[0]),"=r"(__x.__l[1]):
+  "0"(bswap_32((unsigned long)x)),"1"(bswap_32((unsigned long)(x>>32))));
   return __x.__ll;
 }
 #define bswap_64(x) ByteSwap64(x)
@@ -109,15 +109,15 @@ static inline uint32_t ByteSwap32(uint32_t x) {
 
 static inline uint64_t ByteSwap64(uint64_t x)
 {
-    union { 
-        uint64_t ll;
-        struct {
-           uint32_t l,h;
-        } l;
-    } r;
-    r.l.l = bswap_32 (x);
-    r.l.h = bswap_32 (x>>32);
-    return r.ll;
+  union {
+    uint64_t ll;
+    struct {
+     uint32_t l,h;
+    } l;
+  } r;
+  r.l.l = bswap_32 (x);
+  r.l.h = bswap_32 (x>>32);
+  return r.ll;
 }
 #define bswap_64(x) ByteSwap64(x)
 
@@ -127,19 +127,19 @@ static inline uint64_t ByteSwap64(uint64_t x)
 
 // code from bits/byteswap.h (C) 1997, 1998 Free Software Foundation, Inc.
 #define bswap_32(x) \
-     ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >>  8) | \
-      (((x) & 0x0000ff00) <<  8) | (((x) & 0x000000ff) << 24))
+   ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >>  8) | \
+  (((x) & 0x0000ff00) <<  8) | (((x) & 0x000000ff) << 24))
 
 static inline uint64_t ByteSwap64(uint64_t x)
 {
-    union { 
-        uint64_t ll;
-        uint32_t l[2]; 
-    } w, r;
-    w.ll = x;
-    r.l[0] = bswap_32 (w.l[1]);
-    r.l[1] = bswap_32 (w.l[0]);
-    return r.ll;
+  union {
+    uint64_t ll;
+    uint32_t l[2];
+  } w, r;
+  w.ll = x;
+  r.l[0] = bswap_32 (w.l[1]);
+  r.l[1] = bswap_32 (w.l[0]);
+  return r.ll;
 }
 #define bswap_64(x) ByteSwap64(x)
 

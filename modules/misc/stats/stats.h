@@ -4,7 +4,7 @@
  * Copyright (C) 2000-2008 the VideoLAN team
  *
  * Authors: Samuel Hocevar <sam@zoy.org>
- *          Pierre d'Herbemont <pdherbemont@videolan.org>
+ *    Pierre d'Herbemont <pdherbemont@videolan.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ void CloseDecoder ( vlc_object_t * );
 int  OpenEncoder  ( vlc_object_t * );
 void CloseEncoder ( vlc_object_t * );
 
-int  OpenDemux    ( vlc_object_t * );
-void CloseDemux   ( vlc_object_t * );
+int  OpenDemux  ( vlc_object_t * );
+void CloseDemux ( vlc_object_t * );
 
 #define kBufferSize 0x500

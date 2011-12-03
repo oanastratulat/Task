@@ -5,9 +5,9 @@
  * $Id: afdc484d39f26277726ed2cce81ffb57acc5ff84 $
  *
  * Authors: Henry Jen (slowhog) <henryjen@ztune.net>
- *          Derk-Jan Hartman (thedj)
- *          Sigmund Augdal (Dnumgis)
- *          Laurent Aimar <fenrir@via.ecp.fr>
+ *    Derk-Jan Hartman (thedj)
+ *    Sigmund Augdal (Dnumgis)
+ *    Laurent Aimar <fenrir@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,17 +44,17 @@ static void Close( vlc_object_t * );
 
 #define FPS_TEXT N_("Frames per Second")
 #define FPS_LONGTEXT N_("This is the desired frame rate when " \
-    "playing MJPEG from a file. Use 0 (this is the default value) for a " \
-    "live stream (from a camera).")
+  "playing MJPEG from a file. Use 0 (this is the default value) for a " \
+  "live stream (from a camera).")
 
 vlc_module_begin ()
-    set_shortname( "MJPEG")
-    set_description( N_("M-JPEG camera demuxer") )
-    set_capability( "demux", 5 )
-    set_callbacks( Open, Close )
-    set_category( CAT_INPUT )
-    set_subcategory( SUBCAT_INPUT_DEMUX )
-    add_float( "mjpeg-fps", 0.0, FPS_TEXT, FPS_LONGTEXT, false )
+  set_shortname( "MJPEG")
+  set_description( N_("M-JPEG camera demuxer") )
+  set_capability( "demux", 5 )
+  set_callbacks( Open, Close )
+  set_category( CAT_INPUT )
+  set_subcategory( SUBCAT_INPUT_DEMUX )
+  add_float( "mjpeg-fps", 0.0, FPS_TEXT, FPS_LONGTEXT, false )
 vlc_module_end ()
 
 /*****************************************************************************
@@ -64,22 +64,22 @@ static int MimeDemux( demux_t * );
 static int MjpgDemux( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-struct demux_sys_t
+struct demux_sys_
 {
-    es_format_t     fmt;
-    es_out_id_t     *p_es;
+  es_format_t   fmt;
+  es_out_id_t   *p_es;
 
-    bool      b_still;
-    mtime_t         i_still_end;
-    mtime_t         i_still_length;
+  bool  b_still;
+  mtime_t   i_still_end;
+  mtime_t   i_still_length;
 
-    mtime_t         i_time;
-    mtime_t         i_frame_length;
-    char            *psz_separator;
-    int             i_frame_size_estimate;
-    const uint8_t   *p_peek;
-    int             i_data_peeked;
-    int             i_level;
+  mtime_t   i_time;
+  mtime_t   i_frame_length;
+  char    *psz_separator;
+  int     i_frame_size_estimate;
+  const uint8_t *p_peek;
+  int     i_data_peeked;
+  int     i_level;
 };
 
 /*****************************************************************************
@@ -88,31 +88,31 @@ struct demux_sys_t
  *****************************************************************************/
 static bool Peek( demux_t *p_demux, bool b_first )
 {
-    int i_data;
-    demux_sys_t *p_sys = p_demux->p_sys;
+  int i_data;
+  demux_sys_t *p_sys = p_demux->p_sys;
 
-    if( b_first )
-    {
-        p_sys->i_data_peeked = 0;
-    }
-    else if( p_sys->i_data_peeked == p_sys->i_frame_size_estimate )
-    {
-        p_sys->i_frame_size_estimate += 5120;
-    }
-    i_data = stream_Peek( p_demux->s, &p_sys->p_peek,
-                          p_sys->i_frame_size_estimate );
-    if( i_data == p_sys->i_data_peeked )
-    {
-        msg_Warn( p_demux, "no more data" );
-        return false;
-    }
-    p_sys->i_data_peeked = i_data;
-    if( i_data <= 0 )
-    {
-        msg_Warn( p_demux, "cannot peek data" );
-        return false;
-    }
-    return true;
+  if( b_first )
+  {
+    p_sys->i_data_peeked = 0;
+  }
+  else if( p_sys->i_data_peeked == p_sys->i_frame_size_estimate )
+  {
+    p_sys->i_frame_size_estimate += 5120;
+  }
+  i_data = stream_Peek( p_demux->s, &p_sys->p_peek,
+          p_sys->i_frame_size_estimate );
+  if( i_data == p_sys->i_data_peeked )
+  {
+    msg_Warn( p_demux, "no more data" );
+    return false;
+  }
+  p_sys->i_data_peeked = i_data;
+  if( i_data <= 0 )
+  {
+    msg_Warn( p_demux, "cannot peek data" );
+    return false;
+  }
+  return true;
 }
 
 /*****************************************************************************
@@ -120,47 +120,47 @@ static bool Peek( demux_t *p_demux, bool b_first )
  *****************************************************************************/
 static char* GetLine( demux_t *p_demux, int *p_pos )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    const uint8_t *p_buf;
-    int         i_size;
-    int         i;
-    char        *p_line;
+  demux_sys_t *p_sys = p_demux->p_sys;
+  const uint8_t *p_buf;
+  int   i_size;
+  int   i;
+  char    *p_line;
 
-    while( *p_pos >= p_sys->i_data_peeked )
+  while( *p_pos >= p_sys->i_data_peeked )
+  {
+    if( ! Peek( p_demux, false ) )
     {
-        if( ! Peek( p_demux, false ) )
-        {
-            return NULL;
-        }
+    return NULL;
+    }
+  }
+  p_buf = p_sys->p_peek + *p_pos;
+  i_size = p_sys->i_data_peeked - *p_pos;
+  i = 0;
+  while( p_buf[i] != '\n' )
+  {
+    i++;
+    if( i == i_size )
+    {
+    if( ! Peek( p_demux, false ) )
+    {
+      return NULL;
     }
     p_buf = p_sys->p_peek + *p_pos;
     i_size = p_sys->i_data_peeked - *p_pos;
-    i = 0;
-    while( p_buf[i] != '\n' )
-    {
-        i++;
-        if( i == i_size )
-        {
-            if( ! Peek( p_demux, false ) )
-            {
-                return NULL;
-            }
-            p_buf = p_sys->p_peek + *p_pos;
-            i_size = p_sys->i_data_peeked - *p_pos;
-        }
     }
-    *p_pos += ( i + 1 );
-    if( i > 0 && '\r' == p_buf[i - 1] )
-    {
-        i--;
-    }
-    p_line = malloc( i + 1 );
-    if( p_line == NULL )
-        return NULL;
-    strncpy ( p_line, (char*)p_buf, i );
-    p_line[i] = '\0';
-//    msg_Dbg( p_demux, "i = %d, pos = %d, %s", i, *p_pos, p_line );
-    return p_line;
+  }
+  *p_pos += ( i + 1 );
+  if( i > 0 && '\r' == p_buf[i - 1] )
+  {
+    i--;
+  }
+  p_line = malloc( i + 1 );
+  if( p_line == NULL )
+    return NULL;
+  strncpy ( p_line, (char*)p_buf, i );
+  p_line[i] = '\0';
+//  msg_Dbg( p_demux, "i = %d, pos = %d, %s", i, *p_pos, p_line );
+  return p_line;
 }
 
 /*****************************************************************************
@@ -171,125 +171,125 @@ static char* GetLine( demux_t *p_demux, int *p_pos )
  *****************************************************************************/
 static bool CheckMimeHeader( demux_t *p_demux, int *p_header_size )
 {
-    bool  b_jpeg = false;
-    int         i_pos;
-    char        *psz_line;
-    char        *p_ch;
-    demux_sys_t *p_sys = p_demux->p_sys;
+  bool  b_jpeg = false;
+  int   i_pos;
+  char    *psz_line;
+  char    *p_ch;
+  demux_sys_t *p_sys = p_demux->p_sys;
 
-    if( !Peek( p_demux, true ) )
-    {
-        msg_Err( p_demux, "cannot peek" );
-        *p_header_size = -1;
-        return false;
-    }
-    if( p_sys->i_data_peeked < 5)
-    {
-        msg_Err( p_demux, "data shortage" );
-        *p_header_size = -2;
-        return false;
-    }
-    if( strncmp( (char *)p_sys->p_peek, "--", 2 ) != 0
-        && strncmp( (char *)p_sys->p_peek, "\r\n--", 4 ) != 0 )
-    {
-        *p_header_size = 0;
-        return false;
-    }
-    i_pos = *p_sys->p_peek == '-' ? 2 : 4;
-    psz_line = GetLine( p_demux, &i_pos );
-    if( NULL == psz_line )
-    {
-        msg_Err( p_demux, "no EOL" );
-        *p_header_size = -3;
-        return false;
-    }
+  if( !Peek( p_demux, true ) )
+  {
+    msg_Err( p_demux, "cannot peek" );
+    *p_header_size = -1;
+    return false;
+  }
+  if( p_sys->i_data_peeked < 5)
+  {
+    msg_Err( p_demux, "data shortage" );
+    *p_header_size = -2;
+    return false;
+  }
+  if( strncmp( (char *)p_sys->p_peek, "--", 2 ) != 0
+    && strncmp( (char *)p_sys->p_peek, "\r\n--", 4 ) != 0 )
+  {
+    *p_header_size = 0;
+    return false;
+  }
+  i_pos = *p_sys->p_peek == '-' ? 2 : 4;
+  psz_line = GetLine( p_demux, &i_pos );
+  if( NULL == psz_line )
+  {
+    msg_Err( p_demux, "no EOL" );
+    *p_header_size = -3;
+    return false;
+  }
 
-    /* Read the separator and remember it if not yet stored */
-    if( p_sys->psz_separator == NULL )
+  /* Read the separator and remember it if not yet stored */
+  if( p_sys->psz_separator == NULL )
+  {
+    p_sys->psz_separator = psz_line;
+    msg_Dbg( p_demux, "Multipart MIME detected, using separator: %s",
+       p_sys->psz_separator );
+  }
+  else
+  {
+    if( strcmp( psz_line, p_sys->psz_separator ) )
     {
-        p_sys->psz_separator = psz_line;
-        msg_Dbg( p_demux, "Multipart MIME detected, using separator: %s",
-                 p_sys->psz_separator );
+    msg_Warn( p_demux, "separator %s does not match %s", psz_line,
+        p_sys->psz_separator );
+    }
+    free( psz_line );
+  }
+
+  psz_line = GetLine( p_demux, &i_pos );
+  while( psz_line && *psz_line )
+  {
+    if( !strncasecmp( psz_line, "Content-Type:", 13 ) )
+    {
+    p_ch = psz_line + 13;
+    while( *p_ch != '\0' && ( *p_ch == ' ' || *p_ch == '\t' ) ) p_ch++;
+    if( strncasecmp( p_ch, "image/jpeg", 10 ) )
+    {
+      msg_Warn( p_demux, "%s, image/jpeg is expected", psz_line );
+      b_jpeg = false;
     }
     else
     {
-        if( strcmp( psz_line, p_sys->psz_separator ) )
-        {
-            msg_Warn( p_demux, "separator %s does not match %s", psz_line,
-                      p_sys->psz_separator );
-        }
-        free( psz_line );
+      b_jpeg = true;
     }
-
-    psz_line = GetLine( p_demux, &i_pos );
-    while( psz_line && *psz_line )
+    }
+    else
     {
-        if( !strncasecmp( psz_line, "Content-Type:", 13 ) )
-        {
-            p_ch = psz_line + 13;
-            while( *p_ch != '\0' && ( *p_ch == ' ' || *p_ch == '\t' ) ) p_ch++;
-            if( strncasecmp( p_ch, "image/jpeg", 10 ) )
-            {
-                msg_Warn( p_demux, "%s, image/jpeg is expected", psz_line );
-                b_jpeg = false;
-            }
-            else
-            {
-                b_jpeg = true;
-            }
-        }
-        else
-        {
-            msg_Dbg( p_demux, "discard MIME header: %s", psz_line );
-        }
-        free( psz_line );
-        psz_line = GetLine( p_demux, &i_pos );
+    msg_Dbg( p_demux, "discard MIME header: %s", psz_line );
     }
-
-    if( NULL == psz_line )
-    {
-        msg_Err( p_demux, "no EOL" );
-        *p_header_size = -3;
-        return false;
-    }
-
     free( psz_line );
+    psz_line = GetLine( p_demux, &i_pos );
+  }
 
-    *p_header_size = i_pos;
-    return b_jpeg;
+  if( NULL == psz_line )
+  {
+    msg_Err( p_demux, "no EOL" );
+    *p_header_size = -3;
+    return false;
+  }
+
+  free( psz_line );
+
+  *p_header_size = i_pos;
+  return b_jpeg;
 }
 
 static int SendBlock( demux_t *p_demux, int i )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    block_t     *p_block;
+  demux_sys_t *p_sys = p_demux->p_sys;
+  block_t   *p_block;
 
-    if( ( p_block = stream_Block( p_demux->s, i ) ) == NULL )
-    {
-        msg_Warn( p_demux, "cannot read data" );
-        return 0;
-    }
+  if( ( p_block = stream_Block( p_demux->s, i ) ) == NULL )
+  {
+    msg_Warn( p_demux, "cannot read data" );
+    return 0;
+  }
 
-    if( !p_sys->i_frame_length || !p_sys->i_time )
-    {
-        p_sys->i_time = p_block->i_dts = p_block->i_pts = mdate();
-    }
-    else
-    {
-        p_block->i_dts = p_block->i_pts = VLC_TS_0 + p_sys->i_time;
-        p_sys->i_time += p_sys->i_frame_length;
-    }
+  if( !p_sys->i_frame_length || !p_sys->i_time )
+  {
+    p_sys->i_time = p_block->i_dts = p_block->i_pts = mdate();
+  }
+  else
+  {
+    p_block->i_dts = p_block->i_pts = VLC_TS_0 + p_sys->i_time;
+    p_sys->i_time += p_sys->i_frame_length;
+  }
 
-    /* set PCR */
-    es_out_Control( p_demux->out, ES_OUT_SET_PCR, p_block->i_pts );
-    es_out_Send( p_demux->out, p_sys->p_es, p_block );
+  /* set PCR */
+  es_out_Control( p_demux->out, ES_OUT_SET_PCR, p_block->i_pts );
+  es_out_Send( p_demux->out, p_sys->p_es, p_block );
 
-    if( p_sys->b_still )
-    {
-        p_sys->i_still_end = mdate() + p_sys->i_still_length;
-    }
+  if( p_sys->b_still )
+  {
+    p_sys->i_still_end = mdate() + p_sys->i_still_length;
+  }
 
-    return 1;
+  return 1;
 }
 
 /*****************************************************************************
@@ -297,85 +297,85 @@ static int SendBlock( demux_t *p_demux, int i )
  *****************************************************************************/
 static int Open( vlc_object_t * p_this )
 {
-    demux_t     *p_demux = (demux_t*)p_this;
-    demux_sys_t *p_sys;
-    int         i_size;
-    bool        b_matched = false;
-    float       f_fps;
+  demux_t   *p_demux = (demux_t*)p_this;
+  demux_sys_t *p_sys;
+  int   i_size;
+  bool    b_matched = false;
+  float   f_fps;
 
-    p_sys = malloc( sizeof( demux_sys_t ) );
-    if( unlikely(p_sys == NULL) )
-        return VLC_ENOMEM;
+  p_sys = malloc( sizeof( demux_sys_t ) );
+  if( unlikely(p_sys == NULL) )
+    return VLC_ENOMEM;
 
-    p_demux->pf_control = Control;
-    p_demux->p_sys      = p_sys;
-    p_sys->p_es         = NULL;
-    p_sys->i_time       = 0;
-    p_sys->i_level      = 0;
+  p_demux->pf_control = Control;
+  p_demux->p_sys  = p_sys;
+  p_sys->p_es   = NULL;
+  p_sys->i_time   = 0;
+  p_sys->i_level  = 0;
 
-    p_sys->psz_separator = NULL;
-    p_sys->i_frame_size_estimate = 15 * 1024;
+  p_sys->psz_separator = NULL;
+  p_sys->i_frame_size_estimate = 15 * 1024;
 
-    b_matched = CheckMimeHeader( p_demux, &i_size);
-    if( b_matched )
+  b_matched = CheckMimeHeader( p_demux, &i_size);
+  if( b_matched )
+  {
+    p_demux->pf_demux = MimeDemux;
+    stream_Read( p_demux->s, NULL, i_size );
+  }
+  else if( 0 == i_size )
+  {
+    /* 0xffd8 identify a JPEG SOI */
+    if( p_sys->p_peek[0] == 0xFF && p_sys->p_peek[1] == 0xD8 )
     {
-        p_demux->pf_demux = MimeDemux;
-        stream_Read( p_demux->s, NULL, i_size );
-    }
-    else if( 0 == i_size )
-    {
-        /* 0xffd8 identify a JPEG SOI */
-        if( p_sys->p_peek[0] == 0xFF && p_sys->p_peek[1] == 0xD8 )
-        {
-            msg_Dbg( p_demux, "JPEG SOI marker detected" );
-            p_demux->pf_demux = MjpgDemux;
-            p_sys->i_level++;
-        }
-        else
-        {
-            goto error;
-        }
+    msg_Dbg( p_demux, "JPEG SOI marker detected" );
+    p_demux->pf_demux = MjpgDemux;
+    p_sys->i_level++;
     }
     else
     {
-        goto error;
+    goto error;
     }
+  }
+  else
+  {
+    goto error;
+  }
 
 
-    f_fps = var_CreateGetFloat( p_demux, "mjpeg-fps" );
-    p_sys->i_frame_length = 0;
+  f_fps = var_CreateGetFloat( p_demux, "mjpeg-fps" );
+  p_sys->i_frame_length = 0;
 
-    /* Check for jpeg file extension */
-    p_sys->b_still = false;
-    p_sys->i_still_end = 0;
-    if( demux_IsPathExtension( p_demux, ".jpeg" ) ||
-        demux_IsPathExtension( p_demux, ".jpg" ) )
+  /* Check for jpeg file extension */
+  p_sys->b_still = false;
+  p_sys->i_still_end = 0;
+  if( demux_IsPathExtension( p_demux, ".jpeg" ) ||
+    demux_IsPathExtension( p_demux, ".jpg" ) )
+  {
+    p_sys->b_still = true;
+    if( f_fps )
     {
-        p_sys->b_still = true;
-        if( f_fps )
-        {
-            p_sys->i_still_length = 1000000.0 / f_fps;
-        }
-        else
-        {
-            /* Defaults to 1fps */
-            p_sys->i_still_length = 1000000;
-        }
+    p_sys->i_still_length = 1000000.0 / f_fps;
     }
-    else if ( f_fps )
+    else
     {
-        p_sys->i_frame_length = 1000000.0 / f_fps;
+    /* Defaults to 1fps */
+    p_sys->i_still_length = 1000000;
     }
+  }
+  else if ( f_fps )
+  {
+    p_sys->i_frame_length = 1000000.0 / f_fps;
+  }
 
-    es_format_Init( &p_sys->fmt, VIDEO_ES, 0 );
-    p_sys->fmt.i_codec = VLC_CODEC_MJPG;
+  es_format_Init( &p_sys->fmt, VIDEO_ES, 0 );
+  p_sys->fmt.i_codec = VLC_CODEC_MJPG;
 
-    p_sys->p_es = es_out_Add( p_demux->out, &p_sys->fmt );
-    return VLC_SUCCESS;
+  p_sys->p_es = es_out_Add( p_demux->out, &p_sys->fmt );
+  return VLC_SUCCESS;
 
 error:
-    free( p_sys );
-    return VLC_EGENERIC;
+  free( p_sys );
+  return VLC_EGENERIC;
 }
 
 /*****************************************************************************
@@ -385,131 +385,131 @@ error:
  *****************************************************************************/
 static int MjpgDemux( demux_t *p_demux )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    int i;
+  demux_sys_t *p_sys = p_demux->p_sys;
+  int i;
 
-    if( p_sys->b_still && p_sys->i_still_end )
-    {
-        /* Still frame, wait until the pause delay is gone */
-        mwait( p_sys->i_still_end );
-        p_sys->i_still_end = 0;
-        return 1;
-    }
+  if( p_sys->b_still && p_sys->i_still_end )
+  {
+    /* Still frame, wait until the pause delay is gone */
+    mwait( p_sys->i_still_end );
+    p_sys->i_still_end = 0;
+    return 1;
+  }
 
-    if( !Peek( p_demux, true ) )
-    {
-        msg_Warn( p_demux, "cannot peek data" );
-        return 0;
-    }
-    if( p_sys->i_data_peeked < 4 )
-    {
-        msg_Warn( p_demux, "data shortage" );
-        return 0;
-    }
-    i = 3;
+  if( !Peek( p_demux, true ) )
+  {
+    msg_Warn( p_demux, "cannot peek data" );
+    return 0;
+  }
+  if( p_sys->i_data_peeked < 4 )
+  {
+    msg_Warn( p_demux, "data shortage" );
+    return 0;
+  }
+  i = 3;
 FIND_NEXT_EOI:
-    while( !( 0xFF == p_sys->p_peek[i-1] && 0xD9 == p_sys->p_peek[i] ) )
+  while( !( 0xFF == p_sys->p_peek[i-1] && 0xD9 == p_sys->p_peek[i] ) )
+  {
+    if( 0xFF == p_sys->p_peek[i-1] && 0xD8 == p_sys->p_peek[i] )
     {
-        if( 0xFF == p_sys->p_peek[i-1] && 0xD8 == p_sys->p_peek[i] )
-        {
-            p_sys->i_level++;
-            msg_Dbg( p_demux, "we found another JPEG SOI at %d", i );
-        }
-        i++;
-        if( i >= p_sys->i_data_peeked )
-        {
-            msg_Dbg( p_demux, "did not find JPEG EOI in %d bytes",
-                     p_sys->i_data_peeked );
-            if( !Peek( p_demux, false ) )
-            {
-                msg_Warn( p_demux, "no more data is available at the moment" );
-                return 0;
-            }
-        }
+    p_sys->i_level++;
+    msg_Dbg( p_demux, "we found another JPEG SOI at %d", i );
     }
     i++;
+    if( i >= p_sys->i_data_peeked )
+    {
+    msg_Dbg( p_demux, "did not find JPEG EOI in %d bytes",
+       p_sys->i_data_peeked );
+    if( !Peek( p_demux, false ) )
+    {
+      msg_Warn( p_demux, "no more data is available at the moment" );
+      return 0;
+    }
+    }
+  }
+  i++;
 
-    msg_Dbg( p_demux, "JPEG EOI detected at %d", i );
-    p_sys->i_level--;
+  msg_Dbg( p_demux, "JPEG EOI detected at %d", i );
+  p_sys->i_level--;
 
-    if( p_sys->i_level > 0 )
-        goto FIND_NEXT_EOI;
-    return SendBlock( p_demux, i );
+  if( p_sys->i_level > 0 )
+    goto FIND_NEXT_EOI;
+  return SendBlock( p_demux, i );
 }
 
 static int MimeDemux( demux_t *p_demux )
 {
-    demux_sys_t *p_sys = p_demux->p_sys;
-    int         i_size, i;
+  demux_sys_t *p_sys = p_demux->p_sys;
+  int   i_size, i;
 
-    bool  b_match = CheckMimeHeader( p_demux, &i_size );
+  bool  b_match = CheckMimeHeader( p_demux, &i_size );
 
-    if( i_size > 0 )
+  if( i_size > 0 )
+  {
+    stream_Read( p_demux->s, NULL, i_size );
+  }
+  else if( i_size < 0 )
+  {
+    return 0;
+  }
+  else
+  {
+    // No MIME header, assume OK
+    b_match = true;
+  }
+
+  if( !Peek( p_demux, true ) )
+  {
+    msg_Warn( p_demux, "cannot peek data" );
+    return 0;
+  }
+
+  i = 0;
+  i_size = strlen( p_sys->psz_separator ) + 2;
+  if( p_sys->i_data_peeked < i_size )
+  {
+    msg_Warn( p_demux, "data shortage" );
+    return 0;
+  }
+
+  for( ;; )
+  {
+    while( !( p_sys->p_peek[i] == '-' && p_sys->p_peek[i+1] == '-' ) )
     {
-        stream_Read( p_demux->s, NULL, i_size );
-    }
-    else if( i_size < 0 )
+    i++;
+    i_size++;
+    if( i_size >= p_sys->i_data_peeked )
     {
+      msg_Dbg( p_demux, "MIME boundary not found in %d bytes of "
+         "data", p_sys->i_data_peeked );
+
+      if( !Peek( p_demux, false ) )
+      {
+        msg_Warn( p_demux, "no more data is available at the "
+          "moment" );
         return 0;
+      }
     }
-    else
+    }
+
+    if( !strncmp( p_sys->psz_separator, (char *)(p_sys->p_peek + i + 2),
+        strlen( p_sys->psz_separator ) ) )
     {
-        // No MIME header, assume OK
-        b_match = true;
+    break;
     }
 
-    if( !Peek( p_demux, true ) )
-    {
-        msg_Warn( p_demux, "cannot peek data" );
-        return 0;
-    }
+    i++;
+    i_size++;
+  }
 
-    i = 0;
-    i_size = strlen( p_sys->psz_separator ) + 2;
-    if( p_sys->i_data_peeked < i_size )
-    {
-        msg_Warn( p_demux, "data shortage" );
-        return 0;
-    }
+  if( !b_match )
+  {
+    msg_Err( p_demux, "discard non-JPEG part" );
+    stream_Read( p_demux->s, NULL, i );
+    return 0;
+  }
 
-    for( ;; )
-    {
-        while( !( p_sys->p_peek[i] == '-' && p_sys->p_peek[i+1] == '-' ) )
-        {
-            i++;
-            i_size++;
-            if( i_size >= p_sys->i_data_peeked )
-            {
-                msg_Dbg( p_demux, "MIME boundary not found in %d bytes of "
-                         "data", p_sys->i_data_peeked );
-
-                if( !Peek( p_demux, false ) )
-                {
-                    msg_Warn( p_demux, "no more data is available at the "
-                              "moment" );
-                    return 0;
-                }
-            }
-        }
-
-        if( !strncmp( p_sys->psz_separator, (char *)(p_sys->p_peek + i + 2),
-                      strlen( p_sys->psz_separator ) ) )
-        {
-            break;
-        }
-
-        i++;
-        i_size++;
-    }
-
-    if( !b_match )
-    {
-        msg_Err( p_demux, "discard non-JPEG part" );
-        stream_Read( p_demux->s, NULL, i );
-        return 0;
-    }
-
-    return SendBlock( p_demux, i );
+  return SendBlock( p_demux, i );
 }
 
 /*****************************************************************************
@@ -517,11 +517,11 @@ static int MimeDemux( demux_t *p_demux )
  *****************************************************************************/
 static void Close ( vlc_object_t * p_this )
 {
-    demux_t     *p_demux = (demux_t*)p_this;
-    demux_sys_t *p_sys  = p_demux->p_sys;
+  demux_t   *p_demux = (demux_t*)p_this;
+  demux_sys_t *p_sys  = p_demux->p_sys;
 
-    free( p_sys->psz_separator );
-    free( p_sys );
+  free( p_sys->psz_separator );
+  free( p_sys );
 }
 
 /*****************************************************************************
@@ -529,5 +529,5 @@ static void Close ( vlc_object_t * p_this )
  *****************************************************************************/
 static int Control( demux_t *p_demux, int i_query, va_list args )
 {
-    return demux_vaControlHelper( p_demux->s, 0, 0, 0, 0, i_query, args );
+  return demux_vaControlHelper( p_demux->s, 0, 0, 0, 0, i_query, args );
 }

@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -40,41 +40,41 @@
 
 namespace dash
 {
-    namespace http
+  namespace http
+  {
+    class HTTPConnectionManager
     {
-        class HTTPConnectionManager
-        {
-            public:
-                HTTPConnectionManager           (stream_t *stream);
-                virtual ~HTTPConnectionManager  ();
+    public:
+      HTTPConnectionManager     (stream_t *stream);
+      virtual ~HTTPConnectionManager  ();
 
-                void                closeAllConnections ();
-                bool                closeConnection     (IHTTPConnection *con);
-                IHTTPConnection*    getConnection       (std::string url);
-                int                 read                (Chunk *chunk, void *p_buffer, size_t len);
-                int                 peek                (Chunk *chunk, const uint8_t **pp_peek, size_t i_peek);
-                void                attach              (dash::logic::IDownloadRateObserver *observer);
-                void                notify              ();
+      void      closeAllConnections ();
+      bool      closeConnection   (IHTTPConnection *con);
+      IHTTPConnection*  getConnection   (std::string url);
+      int       read      (Chunk *chunk, void *p_buffer, size_t len);
+      int       peek      (Chunk *chunk, const uint8_t **pp_peek, size_t i_peek);
+      void      attach      (dash::logic::IDownloadRateObserver *observer);
+      void      notify      ();
 
-            private:
-                std::vector<HTTPConnection *>                       connections;
-                std::map<Chunk *, HTTPConnection *>                 chunkMap;
-                std::map<std::string, HTTPConnection *>             urlMap;
-                std::vector<dash::logic::IDownloadRateObserver *>   rateObservers;
-                long                                                bpsAvg;
-                long                                                bpsLastChunk;
-                long                                                bytesReadSession;
-                double                                              timeSecSession;
-                long                                                bytesReadChunk;
-                double                                              timeSecChunk;
-                stream_t                                            *stream;
-                int                                                 chunkCount;
+    private:
+      std::vector<HTTPConnection *>         connections;
+      std::map<Chunk *, HTTPConnection *>       chunkMap;
+      std::map<std::string, HTTPConnection *>     urlMap;
+      std::vector<dash::logic::IDownloadRateObserver *> rateObservers;
+      long                bpsAvg;
+      long                bpsLastChunk;
+      long                bytesReadSession;
+      double                timeSecSession;
+      long                bytesReadChunk;
+      double                timeSecChunk;
+      stream_t                *stream;
+      int                 chunkCount;
 
-                bool            closeConnection (Chunk *chunk);
-                HTTPConnection* initConnection  (Chunk *chunk);
+      bool    closeConnection (Chunk *chunk);
+      HTTPConnection* initConnection  (Chunk *chunk);
 
-        };
-    }
+    };
+  }
 }
 
 #endif /* HTTPCONNECTIONMANAGER_H_ */

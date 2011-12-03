@@ -5,7 +5,7 @@
  * $Id: 21ad94150ef1c4610bbeb1132a195323c8ae1541 $
  *
  * Authors: Felix Paul Kühne <fkuehne at videolan dot org>
- *          Pierre d'Herbemont <pdherbemont # videolan dot>
+ *    Pierre d'Herbemont <pdherbemont # videolan dot>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,10 +29,10 @@
 #import "VLCLoginPanel.h"
 #import "VLCProgressPanel.h"
 
-@interface VLCDialogDisplayer : NSObject
+@interface VLCDialogDisplayer : NSObjec
 {
-    intf_thread_t *p_intf;
-    VLCProgressPanel *_currentProgressBarPanel;
+  intf_thread_t *p_intf;
+  VLCProgressPanel *_currentProgressBarPanel;
 }
 - (intf_thread_t *)intf;
 - (void)setIntf:(intf_thread_t *)p_mainintf;

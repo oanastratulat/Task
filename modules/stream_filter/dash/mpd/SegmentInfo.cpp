@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -31,38 +31,38 @@ using namespace dash::mpd;
 using namespace dash::exception;
 
 SegmentInfo::SegmentInfo( const std::map<std::string,std::string>& attr) :
-    attributes( attr ),
-    initSeg( NULL )
+  attributes( attr ),
+  initSeg( NULL )
 {
 }
 
-SegmentInfo::~SegmentInfo   ()
+SegmentInfo::~SegmentInfo ()
 {
-    for(size_t i = 0; i < this->segments.size(); i++)
-        delete(this->segments.at(i));
+  for(size_t i = 0; i < this->segments.size(); i++)
+    delete(this->segments.at(i));
 
-    delete(this->initSeg);
+  delete(this->initSeg);
 }
 
-InitSegment*            SegmentInfo::getInitSegment     () throw(ElementNotPresentException)
+InitSegment*    SegmentInfo::getInitSegment   () throw(ElementNotPresentException)
 {
-    if(this->initSeg == NULL)
-        throw ElementNotPresentException();
+  if(this->initSeg == NULL)
+    throw ElementNotPresentException();
 
-    return this->initSeg;
+  return this->initSeg;
 }
 
-const std::vector<Segment*>&   SegmentInfo::getSegments        () const
+const std::vector<Segment*>& SegmentInfo::getSegments    () cons
 {
-    return this->segments;
+  return this->segments;
 }
 
-void                    SegmentInfo::addSegment         (Segment *seg)
+void        SegmentInfo::addSegment   (Segment *seg)
 {
-    this->segments.push_back(seg);
+  this->segments.push_back(seg);
 }
 
-void                    SegmentInfo::setInitSegment     (InitSegment *initSeg)
+void        SegmentInfo::setInitSegment   (InitSegment *initSeg)
 {
-    this->initSeg = initSeg;
+  this->initSeg = initSeg;
 }

@@ -4,7 +4,7 @@
  * Copyright (C) 2003 the VideoLAN team
  * $Id: 2e035df47a5ee5aa9b86d7c1ca77c97cf84f39f1 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,62 +29,62 @@
 
 
 MacOSXWindow::MacOSXWindow( intf_thread_t *pIntf, GenericWindow &rWindow,
-                            bool dragDrop, bool playOnDrop,
-                            MacOSXWindow *pParentWindow ):
-    OSWindow( pIntf ), m_pParent( pParentWindow ), m_dragDrop( dragDrop )
+          bool dragDrop, bool playOnDrop,
+          MacOSXWindow *pParentWindow ):
+  OSWindow( pIntf ), m_pParent( pParentWindow ), m_dragDrop( dragDrop )
 {
-    // Create the window
-    Rect rect;
-    SetRect( &rect, 0, 0, 0, 0 );
-    CreateNewWindow( kDocumentWindowClass, kWindowNoShadowAttribute |
-                     kWindowNoTitleBarAttribute, &rect, &m_win );
+  // Create the window
+  Rect rect;
+  SetRect( &rect, 0, 0, 0, 0 );
+  CreateNewWindow( kDocumentWindowClass, kWindowNoShadowAttribute |
+       kWindowNoTitleBarAttribute, &rect, &m_win );
 
-    // Create the event handler for this window
-    OSFactory *pOSFactory = OSFactory::instance( getIntf() );
-    ((MacOSXLoop*)pOSFactory->getOSLoop())->registerWindow( rWindow, m_win );
+  // Create the event handler for this window
+  OSFactory *pOSFactory = OSFactory::instance( getIntf() );
+  ((MacOSXLoop*)pOSFactory->getOSLoop())->registerWindow( rWindow, m_win );
 }
 
 
 MacOSXWindow::~MacOSXWindow()
 {
-    DisposeWindow( m_win );
+  DisposeWindow( m_win );
 }
 
 
-void MacOSXWindow::show( int left, int top ) const
+void MacOSXWindow::show( int left, int top ) cons
 {
-    ShowWindow( m_win );
+  ShowWindow( m_win );
 }
 
 
-void MacOSXWindow::hide() const
+void MacOSXWindow::hide() cons
 {
-    HideWindow( m_win );
+  HideWindow( m_win );
 }
 
 
-void MacOSXWindow::moveResize( int left, int top, int width, int height ) const
+void MacOSXWindow::moveResize( int left, int top, int width, int height ) cons
 {
-    MoveWindow( m_win, left, top, false );
-    SizeWindow( m_win, width, height, true );
+  MoveWindow( m_win, left, top, false );
+  SizeWindow( m_win, width, height, true );
 }
 
 
-void MacOSXWindow::raise() const
+void MacOSXWindow::raise() cons
 {
-    SelectWindow( m_win );
+  SelectWindow( m_win );
 }
 
 
-void MacOSXWindow::setOpacity( uint8_t value ) const
+void MacOSXWindow::setOpacity( uint8_t value ) cons
 {
-    SetWindowAlpha( m_win, (float)value / 255.0 );
+  SetWindowAlpha( m_win, (float)value / 255.0 );
 }
 
 
-void MacOSXWindow::toggleOnTop( bool onTop ) const
+void MacOSXWindow::toggleOnTop( bool onTop ) cons
 {
-    // TODO
+  // TODO
 }
 
 #endif

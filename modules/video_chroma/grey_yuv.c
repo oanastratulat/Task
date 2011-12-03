@@ -51,9 +51,9 @@ static picture_t *GREY_YUY2_Filter( filter_t *, picture_t * );
  * Module descriptor.
  *****************************************************************************/
 vlc_module_begin ()
-    set_description( N_("Conversions from " SRC_FOURCC " to " DEST_FOURCC) )
-    set_capability( "video filter2", 80 )
-    set_callbacks( Activate, NULL )
+  set_description( N_("Conversions from " SRC_FOURCC " to " DEST_FOURCC) )
+  set_capability( "video filter2", 80 )
+  set_callbacks( Activate, NULL )
 vlc_module_end ()
 
 /*****************************************************************************
@@ -63,39 +63,39 @@ vlc_module_end ()
  *****************************************************************************/
 static int Activate( vlc_object_t *p_this )
 {
-    filter_t *p_filter = (filter_t *)p_this;
+  filter_t *p_filter = (filter_t *)p_this;
 
-    if( p_filter->fmt_out.video.i_width & 1
-     || p_filter->fmt_out.video.i_height & 1 )
+  if( p_filter->fmt_out.video.i_width & 1
+   || p_filter->fmt_out.video.i_height & 1 )
+  {
+    return -1;
+  }
+
+  if( p_filter->fmt_in.video.i_width != p_filter->fmt_out.video.i_width
+   || p_filter->fmt_in.video.i_height != p_filter->fmt_out.video.i_height )
+    return -1;
+
+  switch( p_filter->fmt_in.video.i_chroma )
+  {
+    case VLC_CODEC_GREY:
+    switch( p_filter->fmt_out.video.i_chroma )
     {
+      case VLC_CODEC_I420:
+        p_filter->pf_video_filter = GREY_I420_Filter;
+        break;
+      case VLC_CODEC_YUYV:
+        p_filter->pf_video_filter = GREY_YUY2_Filter;
+        break;
+      default:
         return -1;
     }
+    break;
 
-    if( p_filter->fmt_in.video.i_width != p_filter->fmt_out.video.i_width
-     || p_filter->fmt_in.video.i_height != p_filter->fmt_out.video.i_height )
-        return -1;
+    default:
+    return -1;
+  }
 
-    switch( p_filter->fmt_in.video.i_chroma )
-    {
-        case VLC_CODEC_GREY:
-            switch( p_filter->fmt_out.video.i_chroma )
-            {
-                case VLC_CODEC_I420:
-                    p_filter->pf_video_filter = GREY_I420_Filter;
-                    break;
-                case VLC_CODEC_YUYV:
-                    p_filter->pf_video_filter = GREY_YUY2_Filter;
-                    break;
-                default:
-                    return -1;
-            }
-            break;
-
-        default:
-            return -1;
-    }
-
-    return 0;
+  return 0;
 }
 
 VIDEO_FILTER_WRAPPER( GREY_I420 )
@@ -107,89 +107,89 @@ VIDEO_FILTER_WRAPPER( GREY_YUY2 )
  * GREY_I420: 8-bit grayscale to planar YUV 4:2:0
  *****************************************************************************/
 static void GREY_I420( filter_t *p_filter, picture_t *p_source,
-                                           picture_t *p_dest )
+               picture_t *p_dest )
 {
-    uint8_t *p_line = p_source->p->p_pixels;
-    uint8_t *p_y = p_dest->Y_PIXELS;
-    uint8_t *p_u = p_dest->U_PIXELS;
-    uint8_t *p_v = p_dest->V_PIXELS;
+  uint8_t *p_line = p_source->p->p_pixels;
+  uint8_t *p_y = p_dest->Y_PIXELS;
+  uint8_t *p_u = p_dest->U_PIXELS;
+  uint8_t *p_v = p_dest->V_PIXELS;
 
-    int i_x, i_y;
+  int i_x, i_y;
 
-    const int i_source_margin = p_source->p->i_pitch
-                                 - p_source->p->i_visible_pitch;
-    const int i_dest_margin = p_dest->p[0].i_pitch
-                               - p_dest->p[0].i_visible_pitch;
-    const int i_dest_margin_c = p_dest->p[1].i_pitch
-                                 - p_dest->p[1].i_visible_pitch;
+  const int i_source_margin = p_source->p->i_pitch
+           - p_source->p->i_visible_pitch;
+  const int i_dest_margin = p_dest->p[0].i_pitch
+           - p_dest->p[0].i_visible_pitch;
+  const int i_dest_margin_c = p_dest->p[1].i_pitch
+           - p_dest->p[1].i_visible_pitch;
 
-    for( i_y = p_filter->fmt_in.video.i_height / 2; i_y-- ; )
+  for( i_y = p_filter->fmt_in.video.i_height / 2; i_y-- ; )
+  {
+    memset(p_u, 0x80, p_dest->p[1].i_visible_pitch);
+    p_u += i_dest_margin_c;
+
+    memset(p_v, 0x80, p_dest->p[1].i_visible_pitch);
+    p_v += i_dest_margin_c;
+  }
+
+  for( i_y = p_filter->fmt_in.video.i_height; i_y-- ; )
+  {
+    for( i_x = p_filter->fmt_in.video.i_width / 8; i_x-- ; )
     {
-        memset(p_u, 0x80, p_dest->p[1].i_visible_pitch);
-        p_u += i_dest_margin_c;
-
-        memset(p_v, 0x80, p_dest->p[1].i_visible_pitch);
-        p_v += i_dest_margin_c;
+    *p_y++ = *p_line++; *p_y++ = *p_line++;
+    *p_y++ = *p_line++; *p_y++ = *p_line++;
+    *p_y++ = *p_line++; *p_y++ = *p_line++;
+    *p_y++ = *p_line++; *p_y++ = *p_line++;
     }
 
-    for( i_y = p_filter->fmt_in.video.i_height; i_y-- ; )
+    for( i_x = p_filter->fmt_in.video.i_width % 8; i_x-- ; )
     {
-        for( i_x = p_filter->fmt_in.video.i_width / 8; i_x-- ; )
-        {
-            *p_y++ = *p_line++; *p_y++ = *p_line++;
-            *p_y++ = *p_line++; *p_y++ = *p_line++;
-            *p_y++ = *p_line++; *p_y++ = *p_line++;
-            *p_y++ = *p_line++; *p_y++ = *p_line++;
-        }
-
-        for( i_x = p_filter->fmt_in.video.i_width % 8; i_x-- ; )
-        {
-            *p_y++ = *p_line++;
-        }
-
-        p_line += i_source_margin;
-        p_y += i_dest_margin;
+    *p_y++ = *p_line++;
     }
+
+    p_line += i_source_margin;
+    p_y += i_dest_margin;
+  }
 }
 
 /*****************************************************************************
  * GREY_YUY2: 8-bit grayscale to packed YUY2
  *****************************************************************************/
 static void GREY_YUY2( filter_t *p_filter, picture_t *p_source,
-                                           picture_t *p_dest )
+               picture_t *p_dest )
 {
-    uint8_t *p_in = p_source->p->p_pixels;
-    uint8_t *p_out = p_dest->p->p_pixels;
+  uint8_t *p_in = p_source->p->p_pixels;
+  uint8_t *p_out = p_dest->p->p_pixels;
 
-    int i_x, i_y;
+  int i_x, i_y;
 
-    const int i_source_margin = p_source->p->i_pitch
-                                 - p_source->p->i_visible_pitch;
-    const int i_dest_margin = p_dest->p->i_pitch
-                               - p_dest->p->i_visible_pitch;
+  const int i_source_margin = p_source->p->i_pitch
+           - p_source->p->i_visible_pitch;
+  const int i_dest_margin = p_dest->p->i_pitch
+           - p_dest->p->i_visible_pitch;
 
-    for( i_y = p_filter->fmt_out.video.i_height; i_y-- ; )
+  for( i_y = p_filter->fmt_out.video.i_height; i_y-- ; )
+  {
+    for( i_x = p_filter->fmt_out.video.i_width / 8; i_x-- ; )
     {
-        for( i_x = p_filter->fmt_out.video.i_width / 8; i_x-- ; )
-        {
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-        }
-
-        for( i_x = (p_filter->fmt_out.video.i_width % 8) / 2; i_x-- ; )
-        {
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-            *p_out++ = *p_in++; *p_out++ = 0x80;
-        }
-
-        p_in += i_source_margin;
-        p_out += i_dest_margin;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
     }
+
+    for( i_x = (p_filter->fmt_out.video.i_width % 8) / 2; i_x-- ; )
+    {
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    *p_out++ = *p_in++; *p_out++ = 0x80;
+    }
+
+    p_in += i_source_margin;
+    p_out += i_dest_margin;
+  }
 }
 

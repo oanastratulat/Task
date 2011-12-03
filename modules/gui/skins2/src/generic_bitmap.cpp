@@ -4,7 +4,7 @@
  * Copyright (C) 2004 the VideoLAN team
  * $Id: 37818df4cae1d0775ce79c166d62887bc2e4c221 $
  *
- * Authors: Cyril Deguet     <asmax@via.ecp.fr>
+ * Authors: Cyril Deguet   <asmax@via.ecp.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,58 +25,58 @@
 
 
 GenericBitmap::GenericBitmap( intf_thread_t *pIntf,
-                              int nbFrames, int fps, int nbLoops ):
-    SkinObject( pIntf ), m_nbFrames( nbFrames ),
-    m_frameRate( fps ), m_nbLoops( nbLoops )
+          int nbFrames, int fps, int nbLoops ):
+  SkinObject( pIntf ), m_nbFrames( nbFrames ),
+  m_frameRate( fps ), m_nbLoops( nbLoops )
 {
 }
 
 
 BitmapImpl::BitmapImpl( intf_thread_t *pIntf, int width, int height,
-                        int nbFrames, int fps, int nbLoops ):
-    GenericBitmap( pIntf, nbFrames, fps, nbLoops ), m_width( width ),
-    m_height( height ), m_pData( NULL )
+        int nbFrames, int fps, int nbLoops ):
+  GenericBitmap( pIntf, nbFrames, fps, nbLoops ), m_width( width ),
+  m_height( height ), m_pData( NULL )
 {
-    m_pData = new uint8_t[width * height * 4];
-    memset( m_pData, 0, width * height * 4 );
+  m_pData = new uint8_t[width * height * 4];
+  memset( m_pData, 0, width * height * 4 );
 }
 
 
 BitmapImpl::~BitmapImpl()
 {
-    delete[] m_pData;
+  delete[] m_pData;
 }
 
 
 bool BitmapImpl::drawBitmap( const GenericBitmap &rSource, int xSrc, int ySrc,
-                             int xDest, int yDest, int width, int height )
+           int xDest, int yDest, int width, int height )
 {
-    int srcWidth = rSource.getWidth();
-    uint32_t *pSrc = (uint32_t*)rSource.getData() + ySrc * srcWidth + xSrc;
-    if( !pSrc )
-    {
-        return false;
-    }
-    if( xSrc < 0 || xSrc + width > srcWidth ||
-        ySrc < 0 || ySrc + height > rSource.getHeight() )
-    {
-        msg_Warn( getIntf(), "drawBitmap: source rect too small, ignoring" );
-        return false;
-    }
-    if( xDest < 0 || xDest + width > m_width ||
-        yDest < 0 || yDest + height > m_height )
-    {
-        msg_Warn( getIntf(), "drawBitmap: dest rect too small, ignoring" );
-        return false;
-    }
+  int srcWidth = rSource.getWidth();
+  uint32_t *pSrc = (uint32_t*)rSource.getData() + ySrc * srcWidth + xSrc;
+  if( !pSrc )
+  {
+    return false;
+  }
+  if( xSrc < 0 || xSrc + width > srcWidth ||
+    ySrc < 0 || ySrc + height > rSource.getHeight() )
+  {
+    msg_Warn( getIntf(), "drawBitmap: source rect too small, ignoring" );
+    return false;
+  }
+  if( xDest < 0 || xDest + width > m_width ||
+    yDest < 0 || yDest + height > m_height )
+  {
+    msg_Warn( getIntf(), "drawBitmap: dest rect too small, ignoring" );
+    return false;
+  }
 
-    uint32_t *pDest = (uint32_t*)m_pData + yDest * m_width + xDest ;
-    for( int y = 0; y < height; y++ )
-    {
-        memcpy( pDest, pSrc, 4 * width );
-        pSrc += srcWidth;
-        pDest += m_width;
-    }
-    return true;
+  uint32_t *pDest = (uint32_t*)m_pData + yDest * m_width + xDest ;
+  for( int y = 0; y < height; y++ )
+  {
+    memcpy( pDest, pSrc, 4 * width );
+    pSrc += srcWidth;
+    pDest += m_width;
+  }
+  return true;
 }
 

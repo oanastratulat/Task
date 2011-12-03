@@ -5,9 +5,9 @@
  * $Id: 8797a0c43ccfd1febac9a70d9120bab9868ac53d $
  *
  * Authors: Jon Lech Johansen <jon-vl@nanocrew.net>
- *          Christophe Massiot <massiot@via.ecp.fr>
- *          Derk-Jan Hartman <thedj@users.sourceforge.net>
- *          Felix Paul Kühne <fkuehne at videolan org>
+ *    Christophe Massiot <massiot@via.ecp.fr>
+ *    Derk-Jan Hartman <thedj@users.sourceforge.net>
+ *    Felix Paul Kühne <fkuehne at videolan org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,18 +27,18 @@
 /*****************************************************************************
  * VLCControls interface
  *****************************************************************************/
-@interface VLCControls : NSObject
+@interface VLCControls : NSObjec
 {
-    IBOutlet id o_main;
+  IBOutlet id o_main;
 
-    IBOutlet id o_specificTime_cancel_btn;
-    IBOutlet id o_specificTime_enter_fld;
-    IBOutlet id o_specificTime_goTo_lbl;
-    IBOutlet id o_specificTime_ok_btn;
-    IBOutlet id o_specificTime_win;
-    IBOutlet id o_specificTime_sec_lbl;
-    IBOutlet id o_specificTime_stepper;
-    IBOutlet id o_specificTime_mi;
+  IBOutlet id o_specificTime_cancel_btn;
+  IBOutlet id o_specificTime_enter_fld;
+  IBOutlet id o_specificTime_goTo_lbl;
+  IBOutlet id o_specificTime_ok_btn;
+  IBOutlet id o_specificTime_win;
+  IBOutlet id o_specificTime_sec_lbl;
+  IBOutlet id o_specificTime_stepper;
+  IBOutlet id o_specificTime_mi;
 }
 - (IBAction)play:(id)sender;
 - (IBAction)stop:(id)sender;

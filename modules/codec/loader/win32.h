@@ -1,5 +1,5 @@
 /*
- * Modified for use with MPlayer, detailed CVS changelog at
+ * Modified for use with MPlayer, detailed CVS changelog a
  * http://www.mplayerhq.hu/cgi-bin/cvsweb.cgi/main/
  * $Id: 84dbf53e84475ffe8a5f8d752c03f80b1c2d9975 $
  */
@@ -25,10 +25,10 @@
 extern void my_garbagecollection(void);
 
 typedef struct {
-    UINT             uDriverSignature;
-    HINSTANCE        hDriverModule;
-    DRIVERPROC       DriverProc;
-    DWORD            dwDriverID;
+  UINT     uDriverSignature;
+  HINSTANCE    hDriverModule;
+  DRIVERPROC   DriverProc;
+  DWORD    dwDriverID;
 } DRVR;
 
 typedef DRVR  *PDRVR;

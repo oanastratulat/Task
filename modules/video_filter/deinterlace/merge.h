@@ -4,10 +4,10 @@
  * Copyright (C) 2011 the VideoLAN team
  * $Id: 999d8429849703c5046e371967f2c0aab91a5b1e $
  *
- * Author: Sam Hocevar <sam@zoy.org>                      (generic C routine)
- *         Sigmund Augdal Helberg <sigmunau@videolan.org> (MMXEXT, 3DNow, SSE2)
- *         Eric Petit <eric.petit@lapsus.org>             (Altivec)
- *         Rémi Denis-Courmont <remi@remlab.net>          (ARM NEON)
+ * Author: Sam Hocevar <sam@zoy.org>        (generic C routine)
+ *   Sigmund Augdal Helberg <sigmunau@videolan.org> (MMXEXT, 3DNow, SSE2)
+ *   Eric Petit <eric.petit@lapsus.org>     (Altivec)
+ *   Rémi Denis-Courmont <remi@remlab.net>    (ARM NEON)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,10 +37,10 @@
  *****************************************************************************/
 
 /* Convenient Merge() and EndMerge() macros to pick the most appropriate
-   merge implementation automatically.
+ merge implementation automatically.
 
-   Note that you'll need to include vlc_filter.h and deinterlace.h
-   to use these.
+ Note that you'll need to include vlc_filter.h and deinterlace.h
+ to use these.
 */
 #define Merge p_filter->p_sys->pf_merge
 #define EndMerge if(p_filter->p_sys->pf_end_merge) p_filter->p_sys->pf_end_merge
@@ -63,7 +63,7 @@
  * Open().
  *
  * Macro syntax:
- *   Merge( _p_dest, _p_s1, _p_s2, i_bytes );
+ * Merge( _p_dest, _p_s1, _p_s2, i_bytes );
  *
  * See also the EndMerge() macro, which must be called after the merge is
  * finished, if the Merge() macro was used to perform the merge.
@@ -78,13 +78,13 @@
  * @see Open()
  */
 void MergeGeneric( void *_p_dest, const void *_p_s1, const void *_p_s2,
-                   size_t i_bytes );
+       size_t i_bytes );
 
 #if defined(CAN_COMPILE_C_ALTIVEC)
 /**
  * Altivec routine to blend pixels from two picture lines.
  *
- * @param _p_dest Target
+ * @param _p_dest Targe
  * @param _p_s1 Source line A
  * @param _p_s2 Source line B
  * @param i_bytes Number of bytes to merge
@@ -96,7 +96,7 @@ void MergeAltivec ( void *, const void *, const void *, size_t );
 /**
  * MMXEXT routine to blend pixels from two picture lines.
  *
- * @param _p_dest Target
+ * @param _p_dest Targe
  * @param _p_s1 Source line A
  * @param _p_s2 Source line B
  * @param i_bytes Number of bytes to merge
@@ -108,31 +108,31 @@ void MergeMMXEXT  ( void *, const void *, const void *, size_t );
 /**
  * 3DNow routine to blend pixels from two picture lines.
  *
- * @param _p_dest Target
+ * @param _p_dest Targe
  * @param _p_s1 Source line A
  * @param _p_s2 Source line B
  * @param i_bytes Number of bytes to merge
  */
-void Merge3DNow   ( void *, const void *, const void *, size_t );
+void Merge3DNow ( void *, const void *, const void *, size_t );
 #endif
 
 #if defined(CAN_COMPILE_SSE)
 /**
  * SSE2 routine to blend pixels from two picture lines.
  *
- * @param _p_dest Target
+ * @param _p_dest Targe
  * @param _p_s1 Source line A
  * @param _p_s2 Source line B
  * @param i_bytes Number of bytes to merge
  */
-void MergeSSE2    ( void *, const void *, const void *, size_t );
+void MergeSSE2  ( void *, const void *, const void *, size_t );
 #endif
 
 #if defined __ARM_NEON__
 /**
  * ARM NEON routine to blend pixels from two picture lines.
  *
- * @param _p_dest Target
+ * @param _p_dest Targe
  * @param _p_s1 Source line A
  * @param _p_s2 Source line B
  * @param i_bytes Number of bytes to merge
@@ -154,7 +154,7 @@ void MergeNEON (void *, const void *, const void *, size_t);
  * The EndMerge() macro detects whether this is needed, and calls if it is,
  * so just use that.
  */
-void EndMMX       ( void );
+void EndMMX   ( void );
 #endif
 
 #if defined(CAN_COMPILE_3DNOW)
@@ -167,7 +167,7 @@ void EndMMX       ( void );
  * The EndMerge() macro detects whether this is needed, and calls if it is,
  * so just use that.
  */
-void End3DNow     ( void );
+void End3DNow   ( void );
 #endif
 
 #endif

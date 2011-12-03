@@ -5,7 +5,7 @@
  *
  * Created on: Aug 10, 2010
  * Authors: Christopher Mueller <christopher.mueller@itec.uni-klu.ac.at>
- *          Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
+ *    Christian Timmerer  <christian.timmerer@itec.uni-klu.ac.at>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -35,24 +35,24 @@
 
 namespace dash
 {
-    class DASHManager
-    {
-        public:
-            DASHManager             (http::HTTPConnectionManager *conManager, xml::Node *node, logic::IAdaptationLogic::LogicType type, mpd::Profile profile);
-            virtual ~DASHManager    ();
+  class DASHManager
+  {
+    public:
+    DASHManager     (http::HTTPConnectionManager *conManager, xml::Node *node, logic::IAdaptationLogic::LogicType type, mpd::Profile profile);
+    virtual ~DASHManager  ();
 
-            int read        (void *p_buffer, size_t len);
-            int peek        (const uint8_t **pp_peek, size_t i_peek);
+    int read    (void *p_buffer, size_t len);
+    int peek    (const uint8_t **pp_peek, size_t i_peek);
 
-        private:
-            http::HTTPConnectionManager         *conManager;
-            http::Chunk                         *currentChunk;
-            logic::IAdaptationLogic             *adaptationLogic;
-            logic::IAdaptationLogic::LogicType  logicType;
-            mpd::Profile                        profile;
-            xml::Node                           *node;
-            mpd::IMPDManager                    *mpdManager;
-    };
+    private:
+    http::HTTPConnectionManager   *conManager;
+    http::Chunk         *currentChunk;
+    logic::IAdaptationLogic     *adaptationLogic;
+    logic::IAdaptationLogic::LogicType  logicType;
+    mpd::Profile        profile;
+    xml::Node         *node;
+    mpd::IMPDManager        *mpdManager;
+  };
 }
 
 #endif /* DASHMANAGER_H_ */
