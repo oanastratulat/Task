@@ -64,13 +64,13 @@ enum
     ATTRIBUTE_Y_PERCENT = (1 << 4),
 };
 
-typedef struc
+typedef struct
 {
     char       *psz_filename;
     picture_t  *p_pic;
 } image_attach_t;
 
-typedef struc
+typedef struct
 {
     char *          psz_stylename; /* The name of the style, no comma's allowed */
     text_style_t    font_style;
@@ -81,7 +81,7 @@ typedef struc
     int             i_margin_percent_v;
 }  ssa_style_t;
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     int                 i_original_height;
     int                 i_original_width;
@@ -214,7 +214,7 @@ static void CloseDecoder( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * ParseText: parse an text subtitle packet and send it to the video outpu
+ * ParseText: parse an text subtitle packet and send it to the video output
  *****************************************************************************/
 static subpicture_t *ParseText( decoder_t *p_dec, block_t *p_block )
 {
@@ -532,7 +532,7 @@ static int ParseImageAttachments( decoder_t *p_dec )
                     /* Find a suitable decoder module */
                     if( module_exists( "sdl_image" ) )
                     {
-                        /* ffmpeg thinks it can handle bmp properly but it can't (at leas
+                        /* ffmpeg thinks it can handle bmp properly but it can't (at least
                          * not all of them), so use sdl_image if it is available */
 
                         var_Create( p_dec, "codec", VLC_VAR_STRING | VLC_VAR_DOINHERIT );

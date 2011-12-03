@@ -718,7 +718,7 @@ static const char *const ppsz_sout_options[] = {
 
 static block_t *Encode( encoder_t *, picture_t * );
 
-struct encoder_sys_
+struct encoder_sys_t
 {
     x264_t          *h;
     x264_param_t    param;
@@ -1174,7 +1174,7 @@ static int  Open ( vlc_object_t *p_this )
         p_sys->param.rc.i_vbv_buffer_size /= p_sys->param.i_fps_num;
     }
 
-    /* Check if user has given some profile (baseline,main,high) to limi
+    /* Check if user has given some profile (baseline,main,high) to limit
      * settings, and apply those*/
     psz_val = var_GetString( p_enc, SOUT_CFG_PREFIX "profile" );
     if( psz_val )
@@ -1341,7 +1341,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pict )
     if( likely(p_pict) ) {
        pic.i_pts = p_pict->date;
        /* scale pts starting from 0 as libx264 seems to return dts values
-          assume tha
+          assume that
         */
        if( unlikely( p_sys->i_initial_delay == 0 ) )
            p_sys->i_initial_delay = p_pict->date;

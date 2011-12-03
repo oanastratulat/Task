@@ -6,7 +6,7 @@
  *
  * Author: Antoine Cellerier <dionoea at videolan dot org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -31,7 +31,7 @@
 #include <libvlc.h>
 #include <assert.h>
 
-typedef struc
+typedef struct
 {
     int (*pf_init)( filter_t *, void *p_data ); /* Callback called once filter allocation has succeeded to initialize the filter's buffer allocation callbacks. This function is responsible for setting p_owner if needed. */
     void (* pf_clean)( filter_t * ); /* Callback called on filter removal from chain to clean up buffer allocation callbacks data (ie p_owner) */
@@ -39,7 +39,7 @@ typedef struc
 
 } filter_chain_allocator_t;
 
-typedef struct chained_filter_
+typedef struct chained_filter_t
 {
     /* Public part of the filter structure */
     filter_t filter;
@@ -72,7 +72,7 @@ static const filter_chain_allocator_t internal_video_allocator = {
 };
 
 /* */
-struct filter_chain_
+struct filter_chain_t
 {
     vlc_object_t *p_this; /**< Owner object */
     filter_chain_allocator_t allocator; /**< Owner allocation callbacks */

@@ -59,7 +59,7 @@ description:The now infamous Apple Macintosh commercial aired during the 1984 Su
 
 #define MAX_LINE 1024
 
-struct demux_sys_
+struct demux_sys_t
 {
     input_item_t *p_current_input;
 };

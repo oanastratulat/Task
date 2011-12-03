@@ -63,7 +63,7 @@ static int Control( demux_t *, int, va_list );
 
 static int  ReadMeta( demux_t *, uint8_t **pp_streaminfo, int *pi_streaminfo );
 
-struct demux_sys_
+struct demux_sys_t
 {
     bool  b_start;
     es_out_id_t *p_es;

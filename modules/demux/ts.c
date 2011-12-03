@@ -190,7 +190,7 @@ static const char *const ppsz_teletext_type[] = {
  N_("Teletext subtitles: hearing impaired")
 };
 
-typedef struc
+typedef struct
 {
     uint8_t                 i_objectTypeIndication;
     uint8_t                 i_streamType;
@@ -204,7 +204,7 @@ typedef struc
 
 } decoder_config_descriptor_t;
 
-typedef struc
+typedef struct
 {
     bool                    b_useAccessUnitStartFlag;
     bool                    b_useAccessUnitEndFlag;
@@ -233,7 +233,7 @@ typedef struc
 
 } sl_config_descriptor_t;
 
-typedef struc
+typedef struct
 {
     bool                    b_ok;
     uint16_t                i_es_id;
@@ -252,7 +252,7 @@ typedef struc
 
 } es_mpeg4_descriptor_t;
 
-typedef struc
+typedef struct
 {
     uint8_t                 i_iod_label, i_iod_label_scope;
 
@@ -270,7 +270,7 @@ typedef struc
 
 } iod_descriptor_t;
 
-typedef struc
+typedef struct
 {
     dvbpsi_handle   handle;
 
@@ -283,7 +283,7 @@ typedef struc
 
 } ts_prg_psi_t;
 
-typedef struc
+typedef struct
 {
     /* for special PAT/SDT case */
     dvbpsi_handle   handle; /* PAT/SDT/EIT */
@@ -296,7 +296,7 @@ typedef struc
 
 } ts_psi_t;
 
-typedef struc
+typedef struct
 {
     es_format_t  fmt;
     es_out_id_t *id;
@@ -310,7 +310,7 @@ typedef struc
 
 } ts_es_t;
 
-typedef struc
+typedef struct
 {
     int         i_pid;
 
@@ -333,7 +333,7 @@ typedef struc
 
 } ts_pid_t;
 
-struct demux_sys_
+struct demux_sys_t
 {
     vlc_mutex_t     csa_lock;
 
@@ -496,7 +496,7 @@ static int DetectPacketSize( demux_t *p_demux )
         msg_Dbg( p_demux, "event name length = %d", i_name);
         psz_event_name = xmalloc( i_name+1 );
         // 1 byte parental rating (90)
-        // 129 bytes of event tex
+        // 129 bytes of event text
         memcpy( psz_event_name, &p_peek[91], i_name );
         psz_event_name[i_name] = '\0';
         memcpy( psz_event_text, &p_peek[91+i_name], 129-i_name );
@@ -507,7 +507,7 @@ static int DetectPacketSize( demux_t *p_demux )
         // 6 bytes reserved
         // 2 bytes Event Text Length Uimsbf
         // 4 bytes EventID Uimsbf
-        // FIXME We just have 613 bytes. not enough for this entire tex
+        // FIXME We just have 613 bytes. not enough for this entire text
         // 1024 bytes Extended Event Text Bslbf
         memcpy( psz_ext_text, p_peek+372, 1024 );
         psz_ext_text[1024] = '\0';
@@ -3471,7 +3471,7 @@ static void PMTSetupEsISO14496( demux_t *p_demux, ts_pid_t *pid,
     }
 }
 
-typedef struc
+typedef struct
 {
     int  i_type;
     int  i_magazine;
@@ -3847,7 +3847,7 @@ static void PMTSetupEs0xEA( demux_t *p_demux, ts_pid_t *pid,
 
     /* XXX With Simple and Main profile the SEQUENCE
      * header is modified: video width and height are
-     * inserted just after the start code as 2 int16_
+     * inserted just after the start code as 2 int16_t
      * The packetizer will take care of that. */
 }
 
@@ -3949,7 +3949,7 @@ static void PMTSetupEsHDMV( demux_t *p_demux, ts_pid_t *pid,
 static void PMTSetupEsRegistration( demux_t *p_demux, ts_pid_t *pid,
                                     const dvbpsi_pmt_es_t *p_es )
 {
-    static const struc
+    static const struct
     {
         char         psz_tag[5];
         int          i_cat;

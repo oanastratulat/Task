@@ -1,7 +1,7 @@
 /*****************************************************************************
- * rtcp.c: RTCP stream output suppor
+ * rtcp.c: RTCP stream output support
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmon
+ * Copyright © 2007 Rémi Denis-Courmont
  * $Id: 92c31549266cba77fc078236b5761e3e0e0cf612 $
  *
  * This library is free software; you can redistribute it and/or
@@ -55,7 +55,7 @@
  * - FIXME: we do not implement separate rate limiting for SDES,
  * - we do not implement any profile-specific extensions for the time being.
  */
-struct rtcp_sender_
+struct rtcp_sender_t
 {
     size_t   length;  /* RTCP packet length */
     uint8_t  payload[28 + 8 + (2 * 257) + 8];

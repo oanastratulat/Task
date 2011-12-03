@@ -6,7 +6,7 @@
  *
  * Authors: Sigmund Augdal Helberg <dnumgis@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -27,7 +27,7 @@
 
 #include "stream.h"
 
-struct stream_sys_
+struct stream_sys_t
 {
     bool  i_preserve_memory;
     uint64_t    i_pos;      /* Current reading offset */
@@ -45,7 +45,7 @@ static void Delete ( stream_t * );
 /**
  * Create a stream from a memory buffer
  *
- * \param p_this the calling vlc_objec
+ * \param p_this the calling vlc_object
  * \param p_buffer the memory buffer for the stream
  * \param i_buffer the size of the buffer
  * \param i_preserve_memory if this is set to false the memory buffer

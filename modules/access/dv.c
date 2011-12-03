@@ -66,7 +66,7 @@ vlc_module_begin ()
     set_callbacks( Open, Close )
 vlc_module_end ()
 
-typedef struc
+typedef struct
 {
     vlc_thread_t    thread;
     access_t        *p_access;
@@ -95,7 +95,7 @@ static int AVCPlay( access_t *, int );
 static int AVCPause( access_t *, int );
 static int AVCStop( access_t *, int );
 
-struct access_sys_
+struct access_sys_t
 {
     raw1394handle_t p_avc1394;
     raw1394handle_t p_raw1394;

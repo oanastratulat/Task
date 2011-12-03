@@ -41,14 +41,14 @@
 /*****************************************************************************
  * Private structures
  *****************************************************************************/
-struct sql_sys_
+struct sql_sys_t
 {
     sqlite3 *db;              /**< Database connection. */
     vlc_mutex_t lock;         /**< SQLite mutex. Threads are evil here. */
     vlc_mutex_t trans_lock;   /**< Mutex for running transactions */
 };
 
-struct sql_stmt_
+struct sql_stmt_t
 {
     sqlite3_stmt* p_sqlitestmt;
 };
@@ -121,7 +121,7 @@ vlc_module_end()
 
 /**
  * @brief Load module
- * @param obj Parent objec
+ * @param obj Parent object
  * @return VLC_SUCCESS or VLC_ENOMEM
  */
 static int load( vlc_object_t *p_this )
@@ -169,7 +169,7 @@ static int load( vlc_object_t *p_this )
 
 /**
  * @brief Unload module
- * @param obj This sql_t objec
+ * @param obj This sql_t object
  * @return Nothing
  */
 static void unload( vlc_object_t *p_this )
@@ -184,7 +184,7 @@ static void unload( vlc_object_t *p_this )
 
 /**
  * @brief Sqlite Busy handler
- * @param p_data sql_t objec
+ * @param p_data sql_t object
  * @param i_times Number of times busy handler has been invoked
  */
 static int vlc_sqlite_busy_handler( void* p_data, int i_times )
@@ -200,7 +200,7 @@ static int vlc_sqlite_busy_handler( void* p_data, int i_times )
 
 /**
  * @brief Open current database
- * @param p_sql This sql_t objec
+ * @param p_sql This sql_t object
  * @return VLC_SUCCESS or VLC_EGENERIC
  * @note p_sql->psz_host is required
  */
@@ -242,9 +242,9 @@ static int OpenDatabase( sql_t *p_sql )
 
 /**
  * @brief Close current database
- * @param p_sql This sql_t objec
+ * @param p_sql This sql_t object
  * @return VLC_SUCCESS
- * You have to set and open current database firs
+ * You have to set and open current database first
  */
 static int CloseDatabase( sql_t *p_sql )
 {
@@ -273,12 +273,12 @@ static int CloseDatabase( sql_t *p_sql )
 
 /**
  * @brief SQL Query with callback
- * @param p_sql This sql_t objec
+ * @param p_sql This sql_t object
  * @param query SQL query
  * @param callback Callback function to receive results row by row
  * @param arg Argument to pass to callback
  * @return VLC_SUCCESS or an error code
- * You have to set and open current database firs
+ * You have to set and open current database first
  */
 static int QueryCallback( sql_t * p_sql,
                           const char * query,
@@ -306,13 +306,13 @@ static int QueryCallback( sql_t * p_sql,
 
 /**
  * @brief Direct SQL Query
- * @param p_sql This sql_t objec
+ * @param p_sql This sql_t object
  * @param query SQL query
  * @param result Return value : Array of results
  * @param nrow Return value : Row number
  * @param ncol Return value : Column number
  * @return VLC_SUCCESS or an error code
- * You have to set and open current database firs
+ * You have to set and open current database first
  * @todo Handle transaction closing due to errors in sql query
  */
 static int Query( sql_t * p_sql,
@@ -343,10 +343,10 @@ static int Query( sql_t * p_sql,
 
 /**
  * @brief Get tables in database
- * @param p_sql This sql_t objec
- * @param result SQL query resul
+ * @param p_sql This sql_t object
+ * @param result SQL query result
  * @return Number of elements
- * You have to set and open current database firs
+ * You have to set and open current database first
  */
 static int GetTables( sql_t * p_sql,
                       char *** result )
@@ -370,7 +370,7 @@ static int GetTables( sql_t * p_sql,
 }
 
 /**
- * @brief Free SQL request's resul
+ * @brief Free SQL request's result
  * @param p_sql This SQL object.
  * @param ppsz_result SQL result to free
  */
@@ -397,7 +397,7 @@ static char* VMSprintf( const char* psz_fmt, va_list args )
 
 /**
  * @brief Starts a Transaction and waits if necessary
- * @param p_sql The SQL objec
+ * @param p_sql The SQL object
  * @note This function locks the transactions on the database.
  * Within the period of the transaction, only the calling thread may
  * execute sql statements provided all threads use these transaction fns.
@@ -428,7 +428,7 @@ static int BeginTransaction( sql_t* p_sql )
 
 /**
  * @brief Commit a transaction
- * @param p_sql The SQL objec
+ * @param p_sql The SQL object
  * @note This function unlocks the transactions on the database
  * Only the calling thread of "BeginTransaction" is allowed to call this method
  * If the commit fails, the transaction lock is still held by the thread
@@ -461,13 +461,13 @@ static int CommitTransaction( sql_t* p_sql )
 
 /**
  * @brief Rollback a transaction, in case of failure
- * @param p_sql The SQL objec
+ * @param p_sql The SQL object
  * @return VLC_SUCCESS or VLC_EGENERIC
  * @note This function unlocks the transactions on the database
  * Only the calling thread of "BeginTransaction" is allowed to call this method
- * If failed, if a statement in the transaction failed, it means tha
+ * If failed, if a statement in the transaction failed, it means that
  * the transaction was automatically rolled back
- * If failed otherwise, the engine is busy executing some queries and you mus
+ * If failed otherwise, the engine is busy executing some queries and you must
  * try again
  */
 static void RollbackTransaction( sql_t* p_sql )
@@ -490,7 +490,7 @@ static void RollbackTransaction( sql_t* p_sql )
 }
 
 /**
- * Prepare an sqlite statemen
+ * Prepare an sqlite statement
  * @return statement object or NULL in case of failure
  */
 static sql_stmt_t* PrepareStatement( sql_t* p_sql, const char* psz_fmt, int i_length )
@@ -517,9 +517,9 @@ static sql_stmt_t* PrepareStatement( sql_t* p_sql, const char* psz_fmt, int i_le
 }
 
 /**
- * @brief Bind arguments to a sql_stmt_t objec
- * @param p_sql The SQL objec
- * @param p_stmt Statement Objec
+ * @brief Bind arguments to a sql_stmt_t object
+ * @param p_sql The SQL object
+ * @param p_stmt Statement Object
  * @param i_pos Position at which the parameter should be bound
  * @param i_type Data type of the value
  * @param p_value Value to be bound
@@ -569,8 +569,8 @@ static int BindValues( sql_t* p_sql, sql_stmt_t* p_stmt,
  * @brief Run the SQL statement. If the statement fetches data, then only
  * one row of the data is fetched at a time. Run this function again to
  * fetch the next row.
- * @param p_sql The SQL objec
- * @param p_stmt The statemen
+ * @param p_sql The SQL object
+ * @param p_stmt The statement
  * @return VLC_SQL_DONE if done fetching all rows or there are no rows to fetch
  * VLC_SQL_ROW if a row was fetched for this statement.
  * VLC_EGENERIC if this function failed
@@ -599,9 +599,9 @@ static int StatementStep( sql_t* p_sql, sql_stmt_t* p_stmt )
 
 /**
  * @brief Reset the SQL statement. Resetting the statement will unbind all
- * the values that were bound on this statemen
- * @param p_sql The SQL objec
- * @param p_stmt The sql statement objec
+ * the values that were bound on this statement
+ * @param p_sql The SQL object
+ * @param p_stmt The sql statement object
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
 static int StatementReset( sql_t* p_sql, sql_stmt_t* p_stmt )
@@ -623,8 +623,8 @@ static int StatementReset( sql_t* p_sql, sql_stmt_t* p_stmt )
 
 /**
  * @brief Destroy the sql statement object. This will free memory.
- * @param p_sql The SQL objec
- * @param p_stmt The statement objec
+ * @param p_sql The SQL object
+ * @param p_stmt The statement object
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
 static int StatementFinalize( sql_t* p_sql, sql_stmt_t* p_stmt )
@@ -647,11 +647,11 @@ static int StatementFinalize( sql_t* p_sql, sql_stmt_t* p_stmt )
 
 /**
  * @brief Get the column data
- * @param p_sql The SQL objec
- * @param p_stmt The statement objec
+ * @param p_sql The SQL object
+ * @param p_stmt The statement object
  * @param i_col The column number
- * @param type Datatype of resul
- * @param p_res The structure which contains the value of the resul
+ * @param type Datatype of result
+ * @param p_res The structure which contains the value of the result
  * @return VLC_SUCCESS or VLC_EGENERIC
  */
 static int GetColumnFromStatement( sql_t* p_sql, sql_stmt_t* p_stmt, int i_col,
@@ -701,8 +701,8 @@ static int GetColumnFromStatement( sql_t* p_sql, sql_stmt_t* p_stmt, int i_col,
 
 /**
  * @brief Get the datatype of the result of the column
- * @param p_sql The SQL objec
- * @param p_stmt The sql statement objec
+ * @param p_sql The SQL object
+ * @param p_stmt The sql statement object
  * @param i_col The column
  * @param pi_type pointer to datatype of the given column
  * @return VLC_SUCCESS or VLC_EGENERIC
@@ -742,8 +742,8 @@ static int GetColumnTypeFromStatement( sql_t* p_sql, sql_stmt_t* p_stmt, int i_c
 
 /**
  * @brief Get the size of the column in bytes
- * @param p_sql The SQL objec
- * @param p_stmt The sql statement objec
+ * @param p_sql The SQL object
+ * @param p_stmt The sql statement object
  * @param i_col The column
  * @return Size of the column in bytes, undefined for invalid columns
  */

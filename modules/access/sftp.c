@@ -78,7 +78,7 @@ static int      Seek( access_t *, uint64_t );
 static int      Control( access_t *, int, va_list );
 
 
-struct access_sys_
+struct access_sys_t
 {
     int i_socket;
     LIBSSH2_SESSION* ssh_session;
@@ -91,7 +91,7 @@ struct access_sys_
 
 /**
  * Connect to the sftp server and ask for a file
- * @param p_this: the vlc_objec
+ * @param p_this: the vlc_object
  * @return VLC_SUCCESS if everything was fine
  */
 static int Open( vlc_object_t* p_this )

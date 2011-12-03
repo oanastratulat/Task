@@ -67,7 +67,7 @@ static const vlc_fourcc_t pi_allowed_chromas[] = {
     0
 };
 
-struct filter_sys_
+struct filter_sys_t
 {
     filter_chain_t *p_chain;
 };
@@ -237,7 +237,7 @@ exit:
 }
 
 /*****************************************************************************
- * Buffer managemen
+ * Buffer management
  *****************************************************************************/
 static picture_t *BufferNew( filter_t *p_filter )
 {

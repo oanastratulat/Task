@@ -4,7 +4,7 @@
  */
 /*****************************************************************************
  * Copyright © 2004 the VideoLAN team
- * Copyright © 2009 Rémi Denis-Courmon
+ * Copyright © 2009 Rémi Denis-Courmont
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -59,7 +59,7 @@ vlc_module_begin ()
     add_shortcut ("xcb-glx", "glx", "opengl", "xid")
 vlc_module_end ()
 
-struct vout_display_sys_
+struct vout_display_sys_t
 {
     Display *display; /* Xlib instance */
     vout_window_t *embed; /* VLC window (when windowed) */

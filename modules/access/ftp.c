@@ -2,11 +2,11 @@
  * ftp.c: FTP input module
  *****************************************************************************
  * Copyright (C) 2001-2006 the VideoLAN team
- * Copyright © 2006 Rémi Denis-Courmon
+ * Copyright © 2006 Rémi Denis-Courmont
  * $Id: ba16ea9eeecf50561b34953fdecbe067c738d946 $
  *
  * Authors: Laurent Aimar <fenrir@via.ecp.fr> - original code
- *          Rémi Denis-Courmont <rem # videolan.org> - EPSV suppor
+ *          Rémi Denis-Courmont <rem # videolan.org> - EPSV support
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -99,7 +99,7 @@ static int Seek( access_t *, uint64_t );
 static int OutSeek( sout_access_out_t *, off_t );
 static int Control( access_t *, int, va_list );
 
-struct access_sys_
+struct access_sys_t
 {
     vlc_url_t  url;
 
@@ -252,7 +252,7 @@ static int Connect( vlc_object_t *p_access, access_sys_t *p_sys )
     else
     {
         /* If ESPV ALL fails, we fallback to PASV.
-         * We have to restart the connection in case there is a NAT tha
+         * We have to restart the connection in case there is a NAT that
          * understands EPSV ALL in the way, and hence won't allow PASV on
          * the initial connection.
          */

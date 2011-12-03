@@ -104,7 +104,7 @@ typedef struct ValueDate_t {
     struct ValueDate_t* next;
 } ValueDate_t;
 
-struct filter_sys_
+struct filter_sys_t
 {
     char*           address;
     int             port;

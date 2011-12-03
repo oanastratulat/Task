@@ -8,7 +8,7 @@
  *          Rémi Duraffort <ivoire at via.ecp.fr>
             Rafaël Carré <funman@videolanorg>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either release 2 of the License, or
  * (at your option) any later release.
@@ -25,7 +25,7 @@
 
 /**
  *   \file
- *   This file contains functions related to VLC update managemen
+ *   This file contains functions related to VLC update management
  */
 
 /*****************************************************************************
@@ -93,9 +93,9 @@
 
 #undef update_New
 /**
- * Create a new update VLC struc
+ * Create a new update VLC struct
  *
- * \param p_this the calling vlc_objec
+ * \param p_this the calling vlc_object
  * \return pointer to new update_t or NULL
  */
 update_t *update_New( vlc_object_t *p_this )
@@ -123,7 +123,7 @@ update_t *update_New( vlc_object_t *p_this )
 }
 
 /**
- * Delete an update_t struc
+ * Delete an update_t struct
  *
  * \param p_update update_t* pointer
  * \return nothing
@@ -155,7 +155,7 @@ void update_Delete( update_t *p_update )
 }
 
 /**
- * Empty the release struc
+ * Empty the release struct
  *
  * \param p_update update_t* pointer
  * \return nothing
@@ -171,10 +171,10 @@ static void EmptyRelease( update_t *p_update )
 }
 
 /**
- * Get the update file and parse i
+ * Get the update file and parse it
  * p_update has to be locked when calling this function
  *
- * \param p_update pointer to update struc
+ * \param p_update pointer to update struct
  * \return true if the update is valid and authenticated
  */
 static bool GetUpdateFile( update_t *p_update )
@@ -371,7 +371,7 @@ static void* update_CheckReal( void * );
 /**
  * Check for updates
  *
- * \param p_update pointer to update struc
+ * \param p_update pointer to update struct
  * \param pf_callback pointer to a function to call when the update_check is finished
  * \param p_data pointer to some datas to give to the callback
  * \returns nothing
@@ -380,7 +380,7 @@ void update_Check( update_t *p_update, void (*pf_callback)( void*, bool ), void 
 {
     assert( p_update );
 
-    // If the object already exist, destroy i
+    // If the object already exist, destroy it
     if( p_update->p_check )
     {
         vlc_join( p_update->p_check->thread, NULL );
@@ -478,7 +478,7 @@ static char *size_str( long int l_size )
 static void* update_DownloadReal( void * );
 
 /**
- * Download the file given in the update_
+ * Download the file given in the update_t
  *
  * \param p_update structure
  * \param dir to store the download file
@@ -488,7 +488,7 @@ void update_Download( update_t *p_update, const char *psz_destdir )
 {
     assert( p_update );
 
-    // If the object already exist, destroy i
+    // If the object already exist, destroy it
     if( p_update->p_download )
     {
         vlc_object_kill( p_update->p_download );

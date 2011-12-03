@@ -3,7 +3,7 @@
  * @brief Real-Time Protocol (RTP) Xiph payloads receival
  */
 /*****************************************************************************
- * Copyright © 2008 Rémi Denis-Courmon
+ * Copyright © 2008 Rémi Denis-Courmont
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -38,7 +38,7 @@
 
 #include "rtp.h"
 
-typedef struct rtp_xiph_
+typedef struct rtp_xiph_t
 {
     es_out_id_t *id;
     block_t     *block;

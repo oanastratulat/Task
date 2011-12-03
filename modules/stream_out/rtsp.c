@@ -2,7 +2,7 @@
  * rtsp.c: RTSP support for RTP stream output module
  *****************************************************************************
  * Copyright (C) 2003-2004, 2010 the VideoLAN team
- * Copyright © 2007 Rémi Denis-Courmon
+ * Copyright © 2007 Rémi Denis-Courmont
  *
  * $Id: c71139f0e71d342d128be9557d89bb91d1d97e38 $
  *
@@ -56,7 +56,7 @@
 
 typedef struct rtsp_session_t rtsp_session_t;
 
-struct rtsp_stream_
+struct rtsp_stream_t
 {
     vlc_mutex_t     lock;
     vlc_object_t   *owner;
@@ -168,7 +168,7 @@ void RtspUnsetup( rtsp_stream_t *rtsp )
 }
 
 
-struct rtsp_stream_id_
+struct rtsp_stream_id_t
 {
     rtsp_stream_t    *stream;
     sout_stream_id_t *sout_id;
@@ -183,7 +183,7 @@ struct rtsp_stream_id_
 typedef struct rtsp_strack_t rtsp_strack_t;
 
 /* For unicast streaming */
-struct rtsp_session_
+struct rtsp_session_t
 {
     rtsp_stream_t *stream;
     uint64_t       id;
@@ -196,7 +196,7 @@ struct rtsp_session_
 
 
 /* Unicast session track */
-struct rtsp_strack_
+struct rtsp_strack_t
 {
     rtsp_stream_id_t  *id;
     sout_stream_id_t  *sout_id;
@@ -434,7 +434,7 @@ static int dup_socket(int oldfd)
     return newfd;
 }
 
-/* Attach a starting VoD RTP id to its RTSP track, and let i
+/* Attach a starting VoD RTP id to its RTSP track, and let it
  * initialize with the parameters of the SETUP request */
 int RtspTrackAttach( rtsp_stream_t *rtsp, const char *name,
                      rtsp_stream_id_t *id, sout_stream_id_t *sout_id,
@@ -484,7 +484,7 @@ int RtspTrackAttach( rtsp_stream_t *rtsp, const char *name,
     {
         uint16_t seq;
         rtp_add_sink(tr->sout_id, tr->rtp_fd, false, &seq);
-        /* To avoid race conditions, sout_id->i_seq_sent_next mus
+        /* To avoid race conditions, sout_id->i_seq_sent_next must
          * be set here and now. Make sure the caller did its job
          * properly when passing seq_init. */
         assert(tr->seq_init == seq);
@@ -901,7 +901,7 @@ static int RtspHandler( rtsp_stream_t *rtsp, rtsp_stream_id_t *id,
                     }
                     else
                     {
-                        /* The track is already set up, and we don'
+                        /* The track is already set up, and we don't
                          * support changing the transport parameters on
                          * the fly */
                         vlc_mutex_unlock( &rtsp->lock );

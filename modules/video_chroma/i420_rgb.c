@@ -54,7 +54,7 @@
 #endif
 
 /*****************************************************************************
- * RGB2PIXEL: assemble RGB components to a pixel value, returns a uint32_
+ * RGB2PIXEL: assemble RGB components to a pixel value, returns a uint32_t
  *****************************************************************************/
 #define RGB2PIXEL( p_filter, i_r, i_g, i_b )                 \
     (((((uint32_t)i_r) >> p_filter->fmt_out.video.i_rrshift) \

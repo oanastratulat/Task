@@ -114,7 +114,7 @@ void I420_RGB8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
  * SetOffset: build offset array for conversion functions
  *****************************************************************************
  * This function will build an offset array used in later conversion functions.
- * It will also set horizontal and vertical scaling indicators. The p_offse
+ * It will also set horizontal and vertical scaling indicators. The p_offset
  * structure has interleaved Y and U/V offsets.
  *****************************************************************************/
 static void SetOffset( int i_width, int i_height, int i_pic_width,

@@ -160,7 +160,7 @@ int  MMSTUOpen( access_t *p_access )
 
     msg_Dbg( p_access, "connected to %s:%d", p_sys->url.psz_host, p_sys->url.i_port );
     /*
-     * i_flags_broadcas
+     * i_flags_broadcast
      *  yy xx ?? ??
      *  broadcast    yy=0x02, xx= 0x00
      *  pre-recorded yy=0x01, xx= 0x80 if video, 0x00 no video
@@ -339,11 +339,11 @@ static int Seek( access_t * p_access, uint64_t i_pos )
     var_buffer_initwrite( &buffer, 0 );
     var_buffer_add64( &buffer, 0 ); /* seek point in second */
     var_buffer_add32( &buffer, 0xffffffff );
-    var_buffer_add32( &buffer, i_packet ); // begin from star
-    var_buffer_add8( &buffer, 0xff ); // stream time limi
+    var_buffer_add32( &buffer, i_packet ); // begin from start
+    var_buffer_add8( &buffer, 0xff ); // stream time limit
     var_buffer_add8( &buffer, 0xff ); //  on 3bytes ...
     var_buffer_add8( &buffer, 0xff ); //
-    var_buffer_add8( &buffer, 0x00 ); // don't use limi
+    var_buffer_add8( &buffer, 0x00 ); // don't use limit
     var_buffer_add32( &buffer, p_sys->i_media_packet_id_type );
 
     mms_CommandSend( p_access, 0x07, p_sys->i_command_level, 0x0001ffff,
@@ -863,11 +863,11 @@ static int MMSStart( access_t  *p_access, uint32_t i_packet )
     var_buffer_initwrite( &buffer, 0 );
     var_buffer_add64( &buffer, 0 ); /* seek point in second */
     var_buffer_add32( &buffer, 0xffffffff );
-    var_buffer_add32( &buffer, i_packet ); // begin from star
-    var_buffer_add8( &buffer, 0xff ); // stream time limi
+    var_buffer_add32( &buffer, i_packet ); // begin from start
+    var_buffer_add8( &buffer, 0xff ); // stream time limit
     var_buffer_add8( &buffer, 0xff ); //  on 3bytes ...
     var_buffer_add8( &buffer, 0xff ); //
-    var_buffer_add8( &buffer, 0x00 ); // don't use limi
+    var_buffer_add8( &buffer, 0x00 ); // don't use limit
     var_buffer_add32( &buffer, p_sys->i_media_packet_id_type );
 
     mms_CommandSend( p_access, 0x07, p_sys->i_command_level, 0x0001ffff,

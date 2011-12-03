@@ -143,7 +143,7 @@ static const char *const ppsz_sout_options[] = {
     "mute-audio", NULL
 };
 
-struct sout_stream_sys_
+struct sout_stream_sys_t
 {
     int             i_gop;
     int             i_qscale;
@@ -160,7 +160,7 @@ struct sout_stream_sys_
     int             i_cmd, i_old_cmd;
 };
 
-struct sout_stream_id_
+struct sout_stream_id_t
 {
     void            *id;
     bool            b_switcher_video;
@@ -482,7 +482,7 @@ static int Del( sout_stream_t *p_stream, sout_stream_id_t *id )
 }
 
 /*****************************************************************************
- * Send: Process an input packe
+ * Send: Process an input packet
  *****************************************************************************/
 static int Send( sout_stream_t *p_stream, sout_stream_id_t *id,
                  block_t *p_buffer )
@@ -597,7 +597,7 @@ static mtime_t Process( sout_stream_t *p_stream, sout_stream_id_t *id,
 }
 
 /*****************************************************************************
- * UnpackFromFile: Read a YUV picture and store it in our forma
+ * UnpackFromFile: Read a YUV picture and store it in our format
  *****************************************************************************/
 static int UnpackFromFile( sout_stream_t *p_stream, const char *psz_file,
                            int i_width, int i_height,
@@ -898,7 +898,7 @@ static block_t *VideoGetBuffer( sout_stream_t *p_stream, sout_stream_id_t *id,
 
             if ( id->ff_enc_c->coded_frame->motion_val[i] )
             {
-                id->p_frame->motion_val[i] = malloc( 2 * stride * heigh
+                id->p_frame->motion_val[i] = malloc( 2 * stride * height
                                                 * sizeof(int16_t) );
                 vlc_memcpy( id->p_frame->motion_val[i],
                             id->ff_enc_c->coded_frame->motion_val[i],
@@ -906,7 +906,7 @@ static block_t *VideoGetBuffer( sout_stream_t *p_stream, sout_stream_id_t *id,
             }
             if ( id->ff_enc_c->coded_frame->ref_index[i] )
             {
-                id->p_frame->ref_index[i] = malloc( b8_stride * 2 * mb_heigh
+                id->p_frame->ref_index[i] = malloc( b8_stride * 2 * mb_height
                                                * sizeof(int8_t) );
                 vlc_memcpy( id->p_frame->ref_index[i],
                             id->ff_enc_c->coded_frame->ref_index[i],

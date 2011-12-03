@@ -1,5 +1,5 @@
 /*****************************************************************************
- * clock.c: Clock/System date convertions, stream managemen
+ * clock.c: Clock/System date convertions, stream management
  *****************************************************************************
  * Copyright (C) 1999-2008 VLC authors and VideoLAN
  * Copyright (C) 2008 Laurent Aimar
@@ -8,7 +8,7 @@
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *          Laurent Aimar < fenrir _AT_ videolan _DOT_ org >
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -106,7 +106,7 @@
 /**
  * This structure holds long term average
  */
-typedef struc
+typedef struct
 {
     mtime_t i_value;
     int     i_residue;
@@ -123,7 +123,7 @@ static mtime_t AvgGet( average_t * );
 static void    AvgRescale( average_t *, int i_divider );
 
 /* */
-typedef struc
+typedef struct
 {
     mtime_t i_stream;
     mtime_t i_system;
@@ -139,12 +139,12 @@ static inline clock_point_t clock_point_Create( mtime_t i_stream, mtime_t i_syst
 #define INPUT_CLOCK_LATE_COUNT (3)
 
 /* */
-struct input_clock_
+struct input_clock_t
 {
     /* */
     vlc_mutex_t lock;
 
-    /* Last poin
+    /* Last point
      * It is used to detect unexpected stream discontinuities */
     clock_point_t last;
 
@@ -159,7 +159,7 @@ struct input_clock_
     average_t drift;
 
     /* Late statistics */
-    struc
+    struct
     {
         mtime_t  pi_value[INPUT_CLOCK_LATE_COUNT];
         unsigned i_index;

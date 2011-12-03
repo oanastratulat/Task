@@ -76,7 +76,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of log interface
  *****************************************************************************/
-struct intf_sys_
+struct intf_sys_t
 {
     msg_subscription_t *p_sub;
     FILE *p_file;
@@ -172,7 +172,7 @@ vlc_module_begin ()
 #endif
     add_integer( "log-verbose", -1, LOGVERBOSE_TEXT, LOGVERBOSE_LONGTEXT,
            false )
-
+    
     add_obsolete_string( "rrd-file" )
 
     set_capability( "interface", 0 )

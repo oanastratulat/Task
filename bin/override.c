@@ -1,7 +1,7 @@
 /*****************************************************************************
  * override.c: overridden function calls for VLC media player
  *****************************************************************************
- * Copyright (C) 2010 Rémi Denis-Courmon
+ * Copyright (C) 2010 Rémi Denis-Courmont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -160,10 +160,10 @@ int unsetenv (const char *name)
  * The C PRNG is not thread-safe (and generally sucks, the POSIX 48-bits PRNG
  * is much better as a reproducible non-secure PRNG). To work around this, we
  * force evil callers to serialize. This makes the call safe, but fails to
- * preserve reproducibility of the number sequence (which usually does no
+ * preserve reproducibility of the number sequence (which usually does not
  * matter).
  **/
-static struc
+static struct
 {
     pthread_mutex_t lock;
     unsigned int seed;

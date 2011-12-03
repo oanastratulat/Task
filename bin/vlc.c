@@ -166,7 +166,7 @@ int main( int i_argc, const char *ppsz_argv[] )
     /* SIGCHLD must be dequeued to clean up zombie child processes.
      * Furthermore the handler must not be set to SIG_IGN (see above).
      * We cannot pragmatically handle EINTR, short reads and short writes
-     * in every code paths (including underlying libraries). So we jus
+     * in every code paths (including underlying libraries). So we just
      * block SIGCHLD in all threads, and dequeue it below. */
     sigaddset (&set, SIGCHLD);
 

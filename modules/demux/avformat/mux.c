@@ -1,5 +1,5 @@
 /*****************************************************************************
- * mux.c: muxer using libavforma
+ * mux.c: muxer using libavformat
  *****************************************************************************
  * Copyright (C) 2006 the VideoLAN team
  * $Id: 9c870737070ddd26e6dc7351487439f9ebe82079 $
@@ -48,7 +48,7 @@ static const char *const ppsz_mux_options[] = {
 /*****************************************************************************
  * mux_sys_t: mux descriptor
  *****************************************************************************/
-struct sout_mux_sys_
+struct sout_mux_sys_t
 {
     ByteIOContext   io;
     int             io_buffer_size;
@@ -427,7 +427,7 @@ static int Control( sout_mux_t *p_mux, int i_query, va_list args )
 }
 
 /*****************************************************************************
- * I/O wrappers for libavforma
+ * I/O wrappers for libavformat
  *****************************************************************************/
 static int IOWrite( void *opaque, uint8_t *buf, int buf_size )
 {

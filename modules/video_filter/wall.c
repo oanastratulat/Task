@@ -86,7 +86,7 @@ static const char *const ppsz_filter_options[] = {
 };
 
 /* */
-typedef struc
+typedef struct
 {
     bool b_active;
     int  i_output;
@@ -99,7 +99,7 @@ typedef struc
 
 #define ROW_MAX (15)
 #define COL_MAX (15)
-struct video_splitter_sys_
+struct video_splitter_sys_t
 {
     int           i_col;
     int           i_row;
@@ -308,7 +308,7 @@ static int Open( vlc_object_t *p_this )
             p_output->i_left = i_left;
             p_output->i_top = i_top;
 
-            msg_Dbg( p_splitter, "window %dx%d at %d:%d size %dx%d",
+            msg_Dbg( p_splitter, "window %dx%d at %d:%d size %dx%d", 
                      x, y, i_left, i_top, i_width, i_height );
 
             if( p_output->b_active )

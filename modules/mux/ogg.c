@@ -79,7 +79,7 @@ static block_t *OggCreateFooter( sout_mux_t * );
 #define PACKET_TYPE_COMMENT  0x03
 #define PACKET_IS_SYNCPOINT  0x08
 
-typedef struc
+typedef struct
 #ifdef HAVE_ATTRIBUTE_PACKED
     __attribute__((__packed__))
 #endif
@@ -88,7 +88,7 @@ typedef struc
     int32_t i_height;
 } oggds_header_video_t;
 
-typedef struc
+typedef struct
 #ifdef HAVE_ATTRIBUTE_PACKED
     __attribute__((__packed__))
 #endif
@@ -98,7 +98,7 @@ typedef struc
     int32_t i_avgbytespersec;
 } oggds_header_audio_t;
 
-typedef struc
+typedef struct
 #ifdef HAVE_ATTRIBUTE_PACKED
     __attribute__((__packed__))
 #endif
@@ -132,7 +132,7 @@ typedef struc
 /*****************************************************************************
  * Definitions of structures and functions used by this plugins
  *****************************************************************************/
-typedef struc
+typedef struct
 {
     int i_cat;
     int i_fourcc;
@@ -154,7 +154,7 @@ typedef struc
 
 } ogg_stream_t;
 
-struct sout_mux_sys_
+struct sout_mux_sys_t
 {
     int     i_streams;
 

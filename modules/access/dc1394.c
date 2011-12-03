@@ -9,7 +9,7 @@
  *
  *****************************************************************************
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -72,7 +72,7 @@ vlc_module_begin()
     set_callbacks( Open, Close )
 vlc_module_end()
 
-struct demux_sys_
+struct demux_sys_t
 {
     /* camera info */
     dc1394_t            *p_dccontext;
@@ -920,7 +920,7 @@ static int process_options( demux_t *p_demux )
         }
     }
 
-    // The mode is a combination of size and format and not every forma
+    // The mode is a combination of size and format and not every format
     // is supported by every size.
     if( in_size)
     {
@@ -938,7 +938,7 @@ static int process_options( demux_t *p_demux )
         }
     }
     else
-    { // 640x480 defaul
+    { // 640x480 default
         if( in_fmt )
         {
             if( strcmp( in_fmt, "RGB8") == 0)
@@ -949,10 +949,10 @@ static int process_options( demux_t *p_demux )
                 p_sys->video_mode = DC1394_VIDEO_MODE_640x480_MONO16;
             else if( strcmp( in_fmt, "YUV411") == 0)
                 p_sys->video_mode = DC1394_VIDEO_MODE_640x480_YUV411;
-            else // YUV422 defaul
+            else // YUV422 default
                 p_sys->video_mode = DC1394_VIDEO_MODE_640x480_YUV422;
         }
-        else // YUV422 defaul
+        else // YUV422 default
             p_sys->video_mode = DC1394_VIDEO_MODE_640x480_YUV422;
     }
 

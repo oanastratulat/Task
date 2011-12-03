@@ -67,7 +67,7 @@ static void* watch_Thread( void *obj )
 }
 
 /**
- * @brief Callback for thread exi
+ * @brief Callback for thread exit
  */
 static void watch_Thread_Cleanup( void* p_object )
 {
@@ -101,9 +101,9 @@ int watch_Init( media_library_t *p_ml )
     }
 
     /* Wait on playlist events
-     * playlist-item-append -> entry to playlis
+     * playlist-item-append -> entry to playlist
      * item-current -> to ensure that we catch played item only!
-     * playlist-item-deleted -> exit from playlis
+     * playlist-item-deleted -> exit from playlist
      * item-change -> Currently not required, as we monitor input_item events
      */
     playlist_t *p_pl = pl_Get( p_ml );
@@ -121,7 +121,7 @@ int watch_Init( media_library_t *p_ml )
 
 /**
  * @brief Add the input to the watch system
- * @param p_ml The Media Library Objec
+ * @param p_ml The Media Library Object
  * @param p_item Item to be watched
  * @param p_media Corresponding media item to sync with
  * @param locked Status of item list lock
@@ -149,7 +149,7 @@ int __watch_add_Item( media_library_t *p_ml, input_item_t *p_item,
 
 /**
  * @brief Detach event manager
- * @param p_ml The Media Library Objec
+ * @param p_ml The Media Library Object
  */
 static void detachItemEvents( media_library_t *p_ml, input_item_t *p_item )
 {
@@ -162,7 +162,7 @@ static void detachItemEvents( media_library_t *p_ml, input_item_t *p_item )
 
 /**
  * @brief Close the watching system
- * @param p_ml The Media Library Objec
+ * @param p_ml The Media Library Object
  */
 void watch_Close( media_library_t *p_ml )
 {
@@ -197,9 +197,9 @@ void watch_Close( media_library_t *p_ml )
 
 /**
  * @brief Del item that is currently being watched
- * @param p_ml The Media Library Objec
+ * @param p_ml The Media Library Object
  * @param p_item Item to stop watching
- * @param locked Lock state of item lis
+ * @param locked Lock state of item list
  */
 int __watch_del_Item( media_library_t* p_ml, input_item_t* p_item, bool locked )
 {
@@ -216,7 +216,7 @@ int __watch_del_Item( media_library_t* p_ml, input_item_t* p_item, bool locked )
 
 /**
  * @brief Del media from watching by ID
- * @param p_ml The Media Library Objec
+ * @param p_ml The Media Library Object
  * @param i_media_id Media ID
  */
 int watch_del_MediaById( media_library_t* p_ml, int i_media_id )
@@ -233,8 +233,8 @@ int watch_del_MediaById( media_library_t* p_ml, int i_media_id )
 }
 
 /**
- * @brief Get item using media id, if exists in item lis
- * @param p_ml The Media Library Objec
+ * @brief Get item using media id, if exists in item list
+ * @param p_ml The Media Library Object
  * @param i_media_id Media ID
  */
 input_item_t* watch_get_itemOfMediaId( media_library_t *p_ml, int i_media_id )
@@ -247,8 +247,8 @@ input_item_t* watch_get_itemOfMediaId( media_library_t *p_ml, int i_media_id )
 }
 
 /**
- * @brief Get media using media id, if exists in item lis
- * @param p_ml The Media Library Objec
+ * @brief Get media using media id, if exists in item list
+ * @param p_ml The Media Library Object
  * @param i_media_id Media ID
  */
 ml_media_t* watch_get_mediaOfMediaId( media_library_t* p_ml, int i_media_id )
@@ -262,7 +262,7 @@ ml_media_t* watch_get_mediaOfMediaId( media_library_t* p_ml, int i_media_id )
 
 /**
  * @brief Get mediaid of existing item
- * @param p_ml The Media Library Objec
+ * @param p_ml The Media Library Object
  * @param p_item Pointer to input item
  */
 int watch_get_mediaIdOfItem( media_library_t *p_ml, input_item_t *p_item )
@@ -300,7 +300,7 @@ static void watch_ItemChange( const vlc_event_t *event, void *data )
 }
 
 /**
- * @brief Callback when item is added to playlis
+ * @brief Callback when item is added to playlist
  */
 static int watch_PlaylistItemAppend( vlc_object_t *p_this, char const *psz_var,
                                   vlc_value_t oldval, vlc_value_t newval,
@@ -343,7 +343,7 @@ quit_playlistitemappend:
 }
 
 /**
- * @brief Callback when item is deleted from playlis
+ * @brief Callback when item is deleted from playlist
  */
 static int watch_PlaylistItemDeleted( vlc_object_t *p_this, char const *psz_var,
                                   vlc_value_t oldval, vlc_value_t newval,
@@ -417,7 +417,7 @@ static int watch_PlaylistItemCurrent( vlc_object_t *p_this, char const *psz_var,
  * @param p_ml this media library instance
  * @param i_media_id may be 0 (but not recommended)
  * @param p_item input item that was updated
- * @param b_raise_count increment the played coun
+ * @param b_raise_count increment the played count
  * @return result of UpdateMedia()
  */
 static int watch_update_Item( media_library_t *p_ml,

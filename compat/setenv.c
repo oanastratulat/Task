@@ -1,9 +1,9 @@
 /*****************************************************************************
- * setenv.c: POSIX setenv() & unsetenv() replacemen
+ * setenv.c: POSIX setenv() & unsetenv() replacement
  *****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmon
+ * Copyright © 2011 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.

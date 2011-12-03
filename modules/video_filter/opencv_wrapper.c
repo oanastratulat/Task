@@ -104,11 +104,11 @@ vlc_module_end ()
 
 
 /*****************************************************************************
- * wrapper_output_t: what video is outpu
+ * wrapper_output_t: what video is output
  *****************************************************************************/
-enum wrapper_output_
+enum wrapper_output_t
 {
-   NONE,    //not working ye
+   NONE,    //not working yet
    VINPUT,
    PROCESSED
 };
@@ -116,7 +116,7 @@ enum wrapper_output_
 /*****************************************************************************
  * internal_chroma_t: what chroma is sent to the internal opencv filter
  *****************************************************************************/
-enum internal_chroma_
+enum internal_chroma_t
 {
    CINPUT,
    GREY,
@@ -126,7 +126,7 @@ enum internal_chroma_
 /*****************************************************************************
  * verbosity_t:
  *****************************************************************************/
-enum verbosity_
+enum verbosity_t
 {
    VERB_ERROR,
    VERB_WARN,
@@ -139,7 +139,7 @@ enum verbosity_
  * This structure is part of the video output thread descriptor.
  * It describes the opencv_wrapper specific properties of an output thread.
  *****************************************************************************/
-struct vout_sys_
+struct vout_sys_t
 {
     vout_thread_t *p_vout;
 
@@ -305,10 +305,10 @@ static int Init( vout_thread_t *p_vout )
     p_vout->output.i_width  = p_vout->render.i_width;
     p_vout->output.i_height = p_vout->render.i_height;
     p_vout->output.i_aspect = p_vout->render.i_aspect;
-    p_vout->fmt_out = p_vout->fmt_in;           //set to input video forma
+    p_vout->fmt_out = p_vout->fmt_in;           //set to input video format
 
     fmt = p_vout->fmt_out;
-    if (p_sys->i_wrapper_output == PROCESSED)   //set to processed video forma
+    if (p_sys->i_wrapper_output == PROCESSED)   //set to processed video format
     {
         fmt.i_width = fmt.i_width * p_sys->f_scale;
         fmt.i_height = fmt.i_height * p_sys->f_scale;
@@ -519,7 +519,7 @@ static void VlcPictureToIplImage( vout_thread_t *p_vout, picture_t *p_in )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************
  * This function send the currently rendered image to the internal opencv
  * filter for processing.
@@ -572,7 +572,7 @@ static void Render( vout_thread_t *p_vout, picture_t *p_pic )
 
     ReleaseImages(p_vout);
     p_outpic->date  = p_pic->date;
-
+    
     vout_UnlinkPicture( p_vout->p_sys->p_vout, p_outpic );
     vout_DisplayPicture( p_vout->p_sys->p_vout, p_outpic );
 }

@@ -127,7 +127,7 @@ static const char *const ppsz_filter_options[] = {
     "width", "height", "aspect", "padd", NULL
 };
 
-struct filter_sys_
+struct filter_sys_t
 {
     filter_chain_t *p_chain;
 };
@@ -205,10 +205,10 @@ static int Activate( vlc_object_t *p_this )
     {
         /* if there is no user supplied aspect ratio, assume the canvas
          * has the same sample aspect ratio as the subpicture */
-        /* aspect = subpic_sar * canvas_width / canvas_heigh
+        /* aspect = subpic_sar * canvas_width / canvas_height
          *  where subpic_sar = subpic_ph * subpic_par / subpic_pw */
-        i_canvas_aspect = (uint64_t) p_filter->fmt_in.video.i_heigh
-                        * i_fmt_in_aspec
+        i_canvas_aspect = (uint64_t) p_filter->fmt_in.video.i_height
+                        * i_fmt_in_aspect
                         * i_canvas_width
                         / (i_canvas_height * p_filter->fmt_in.video.i_width);
     }
@@ -247,7 +247,7 @@ static int Activate( vlc_object_t *p_this )
              *  where canvas_sar = canvas_width / (canvas_height * canvas_par)
              * then simplify */
             fmt.video.i_width = i_canvas_width
-                              * i_fmt_in_aspec
+                              * i_fmt_in_aspect
                               / i_canvas_aspect;
             if( fmt.video.i_width & 1 ) fmt.video.i_width -= 1;
 
@@ -260,8 +260,8 @@ static int Activate( vlc_object_t *p_this )
         {
             /* The canvas has a taller aspect than the subpicture:
              *  ie, letterbox the [scaled] subpicture */
-            fmt.video.i_height = i_canvas_heigh
-                               * i_canvas_aspec
+            fmt.video.i_height = i_canvas_height
+                               * i_canvas_aspect
                                / i_fmt_in_aspect;
             if( fmt.video.i_height & 1 ) fmt.video.i_height -= 1;
 
@@ -279,7 +279,7 @@ static int Activate( vlc_object_t *p_this )
             /* The canvas has a narrower aspect than the subpicture:
              *  ie, crop the [scaled] subpicture horizontally */
             fmt.video.i_width = i_canvas_width
-                              * i_fmt_in_aspec
+                              * i_fmt_in_aspect
                               / i_canvas_aspect;
             if( fmt.video.i_width & 1 ) fmt.video.i_width -= 1;
 
@@ -292,8 +292,8 @@ static int Activate( vlc_object_t *p_this )
         {
             /* The canvas has a shorter aspect than the subpicture:
              *  ie, crop the [scaled] subpicture vertically */
-            fmt.video.i_height = i_canvas_heigh
-                               * i_canvas_aspec
+            fmt.video.i_height = i_canvas_height
+                               * i_canvas_aspect
                                / i_fmt_in_aspect;
             if( fmt.video.i_height & 1 ) fmt.video.i_height -= 1;
 

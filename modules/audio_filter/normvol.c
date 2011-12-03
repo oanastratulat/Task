@@ -52,7 +52,7 @@ static int  Open     ( vlc_object_t * );
 static void Close    ( vlc_object_t * );
 static block_t *DoWork( filter_t *, block_t * );
 
-struct filter_sys_
+struct filter_sys_t
 {
     int i_nb;
     float *p_last;

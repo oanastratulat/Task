@@ -9,7 +9,7 @@
  *          Hans-Peter Jansen <hpj@urpla.net>
  *          Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -42,7 +42,7 @@
 /**
  * Load a dynamically linked library using a system dependent method.
  *
- * \param p_this vlc objec
+ * \param p_this vlc object
  * \param psz_file library file
  * \param p_handle the module handle returned
  * \return 0 on success as well as the module handle.

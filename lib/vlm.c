@@ -6,7 +6,7 @@
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -40,7 +40,7 @@ static int VlmEvent( vlc_object_t *p_this, const char * name,
 {
     VLC_UNUSED(p_this);
     VLC_UNUSED(name);
-    VLC_UNUSED(old_val);
+    VLC_UNUSED(old_val);    
     vlm_event_t *event = (vlm_event_t*)newval.p_address;
     libvlc_event_manager_t *p_event_manager = (libvlc_event_manager_t *) param;
     libvlc_event_t libvlc_event;
@@ -260,7 +260,7 @@ static char* recurse_answer( vlm_message_t *p_answer, const char* psz_delim,
         if( aw_child->i_child )
         {
             /* If the parent node is a list (hence the child node is
-             * inside a list), create a property of its name as if i
+             * inside a list), create a property of its name as if it
              * had a name value node
              */
             if( i_list )
@@ -274,7 +274,7 @@ static char* recurse_answer( vlm_message_t *p_answer, const char* psz_delim,
                 psz_nametag = strdup( "" );
             }
             /* If the child is a list itself, format it accordingly and
-             * recurse through the child's children, telling them tha
+             * recurse through the child's children, telling them that
              * they are inside a list.
              */
             if( strcmp( aw_child->psz_name, "media" ) == 0 ||

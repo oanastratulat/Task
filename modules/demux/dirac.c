@@ -61,7 +61,7 @@ vlc_module_end();
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct demux_sys_
+struct demux_sys_t
 {
     mtime_t i_dts;
     mtime_t i_dtsoffset;

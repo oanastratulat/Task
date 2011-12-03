@@ -57,7 +57,7 @@
 
 /*
  * TODO:
- *  - check PCR frequency requiremen
+ *  - check PCR frequency requirement
  *  - check PAT/PMT  "        "
  *  - check PCR/PCR "soft"
  *  - check if "registration" descriptor : "AC-3" should be a program
@@ -258,13 +258,13 @@ typedef struct pmt_map_t   /* Holds the mapping between the pmt-pid/pmt table */
     unsigned long i_prog;
 } pmt_map_t;
 
-typedef struct sdt_desc_
+typedef struct sdt_desc_t
 {
     char *psz_provider;
     char *psz_service_name;  /* name of program */
 } sdt_desc_t;
 
-typedef struc
+typedef struct
 {
     int     i_depth;
     block_t *p_first;
@@ -328,7 +328,7 @@ static inline void BufferChainClean( sout_buffer_chain_t *c )
     BufferChainInit( c );
 }
 
-typedef struct ts_stream_
+typedef struct ts_stream_t
 {
     int             i_pid;
     vlc_fourcc_t    i_codec;
@@ -360,7 +360,7 @@ typedef struct ts_stream_
 
 } ts_stream_t;
 
-struct sout_mux_sys_
+struct sout_mux_sys_t
 {
     int             i_pcr_pid;
     sout_input_t    *p_pcr_input;
@@ -1159,7 +1159,7 @@ static int AddStream( sout_mux_t *p_mux, sout_input_t *p_input )
                 p_stream->lang[i*3+0] = pl->psz_iso639_2T[0];
                 p_stream->lang[i*3+1] = pl->psz_iso639_2T[1];
                 p_stream->lang[i*3+2] = pl->psz_iso639_2T[2];
-
+ 
                 msg_Dbg( p_mux, "    - lang=%c%c%c",
                          p_stream->lang[i*3+0], p_stream->lang[i*3+1],
                          p_stream->lang[i*3+2] );
@@ -1470,7 +1470,7 @@ static int Mux( sout_mux_t *p_mux )
                     }
                     b_ok = false;
 
-                    if( p_stream == p_pcr_stream || p_sys->b_data_alignmen
+                    if( p_stream == p_pcr_stream || p_sys->b_data_alignment
                          || p_input->p_fmt->i_codec !=
                              VLC_CODEC_MPGA )
                     {
@@ -2190,7 +2190,7 @@ static void TSSetConstraints( sout_mux_t *p_mux, sout_buffer_chain_t *c,
         int           i;
 
         /* Arg, we need to drop packets, I don't do something clever (like
-         * dropping complete pid, b frames, ... ), I just get the right amoun
+         * dropping complete pid, b frames, ... ), I just get the right amount
          * of packets and discard the others */
         msg_Warn( p_mux,
                   "packets=%d but max=%d -> removing %d packets -> stream broken",
@@ -2235,7 +2235,7 @@ static void PEStoTS( sout_instance_t *p_sout,
         /* write header
          * 8b   0x47    sync byte
          * 1b           transport_error_indicator
-         * 1b           payload_unit_star
+         * 1b           payload_unit_start
          * 1b           transport_priority
          * 13b          pid
          * 2b           transport_scrambling_control
@@ -2740,7 +2740,7 @@ static void GetPMT( sout_mux_t *p_mux, sout_buffer_chain_t *c )
         {
             uint8_t data[4*p_stream->i_langs];
 
-            /* I construct the content myself, way faster than looking a
+            /* I construct the content myself, way faster than looking at
              * over complicated/mind broken libdvbpsi way */
             for(i = 0; i < p_stream->i_langs; i++ )
             {

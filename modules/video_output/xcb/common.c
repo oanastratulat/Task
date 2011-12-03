@@ -3,7 +3,7 @@
  * @brief Common code for XCB video output plugins
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmon
+ * Copyright © 2009 Rémi Denis-Courmont
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -184,7 +184,7 @@ bool CheckSHM (vlc_object_t *obj, xcb_connection_t *conn)
 }
 
 /**
- * Initialize a picture buffer as shared memory, according to the video outpu
+ * Initialize a picture buffer as shared memory, according to the video output
  * format. If a attach is true, the segment is attached to
  * the X server (MIT-SHM extension).
  */

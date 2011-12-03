@@ -3,9 +3,9 @@
  * @brief OpenGL video output module
  */
 /*****************************************************************************
- * Copyright © 2010-2011 Rémi Denis-Courmon
+ * Copyright © 2010-2011 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -81,7 +81,7 @@ vlc_module_begin ()
 #endif
 vlc_module_end ()
 
-struct vout_display_sys_
+struct vout_display_sys_t
 {
     vout_display_opengl_t *vgl;
 

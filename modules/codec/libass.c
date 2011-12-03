@@ -67,7 +67,7 @@ vlc_module_end ()
 static subpicture_t *DecodeBlock( decoder_t *, block_t ** );
 
 /* */
-struct decoder_sys_
+struct decoder_sys_t
 {
     mtime_t        i_max_stop;
 
@@ -97,7 +97,7 @@ static void SubpictureUpdate( subpicture_t *,
                               mtime_t );
 static void SubpictureDestroy( subpicture_t * );
 
-struct subpicture_updater_sys_
+struct subpicture_updater_sys_t
 {
     decoder_sys_t *p_dec_sys;
     void          *p_subs_data;
@@ -107,7 +107,7 @@ struct subpicture_updater_sys_
     ASS_Image     *p_img;
 };
 
-typedef struc
+typedef struct
 {
     int x0;
     int y0;

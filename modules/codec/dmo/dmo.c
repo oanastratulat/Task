@@ -122,7 +122,7 @@ vlc_module_end ()
 /****************************************************************************
  * Decoder descriptor declaration
  ****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     HINSTANCE hmsdmo_dll;
     IMediaObject *p_dmo;
@@ -175,7 +175,7 @@ static const GUID guid_wmv_enc = { 0x3181343b, 0x94a2, 0x4feb, { 0xad, 0xef, 0x3
 static const GUID guid_wmv_enc2 = { 0x96b57cdd, 0x8966, 0x410c,{ 0xbb, 0x1f, 0xc9, 0x7e, 0xea, 0x76, 0x5c, 0x04 } };
 static const GUID guid_wma_enc = { 0x70f598e9, 0xf4ab, 0x495a, { 0x99, 0xe2, 0xa7, 0xc4, 0xd3, 0xd8, 0x9a, 0xbf } };
 
-typedef struc
+typedef struct
 {
     vlc_fourcc_t i_fourcc;
     const char   *psz_dll;
@@ -646,7 +646,7 @@ static int DecOpen( decoder_t *p_dec )
 }
 
 /*****************************************************************************
- * LoadDMO: Load the DMO objec
+ * LoadDMO: Load the DMO object
  *****************************************************************************/
 static int LoadDMO( vlc_object_t *p_this, HINSTANCE *p_hmsdmo_dll,
                     IMediaObject **pp_dmo, es_format_t *p_fmt,
@@ -1067,7 +1067,7 @@ static void *DecoderThread( void *data )
 /****************************************************************************
  * Encoder descriptor declaration
  ****************************************************************************/
-struct encoder_sys_
+struct encoder_sys_t
 {
     HINSTANCE hmsdmo_dll;
     IMediaObject *p_dmo;

@@ -37,7 +37,7 @@
 /** **************************************************************************
  * This is our own access_sys_t for zip files
  *****************************************************************************/
-struct access_sys_
+struct access_sys_t
 {
     /* zlib / unzip members */
     unzFile            zipFile;
@@ -155,7 +155,7 @@ int AccessOpen( vlc_object_t *p_this )
     }
     p_func->zopen_file   = ZipIO_Open;
     p_func->zread_file   = ZipIO_Read;
-    p_func->zwrite_file  = ZipIO_Write; // see commen
+    p_func->zwrite_file  = ZipIO_Write; // see comment
     p_func->ztell_file   = ZipIO_Tell;
     p_func->zseek_file   = ZipIO_Seek;
     p_func->zclose_file  = ZipIO_Close;

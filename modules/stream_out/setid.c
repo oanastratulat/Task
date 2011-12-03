@@ -5,7 +5,7 @@
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -100,7 +100,7 @@ static sout_stream_id_t *AddLang ( sout_stream_t *, es_format_t * );
 static int               Del     ( sout_stream_t *, sout_stream_id_t * );
 static int               Send    ( sout_stream_t *, sout_stream_id_t *, block_t * );
 
-struct sout_stream_sys_
+struct sout_stream_sys_t
 {
     int              i_id;
     int              i_new_id;

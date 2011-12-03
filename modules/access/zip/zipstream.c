@@ -78,7 +78,7 @@ static node* findOrCreateParentNode( node *root, const char *fullpath );
 /** **************************************************************************
  * Struct definitions
  *****************************************************************************/
-struct stream_sys_
+struct stream_sys_t
 {
     /* zlib / unzip members */
     unzFile zipFile;

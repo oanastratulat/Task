@@ -77,7 +77,7 @@ static const char *const ppsz_filter_options[] = {
     "mask", NULL
 };
 
-struct filter_sys_
+struct filter_sys_t
 {
     picture_t *p_mask;
     vlc_mutex_t mask_lock;

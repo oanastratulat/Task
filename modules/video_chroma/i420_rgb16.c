@@ -155,7 +155,7 @@ void I420_RGB16_dither( filter_t *p_filter, picture_t *p_src,
             CONVERT_Y_PIXEL_DITHER(2);
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -272,7 +272,7 @@ void I420_RGB16( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             CONVERT_YUV_PIXEL(2);  CONVERT_Y_PIXEL(2);
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -384,7 +384,7 @@ void I420_R5G5B5( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_v += 8;
                 p_buffer += 16;
             }
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -436,7 +436,7 @@ void I420_R5G5B5( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_v += 8;
                 p_buffer += 16;
             }
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -494,7 +494,7 @@ void I420_R5G5B5( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             p_buffer += 8;
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -614,7 +614,7 @@ void I420_R5G6B5( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_v += 8;
                 p_buffer += 16;
             }
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -666,7 +666,7 @@ void I420_R5G6B5( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_v += 8;
                 p_buffer += 16;
             }
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -724,7 +724,7 @@ void I420_R5G6B5( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             p_buffer += 8;
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -841,7 +841,7 @@ void I420_RGB32( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             CONVERT_YUV_PIXEL(4);  CONVERT_Y_PIXEL(4);
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -952,7 +952,7 @@ void I420_A8R8G8B8( filter_t *p_filter, picture_t *p_src,
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1004,7 +1004,7 @@ void I420_A8R8G8B8( filter_t *p_filter, picture_t *p_src,
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1061,7 +1061,7 @@ void I420_A8R8G8B8( filter_t *p_filter, picture_t *p_src,
             p_buffer += 8;
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -1180,7 +1180,7 @@ void I420_R8G8B8A8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1232,7 +1232,7 @@ void I420_R8G8B8A8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1289,7 +1289,7 @@ void I420_R8G8B8A8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             p_buffer += 8;
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -1408,7 +1408,7 @@ void I420_B8G8R8A8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1460,7 +1460,7 @@ void I420_B8G8R8A8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1514,7 +1514,7 @@ void I420_B8G8R8A8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             p_buffer += 8;
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {
@@ -1633,7 +1633,7 @@ void I420_A8B8G8R8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1685,7 +1685,7 @@ void I420_A8B8G8R8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
                 p_buffer += 16;
             }
 
-            /* Here we do some unaligned reads and duplicate conversions, bu
+            /* Here we do some unaligned reads and duplicate conversions, but
              * at least we have all the pixels */
             if( i_rewind )
             {
@@ -1739,7 +1739,7 @@ void I420_A8B8G8R8( filter_t *p_filter, picture_t *p_src, picture_t *p_dest )
             p_buffer += 8;
         }
 
-        /* Here we do some unaligned reads and duplicate conversions, bu
+        /* Here we do some unaligned reads and duplicate conversions, but
          * at least we have all the pixels */
         if( i_rewind )
         {

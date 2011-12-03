@@ -7,7 +7,7 @@
  * Authors: Clément Stenac <zorglub@videolan.org>
  *          Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -47,7 +47,7 @@
 #define IPPORT_SAP 9875
 
 /* A SAP session descriptor, enqueued in the SAP handler queue */
-typedef struct sap_session_
+typedef struct sap_session_t
 {
     struct sap_session_t *next;
     const session_descriptor_t *p_sd;
@@ -57,7 +57,7 @@ typedef struct sap_session_
 
 /* A SAP announce address. For each of these, we run the
  * control flow algorithm */
-typedef struct sap_address_
+typedef struct sap_address_t
 {
     struct sap_address_t   *next;
 
@@ -76,7 +76,7 @@ typedef struct sap_address_
 } sap_address_t;
 
 /* The SAP handler, running in a separate thread */
-struct sap_handler_
+struct sap_handler_t
 {
     VLC_COMMON_MEMBERS
 
@@ -96,7 +96,7 @@ static void *RunThread (void *);
 /**
  * Create the SAP handler
  *
- * \param p_announce a VLC objec
+ * \param p_announce a VLC object
  * \return the newly created SAP handler or NULL on error
  */
 sap_handler_t *SAP_Create (vlc_object_t *p_announce)
@@ -167,7 +167,7 @@ static void AddressDestroy (sap_address_t *addr)
 
 /**
  * main SAP handler thread
- * \param p_this the SAP Handler objec
+ * \param p_this the SAP Handler object
  * \return nothing
  */
 VLC_NORETURN

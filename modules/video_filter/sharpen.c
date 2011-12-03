@@ -86,7 +86,7 @@ static const char *const ppsz_filter_options[] = {
  * It describes the Sharpen specific properties of an output thread.
  *****************************************************************************/
 
-struct filter_sys_
+struct filter_sys_t
 {
     vlc_mutex_t lock;
     int tab_precalc[512];
@@ -154,10 +154,10 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************
  * This function send the currently rendered image to Invert image, waits
- * until it is displayed and switch the two rendering buffers, preparing nex
+ * until it is displayed and switch the two rendering buffers, preparing next
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )

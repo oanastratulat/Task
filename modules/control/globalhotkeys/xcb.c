@@ -54,14 +54,14 @@ vlc_module_begin()
     set_callbacks( Open, Close )
 vlc_module_end()
 
-typedef struc
+typedef struct
 {
     xcb_keycode_t *p_keys;
     unsigned      i_modifier;
     uint32_t      i_vlc;
 } hotkey_mapping_t;
 
-struct intf_sys_
+struct intf_sys_t
 {
     vlc_thread_t thread;
 
@@ -243,7 +243,7 @@ static unsigned GetX11Modifier( xcb_connection_t *p_connection,
 }
 
 /* FIXME this table is also used by the vout */
-static const struc
+static const struct
 {
     xcb_keysym_t i_x11;
     unsigned     i_vlc;

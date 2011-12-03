@@ -50,7 +50,7 @@
     VLC_RGB_ES( fcc, leid, beid )
 
 
-static const struc
+static const struct
 {
     vlc_fourcc_t  i_chroma;
     int           i_chroma_id;

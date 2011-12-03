@@ -46,7 +46,7 @@
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct sout_stream_sys_
+struct sout_stream_sys_t
 {
     bridged_es_t *p_es;
 
@@ -62,7 +62,7 @@ struct sout_stream_sys_
     filter_chain_t *p_vf2;
 };
 
-struct decoder_owner_sys_
+struct decoder_owner_sys_t
 {
     /* Current format in use by the output */
     video_format_t video;
@@ -558,7 +558,7 @@ static int Send( sout_stream_t *p_stream, sout_stream_id_t *id,
             else if ( !p_sys->i_width )
             {
                 fmt_out.i_height = p_sys->i_height;
-                fmt_out.i_width = (p_sys->i_height * i_fmt_in_aspec
+                fmt_out.i_width = (p_sys->i_height * i_fmt_in_aspect
                     * p_sys->i_sar_den / p_sys->i_sar_num / VOUT_ASPECT_FACTOR)
                       & ~0x1;
             }

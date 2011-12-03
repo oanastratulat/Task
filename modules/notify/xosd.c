@@ -40,7 +40,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of rc interface
  *****************************************************************************/
-struct intf_sys_
+struct intf_sys_t
 {
     xosd *      p_osd;          /* libxosd handle */
     bool        b_need_update;  /* Update display ? */

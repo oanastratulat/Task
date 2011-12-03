@@ -39,7 +39,7 @@
 /*****************************************************************************
  * Local prototypes.
  *****************************************************************************/
-typedef struc
+typedef struct
 {
     int i_width;
     int i_height;
@@ -47,7 +47,7 @@ typedef struc
     int i_y;
 } spu_properties_t;
 
-typedef struc
+typedef struct
 {
     int   pi_offset[2];                              /* byte offsets to data */
     uint16_t *p_data;
@@ -88,7 +88,7 @@ static inline unsigned int AddNibble( unsigned int i_code,
 }
 
 /*****************************************************************************
- * ParsePacket: parse an SPU packet and send it to the video outpu
+ * ParsePacket: parse an SPU packet and send it to the video output
  *****************************************************************************
  * This function parses the SPU packet and, if valid, sends it to the
  * video output.
@@ -429,7 +429,7 @@ static int ParseControlSeq( decoder_t *p_dec, subpicture_t *p_spu,
     if( p_sys->i_spu_size > i_index + 1 )
     {
         /* Zero or one padding byte are quite usual
-         * More than one padding byte - this is very strange, bu
+         * More than one padding byte - this is very strange, but
          * we can ignore them. */
         msg_Warn( p_dec, "%i padding bytes, we usually get 0 or 1 of them",
                   p_sys->i_spu_size - i_index );

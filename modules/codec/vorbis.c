@@ -56,7 +56,7 @@
 /*****************************************************************************
  * decoder_sys_t : vorbis decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     /* Module mode */
     bool b_packetizer;
@@ -711,7 +711,7 @@ static void CloseDecoder( vlc_object_t *p_this )
 /*****************************************************************************
  * encoder_sys_t : vorbis encoder descriptor
  *****************************************************************************/
-struct encoder_sys_
+struct encoder_sys_t
 {
     /*
      * Vorbis properties

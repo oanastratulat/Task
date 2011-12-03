@@ -50,7 +50,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of FB interface
  *****************************************************************************/
-struct intf_sys_
+struct intf_sys_t
 {
     vout_thread_t      *p_last_vout;
     int                 p_channels[ CHANNELS_NUMBER ]; /* contains registered
@@ -653,7 +653,7 @@ static int PutAction( intf_thread_t *p_intf, int i_action )
                     int i;
                     for( i = 0; i < val_list.p_list->i_count; i++ )
                     {
-                        if( val_list.p_list->p_values[i].f_floa
+                        if( val_list.p_list->p_values[i].f_float
                            == val.f_float )
                         {
                             if( i_action == ACTIONID_ZOOM )
@@ -885,7 +885,7 @@ static int SpecialKeyEvent( vlc_object_t *libvlc, char const *psz_var,
     int i_mode = p_intf->p_sys->i_mousewheel_mode;
 
     /* Special action for mouse event */
-    /* FIXME: rework hotkeys handling to allow more than 1 even
+    /* FIXME: rework hotkeys handling to allow more than 1 event
      * to trigger one same action */
     switch (newval.i_int & ~KEY_MODIFIER)
     {

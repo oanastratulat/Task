@@ -55,7 +55,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct access_sys_
+struct access_sys_t
 {
     int        fd;
 };
@@ -65,7 +65,7 @@ static ssize_t Read( access_t *, uint8_t *, size_t );
 static int Control( access_t *, int, va_list );
 
 /*****************************************************************************
- * Open: open the socke
+ * Open: open the socket
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {

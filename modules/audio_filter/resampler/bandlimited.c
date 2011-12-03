@@ -66,7 +66,7 @@ static void ResampleFloat( filter_t *p_filter,
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     int32_t *p_buf;                        /* this filter introduces a delay */
     size_t i_buf_size;
@@ -150,7 +150,7 @@ static block_t *Resample( filter_t * p_filter, block_t * p_in_buf )
 
     if( (p_in_buf->i_flags & BLOCK_FLAG_DISCONTINUITY) || p_sys->b_first )
     {
-        /* Continuity in sound samples has been broken, we'd better rese
+        /* Continuity in sound samples has been broken, we'd better reset
          * everything. */
         p_out_buf->i_flags |= BLOCK_FLAG_DISCONTINUITY;
         p_sys->i_remainder = 0;
@@ -286,7 +286,7 @@ static int OpenFilter( vlc_object_t *p_this )
     unsigned int i_out_rate  = p_filter->fmt_out.audio.i_rate;
 
     if ( p_filter->fmt_in.audio.i_rate == p_filter->fmt_out.audio.i_rate
-      || p_filter->fmt_in.audio.i_format != p_filter->fmt_out.audio.i_forma
+      || p_filter->fmt_in.audio.i_format != p_filter->fmt_out.audio.i_format
       || p_filter->fmt_in.audio.i_physical_channels
               != p_filter->fmt_out.audio.i_physical_channels
       || p_filter->fmt_in.audio.i_original_channels

@@ -6,7 +6,7 @@
  *
  * Authors: Keary Griffin <kearygriffin at gmail.com>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -123,7 +123,7 @@ static ssize_t Write( sout_access_out_t *, block_t * );
 static int Seek ( sout_access_out_t *, off_t  );
 static int Control( sout_access_out_t *, int, va_list );
 
-struct sout_access_out_sys_
+struct sout_access_out_sys_t
 {
     char *psz_cursegPath;
     char *psz_indexPath;
@@ -345,7 +345,7 @@ static void closeCurrentSegment( sout_access_out_t *p_access, sout_access_out_sy
 }
 
 /*****************************************************************************
- * Close: close the targe
+ * Close: close the target
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

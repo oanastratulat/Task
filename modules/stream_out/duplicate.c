@@ -58,7 +58,7 @@ static int               Del ( sout_stream_t *, sout_stream_id_t * );
 static int               Send( sout_stream_t *, sout_stream_id_t *,
                                block_t* );
 
-struct sout_stream_sys_
+struct sout_stream_sys_t
 {
     int             i_nb_streams;
     sout_stream_t   **pp_streams;
@@ -70,7 +70,7 @@ struct sout_stream_sys_
     char            **ppsz_select;
 };
 
-struct sout_stream_id_
+struct sout_stream_id_t
 {
     int                 i_nb_ids;
     void                **pp_ids;

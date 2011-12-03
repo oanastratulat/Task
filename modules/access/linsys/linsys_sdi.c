@@ -118,7 +118,7 @@ vlc_module_end()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-typedef struct sdi_audio_
+typedef struct sdi_audio_t
 {
     unsigned int i_group, i_pair;
 
@@ -145,7 +145,7 @@ enum {
     STATE_SYNC,
 };
 
-struct demux_sys_
+struct demux_sys_t
 {
     /* device reader */
     int              i_fd;
@@ -398,7 +398,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
  *****************************************************************************/
 #define WSS_LINE        23
 
-struct block_extension_
+struct block_extension_t
 {
     bool            b_progressive;          /**< is it a progressive frame ? */
     bool            b_top_field_first;             /**< which field is first */
@@ -445,9 +445,9 @@ static int StartDecode( demux_t *p_demux )
     fmt.video.i_frame_rate_base = p_sys->i_frame_rate_base;
     fmt.video.i_width           = p_sys->i_width;
     fmt.video.i_height          = p_sys->i_height;
-    int i_aspect = p_sys->i_forced_aspect ? p_sys->i_forced_aspec
+    int i_aspect = p_sys->i_forced_aspect ? p_sys->i_forced_aspect
                                           : p_sys->i_aspect;
-    fmt.video.i_sar_num = i_aspect * fmt.video.i_heigh
+    fmt.video.i_sar_num = i_aspect * fmt.video.i_height
                            / fmt.video.i_width;
     fmt.video.i_sar_den = VOUT_ASPECT_FACTOR;
     p_sys->p_es_video   = es_out_Add( p_demux->out, &fmt );

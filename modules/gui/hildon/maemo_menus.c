@@ -541,7 +541,7 @@ static void UpdateItem( intf_thread_t *p_intf, GtkMenu *menu,
 }
 
 /** HACK for the navigation submenu:
- * "title %2i" variables take the value 0 if not se
+ * "title %2i" variables take the value 0 if not set
  */
 static bool CheckTitle( vlc_object_t *p_object, const char *psz_var )
 {

@@ -321,7 +321,7 @@ static int vlclua_input_item_set_meta( lua_State *L )
                *psz_value = luaL_checkstring( L, 3 );
 
 #define META_TYPE( n, s ) { s, vlc_meta_ ## n },
-    static const struc
+    static const struct
     {
         const char *psz_name;
         vlc_meta_type_t type;

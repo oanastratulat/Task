@@ -8,7 +8,7 @@
  *
  * Authors: Vincent Seguin <seguin@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -25,7 +25,7 @@
 
 /**
  *   \file
- *   This file contains functions related to interface managemen
+ *   This file contains functions related to interface management
  */
 
 
@@ -63,7 +63,7 @@ static vlc_mutex_t lock = VLC_STATIC_MUTEX;
 /**
  * Create and start an interface.
  *
- * @param p_this the calling vlc_object_
+ * @param p_this the calling vlc_object_t
  * @param chain configuration chain string
  * @return VLC_SUCCESS or an error code
  */
@@ -217,7 +217,7 @@ void intf_DestroyAll( libvlc_int_t *p_libvlc )
 /**
  * RunInterface: setups necessary data and give control to the interface
  *
- * @param p_this: interface objec
+ * @param p_this: interface object
  */
 static void* RunInterface( void *p_this )
 {
@@ -232,7 +232,7 @@ static void* RunInterface( void *p_this )
 /**
  * MonitorLibVLCDeath: Used when b_should_run_on_first_thread is set.
  *
- * @param p_this: the interface objec
+ * @param p_this: the interface object
  */
 static void * MonitorLibVLCDeath( vlc_object_t * p_this )
 {

@@ -128,7 +128,7 @@ error:
 }
 
 /*****************************************************************************
- * Called through lua_scripts_batch_execute to call 'fetch_art' on the scrip
+ * Called through lua_scripts_batch_execute to call 'fetch_art' on the script
  * pointed by psz_filename.
  *****************************************************************************/
 static int fetch_art( vlc_object_t *p_this, const char * psz_filename,
@@ -178,7 +178,7 @@ static int fetch_art( vlc_object_t *p_this, const char * psz_filename,
 }
 
 /*****************************************************************************
- * Called through lua_scripts_batch_execute to call 'read_meta' on the scrip
+ * Called through lua_scripts_batch_execute to call 'read_meta' on the script
  * pointed by psz_filename.
  *****************************************************************************/
 static int read_meta( vlc_object_t *p_this, const char * psz_filename,
@@ -198,7 +198,7 @@ static int read_meta( vlc_object_t *p_this, const char * psz_filename,
 
 
 /*****************************************************************************
- * Called through lua_scripts_batch_execute to call 'fetch_meta' on the scrip
+ * Called through lua_scripts_batch_execute to call 'fetch_meta' on the script
  * pointed by psz_filename.
  *****************************************************************************/
 static int fetch_meta( vlc_object_t *p_this, const char * psz_filename,

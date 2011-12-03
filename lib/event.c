@@ -7,7 +7,7 @@
  * Authors: Filippo Carone <filippo@carone.org>
  *          Pierre d'Herbemont <pdherbemont # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -34,7 +34,7 @@
 #include <assert.h>
 #include <errno.h>
 
-typedef struct libvlc_event_listeners_group_
+typedef struct libvlc_event_listeners_group_t
 {
     libvlc_event_type_t event_type;
     vlc_array_t listeners;
@@ -246,7 +246,7 @@ void libvlc_event_send( libvlc_event_manager_t * p_em,
 
 #define DEF( a ) { libvlc_##a, #a, },
 
-typedef struc
+typedef struct
 {
     int type;
     const char name[40];

@@ -38,7 +38,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of log interface
  *****************************************************************************/
-struct intf_sys_
+struct intf_sys_t
 {
     char *psz_format;
 };

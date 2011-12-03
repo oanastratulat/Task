@@ -102,14 +102,14 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct demux_sys_
+struct demux_sys_t
 {
     dvdnav_t    *dvdnav;
 
     /* */
     bool        b_reset_pcr;
 
-    struc
+    struct
     {
         bool         b_created;
         bool         b_enabled;
@@ -848,7 +848,7 @@ static int Demux( demux_t *p_demux )
         msg_Dbg( p_demux, "DVDNAV_NAV_PACKET" );
 #endif
         /* A lot of thing to do here :
-         *  - handle packe
+         *  - handle packet
          *  - fetch pts (for time display)
          *  - ...
          */

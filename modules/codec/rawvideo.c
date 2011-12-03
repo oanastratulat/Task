@@ -35,7 +35,7 @@
 /*****************************************************************************
  * decoder_sys_t : raw video decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     /* Module mode */
     bool b_packetizer;
@@ -232,7 +232,7 @@ static void *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
     else if( p_block->i_dts > VLC_TS_INVALID )
     {
         /* NB, davidf doesn't quite agree with this in general, it is ok
-         * for rawvideo since it is in order (ie pts=dts), however, i
+         * for rawvideo since it is in order (ie pts=dts), however, it
          * may not be ok for an out-of-order codec, so don't copy this
          * without thinking */
         date_Set( &p_sys->pts, p_block->i_dts );

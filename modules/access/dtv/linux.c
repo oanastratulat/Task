@@ -3,9 +3,9 @@
  * @brief Linux DVB API version 5
  */
 /*****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmon
+ * Copyright © 2011 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -74,7 +74,7 @@ static int dvb_open_node (int dir, const char *type, unsigned dev, int flags)
     return fd;
 }
 
-typedef struc
+typedef struct
 {
     int vlc;
     int linux_;
@@ -95,7 +95,7 @@ static int dvb_parse_int (int i, const dvb_int_map_t *map, size_t n, int def)
     return (p != NULL) ? p->linux_ : def;
 }
 
-typedef const struc
+typedef const struct
 {
     char vlc[8];
     int linux_;
@@ -134,7 +134,7 @@ static int dvb_parse_modulation (const char *str, int def)
         { "32APSK", APSK_32   },
         { "32QAM",   QAM_32   },
         { "64QAM",   QAM_64   },
-        { "8PSK",    PSK_8    },
+        { "8PSK",    PSK_8    }, 
         { "8VSB",    VSB_8    },
         { "DQPSK", DQPSK      },
         { "QAM",     QAM_AUTO },
@@ -175,7 +175,7 @@ struct dvb_device
     int frontend;
 #ifndef USE_DMX
 # define MAX_PIDS 256
-    struc
+    struct
     {
         int fd;
         uint16_t pid;
@@ -666,7 +666,7 @@ int dvb_set_sec (dvb_device_t *d, uint64_t freq_Hz, char pol,
      * So lets pretend this is platform-specific stuff and do it here. */
     if (!lowf)
     {   /* Default oscillator frequencies */
-        static const struc
+        static const struct
         {
              uint16_t min, max, low, high;
         } tab[] =

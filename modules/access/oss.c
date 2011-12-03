@@ -102,13 +102,13 @@ static int OpenAudioDev( demux_t * );
 static int OpenAudioDevOss( demux_t * );
 static bool ProbeAudioDevOss( demux_t *, const char *psz_device );
 
-struct buffer_
+struct buffer_t
 {
     void *  start;
     size_t  length;
 };
 
-struct demux_sys_
+struct demux_sys_t
 {
     const char *psz_device;  /* OSS device from MRL */
 

@@ -2,7 +2,7 @@
  * file.c: file input (file: access plug-in)
  *****************************************************************************
  * Copyright (C) 2001-2006 the VideoLAN team
- * Copyright © 2006-2007 Rémi Denis-Courmon
+ * Copyright © 2006-2007 Rémi Denis-Courmont
  * $Id: b2ed9f1695ceed776b1825e05cb5feb5d50d0b9f $
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
@@ -74,7 +74,7 @@
 #include <vlc_fs.h>
 #include <vlc_url.h>
 
-struct access_sys_
+struct access_sys_t
 {
     unsigned int i_nb_reads;
 
@@ -251,7 +251,7 @@ error:
 }
 
 /*****************************************************************************
- * FileClose: close the targe
+ * FileClose: close the target
  *****************************************************************************/
 void FileClose (vlc_object_t * p_this)
 {

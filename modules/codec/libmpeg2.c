@@ -45,14 +45,14 @@
  * decoder_sys_t : libmpeg2 decoder descriptor
  *****************************************************************************/
 #define DPB_COUNT (3+1)
-typedef struc
+typedef struct
 {
     picture_t *p_picture;
     bool      b_linked;
     bool      b_displayed;
 } picture_dpb_t;
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     /*
      * libmpeg2 properties
@@ -218,7 +218,7 @@ static int OpenDecoder( vlc_object_t *p_this )
 
 # ifdef MPEG2_ACCEL_ARM_NEON
     if( vlc_CPU() & CPU_CAPABILITY_NEON )
- i_accel |= MPEG2_ACCEL_ARM_NEON;
+	i_accel |= MPEG2_ACCEL_ARM_NEON;
 # endif
 
 #else
@@ -597,7 +597,7 @@ static picture_t *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
         case STATE_INVALID:
         {
             msg_Err( p_dec, "invalid picture encountered" );
-            /* I don't think we have anything to do, but well withou
+            /* I don't think we have anything to do, but well without
              * docs ... */
             break;
         }
@@ -643,7 +643,7 @@ static void Reset( decoder_t *p_dec )
 }
 
 /*****************************************************************************
- * GetNewPicture: Get a new picture from the vout and set the buf struc
+ * GetNewPicture: Get a new picture from the vout and set the buf struct
  *****************************************************************************/
 static picture_t *GetNewPicture( decoder_t *p_dec )
 {
@@ -772,7 +772,7 @@ static void GetAR( decoder_t *p_dec )
 }
 
 /*****************************************************************************
- * PutPicture: Put a picture_t in mpeg2 contex
+ * PutPicture: Put a picture_t in mpeg2 context
  *****************************************************************************/
 static void PutPicture( decoder_t *p_dec, picture_t *p_picture )
 {

@@ -110,7 +110,7 @@ static const char *const ppsz_filter_options[] = {
     NULL
 };
 
-struct filter_sys_
+struct filter_sys_t
 {
     int i_croptop;
     int i_cropbottom;
@@ -166,14 +166,14 @@ static int OpenFilter( vlc_object_t *p_this )
 
     p_filter->fmt_out.video.i_height =
     p_filter->fmt_out.video.i_visible_height =
-        p_filter->fmt_in.video.i_visible_heigh
+        p_filter->fmt_in.video.i_visible_height
         - p_sys->i_croptop - p_sys->i_cropbottom
         + p_sys->i_paddtop + p_sys->i_paddbottom;
 
     p_filter->fmt_out.video.i_width =
     p_filter->fmt_out.video.i_visible_width =
         p_filter->fmt_in.video.i_visible_width
-        - p_sys->i_cropleft - p_sys->i_croprigh
+        - p_sys->i_cropleft - p_sys->i_cropright
         + p_sys->i_paddleft + p_sys->i_paddright;
 
     p_filter->pf_video_filter = Filter;
@@ -243,7 +243,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
                           - p_sys->i_cropleft - p_sys->i_cropright )
                         * p_plane->i_visible_pitch )
                       / p_pic->p->i_visible_pitch;
-        i_height =    ( ( p_filter->fmt_in.video.i_visible_heigh
+        i_height =    ( ( p_filter->fmt_in.video.i_visible_height
                           - p_sys->i_croptop - p_sys->i_cropbottom )
                         * p_plane->i_visible_lines )
                       / p_pic->p->i_visible_lines;
@@ -254,7 +254,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
         i_outwidth =  ( p_filter->fmt_out.video.i_visible_width
                         * p_outplane->i_visible_pitch )
                       / p_outpic->p->i_visible_pitch;
-        i_outheight = ( p_filter->fmt_out.video.i_visible_heigh
+        i_outheight = ( p_filter->fmt_out.video.i_visible_height
                         * p_outplane->i_visible_lines )
                       / p_outpic->p->i_visible_lines;
         i_xpadd =     ( p_sys->i_paddleft * p_outplane->i_visible_pitch )

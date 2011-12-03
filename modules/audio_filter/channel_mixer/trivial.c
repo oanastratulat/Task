@@ -63,7 +63,7 @@ static int Create( vlc_object_t *p_this )
            == p_filter->fmt_out.audio.i_physical_channels
            && p_filter->fmt_in.audio.i_original_channels
                == p_filter->fmt_out.audio.i_original_channels)
-          || p_filter->fmt_in.audio.i_format != p_filter->fmt_out.audio.i_forma
+          || p_filter->fmt_in.audio.i_format != p_filter->fmt_out.audio.i_format
           || p_filter->fmt_in.audio.i_rate != p_filter->fmt_out.audio.i_rate
           || (p_filter->fmt_in.audio.i_format != VLC_CODEC_FL32
                && p_filter->fmt_in.audio.i_format != VLC_CODEC_FI32) )

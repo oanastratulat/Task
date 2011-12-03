@@ -360,7 +360,7 @@ static gboolean interface_ready( gpointer data )
     p_intf->p_sys->xid =
         GDK_WINDOW_XID( gtk_widget_get_window(p_intf->p_sys->p_video_window) );
 
-    // Refresh playlis
+    // Refresh playlist
     post_event( p_intf, EVENT_PLAYLIST_CURRENT );
 
     // Everything is initialised

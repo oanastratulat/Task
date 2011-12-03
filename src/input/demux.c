@@ -6,7 +6,7 @@
  *
  * Author: Laurent Aimar <fenrir@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -41,7 +41,7 @@ static char *get_path(const char *location)
 {
     char *url, *path;
 
-    /* Prepending "file://" is a bit hackish. But then again, we do not wan
+    /* Prepending "file://" is a bit hackish. But then again, we do not want
      * to hard-code the list of schemes that use file paths in make_path().
      */
     if (asprintf(&url, "file://%s", location) == -1)
@@ -110,7 +110,7 @@ demux_t *demux_New( vlc_object_t *p_obj, input_thread_t *p_parent_input,
      && (psz_ext = strrchr( p_demux->psz_file, '.' )) )
     {
        /* XXX: add only file without any problem here and with strong detection.
-        *  - no .mp3, .a52, ... (aac is added as it works only by file ex
+        *  - no .mp3, .a52, ... (aac is added as it works only by file ext
         *     anyway
         *  - wav can't be added 'cause of a52 and dts in them as raw audio
          */

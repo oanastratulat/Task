@@ -72,14 +72,14 @@
  * Local prototypes.
  *****************************************************************************/
 
-typedef struc
+typedef struct
 {
     int signal;
     int i_node;
     int i_item;
 } callback_info_t;
 
-typedef struc
+typedef struct
 {
     mtime_t      i_remaining;
     DBusTimeout *p_timeout;
@@ -490,7 +490,7 @@ static int GetPollFds( intf_thread_t *p_intf, struct pollfd *p_fds )
  * or -1 if there are no timeouts
  *
  * @param intf_thread_t *p_intf This interface thread's state
- * @param mtime_t i_loop_interval The time which has elapsed since the las
+ * @param mtime_t i_loop_interval The time which has elapsed since the last
  * call to this function
  */
 static int UpdateTimeouts( intf_thread_t *p_intf, mtime_t i_loop_interval )
@@ -771,7 +771,7 @@ static void DispatchDBusMessages( intf_thread_t *p_intf )
  *
  * This function is called during dbus_connection_dispatch()
  */
-static DBusHandlerResul
+static DBusHandlerResult
 MPRISEntryPoint ( DBusConnection *p_conn, DBusMessage *p_from, void *p_this )
 {
     const char *psz_target_interface;
@@ -1088,7 +1088,7 @@ static int AllCallback( vlc_object_t *p_this, const char *psz_var,
     else
         assert(0);
 
-    // Append the even
+    // Append the event
     vlc_array_append( p_intf->p_sys->p_events, info );
     vlc_mutex_unlock( &p_intf->p_sys->lock );
 

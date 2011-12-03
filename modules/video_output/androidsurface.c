@@ -7,7 +7,7 @@
  *          Ludovic Fauvet <etix@l0cal.com>
  *          Sébastien Toque <xilasz@gmail.com>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -99,7 +99,7 @@ typedef struct _SurfaceInfo {
     uint32_t    reserved[2];
 } SurfaceInfo;
 
-struct picture_sys_
+struct picture_sys_t
 {
     void *surf;
     SurfaceInfo info;

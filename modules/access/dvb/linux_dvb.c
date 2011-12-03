@@ -65,7 +65,7 @@
 /*
  * Frontends
  */
-struct frontend_
+struct frontend_t
 {
     fe_status_t i_last_status;
     struct dvb_frontend_info info;
@@ -698,7 +698,7 @@ static fe_sec_tone_mode_t DecodeTone( access_t *p_access )
     }
 }
 
-struct diseqc_cmd_
+struct diseqc_cmd_t
 {
     struct dvb_diseqc_master_cmd cmd;
     uint32_t wait;
@@ -921,7 +921,7 @@ static int FrontendSetQAM( access_t *p_access )
 
     fep.inversion = DecodeInversion( p_access );
 
-    /* Default symbol-rate is for dvb-s, and doesn't fi
+    /* Default symbol-rate is for dvb-s, and doesn't fit
      * for dvb-c, so if it's over the limit of frontend, default to
      * somewhat common value
      */

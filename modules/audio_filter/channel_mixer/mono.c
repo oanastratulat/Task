@@ -58,7 +58,7 @@ static void stereo2mono_downmix( filter_t *, aout_buffer_t *,
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct atomic_operation_
+struct atomic_operation_t
 {
     int i_source_channel_offset;
     int i_dest_channel_offset;
@@ -66,7 +66,7 @@ struct atomic_operation_
     double d_amplitude_factor;
 };
 
-struct filter_sys_
+struct filter_sys_t
 {
     bool b_downmix;
 
@@ -133,14 +133,14 @@ vlc_module_end ()
 /* x and z represent the coordinates of the virtual speaker
  *  relatively to the center of the listener's head, measured in meters :
  *
- *  left              righ
+ *  left              right
  *Z
  *-
  *a          head
  *x
  *i
  *s
- *  rear left    rear righ
+ *  rear left    rear right
  *
  *          x-axis
  *  */
@@ -244,7 +244,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_LEFT )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , -d_x , d_z , d_min , 2.0 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -252,7 +252,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_RIGHT )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , d_x , d_z , d_min , 2.0 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -260,7 +260,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_MIDDLELEFT )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , -d_x , 0 , d_min , 1.5 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -268,7 +268,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_MIDDLERIGHT )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , d_x , 0 , d_min , 1.5 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -276,7 +276,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_REARLEFT )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , -d_x , d_z_rear , d_min , 1.5 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -284,7 +284,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_REARRIGHT )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , d_x , d_z_rear , d_min , 1.5 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -292,7 +292,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_REARCENTER )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , 0 , -d_z , d_min , 1.5 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -301,11 +301,11 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     {
         /* having two center channels increases the spatialization effect */
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , d_x / 5.0 , d_z , d_min , 0.75 / i_nb_channels );
         i_next_atomic_operation += 2;
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , -d_x / 5.0 , d_z , d_min , 0.75 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -313,7 +313,7 @@ static int Init( vlc_object_t *p_this, struct filter_sys_t * p_data,
     if( i_physical_channels & AOUT_CHAN_LFE )
     {
         ComputeChannelOperations( p_data , i_rate
-                , i_next_atomic_operation , i_source_channel_offse
+                , i_next_atomic_operation , i_source_channel_offset
                 , 0 , d_z_rear , d_min , 5.0 / i_nb_channels );
         i_next_atomic_operation += 2;
         i_source_channel_offset++;
@@ -449,7 +449,7 @@ static void CloseFilter( vlc_object_t *p_this)
 }
 
 /*****************************************************************************
- * Conver
+ * Convert
  *****************************************************************************/
 static block_t *Convert( filter_t *p_filter, block_t *p_block )
 {
@@ -568,9 +568,9 @@ static void stereo2mono_downmix( filter_t * p_filter,
     for( i = 0; i < p_sys->i_nb_atomic_operations; i++ )
     {
         /* shorter variable names */
-        i_source_channel_offse
+        i_source_channel_offset
             = p_sys->p_atomic_operations[i].i_source_channel_offset;
-        i_dest_channel_offse
+        i_dest_channel_offset
             = p_sys->p_atomic_operations[i].i_dest_channel_offset;
         i_delay = p_sys->p_atomic_operations[i].i_delay;
         d_amplitude_factor

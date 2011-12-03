@@ -41,7 +41,7 @@
 /*****************************************************************************
  * decoder_sys_t : wma decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     date_t end_date; /* To set the PTS */
     WMADecodeContext wmadec; /* name is self explanative */

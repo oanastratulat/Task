@@ -37,7 +37,7 @@
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     mtime_t start_date;
 
@@ -185,7 +185,7 @@ static block_t *DoWork( filter_t * p_filter, block_t * p_in_buf )
         if( ( (p_in[0] == 0x1F || p_in[0] == 0x7F) && p_filter->fmt_out.audio.i_format == VLC_CODEC_SPDIFL ) ||
             ( (p_in[0] == 0xFF || p_in[0] == 0xFE) && p_filter->fmt_out.audio.i_format == VLC_CODEC_SPDIFB ) )
         {
-            /* We are dealing with a big endian bitstream and a little endian outpu
+            /* We are dealing with a big endian bitstream and a little endian output
              * or a little endian bitstream and a big endian output.
              * Byteswap the stream */
             swab( p_in, p_out + 8, i_length );

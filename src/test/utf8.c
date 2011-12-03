@@ -1,10 +1,10 @@
 /*****************************************************************************
  * utf8.c: Test for UTF-8 encoding/decoding stuff
  *****************************************************************************
- * Copyright (C) 2006 Rémi Denis-Courmon
+ * Copyright (C) 2006 Rémi Denis-Courmont
  * $Id: d8bb381d7430f200339b709f8e4c1ed4964b8ae9 $
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.

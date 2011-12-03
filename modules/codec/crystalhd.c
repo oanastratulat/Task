@@ -6,7 +6,7 @@
  * Authors: Jean-Baptiste Kempf <jb@videolan.org>
  *          Narendra Sankar <nsankar@broadcom.com>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -103,7 +103,7 @@ static int crystal_insert_sps_pps(decoder_t *, uint8_t *, uint32_t);
 /*****************************************************************************
  * decoder_sys_t : CrysalHD decoder structure
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     HANDLE bcm_handle;       /* Device Handle */
 
@@ -162,7 +162,7 @@ static int OpenDecoder( vlc_object_t *p_this )
     case VLC_CODEC_MPGV:
         i_bcm_codec_subtype = BC_MSUBTYPE_MPEG2VIDEO;
         break;
-/* Not ready for production ye
+/* Not ready for production yet
     case VLC_CODEC_MP4V:
         i_bcm_codec_subtype = BC_MSUBTYPE_DIVX;
         break;

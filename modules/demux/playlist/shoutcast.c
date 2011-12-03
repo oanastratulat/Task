@@ -298,7 +298,7 @@ static int DemuxStation( demux_t *p_demux, xml_reader_t *p_xml_reader,
                 }
                 break;
 
-            // End elemen
+            // End element
             case XML_READER_ENDELEM:
                 if( !strcmp( node, "station" ) &&
                     ( psz_base || ( psz_rt && psz_load &&

@@ -55,7 +55,7 @@ vlc_module_end ()
 /*****************************************************************************
  *
  *****************************************************************************/
-typedef struc
+typedef struct
 {
     int i_type;
     unsigned i_rate;
@@ -70,7 +70,7 @@ typedef struc
 
 } mlp_header_t;
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     /*
      * Input properties
@@ -386,7 +386,7 @@ static int MlpParse( mlp_header_t *p_mlp, const uint8_t p_hdr[MLP_HEADER_SYNC] )
 
         i_rate_idx1 = bs_read( &s, 4 );
 
-        // Just skip the 4 following, since we don't use i
+        // Just skip the 4 following, since we don't use it
         // const int i_rate_idx2 = bs_read( &s, 4 );
         bs_skip( &s, 4 );
 

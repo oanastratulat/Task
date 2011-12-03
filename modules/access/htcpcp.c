@@ -1,9 +1,9 @@
 /*****************************************************************************
  * htcpcp.c: HTCPCP module for VLC media player
  *****************************************************************************
- * Copyright © 2011 Rémi Denis-Courmon
+ * Copyright © 2011 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -56,7 +56,7 @@ static ssize_t Read( access_t *, uint8_t *, size_t );
 static int Seek( access_t *, uint64_t );
 static int Control( access_t *, int, va_list );
 
-struct access_sys_
+struct access_sys_t
 {
     int fd;
 };

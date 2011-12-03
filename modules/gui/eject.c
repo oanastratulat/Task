@@ -3,7 +3,7 @@
  *****************************************************************************
  * Copyright (C) 2001-2011 the VideoLAN team
  *
- * Authors: Julien Blache <jb@technologeek.org> for the Linux par
+ * Authors: Julien Blache <jb@technologeek.org> for the Linux part
  *                with code taken from the Linux "eject" command
  *          Jon Lech Johansen <jon-vl@nanocrew.net> for Darwin
  *          Gildas Bazin <gbazin@netcourrier.com> for Win32
@@ -111,11 +111,11 @@ static int EjectSCSI( int i_fd )
 }
 #endif
 
-#undef intf_Ejec
+#undef intf_Eject
 /**
  * Ejects the optical disc in a device
- * \param p_this the calling vlc_object_
- * \param psz_device the CD/DVD to ejec
+ * \param p_this the calling vlc_object_t
+ * \param psz_device the CD/DVD to eject
  * \return VLC_SUCCESS or VLC_EGENERIC
  */
 static int intf_Eject( vlc_object_t *p_this, const char *psz_device )

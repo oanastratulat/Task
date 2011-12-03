@@ -106,7 +106,7 @@ static const char *const ppsz_filter_options[] = {
 /*****************************************************************************
  * filter_sys_t: filter method descriptor
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     bool b_done;
     int i_loops, i_alpha;
@@ -209,7 +209,7 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
 {

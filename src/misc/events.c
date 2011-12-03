@@ -8,7 +8,7 @@
  *
  * Authors: Pierre d'Herbemont <pdherbemont # videolan.org >
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -46,13 +46,13 @@
  *  Private types.
  *****************************************************************************/
 
-typedef struct vlc_event_listener_
+typedef struct vlc_event_listener_t
 {
     void *               p_user_data;
     vlc_event_callback_t pf_callback;
 } vlc_event_listener_t;
 
-typedef struct vlc_event_listeners_group_
+typedef struct vlc_event_listeners_group_t
 {
     vlc_event_type_t    event_type;
     DECL_ARRAY(struct vlc_event_listener_t *) listeners;
@@ -61,7 +61,7 @@ typedef struct vlc_event_listeners_group_
       Correctly when vlc_event_detach was called during
       a callback */
     bool          b_sublistener_removed;
-
+                                         
 } vlc_event_listeners_group_t;
 
 static bool
@@ -88,11 +88,11 @@ group_contains_listener( vlc_event_listeners_group_t * group,
  *
  *****************************************************************************/
 
-#undef vlc_event_manager_ini
+#undef vlc_event_manager_init
 /**
- * Initialize event manager objec
- * p_obj is the object that contains the event manager. But no
- * necessarily a vlc_object_t (an input_item_t is not a vlc_object_
+ * Initialize event manager object
+ * p_obj is the object that contains the event manager. But not
+ * necessarily a vlc_object_t (an input_item_t is not a vlc_object_t
  * for instance).
  */
 int vlc_event_manager_init( vlc_event_manager_t * p_em, void * p_obj )
@@ -147,7 +147,7 @@ int vlc_event_manager_register_event_type(
 
     listeners_group->event_type = event_type;
     ARRAY_INIT( listeners_group->listeners );
-
+ 
     vlc_mutex_lock( &p_em->object_lock );
     ARRAY_APPEND( p_em->listeners_groups, listeners_group );
     vlc_mutex_unlock( &p_em->object_lock );
@@ -223,7 +223,7 @@ void vlc_event_send( vlc_event_manager_t * p_em,
         if( listeners_group->b_sublistener_removed )
         {
             /* If a callback was removed inside one of our callback, this gets
-      * called */
+	     * called */
             bool valid_listener;
             vlc_mutex_lock( &p_em->object_lock );
             valid_listener = group_contains_listener( listeners_group, cached_listener );
@@ -256,7 +256,7 @@ int vlc_event_attach( vlc_event_manager_t * p_em,
     listener = malloc(sizeof(vlc_event_listener_t));
     if( !listener )
         return VLC_ENOMEM;
-
+ 
     listener->p_user_data = p_user_data;
     listener->pf_callback = pf_callback;
 

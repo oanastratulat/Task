@@ -81,9 +81,9 @@ static const char *const ppsz_filter_options[] = {
 };
 
 /*****************************************************************************
- * filter_sys_
+ * filter_sys_t
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     vlc_spinlock_t lock;
     int            i_cos;
@@ -203,9 +203,9 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
 
         const int i_line_next =  i_cos / i_aspect -i_sin*i_visible_pitch;
         const int i_col_next  = -i_sin / i_aspect -i_cos*i_visible_pitch;
-        int i_line_orig0 = ( - i_cos * i_line_center / i_aspec
+        int i_line_orig0 = ( - i_cos * i_line_center / i_aspect
                              - i_sin * i_col_center + (1<<11) );
-        int i_col_orig0 =    i_sin * i_line_center / i_aspec
+        int i_col_orig0 =    i_sin * i_line_center / i_aspect
                            - i_cos * i_col_center + (1<<11);
         for( int y = 0; y < i_visible_lines; y++)
         {
@@ -223,8 +223,8 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
                     && -1 <= i_col_orig  && i_col_orig  < i_visible_pitch )
                 {
                 #define test 1
-                #undef tes
-                #ifdef tes
+                #undef test
+                #ifdef test
                     if( ( i_col_orig > i_visible_pitch/2 ) )
                 #endif
                     {
@@ -261,14 +261,14 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
                             i_col_percent * (256 - i_line_percent );
                         *p_out = temp >> 16;
                     }
-                #ifdef tes
+                #ifdef test
                     else if (i_col_orig == i_visible_pitch/2 )
                     {   *p_out = black_pixel;
                     }
                     else
                         *p_out = *p_orig_offset;
                 #endif
-                #undef tes
+                #undef test
                 }
                 else
                 {

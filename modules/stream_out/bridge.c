@@ -148,7 +148,7 @@ static sout_stream_id_t *AddIn ( sout_stream_t *, es_format_t * );
 static int               DelIn ( sout_stream_t *, sout_stream_id_t * );
 static int               SendIn( sout_stream_t *, sout_stream_id_t *, block_t * );
 
-typedef struct bridged_es_
+typedef struct bridged_es_t
 {
     es_format_t fmt;
     block_t *p_block;
@@ -161,7 +161,7 @@ typedef struct bridged_es_
     bool b_changed;
 } bridged_es_t;
 
-typedef struct bridge_
+typedef struct bridge_t
 {
     bridged_es_t **pp_es;
     int i_es_num;
@@ -170,10 +170,10 @@ typedef struct bridge_
 static vlc_mutex_t lock = VLC_STATIC_MUTEX;
 
 /*
- * Bridge ou
+ * Bridge out
  */
 
-typedef struct out_sout_stream_sys_
+typedef struct out_sout_stream_sys_t
 {
     bridged_es_t *p_es;
     int i_id;
@@ -357,7 +357,7 @@ static int SendOut( sout_stream_t *p_stream, sout_stream_id_t *id,
  * Bridge in
  */
 
-typedef struct in_sout_stream_sys_
+typedef struct in_sout_stream_sys_t
 {
     int i_id_offset;
     mtime_t i_delay;
@@ -456,7 +456,7 @@ static void CloseIn( vlc_object_t * p_this )
     free( p_sys );
 }
 
-struct sout_stream_id_
+struct sout_stream_id_t
 {
     sout_stream_id_t *id;
     int i_cat; /* es category. Used for placeholder option */

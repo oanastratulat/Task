@@ -3,9 +3,9 @@
  * @brief List of multimedia devices for VLC media player
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmon
+ * Copyright © 2009 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -118,7 +118,7 @@ struct subsys
     int item_type;
 };
 
-struct services_discovery_sys_
+struct services_discovery_sys_t
 {
     const struct subsys *subsys;
     struct udev_monitor *monitor;
@@ -256,7 +256,7 @@ static int Open (vlc_object_t *obj, const struct subsys *subsys)
     }
 
     udev_monitor_enable_receiving (mon);
-    /* Note that we enumerate _after_ monitoring is enabled so that we do no
+    /* Note that we enumerate _after_ monitoring is enabled so that we do not
      * loose device events occuring while we are enumerating. We could still
      * loose events if the Netlink socket receive buffer overflows. */
     udev_enumerate_scan_devices (devenum);

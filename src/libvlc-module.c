@@ -9,7 +9,7 @@
  *          Gildas Bazin <gbazin@videolan.org>
  *          Jean-Paul Saman <jpsaman #_at_# m2x.nl>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -618,7 +618,7 @@ static const char *const ppsz_pos_descriptions[] =
     "This enables handling of mouse clicks on the video." )
 
 /*****************************************************************************
- * Inpu
+ * Input
  ****************************************************************************/
 
 // Deprecated
@@ -703,7 +703,7 @@ static const char *const ppsz_clock_descriptions[] =
     "Only use this option if you want to read a multi-program stream " \
     "(like DVB streams for example)." )
 
-/// \todo Document how to find i
+/// \todo Document how to find it
 #define INPUT_AUDIOTRACK_TEXT N_("Audio track")
 #define INPUT_AUDIOTRACK_LONGTEXT N_( \
     "Stream number of the audio track to use " \
@@ -724,7 +724,7 @@ static const char *const ppsz_clock_descriptions[] =
     "Language of the subtitle track you want to use " \
     "(comma separated, two or three letters country code, you may use 'any' as a fallback).")
 
-/// \todo Document how to find i
+/// \todo Document how to find it
 #define INPUT_AUDIOTRACK_ID_TEXT N_("Audio track ID")
 #define INPUT_AUDIOTRACK_ID_LONGTEXT N_( \
     "Stream ID of the audio track to use.")
@@ -1024,7 +1024,7 @@ static const char *const ppsz_prefres[] = {
     "priority.")
 
 /*****************************************************************************
- * Sou
+ * Sout
  ****************************************************************************/
 
 // DEPRECATED
@@ -1237,7 +1237,7 @@ static const char *const ppsz_prefres[] = {
     "and keep playing current item.")
 
 /*****************************************************************************
- * Playlis
+ * Playlist
  ****************************************************************************/
 
 // DEPRECATED

@@ -2,7 +2,7 @@
  * rtsp.c: minimalistic implementation of rtsp protocol.
  *         Not RFC 2326 compilant yet and only handle REAL RTSP.
  *****************************************************************************
- * Copyright (C) 2002-2004 the xine projec
+ * Copyright (C) 2002-2004 the xine project
  * Copyright (C) 2005 VideoLAN
  * $Id: 7b1e606df0d1d9363bd9757e616027f269d7c2fe $
  *
@@ -85,7 +85,7 @@ const char rtsp_protocol_version[]="RTSP/1.0";
  * rtsp_get gets a line from stream
  * and returns a null terminated string (must be freed).
  */
-
+ 
 static char *rtsp_get( rtsp_client_t *rtsp )
 {
   char *psz_buffer = malloc( BUF_SIZE );
@@ -152,7 +152,7 @@ static int rtsp_get_status_code( rtsp_client_t *rtsp, const char *psz_string )
 }
 
 /*
- * send a reques
+ * send a request
  */
 
 static int rtsp_send_request( rtsp_client_t *rtsp, const char *psz_type,
@@ -572,7 +572,7 @@ void rtsp_close( rtsp_client_t *rtsp )
 }
 
 /*
- * search in answers for tags. returns a pointer to the conten
+ * search in answers for tags. returns a pointer to the content
  * after the first matched tag. returns NULL if no match found.
  */
 
@@ -600,7 +600,7 @@ char *rtsp_search_answers( rtsp_client_t *rtsp, const char *tag )
 }
 
 /*
- * session id managemen
+ * session id management
  */
 
 void rtsp_set_session( rtsp_client_t *rtsp, const char *id )

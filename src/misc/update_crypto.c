@@ -6,7 +6,7 @@
  *
  * Authors: Rafaël Carré <funman@videolanorg>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either release 2 of the License, or
  * (at your option) any later release.
@@ -23,7 +23,7 @@
 
 /**
  *   \file
- *   This file contains functions related to OpenPGP in VLC update managemen
+ *   This file contains functions related to OpenPGP in VLC update management
  */
 
 /*****************************************************************************
@@ -158,7 +158,7 @@ static size_t parse_signature_v3_packet( signature_packet_t *p_sig,
 
 /*
  * fill a signature_packet_v4_t from signature packet data
- * verify that it was used with a DSA public key, using SHA-1 diges
+ * verify that it was used with a DSA public key, using SHA-1 digest
  */
 static size_t parse_signature_v4_packet( signature_packet_t *p_sig,
                                       uint8_t *p_buf, size_t i_sig_len )
@@ -351,7 +351,7 @@ static long crc_octets( uint8_t *octets, size_t len )
 
 
 /*
- * Transform an armored document in binary forma
+ * Transform an armored document in binary format
  * Used on public keys and signatures
  */
 static int pgp_unarmor( char *p_ibuf, size_t i_ibuf_len,
@@ -481,9 +481,9 @@ problem:
 
 /*
  * fill a public_key_t with public key data, including:
- *   * public key packe
+ *   * public key packet
  *   * signature packet issued by key which long id is p_sig_issuer
- *   * user id packe
+ *   * user id packet
  */
 int parse_public_key( const uint8_t *p_key_data, size_t i_key_len,
                       public_key_t *p_key, const uint8_t *p_sig_issuer )
@@ -667,7 +667,7 @@ static uint8_t *hash_finish( gcry_md_hd_t hd, signature_packet_t *p_sig )
 
 
 /*
- * return a sha1 hash of a tex
+ * return a sha1 hash of a text
  */
 uint8_t *hash_sha1_from_text( const char *psz_string,
         signature_packet_t *p_sig )
@@ -793,7 +793,7 @@ uint8_t *hash_sha1_from_public_key( public_key_t *p_pkey )
 
 
 /*
- * download a public key (the last one) from videolan server, and parse i
+ * download a public key (the last one) from videolan server, and parse it
  */
 public_key_t *download_key( vlc_object_t *p_this,
                     const uint8_t *p_longid, const uint8_t *p_signature_issuer )

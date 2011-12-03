@@ -1,12 +1,12 @@
 /*****************************************************************************
- * display.c: "vout display" managmen
+ * display.c: "vout display" managment
  *****************************************************************************
  * Copyright (C) 2009 Laurent Aimar
  * $Id: 50599d0db1783e62a3592ba99424a84a3457da1c $
  *
  * Authors: Laurent Aimar <fenrir _AT_ videolan _DOT_ org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -140,7 +140,7 @@ static vout_display_t *vout_display_New(vlc_object_t *obj,
 }
 
 /**
- * It deletes a vout_display_
+ * It deletes a vout_display_t
  */
 static void vout_display_Delete(vout_display_t *vd)
 {
@@ -151,7 +151,7 @@ static void vout_display_Delete(vout_display_t *vd)
 }
 
 /**
- * It controls a vout_display_
+ * It controls a vout_display_t
  */
 static int vout_display_Control(vout_display_t *vd, int query, ...)
 {
@@ -1609,7 +1609,7 @@ vout_display_t *vout_NewSplitter(vout_thread_t *vout,
 }
 
 /*****************************************************************************
- * TODO move ou
+ * TODO move out
  *****************************************************************************/
 #include "vout_internal.h"
 void vout_SendDisplayEventMouse(vout_thread_t *vout, const vlc_mouse_t *m)

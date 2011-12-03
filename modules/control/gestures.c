@@ -43,7 +43,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of interface
  *****************************************************************************/
-struct intf_sys_
+struct intf_sys_t
 {
     vlc_mutex_t         lock;
     vout_thread_t      *p_vout;
@@ -250,7 +250,7 @@ static void RunIntf( intf_thread_t *p_intf )
             case GESTURE(RIGHT,LEFT,NONE,NONE):
                 msg_Dbg( p_intf, "Play/Pause" );
                 p_input = playlist_CurrentInput( p_playlist );
-
+ 
                 if( p_input )
                 {
                     int i_state = var_GetInteger( p_input, "state" );
@@ -393,7 +393,7 @@ static void RunIntf( intf_thread_t *p_intf )
         }
 
         /*
-         * video outpu
+         * video output
          */
         if( p_sys->p_vout && !vlc_object_alive( p_sys->p_vout ) )
         {

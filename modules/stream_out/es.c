@@ -123,7 +123,7 @@ static sout_stream_id_t *Add ( sout_stream_t *, es_format_t * );
 static int               Del ( sout_stream_t *, sout_stream_id_t * );
 static int               Send( sout_stream_t *, sout_stream_id_t *, block_t* );
 
-struct sout_stream_sys_
+struct sout_stream_sys_t
 {
     int  i_count_audio;
     int  i_count_video;
@@ -202,7 +202,7 @@ static void Close( vlc_object_t * p_this )
     free( p_sys );
 }
 
-struct sout_stream_id_
+struct sout_stream_id_t
 {
     sout_input_t *p_input;
     sout_mux_t   *p_mux;

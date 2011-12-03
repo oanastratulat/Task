@@ -6,7 +6,7 @@
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -303,7 +303,7 @@ int config_CreateDir( vlc_object_t *p_this, const char *psz_dirname )
     return -1;
 }
 
-static in
+static int
 config_Write (FILE *file, const char *desc, const char *type,
               bool comment, const char *name, const char *fmt, ...)
 {
@@ -346,7 +346,7 @@ static int config_PrepareDir (vlc_object_t *obj)
  * It's no use to save the config options that kept their default values, so
  * we'll try to be a bit clever here.
  *
- * When we save we mustn't delete the config options of the modules tha
+ * When we save we mustn't delete the config options of the modules that
  * haven't been loaded. So we cannot just create a new config file with the
  * config structures we've got in memory.
  * I don't really know how to deal with this nicely, so I will use a completly

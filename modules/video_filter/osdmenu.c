@@ -150,7 +150,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     int          i_position;    /* relative positioning of SPU images */
     int          i_x;           /* absolute positioning of SPU images */

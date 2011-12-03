@@ -6,7 +6,7 @@
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -51,7 +51,7 @@ static vlc_mutex_t sap_mutex = VLC_STATIC_MUTEX;
 /**
  *  Registers a new session with the announce handler, using a pregenerated SDP
  *
- * \param obj a VLC objec
+ * \param obj a VLC object
  * \param psz_sdp the SDP to register
  * \param psz_dst session address (needed for SAP address auto detection)
  * \return the new session descriptor structure
@@ -105,7 +105,7 @@ error:
 /**
  *  Unregisters an existing session
  *
- * \param obj a VLC objec
+ * \param obj a VLC object
  * \param p_session the session descriptor
  * \return VLC_SUCCESS or an error
  */

@@ -66,7 +66,7 @@ static int CountTracks( uint64_t const, uint64_t const, void const * const );
  * Local structures
  *****************************************************************************/
 
-struct services_discovery_sys_
+struct services_discovery_sys_t
 {
     int i_tracks_num;
     input_item_t **pp_items;

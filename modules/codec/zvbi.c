@@ -110,7 +110,7 @@ static const int pi_default_triplet[] = {
  48,48,          //gre ell
  64,             //ara
  88,             //heb
- 16 };           //defaul
+ 16 };           //default
 static const char *const ppsz_default_triplet[] = {
  "slo", "cze",
  "pol",
@@ -147,7 +147,7 @@ typedef enum {
     DATA_UNIT_STUFFING                      = 0xFF,
 } data_unit_id;
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     vbi_decoder *     p_vbi_dec;
     vbi_dvb_demux *   p_dvb_demux;
@@ -222,9 +222,9 @@ static int Open( vlc_object_t *p_this )
         return VLC_ENOMEM;
     }
 
-    /* Some broadcasters in countries with level 1 and level 1.5 still not send a G0 to do
+    /* Some broadcasters in countries with level 1 and level 1.5 still not send a G0 to do 
      * matches against table 32 of ETSI 300 706. We try to do some best effort guessing
-     * This is not perfect, but might handle some cases where we know the vbi language
+     * This is not perfect, but might handle some cases where we know the vbi language 
      * is known. It would be better if people started sending G0 */
     for( int i = 0; ppsz_default_triplet[i] != NULL; i++ )
     {
@@ -572,7 +572,7 @@ static int OpaquePage( picture_t *p_src, const vbi_page p_page,
                 *p_pixel = 0;
                 break;
             /* Display foreground and background color */
-            /* To make the boxed text "closed captioning" transparen
+            /* To make the boxed text "closed captioning" transparent
              * change true to false.
              */
             case VBI_OPAQUE:

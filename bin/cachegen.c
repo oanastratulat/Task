@@ -1,7 +1,7 @@
 /*****************************************************************************
  * cachegen.c: LibVLC plugins cache generator
  *****************************************************************************
- * Copyright (C) 2010 Rémi Denis-Courmon
+ * Copyright (C) 2010 Rémi Denis-Courmont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

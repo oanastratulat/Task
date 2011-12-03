@@ -1,5 +1,5 @@
 /*****************************************************************************
- * ram.c : RAM playlist format impor
+ * ram.c : RAM playlist format import
  *****************************************************************************
  * Copyright (C) 2009 the VideoLAN team
  * $Id: 0ed37722f72ac03b189db8e4c0df9bb759f92c95 $
@@ -54,7 +54,7 @@ http://service.real.com/help/library/guides/realone/IntroGuide/HTML/htmfiles/ram
 
 #include "playlist.h"
 
-struct demux_sys_
+struct demux_sys_t
 {
     char *psz_prefix;
 };
@@ -70,7 +70,7 @@ static void ParseClipInfo( const char * psz_clipinfo, char **ppsz_artist, char *
 
 /**
  * Import_RAM: main import function
- * @param p_this: this demux objec
+ * @param p_this: this demux object
  * @return VLC_SUCCESS if everything is okay
  */
 int Import_RAM( vlc_object_t *p_this )
@@ -89,7 +89,7 @@ int Import_RAM( vlc_object_t *p_this )
 
 /**
  * Frees up memory on module close
- * @param p_this: this demux objec
+ * @param p_this: this demux object
  */
 void Close_RAM( vlc_object_t *p_this )
 {
@@ -199,7 +199,7 @@ static int ParseTime( const char *s, size_t i_strlen)
 
 /**
  * Main demux callback function
- * @param p_demux: this demux objec
+ * @param p_demux: this demux object
  */
 static int Demux( demux_t *p_demux )
 {
@@ -378,7 +378,7 @@ static int Demux( demux_t *p_demux )
 }
 
 /**
- * @param p_demux: This objec
+ * @param p_demux: This object
  * @param i_query:
  * @param args: List of arguments
  */

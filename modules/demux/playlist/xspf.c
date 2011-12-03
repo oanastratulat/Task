@@ -59,7 +59,7 @@ static bool set_option SIMPLE_INTERFACE;
 static bool skip_element COMPLEX_INTERFACE;
 
 /* datatypes */
-typedef struc
+typedef struct
 {
     const char *name;
     union
@@ -69,7 +69,7 @@ typedef struc
     } pf_handler;
     bool cmplx;
 } xml_elem_hnd_t;
-struct demux_sys_
+struct demux_sys_t
 {
     input_item_t **pp_tracklist;
     int i_tracklist_entries;
@@ -176,7 +176,7 @@ static const xml_elem_hnd_t *get_handler(const xml_elem_hnd_t *tab, size_t n, co
 #define get_handler(tab, name) get_handler(tab, sizeof tab, name)
 
 /**
- * \brief parse the root node of a XSPF playlis
+ * \brief parse the root node of a XSPF playlist
  * \param p_demux demuxer instance
  * \param p_input_item current input item
  * \param p_xml_reader xml reader instance
@@ -345,7 +345,7 @@ static bool parse_tracklist_node COMPLEX_INTERFACE
 }
 
 /**
- * \brief parse one track elemen
+ * \brief parse one track element
  * \param COMPLEX_INTERFACE
  */
 static bool parse_track_node COMPLEX_INTERFACE
@@ -576,7 +576,7 @@ static bool set_option SIMPLE_INTERFACE
 }
 
 /**
- * \brief parse the extension node of a XSPF playlis
+ * \brief parse the extension node of a XSPF playlist
  */
 static bool parse_extension_node COMPLEX_INTERFACE
 {
@@ -762,7 +762,7 @@ static bool parse_extension_node COMPLEX_INTERFACE
 }
 
 /**
- * \brief parse the extension item node of a XSPF playlis
+ * \brief parse the extension item node of a XSPF playlist
  */
 static bool parse_extitem_node COMPLEX_INTERFACE
 {

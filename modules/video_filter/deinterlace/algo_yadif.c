@@ -184,7 +184,7 @@ int RenderYadif( filter_t *p_filter, picture_t *p_dst, picture_t *p_src,
     }
     else if( !p_prev && !p_cur && p_next )
     {
-        /* NOTE: For the first frame, we use the default frame offse
+        /* NOTE: For the first frame, we use the default frame offset
                  as set by Open() or SetFilterMethod(). It is always 0. */
 
         /* FIXME not good as it does not use i_order/i_field */

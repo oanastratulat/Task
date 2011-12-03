@@ -87,7 +87,7 @@ typedef enum  {
 # define dbg_print( s, args...)
 #endif
 
-struct decoder_sys_
+struct decoder_sys_t
 {
   packet_state_t i_state; /* data-gathering state for this subtitle */
 
@@ -266,7 +266,7 @@ static block_t *Reassemble( decoder_t *p_dec, block_t *p_block )
         i_expected_packet = p_sys->i_packet + 1;
     }
 
-    /* The dummy ES that the menu selection uses has an 0x70 a
+    /* The dummy ES that the menu selection uses has an 0x70 at
        the head which we need to strip off. */
     p_buffer += 2;
 
@@ -326,14 +326,14 @@ static block_t *Reassemble( decoder_t *p_dec, block_t *p_block )
 
 /******************************************************************************
   The format is roughly as follows (everything is big-endian):
-
+ 
    size     description
    -------------------------------------------
    byte     subtitle channel (0..7) in bits 0-3
    byte     subtitle packet number of this subtitle image 0-N,
             if the subtitle packet is complete, the top bit of the byte is 1.
    u_int16  subtitle image number
-   u_int16  length in bytes of the res
+   u_int16  length in bytes of the rest
    byte     option flags, unknown meaning except bit 3 (0x08) indicates
             presence of the duration field
    byte     unknown
@@ -344,9 +344,9 @@ static block_t *Reassemble( decoder_t *p_dec, block_t *p_block )
    u_int32  width (must be even)
    u_int32  height (must be even)
    byte[16] palette, 4 palette entries, each contains values for
-            Y, U, V and transparency, 0 standing for transparen
+            Y, U, V and transparency, 0 standing for transparent
    byte     command,
-            cmd>>6==1 indicates shif
+            cmd>>6==1 indicates shift
             (cmd>>4)&3 is direction from, (0=top,1=left,2=right,3=bottom)
    u_int32  shift duration in 1/90000ths of a second
    u_int16  offset of odd-numbered scanlines - subtitle images are
@@ -411,7 +411,7 @@ static void ParseHeader( decoder_t *p_dec, block_t *p_block )
 }
 
 /*****************************************************************************
- * DecodePacket: parse and decode an subtitle packe
+ * DecodePacket: parse and decode an subtitle packet
  *****************************************************************************
  * This function parses and decodes an SPU packet and, if valid, returns a
  * subpicture.
@@ -485,12 +485,12 @@ static subpicture_t *DecodePacket( decoder_t *p_dec, block_t *p_data )
  The image is encoded using two bits per pixel that select a palette
  entry except that value 0 starts a limited run-length encoding for
  color 0.  When 0 is seen, the next two bits encode one less than the
- number of pixels, so we can encode run lengths from 1 to 4. These ge
+ number of pixels, so we can encode run lengths from 1 to 4. These get
  filled with the color in palette entry 0.
 
  The encoding of each line is padded to a whole number of bytes.  The
  first field is padded to an even byte length and the complete subtitle
- is padded to a 4-byte multiple that always include one zero byte a
+ is padded to a 4-byte multiple that always include one zero byte at
  the end.
 
  However we'll transform this so that that the RLE is expanded and

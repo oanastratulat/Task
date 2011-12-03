@@ -773,7 +773,7 @@ static int OpenVCDImage( vlc_object_t * p_this, const char *psz_dev,
     msg_Dbg( p_this,"guessing vcd image file: %s", psz_vcdfile );
     p_vcddev->i_vcdimage_handle = vlc_open( psz_vcdfile,
                                     O_RDONLY | O_NONBLOCK | O_BINARY );
-
+ 
     while( fgets( line, 1024, cuefile ) && !b_found )
     {
         /* We have a cue file, but no valid vcd file yet */
@@ -812,7 +812,7 @@ static int OpenVCDImage( vlc_object_t * p_this, const char *psz_dev,
     if( p_vcddev->i_vcdimage_handle == -1)
         goto error;
 
-    /* Try to parse the i_tracks and p_sectors info so we can just forge
+    /* Try to parse the i_tracks and p_sectors info so we can just forget
      * about the cuefile */
     size_t i_tracks = 0;
 
@@ -1113,7 +1113,7 @@ static int CdTextParse( vlc_meta_t ***ppp_tracks, int *pi_tracks,
         //const int i_sequence_number = p_block[2];
         //const int i_charater_position = (p_block[3] >> 0) &0x0f;
         //const int i_block_number = (p_block[3] >> 4) &0x07;
-        /* TODO unicode suppor
+        /* TODO unicode support
          * I need a sample */
         //const int i_unicode = ( p_block[3] >> 7)&0x01;
         //const int i_crc = (p_block[4+12] << 8) | (p_block[4+13] << 0);

@@ -53,7 +53,7 @@
 /*****************************************************************************
  * intf_sys_t: description and status of interface
  *****************************************************************************/
-struct intf_sys_
+struct intf_sys_t
 {
     enum { NO_SENSOR, HDAPS_SENSOR, AMS_SENSOR, APPLESMC_SENSOR,
            UNIMOTION_SENSOR } sensor;

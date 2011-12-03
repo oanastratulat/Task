@@ -53,29 +53,29 @@ extern CGError CGSGetCurrentCursorLocation( CGSConnectionRef, CGPoint * );
 
 #import "screen.h"
 
-struct screen_data_
+struct screen_data_t
 {
   CGLContextObj screen;
-
+  
   CGLContextObj scaled;
   char *scaled_image;
-
+  
   GLuint texture;
   char *texture_image;
-
+  
   GLuint cursor_texture;
-
+  
   int left;
   int top;
   int src_width;
   int src_height;
-
+  
   int dest_width;
   int dest_height;
-
+  
   int screen_width;
   int screen_height;
-
+  
   CGSConnectionRef connection;
 };
 
@@ -218,7 +218,7 @@ block_t *screen_Capture( demux_t *p_demux )
     block_t *p_block;
     int i_size;
 
-    i_size = p_sys->fmt.video.i_height * p_sys->fmt.video.i_width * 4;
+    i_size = p_sys->fmt.video.i_height * p_sys->fmt.video.i_width * 4; 
 
     if( !( p_block = block_New( p_demux, i_size ) ) )
     {
@@ -232,7 +232,7 @@ block_t *screen_Capture( demux_t *p_demux )
     cursor_pos.x = 0;
     cursor_pos.y = 0;
 
-    cursor_resul
+    cursor_result
       = CGSGetCurrentCursorLocation( p_data->connection, &cursor_pos );
 
     if( p_sys->b_follow_mouse
@@ -307,7 +307,7 @@ block_t *screen_Capture( demux_t *p_demux )
               = 2.0 * cursor_rect.origin.y / p_data->src_height - 1.0;
             cursor_rect.size.width
               = 2.0 * cursor_rect.size.width / p_data->src_width;
-            cursor_rect.size.heigh
+            cursor_rect.size.height
               = 2.0 * cursor_rect.size.height / p_data->src_height;
 
             glColor3f( 1.0f, 1.0f, 1.0f );
@@ -335,7 +335,7 @@ block_t *screen_Capture( demux_t *p_demux )
         free( cursor_image );
     }
 
-    glReadPixels( 0, 0,
+    glReadPixels( 0, 0, 
                   p_data->dest_width,
                   p_data->dest_height,
                   GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,

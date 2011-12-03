@@ -3,14 +3,14 @@
  * Functions are prototyped in vlc_mtime.h.
  *****************************************************************************
  * Copyright (C) 1998-2007 VLC authors and VideoLAN
- * Copyright © 2006-2007 Rémi Denis-Courmon
+ * Copyright © 2006-2007 Rémi Denis-Courmont
  * $Id: dd95a61a665aec6e71ee8129cc973d8d0a58558b $
  *
  * Authors: Vincent Seguin <seguin@via.ecp.fr>
  *          Rémi Denis-Courmont <rem$videolan,org>
  *          Gisle Vanem
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -49,7 +49,7 @@
 #endif
 
 /**
- * Return a date in a readable forma
+ * Return a date in a readable format
  *
  * This function converts a mtime date into a string.
  * psz_buffer should be a buffer long enough to store the formatted
@@ -144,7 +144,7 @@ void date_Change( date_t *p_date, uint32_t i_divider_n, uint32_t i_divider_d )
 /**
  * Set the date value of a date_t.
  *
- * \param date to se
+ * \param date to set
  * \param date value
  */
 void date_Set( date_t *p_date, mtime_t i_new_date )
@@ -154,9 +154,9 @@ void date_Set( date_t *p_date, mtime_t i_new_date )
 }
 
 /**
- * Get the date of a date_
+ * Get the date of a date_t
  *
- * \param date to ge
+ * \param date to get
  * \return date value
  */
 mtime_t date_Get( const date_t *p_date )
@@ -176,10 +176,10 @@ void date_Move( date_t *p_date, mtime_t i_difference )
 }
 
 /**
- * Increment the date and return the result, taking into accoun
+ * Increment the date and return the result, taking into account
  * rounding errors.
  *
- * \param date to incremen
+ * \param date to increment
  * \param incrementation in number of samples
  * \return date value
  */
@@ -203,10 +203,10 @@ mtime_t date_Increment( date_t *p_date, uint32_t i_nb_samples )
 }
 
 /**
- * Decrement the date and return the result, taking into accoun
+ * Decrement the date and return the result, taking into account
  * rounding errors.
  *
- * \param date to decremen
+ * \param date to decrement
  * \param decrementation in number of samples
  * \return date value
  */
@@ -240,7 +240,7 @@ uint64_t NTPtime64 (void)
     clock_gettime (CLOCK_REALTIME, &ts);
 #else
     struct timeval tv;
-    struc
+    struct
     {
         uint32_t tv_sec;
         uint32_t tv_nsec;

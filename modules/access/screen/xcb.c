@@ -3,9 +3,9 @@
  * @brief X11 C Bindings screen capture demux module for VLC media player
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmon
+ * Copyright © 2009 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -96,7 +96,7 @@ static int Control (demux_t *, int, va_list);
 static es_out_id_t *InitES (demux_t *, uint_fast16_t, uint_fast16_t,
                             uint_fast8_t);
 
-struct demux_sys_
+struct demux_sys_t
 {
     /* All owned by timer thread while timer is armed: */
     xcb_connection_t *conn;

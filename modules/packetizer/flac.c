@@ -56,7 +56,7 @@ vlc_module_end()
  * decoder_sys_t : FLAC decoder descriptor
  *****************************************************************************/
 #define MAX_FLAC_HEADER_SIZE 16
-struct decoder_sys_
+struct decoder_sys_t
 {
     /*
      * Input properties
@@ -68,7 +68,7 @@ struct decoder_sys_
     /*
      * FLAC properties
      */
-    struc
+    struct
     {
         unsigned min_blocksize, max_blocksize;
         unsigned min_framesize, max_framesize;
@@ -329,7 +329,7 @@ static block_t *Packetize( decoder_t *p_dec, block_t **pp_block )
         case STATE_SEND_DATA:
             p_sout_block = block_New( p_dec, p_sys->i_frame_size );
 
-            /* Copy the whole frame into the buffer. When we reach this poin
+            /* Copy the whole frame into the buffer. When we reach this point
              * we already know we have enough data available. */
             block_GetBytes( &p_sys->bytestream, p_sout_block->p_buffer,
                             p_sys->i_frame_size );

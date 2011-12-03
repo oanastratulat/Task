@@ -1,7 +1,7 @@
 /*****************************************************************************
  * xa.c : xa file demux module for vlc
  *****************************************************************************
- * Copyright (C) 2005 Rémi Denis-Courmon
+ * Copyright (C) 2005 Rémi Denis-Courmont
  * $Id: 3e25547da972e615efd429f0962a5419f0fcf896 $
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
@@ -53,7 +53,7 @@ vlc_module_end ()
 static int Demux  ( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-struct demux_sys_
+struct demux_sys_t
 {
     es_format_t     fmt;
     es_out_id_t     *p_es;
@@ -65,7 +65,7 @@ struct demux_sys_
     date_t          pts;
 };
 
-typedef struct xa_header_
+typedef struct xa_header_t
 {
     char     xa_id[4];
     uint32_t iSize;
@@ -205,7 +205,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
     demux_sys_t *p_sys  = p_demux->p_sys;
 
     return demux_vaControlHelper( p_demux->s, p_sys->i_data_offset,
-                                   p_sys->i_data_size ? p_sys->i_data_offse
+                                   p_sys->i_data_size ? p_sys->i_data_offset
                                    + p_sys->i_data_size : -1,
                                    p_sys->fmt.i_bitrate,
                                    p_sys->fmt.audio.i_blockalign,

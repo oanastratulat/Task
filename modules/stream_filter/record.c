@@ -54,7 +54,7 @@ vlc_module_end()
 /*****************************************************************************
  *
  *****************************************************************************/
-struct stream_sys_
+struct stream_sys_t
 {
     FILE *f;        /* TODO it could be replaced by access_output_t one day */
     bool b_error;

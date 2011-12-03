@@ -27,7 +27,7 @@ typedef struct lua_State lua_State;
 #include "extension.h"
 #include "assert.h"
 
-struct thread_sys_
+struct thread_sys_t
 {
     extensions_manager_t *p_mgr;
     extension_t *p_ext;
@@ -85,7 +85,7 @@ int Activate( extensions_manager_t *p_mgr, extension_t *p_ext )
     return VLC_SUCCESS;
 }
 
-/** Look for an extension in the activated extensions lis
+/** Look for an extension in the activated extensions list
  * @todo FIXME Should be entered with the lock held
  **/
 bool IsActivated( extensions_manager_t *p_mgr, extension_t *p_ext )
@@ -425,7 +425,7 @@ static void* Run( void *data )
         {
             cmd = p_ext->p_sys->command;
             p_ext->p_sys->command = cmd->next;
-            cmd->next = NULL; // This prevents FreeCommands from freeing nex
+            cmd->next = NULL; // This prevents FreeCommands from freeing next
             FreeCommands( cmd );
         }
 

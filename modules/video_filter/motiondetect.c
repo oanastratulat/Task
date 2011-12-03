@@ -67,7 +67,7 @@ static int FindShapes( uint32_t *, uint32_t *, int, int, int,
 static void Draw( filter_t *p_filter, uint8_t *p_pix, int i_pix_pitch, int i_pix_size );
 #define NUM_COLORS (5000)
 
-struct filter_sys_
+struct filter_sys_t
 {
     bool b_old;
     picture_t *p_old;
@@ -260,7 +260,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_inpic )
 
     /**
      * We're done. Lets keep a copy of the picture
-     * TODO we may just picture_Release with a latency of 1 if the filters/vou
+     * TODO we may just picture_Release with a latency of 1 if the filters/vout
      * handle it correctly */
     picture_Copy( p_sys->p_old, p_inpic );
 
@@ -344,7 +344,7 @@ static picture_t *FilterPacked( filter_t *p_filter, picture_t *p_inpic )
 
     /**
      * We're done. Lets keep a copy of the picture
-     * TODO we may just picture_Release with a latency of 1 if the filters/vou
+     * TODO we may just picture_Release with a latency of 1 if the filters/vout
      * handle it correctly */
     picture_Copy( p_sys->p_old, p_inpic );
 
@@ -432,7 +432,7 @@ static int FindShapes( uint32_t *p_diff, uint32_t *p_smooth,
     GaussianConvolution( p_diff, p_smooth, i_pitch, i_lines, i_visible );
 
     /**
-     * Label the shapes and build the labels dependencies lis
+     * Label the shapes and build the labels dependencies list
      */
     for( j = 0; j < i_pitch; j++ )
     {
@@ -486,7 +486,7 @@ static int FindShapes( uint32_t *p_diff, uint32_t *p_smooth,
     }
 
     /**
-     * Initialise empty rectangle lis
+     * Initialise empty rectangle list
      */
     for( i = 1; i < last; i++ )
     {

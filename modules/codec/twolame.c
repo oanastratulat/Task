@@ -96,7 +96,7 @@ static const char *const ppsz_enc_options[] = {
 /*****************************************************************************
  * encoder_sys_t : twolame encoder descriptor
  *****************************************************************************/
-struct encoder_sys_
+struct encoder_sys_t
 {
     /*
      * Input properties

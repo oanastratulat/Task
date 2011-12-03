@@ -4,7 +4,7 @@
  * Copyright (C) 1987-1997 Free Software Foundation, Inc.
  * Copyright (C) 2005-2010 VLC authors and VideoLAN
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -97,7 +97,7 @@ static void exchange(char **argv, vlc_getopt_t *restrict state)
    given in OPTSTRING.
 
    If an element of ARGV starts with '-', and is not exactly "-" or "--",
-   then it is an option element.  The characters of this elemen
+   then it is an option element.  The characters of this element
    (aside from the initial '-') are option characters.  If `getopt'
    is called repeatedly, it returns successively each of the option characters
    from each of the option elements.
@@ -107,7 +107,7 @@ static void exchange(char **argv, vlc_getopt_t *restrict state)
    resume the scan with the following option character or ARGV-element.
 
    If there are no more option characters, `getopt' returns -1.
-   Then `optind' is the index in ARGV of the first ARGV-elemen
+   Then `optind' is the index in ARGV of the first ARGV-element
    that is not an option.  (The ARGV-elements have been permuted
    so that those that are not options now come last.)
 
@@ -140,7 +140,7 @@ static void exchange(char **argv, vlc_getopt_t *restrict state)
    element containing a name which is zero.
 
    LONGIND returns the index in LONGOPT of the long-named option found.
-   It is only valid when a long-named option has been found by the mos
+   It is only valid when a long-named option has been found by the most
    recent call.  */
 
 int vlc_getopt_long(int argc, char *const *argv,
@@ -176,7 +176,7 @@ int vlc_getopt_long(int argc, char *const *argv,
         /* If we have just processed some options following some non-options,
            exchange them so that the options come first.  */
 
-        if (state->first_nonopt != state->last_nonop
+        if (state->first_nonopt != state->last_nonopt
             && state->last_nonopt != state->ind)
             exchange((char **) argv, state);
         else if (state->last_nonopt != state->ind)
@@ -198,7 +198,7 @@ int vlc_getopt_long(int argc, char *const *argv,
         {
             state->ind++;
 
-            if (state->first_nonopt != state->last_nonop
+            if (state->first_nonopt != state->last_nonopt
                 && state->last_nonopt != state->ind)
                 exchange((char **) argv, state);
             else if (state->first_nonopt == state->last_nonopt)

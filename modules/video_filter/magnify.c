@@ -1,5 +1,5 @@
 /*****************************************************************************
- * magnify.c : Magnify/Zoom interactive effec
+ * magnify.c : Magnify/Zoom interactive effect
  *****************************************************************************
  * Copyright (C) 2005-2009 the VideoLAN team
  * $Id: cb8e870b37c8b81b2cd62d9bca4dbd6f76ece5e7 $
@@ -67,7 +67,7 @@ static void DrawRectangle( uint8_t *, int i_pitch, int i_width, int i_height,
                            int x, int y, int i_w, int i_h );
 
 /* */
-struct filter_sys_
+struct filter_sys_t
 {
     image_handler_t *p_image;
 
@@ -147,7 +147,7 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
 {
@@ -280,7 +280,7 @@ static void DrawZoomStatus( uint8_t *pb_dst, int i_pitch, int i_width, int i_hei
         " X X  X     X         X   X   X X   X X   X   XXXXX   X   X   X XXXX L"
         " X X  X     X        X    X   X X   X X   X   X   X   X   X   X X    L"
         "  X   XXXXX  XXXX   XXXXX  XXX   XXX  X   X   X   X XXXXX XXXX  XXXXXL";
-    static const char *p_show =
+    static const char *p_show = 
         "X   X X      XXXX   XXXXX  XXX   XXX  XX XX    XXXX X   X  XXX  X   XL"
         "X   X X     X          X  X   X X   X X X X   X     X   X X   X X   XL"
         " X X  X     X         X   X   X X   X X   X    XXX  XXXXX X   X X X XL"

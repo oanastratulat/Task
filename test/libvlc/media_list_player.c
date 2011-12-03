@@ -1,5 +1,5 @@
 /*
- * media_list_player.c - libvlc smoke tes
+ * media_list_player.c - libvlc smoke test
  *
  * $Id: ab9af3bd6ca3ba11b814d2c30ed2e9e18c1bcd68 $
  */

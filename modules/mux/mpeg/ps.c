@@ -106,7 +106,7 @@ typedef struct ps_stream_s
 
 } ps_stream_t;
 
-struct sout_mux_sys_
+struct sout_mux_sys_t
 {
     /* Which id are unused */
     bool  stream_id_mpga[16]; /* 0xc0 -> 0xcf */
@@ -122,7 +122,7 @@ struct sout_mux_sys_
     int i_system_header;
     int i_dts_delay;
     int i_rate_bound; /* units of 50 bytes/second */
-
+ 
     int64_t i_instant_bitrate;
     int64_t i_instant_size;
     int64_t i_instant_dts;
@@ -261,7 +261,7 @@ static int AddStream( sout_mux_t *p_mux, sout_input_t *p_input )
 {
     sout_mux_sys_t  *p_sys = p_mux->p_sys;
     ps_stream_t *p_stream;
-
+ 
 
     msg_Dbg( p_mux, "adding input codec=%4.4s",
              (char*)&p_input->p_fmt->i_codec );
@@ -658,9 +658,9 @@ static void MuxWriteSystemHeader( sout_mux_t *p_mux, block_t **p_buf,
     bits_initwrite( &bits, 12 + i_nb_stream * 3, p_hdr->p_buffer );
     bits_write( &bits, 32, 0x01bb );
     bits_write( &bits, 16, 12 - 6 + i_nb_stream * 3 );
-    bits_write( &bits, 1,  1 ); // marker bi
+    bits_write( &bits, 1,  1 ); // marker bit
     bits_write( &bits, 22, i_rate_bound);
-    bits_write( &bits, 1,  1 ); // marker bi
+    bits_write( &bits, 1,  1 ); // marker bit
 
     bits_write( &bits, 6,  p_sys->i_audio_bound );
     bits_write( &bits, 1,  0 ); // fixed flag
@@ -668,7 +668,7 @@ static void MuxWriteSystemHeader( sout_mux_t *p_mux, block_t **p_buf,
     bits_write( &bits, 1,  0 ); // system audio lock flag
     bits_write( &bits, 1,  0 ); // system video lock flag
 
-    bits_write( &bits, 1,  1 ); // marker bi
+    bits_write( &bits, 1,  1 ); // marker bit
 
     bits_write( &bits, 5,  p_sys->i_video_bound );
     bits_write( &bits, 1,  1 ); // packet rate restriction flag (1 for mpeg1)
@@ -787,7 +787,7 @@ static void MuxWritePSM( sout_mux_t *p_mux, block_t **p_buf, mtime_t i_dts )
     {
         uint32_t i_crc = 0xffffffff;
         for( i = 0; (size_t)i < p_hdr->i_buffer; i++ )
-        i_crc = (i_crc << 8)
+        i_crc = (i_crc << 8) ^
             p_sys->crc32_table[((i_crc >> 24) ^ p_hdr->p_buffer[i]) & 0xff];
 
         bits_write( &bits, 32, i_crc );

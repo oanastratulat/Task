@@ -1,5 +1,5 @@
 /*****************************************************************************
- * pls.c : PLS playlist format impor
+ * pls.c : PLS playlist format import
  *****************************************************************************
  * Copyright (C) 2004 the VideoLAN team
  * $Id: f809ebe5048ffaa81caff179333bfecaa92ebc9c $
@@ -34,7 +34,7 @@
 
 #include "playlist.h"
 
-struct demux_sys_
+struct demux_sys_t
 {
     char *psz_prefix;
 };

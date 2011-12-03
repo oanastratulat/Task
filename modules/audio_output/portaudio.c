@@ -46,7 +46,7 @@
 /*****************************************************************************
  * aout_sys_t: portaudio audio output method descriptor
  *****************************************************************************/
-typedef struc
+typedef struct
 {
     audio_output_t *p_aout;
 
@@ -61,7 +61,7 @@ typedef struc
 
 } pa_thread_t;
 
-struct aout_sys_
+struct aout_sys_t
 {
     aout_packet_t packet;
     audio_output_t *p_aout;

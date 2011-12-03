@@ -79,7 +79,7 @@ vlc_module_end ()
 /**
    Describes a SVG string to be displayed on the video
 */
-struct svg_rendition_
+struct svg_rendition_t
 {
     int            i_width;
     int            i_height;
@@ -104,7 +104,7 @@ static void FreeString( svg_rendition_t * );
  * This structure is part of the filter thread descriptor.
  * It describes the svg specific properties of an output thread.
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     /* The SVG template used to convert strings */
     char          *psz_template;
@@ -178,7 +178,7 @@ static char *svg_GetTemplate( vlc_object_t *p_this )
 
             if( fstat( fileno( file ), &s ) )
             {
-                /* Problem accessing file information. Should no
+                /* Problem accessing file information. Should not
                    happen as we could open it. */
                 psz_template = NULL;
             }
@@ -310,7 +310,7 @@ static int Render( filter_t *p_filter, subpicture_region_t *p_region,
       p_pixbuf->get_rowstride() is the number of bytes in a line.
       p_pixbuf->get_height() is the number of lines.
 
-      The number of bytes of p_pixbuf->p_pixels is get_rowstride * get_heigh
+      The number of bytes of p_pixbuf->p_pixels is get_rowstride * get_height
 
       if( has_alpha() ) {
       alpha = pixels [ n_channels * ( y*rowstride + x ) + 3 ];
@@ -389,7 +389,7 @@ static void svg_SizeCallback( int *width, int *height, gpointer data )
 static void svg_RenderPicture( filter_t *p_filter,
                                svg_rendition_t *p_svg )
 {
-    /* Render the SVG string p_string->psz_text into a new picture_
+    /* Render the SVG string p_string->psz_text into a new picture_t
        p_string->p_rendition with dimensions ( ->i_width, ->i_height ) */
     RsvgHandle *p_handle;
     GError *error = NULL;

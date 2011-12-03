@@ -81,7 +81,7 @@ void *( *swscale_fast_memcpy )( void *, const void *, size_t );
 /**
  * Internal swscale filter structure.
  */
-struct filter_sys_
+struct filter_sys_t
 {
     SwsFilter *p_src_filter;
     SwsFilter *p_dst_filter;
@@ -107,7 +107,7 @@ static picture_t *Filter( filter_t *, picture_t * );
 static int  Init( filter_t * );
 static void Clean( filter_t * );
 
-typedef struc
+typedef struct
 {
     int  i_fmti;
     int  i_fmto;
@@ -126,7 +126,7 @@ static int GetParameters( ScalerConfiguration *,
 
 static int GetSwsCpuMask(void);
 
-/* SwScaler point resize quality seems really bad, let our scale module do i
+/* SwScaler point resize quality seems really bad, let our scale module do it
  * (change it to true to try) */
 #define ALLOW_YUVP (false)
 /* SwScaler does not like too small picture */

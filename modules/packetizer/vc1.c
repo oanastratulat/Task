@@ -56,7 +56,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     /*
      * Input properties
@@ -65,7 +65,7 @@ struct decoder_sys_
 
     /* Current sequence header */
     bool b_sequence_header;
-    struc
+    struct
     {
         block_t *p_sh;
         bool b_advanced_profile;
@@ -75,7 +75,7 @@ struct decoder_sys_
         bool b_has_bframe;
     } sh;
     bool b_entry_point;
-    struc
+    struct
     {
         block_t *p_ep;
     } ep;
@@ -196,7 +196,7 @@ static void Close( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Packetize: packetize an access uni
+ * Packetize: packetize an access unit
  *****************************************************************************/
 static block_t *Packetize( decoder_t *p_dec, block_t **pp_block )
 {
@@ -570,7 +570,7 @@ static block_t *ParseIDU( decoder_t *p_dec, bool *pb_used_ts, block_t *p_frag )
                 msg_Dbg( p_dec, "found sequence header for %s profile", i_profile == 0 ? "simple" : "main" );
 
             bs_skip( &s, 2+3+5+1+1+     // reserved + frame rate Q + bit rate Q + loop filter + reserved
-                         1+1+1+1+2+     // multiresolution + reserved + fast uv mc + extended mv + dquan
+                         1+1+1+1+2+     // multiresolution + reserved + fast uv mc + extended mv + dquant
                          1+1+1+1 );     // variable size transform + reserved + overlap + sync marker
             p_sys->sh.b_range_reduction = bs_read( &s, 1 );
             if( bs_read( &s, 3 ) > 0 )
@@ -664,7 +664,7 @@ static block_t *ParseIDU( decoder_t *p_dec, bool *pb_used_ts, block_t *p_frag )
         {
             if( p_sys->sh.b_frame_interpolation )
                 bs_skip( &s, 1 );   // interpolate
-            bs_skip( &s, 2 );       // frame coun
+            bs_skip( &s, 2 );       // frame count
             if( p_sys->sh.b_range_reduction )
                 bs_skip( &s, 1 );   // range reduction
 

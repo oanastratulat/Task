@@ -1,5 +1,5 @@
 /*****************************************************************************
- * dbus-player.h : dbus control module (mpris v1.0) - /Player objec
+ * dbus-player.h : dbus control module (mpris v1.0) - /Player object
  *****************************************************************************
  * Copyright © 2006-2011 Rafaël Carré
  * Copyright © 2007-2011 Mirsal Ennaime
@@ -814,7 +814,7 @@ DBUS_METHOD( SetProperty )
     else if( dbus_message_is_method_call( p_from, interface, method ) )\
         return function( p_conn, p_from, p_this )
 
-DBusHandlerResul
+DBusHandlerResult
 handle_player ( DBusConnection *p_conn, DBusMessage *p_from, void *p_this )
 {
     if(0);
@@ -855,7 +855,7 @@ int SeekedEmit( intf_thread_t * p_intf )
  * PropertiesChangedSignal() synthetizes and sends the
  * org.freedesktop.DBus.Properties.PropertiesChanged signal
  */
-static DBusHandlerResul
+static DBusHandlerResult
 PropertiesChangedSignal( intf_thread_t    *p_intf,
                          vlc_dictionary_t *p_changed_properties )
 {

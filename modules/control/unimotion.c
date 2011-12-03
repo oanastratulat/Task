@@ -42,12 +42,12 @@
  *
  * Copyright 2005 Christian Klein. All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or withou
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 1. Redistributions of source code must retain the above copyrigh
+ * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyrigh
+ * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
  * 3. The name of the author must not be used to endorse or promote
@@ -196,7 +196,7 @@ static int probe_sms(int kernFunc, char *servMatch, int dataType, void *data)
     memset(&inputStructure, 0, sizeof(union motion_data));
     memset(outputStructure, 0, sizeof(union motion_data));
 
-    result = IOConnectCallStructMethod(dataPort, kernFunc, &inputStructure,
+    result = IOConnectCallStructMethod(dataPort, kernFunc, &inputStructure, 
                 structureInputSize, outputStructure, &structureOutputSize );
 
     IOServiceClose(dataPort);
@@ -261,7 +261,7 @@ int read_sms(int type, int *x, int *y, int *z)
     int xoff, yoff, zoff;
     Boolean ok;
     int ret;
-
+ 
     ret = read_sms_raw(type, &_x, &_y, &_z);
     if ( !ret )
         return 0;
@@ -276,7 +276,7 @@ int read_sms(int type, int *x, int *y, int *z)
     if ( ok ) _y += yoff;
     zoff = CFPreferencesGetAppIntegerValue(zoffstr, app, &ok);
     if ( ok ) _z += zoff;
-
+    
     *x = _x;
     *y = _y;
     *z = _z;
@@ -290,7 +290,7 @@ int read_sms_real(int type, double *x, double *y, double *z)
     int xscale, yscale, zscale;
     int ret;
     Boolean ok;
-
+ 
     ret = read_sms_raw(type, &_x, &_y, &_z);
     if ( !ret )
         return 0;
@@ -305,11 +305,11 @@ int read_sms_real(int type, double *x, double *y, double *z)
     if ( !ok ) return 0;
     zscale = CFPreferencesGetAppIntegerValue(zscalestr, app, &ok);
     if ( !ok ) return 0;
-
+    
     *x = _x / (double)xscale;
     *y = _y / (double)yscale;
     *z = _z / (double)zscale;
-
+    
     return 1;
 }
 

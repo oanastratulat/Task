@@ -52,7 +52,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-struct demux_sys_
+struct demux_sys_t
 {
     es_out_id_t *p_video;
     es_out_id_t *p_audio;

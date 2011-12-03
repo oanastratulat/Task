@@ -1,12 +1,12 @@
 /*****************************************************************************
- * window.c: "vout window" managmen
+ * window.c: "vout window" managment
  *****************************************************************************
  * Copyright (C) 2009 Laurent Aimar
  * $Id: d47d4f438913c08f03c9c77f45b059cbb80c4a8a $
  *
  * Authors: Laurent Aimar <fenrir _AT_ videolan _DOT_ org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -35,7 +35,7 @@
 #include "inhibit.h"
 #include <libvlc.h>
 
-typedef struc
+typedef struct
 {
     vout_window_t wnd;
     module_t *module;

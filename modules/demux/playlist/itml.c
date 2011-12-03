@@ -38,7 +38,7 @@
 #include "itml.h"
 #include "playlist.h"
 
-struct demux_sys_
+struct demux_sys_t
 {
     int i_ntracks;
 };
@@ -123,7 +123,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
 }
 
 /**
- * \brief parse the root node of the playlis
+ * \brief parse the root node of the playlist
  */
 static bool parse_plist_node( demux_t *p_demux, input_item_node_t *p_input_node,
                               track_elem_t *p_track, xml_reader_t *p_xml_reader,

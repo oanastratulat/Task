@@ -1,5 +1,5 @@
 /*****************************************************************************
- * kate.c : a decoder for the kate bitstream forma
+ * kate.c : a decoder for the kate bitstream format
  *****************************************************************************
  * Copyright (C) 2000-2008 the VideoLAN team
  * $Id: 586e4dd131374392aa2dc3e55818b951b5b79916 $
@@ -63,7 +63,7 @@
 /*****************************************************************************
  * decoder_sys_t : decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
 #ifdef ENABLE_PACKETIZER
     /* Module mode */
@@ -115,7 +115,7 @@ struct decoder_sys_
     bool   b_use_tiger;
 };
 
-struct subpicture_updater_sys_
+struct subpicture_updater_sys_t
 {
     decoder_sys_t *p_dec_sys;
     mtime_t        i_start;
@@ -659,7 +659,7 @@ static void GetVideoSize( decoder_t *p_dec, int *w, int *h )
         *w = p_sys->ki.original_canvas_width;
         *h = p_sys->ki.original_canvas_height;
         msg_Dbg( p_dec, "original canvas %zu %zu",
-          p_sys->ki.original_canvas_width, p_sys->ki.original_canvas_height );
+	         p_sys->ki.original_canvas_width, p_sys->ki.original_canvas_height );
     }
     else
     {
@@ -744,7 +744,7 @@ static void TigerDestroySubpicture( subpicture_t *p_subpic )
 /*
  * We get premultiplied alpha, but VLC doesn't expect this, so we demultiply
  * alpha to avoid double multiply (and thus thinner text than we should)).
- * Best would be to have VLC be able to handle premultiplied alpha, as i
+ * Best would be to have VLC be able to handle premultiplied alpha, as it
  * would be faster to blend as well.
  *
  * Also, we flip color components around for big endian machines, as Tiger
@@ -1245,7 +1245,7 @@ static subpicture_t *SetupSimpleKateSPU( decoder_t *p_dec, subpicture_t *p_spu,
             }
             else
             {
-                // TODO: parse tracker and set style, init fm
+                // TODO: parse tracker and set style, init fmt
                 b_tracker_valid = true;
             }
         }

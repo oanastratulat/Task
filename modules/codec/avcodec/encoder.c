@@ -72,7 +72,7 @@ struct thread_context_t;
 /*****************************************************************************
  * thread_context_t : for multithreaded encoding
  *****************************************************************************/
-struct thread_context_
+struct thread_context_t
 {
     VLC_COMMON_MEMBERS
 
@@ -89,7 +89,7 @@ struct thread_context_
 /*****************************************************************************
  * encoder_sys_t : ffmpeg encoder descriptor
  *****************************************************************************/
-struct encoder_sys_
+struct encoder_sys_t
 {
     /*
      * Ffmpeg properties

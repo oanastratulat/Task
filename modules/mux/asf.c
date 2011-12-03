@@ -108,7 +108,7 @@ static int AddStream( sout_mux_t *, sout_input_t * );
 static int DelStream( sout_mux_t *, sout_input_t * );
 static int Mux      ( sout_mux_t * );
 
-typedef struc
+typedef struct
 {
     int          i_id;
     int          i_cat;
@@ -130,7 +130,7 @@ typedef struc
 
 } asf_track_t;
 
-struct sout_mux_sys_
+struct sout_mux_sys_t
 {
     guid_t          fid;    /* file id */
     int             i_packet_size;
@@ -166,7 +166,7 @@ static block_t *asf_packet_create( sout_mux_t *, asf_track_t *, block_t * );
 static block_t *asf_stream_end_create( sout_mux_t *);
 static block_t *asf_packet_flush( sout_mux_t * );
 
-typedef struc
+typedef struct
 {
     int      i_buffer_size;
     int      i_buffer;
@@ -747,7 +747,7 @@ static int Mux( sout_mux_t *p_mux )
  ****************************************************************************/
 
 /****************************************************************************
- * Buffer ou
+ * Buffer out
  ****************************************************************************/
 static void bo_init( bo_t *p_bo, uint8_t *p_buffer, int i_size )
 {

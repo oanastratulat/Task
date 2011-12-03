@@ -60,20 +60,20 @@ vlc_module_end ()
  * Prototypes:
  *****************************************************************************/
 
-typedef struc
+typedef struct
 {
     int     i_line_count;
     int     i_line;
     char    **line;
 } text_t;
 
-typedef struc
+typedef struct
 {
     int64_t i_start;
     int     i_vobsub_location;
 } subtitle_t;
 
-typedef struc
+typedef struct
 {
     es_format_t fmt;
     es_out_id_t *p_es;
@@ -86,7 +86,7 @@ typedef struc
     int64_t     i_delay;
 } vobsub_track_t;
 
-struct demux_sys_
+struct demux_sys_t
 {
     int64_t        i_next_demux_date;
     int64_t        i_length;

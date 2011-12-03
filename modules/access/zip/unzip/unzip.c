@@ -1,7 +1,7 @@
 /* unzip.c -- IO for uncompress .zip files using zlib
    Version 1.01e, February 12th, 2005
 
-   Copyright (C) 1998-2005 Gilles Vollan
+   Copyright (C) 1998-2005 Gilles Vollant
 
    Read unzip.h for more info
 */
@@ -97,7 +97,7 @@ typedef struct unz_file_info_internal_s
 
 /* file_in_zip_read_info_s contain internal information about a file in zipfile,
     when reading and decompress it */
-typedef struc
+typedef struct
 {
     char  *read_buffer;         /* internal buffer for compressed data */
     z_stream stream;            /* zLib stream structure for inflate */
@@ -123,7 +123,7 @@ typedef struc
 
 /* unz_s contain internal information about the zipfile
 */
-typedef struc
+typedef struct
 {
     zlib_filefunc_def z_filefunc;
     voidpf filestream;        /* io structore of the zipfile */
@@ -140,7 +140,7 @@ typedef struc
 
     unz_file_info cur_file_info; /* public info about the current file in zip*/
     unz_file_info_internal cur_file_info_internal; /* private info about it*/
-    file_in_zip_read_info_s* pfile_in_zip_read; /* structure about the curren
+    file_in_zip_read_info_s* pfile_in_zip_read; /* structure about the current
                                         file if we are decompressing it */
     int encrypted;
 #    ifndef NOUNCRYPT

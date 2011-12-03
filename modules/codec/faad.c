@@ -57,7 +57,7 @@ static void DoReordering( uint32_t *, uint32_t *, int, int, uint32_t * );
 
 #define MAX_CHANNEL_POSITIONS 9
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     /* faad handler */
     faacDecHandle *hfaad;

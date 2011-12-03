@@ -47,7 +47,7 @@
 
 #include "dvb.h"
 
-struct httpd_file_sys_
+struct httpd_file_sys_t
 {
     access_t         *p_access;
     httpd_file_t     *p_file;
@@ -211,7 +211,7 @@ static int HttpCallback( httpd_file_sys_t *p_args,
 }
 
 /****************************************************************************
- * HTTPExtractValue: Extract a GET variable from psz_reques
+ * HTTPExtractValue: Extract a GET variable from psz_request
  ****************************************************************************/
 const char *HTTPExtractValue( const char *psz_uri, const char *psz_name,
                         char *psz_value, int i_value_max )

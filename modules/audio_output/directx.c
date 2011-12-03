@@ -42,7 +42,7 @@
 /*****************************************************************************
  * notification_thread_t: DirectX event thread
  *****************************************************************************/
-typedef struct notification_thread_
+typedef struct notification_thread_t
 {
     audio_output_t *p_aout;
     int i_frame_size;                          /* size in bytes of one frame */
@@ -62,7 +62,7 @@ typedef struct notification_thread_
  * This structure is part of the audio output thread descriptor.
  * It describes the direct sound specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_
+struct aout_sys_t
 {
     aout_packet_t       packet;
     HINSTANCE           hdsound_dll;      /* handle of the opened dsound dll */
@@ -481,7 +481,7 @@ static void Probe( audio_output_t * p_aout )
         msg_Dbg( p_aout, "Windows says your SpeakerConfig is Quad" );
         val.i_int = AOUT_VAR_2F2R;
         break;
-#if 0 /* Lots of people just get their settings wrong and complain tha
+#if 0 /* Lots of people just get their settings wrong and complain that
        * this is a problem with VLC so just don't ever set mono by default. */
     case DSSPEAKER_MONO:
         val.i_int = AOUT_VAR_MONO;
@@ -1115,7 +1115,7 @@ static int CALLBACK CallBackConfigNBEnum( LPGUID p_guid, LPCWSTR psz_desc,
 }
 
 /*****************************************************************************
- * CallBackConfigEnum: callback to add available devices to the preferences lis
+ * CallBackConfigEnum: callback to add available devices to the preferences list
  *****************************************************************************/
 static int CALLBACK CallBackConfigEnum( LPGUID p_guid, LPCWSTR psz_desc,
                                              LPCWSTR psz_mod, LPVOID _p_item )

@@ -74,7 +74,7 @@ static int Open( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Close: close the targe
+ * Close: close the target
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

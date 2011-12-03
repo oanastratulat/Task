@@ -1,7 +1,7 @@
 /*****************************************************************************
  * compressor.c: dynamic range compressor, ported from plugins from LADSPA SWH
  *****************************************************************************
- * Copyright (C) 2010 Ronald Wrigh
+ * Copyright (C) 2010 Ronald Wright
  * $Id: d73b1543d1773fb7892d6a2a8674ce26d86ab5dd $
  *
  * Author: Ronald Wright <logiconcepts819@gmail.com>
@@ -58,7 +58,7 @@
 #define LIN_INTERP(f,a,b) ((a) + (f) * ( (b) - (a) ))
 #define LIMIT(v,l,u)      (v < l ? l : ( v > u ? u : v ))
 
-typedef struc
+typedef struct
 {
     float        pf_buf[RMS_BUF_SIZE];
     unsigned int i_pos;
@@ -67,9 +67,9 @@ typedef struc
 
 } rms_env;
 
-typedef struc
+typedef struct
 {
-    struc
+    struct
     {
         float pf_vals[AOUT_CHAN_MAX];
         float f_lev_in;
@@ -80,7 +80,7 @@ typedef struc
 
 } lookahead;
 
-struct filter_sys_
+struct filter_sys_t
 {
     float f_amp;
     float pf_as[A_TBL];
@@ -549,7 +549,7 @@ static float CubeInterp( const float f_fr, const float f_inm1,
 }
 #endif
 
-/* Zero out denormals by adding and subtracting a small number, from Lauren
+/* Zero out denormals by adding and subtracting a small number, from Laurent
  * de Soras */
 static void RoundToZero( float *pf_x )
 {

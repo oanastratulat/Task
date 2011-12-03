@@ -85,7 +85,7 @@ int main( int argc, char *argv[] ) {
               *player_widget,
               *hbuttonbox,
               *stop_button;
-
+    
     gtk_init (&argc, &argv);
     // setup window
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -109,7 +109,7 @@ int main( int argc, char *argv[] ) {
     gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
     g_signal_connect(filemenu_openitem, "activate", G_CALLBACK(on_open), window);
 
-    //setup player widge
+    //setup player widget
     player_widget = gtk_drawing_area_new();
     gtk_box_pack_start(GTK_BOX(vbox), player_widget, TRUE, TRUE, 0);
 

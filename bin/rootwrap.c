@@ -1,7 +1,7 @@
 /*****************************************************************************
  * rootwrap.c
  *****************************************************************************
- * Copyright © 2005-2008 Rémi Denis-Courmon
+ * Copyright © 2005-2008 Rémi Denis-Courmont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -179,7 +179,7 @@ static void rootprocess (int fd)
 
 /* TODO?
  *  - use libcap if available,
- *  - call chroo
+ *  - call chroot
  */
 
 int main (int argc, char *argv[])

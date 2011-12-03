@@ -103,7 +103,7 @@ struct eia608_screen // A CC buffer
 };
 typedef struct eia608_screen eia608_screen;
 
-typedef struc
+typedef struct
 {
     /* Current channel (used to reject packet without channel information) */
     int i_channel;
@@ -112,7 +112,7 @@ typedef struc
     int           i_screen; /* Displayed screen */
     eia608_screen screen[2];
 
-    struc
+    struct
     {
         int i_row;
         int i_column;
@@ -125,7 +125,7 @@ typedef struc
     int i_row_rollup;
 
     /* Last command pair (used to reject duplicated command) */
-    struc
+    struct
     {
         uint8_t d1;
         uint8_t d2;
@@ -140,7 +140,7 @@ static void         Eia608Exit( eia608_t * );
 /* It will be enough up to 63 B frames, which is far too high for
  * broadcast environment */
 #define CC_MAX_REORDER_SIZE (64)
-struct decoder_sys_
+struct decoder_sys_t
 {
     int i;
 
@@ -804,11 +804,11 @@ static void Eia608TextUtf8( char *psz_utf8, uint8_t c ) // Returns number of byt
         char utf8[3+1];
     } c2utf8[] = {
         // Regular line-21 character set, mostly ASCII except these exceptions
-        E2( 0x2a, 0xc3,0xa1), // lowercase a, acute accen
-        E2( 0x5c, 0xc3,0xa9), // lowercase e, acute accen
-        E2( 0x5e, 0xc3,0xad), // lowercase i, acute accen
-        E2( 0x5f, 0xc3,0xb3), // lowercase o, acute accen
-        E2( 0x60, 0xc3,0xba), // lowercase u, acute accen
+        E2( 0x2a, 0xc3,0xa1), // lowercase a, acute accent
+        E2( 0x5c, 0xc3,0xa9), // lowercase e, acute accent
+        E2( 0x5e, 0xc3,0xad), // lowercase i, acute accent
+        E2( 0x5f, 0xc3,0xb3), // lowercase o, acute accent
+        E2( 0x60, 0xc3,0xba), // lowercase u, acute accent
         E2( 0x7b, 0xc3,0xa7), // lowercase c with cedilla
         E2( 0x7c, 0xc3,0xb7), // division symbol
         E2( 0x7d, 0xc3,0x91), // uppercase N tilde
@@ -823,14 +823,14 @@ static void Eia608TextUtf8( char *psz_utf8, uint8_t c ) // Returns number of byt
         E2( 0x85, 0xc2,0xa2), // Cents symbol
         E2( 0x86, 0xc2,0xa3), // Pounds sterling
         E3( 0x87, 0xe2,0x99,0xaa), // Music note
-        E2( 0x88, 0xc3,0xa0), // lowercase a, grave accen
+        E2( 0x88, 0xc3,0xa0), // lowercase a, grave accent
         E2( 0x89, 0xc2,0xa0), // transparent space
-        E2( 0x8a, 0xc3,0xa8), // lowercase e, grave accen
-        E2( 0x8b, 0xc3,0xa2), // lowercase a, circumflex accen
-        E2( 0x8c, 0xc3,0xaa), // lowercase e, circumflex accen
-        E2( 0x8d, 0xc3,0xae), // lowercase i, circumflex accen
-        E2( 0x8e, 0xc3,0xb4), // lowercase o, circumflex accen
-        E2( 0x8f, 0xc3,0xbb), // lowercase u, circumflex accen
+        E2( 0x8a, 0xc3,0xa8), // lowercase e, grave accent
+        E2( 0x8b, 0xc3,0xa2), // lowercase a, circumflex accent
+        E2( 0x8c, 0xc3,0xaa), // lowercase e, circumflex accent
+        E2( 0x8d, 0xc3,0xae), // lowercase i, circumflex accent
+        E2( 0x8e, 0xc3,0xb4), // lowercase o, circumflex accent
+        E2( 0x8f, 0xc3,0xbb), // lowercase u, circumflex accent
         // THIS BLOCK INCLUDES THE 32 EXTENDED (TWO-BYTE) LINE 21 CHARACTERS
         // THAT COME FROM HI BYTE=0x12 AND LOW BETWEEN 0x20 AND 0x3F
         E2( 0x90, 0xc3,0x81), // capital letter A with acute
@@ -849,10 +849,10 @@ static void Eia608TextUtf8( char *psz_utf8, uint8_t c ) // Returns number of byt
         E1( 0x9d, 0x2e), // Full stop (.)
         E3( 0x9e, 0xe2,0x80,0x9c), // Quotation mark
         E3( 0x9f, 0xe2,0x80,0x9d), // Quotation mark
-        E2( 0xa0, 0xc3,0x80), // uppercase A, grave accen
+        E2( 0xa0, 0xc3,0x80), // uppercase A, grave accent
         E2( 0xa1, 0xc3,0x82), // uppercase A, circumflex
         E2( 0xa2, 0xc3,0x87), // uppercase C with cedilla
-        E2( 0xa3, 0xc3,0x88), // uppercase E, grave accen
+        E2( 0xa3, 0xc3,0x88), // uppercase E, grave accent
         E2( 0xa4, 0xc3,0x8a), // uppercase E, circumflex
         E2( 0xa5, 0xc3,0x8b), // capital letter E with diaresis
         E2( 0xa6, 0xc3,0xab), // lowercase letter e with diaresis
@@ -860,8 +860,8 @@ static void Eia608TextUtf8( char *psz_utf8, uint8_t c ) // Returns number of byt
         E2( 0xa8, 0xc3,0x8f), // uppercase I, with diaresis
         E2( 0xa9, 0xc3,0xaf), // lowercase i, with diaresis
         E2( 0xaa, 0xc3,0x94), // uppercase O, circumflex
-        E2( 0xab, 0xc3,0x99), // uppercase U, grave accen
-        E2( 0xac, 0xc3,0xb9), // lowercase u, grave accen
+        E2( 0xab, 0xc3,0x99), // uppercase U, grave accent
+        E2( 0xac, 0xc3,0xb9), // lowercase u, grave accent
         E2( 0xad, 0xc3,0x9b), // uppercase U, circumflex
         E2( 0xae, 0xc2,0xab), // LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
         E2( 0xaf, 0xc2,0xbb), // RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
@@ -869,24 +869,24 @@ static void Eia608TextUtf8( char *psz_utf8, uint8_t c ) // Returns number of byt
         // THAT COME FROM HI BYTE=0x13 AND LOW BETWEEN 0x20 AND 0x3F
         E2( 0xb0, 0xc3,0x83), // Uppercase A, tilde
         E2( 0xb1, 0xc3,0xa3), // Lowercase a, tilde
-        E2( 0xb2, 0xc3,0x8d), // Uppercase I, acute accen
-        E2( 0xb3, 0xc3,0x8c), // Uppercase I, grave accen
-        E2( 0xb4, 0xc3,0xac), // Lowercase i, grave accen
-        E2( 0xb5, 0xc3,0x92), // Uppercase O, grave accen
-        E2( 0xb6, 0xc3,0xb2), // Lowercase o, grave accen
+        E2( 0xb2, 0xc3,0x8d), // Uppercase I, acute accent
+        E2( 0xb3, 0xc3,0x8c), // Uppercase I, grave accent
+        E2( 0xb4, 0xc3,0xac), // Lowercase i, grave accent
+        E2( 0xb5, 0xc3,0x92), // Uppercase O, grave accent
+        E2( 0xb6, 0xc3,0xb2), // Lowercase o, grave accent
         E2( 0xb7, 0xc3,0x95), // Uppercase O, tilde
         E2( 0xb8, 0xc3,0xb5), // Lowercase o, tilde
         E1( 0xb9, 0x7b), // Open curly brace
         E1( 0xba, 0x7d), // Closing curly brace
         E1( 0xbb, 0x5c), // Backslash
-        E1( 0xbc, 0x5e), // Care
+        E1( 0xbc, 0x5e), // Caret
         E1( 0xbd, 0x5f), // Underscore
         E2( 0xbe, 0xc2,0xa6), // Pipe (broken bar)
         E1( 0xbf, 0x7e), // Tilde (utf8 code unsure)
-        E2( 0xc0, 0xc3,0x84), // Uppercase A, umlau
-        E2( 0xc1, 0xc3,0xa4), // Lowercase A, umlau
-        E2( 0xc2, 0xc3,0x96), // Uppercase O, umlau
-        E2( 0xc3, 0xc3,0xb6), // Lowercase o, umlau
+        E2( 0xc0, 0xc3,0x84), // Uppercase A, umlaut
+        E2( 0xc1, 0xc3,0xa4), // Lowercase A, umlaut
+        E2( 0xc2, 0xc3,0x96), // Uppercase O, umlaut
+        E2( 0xc3, 0xc3,0xb6), // Lowercase o, umlaut
         E2( 0xc4, 0xc3,0x9f), // Esszett (sharp S)
         E2( 0xc5, 0xc2,0xa5), // Yen symbol
         E2( 0xc6, 0xc2,0xa4), // Currency symbol
@@ -1007,7 +1007,7 @@ static void Eia608TextLine( struct eia608_screen *screen, char *psz_text, int i_
                 CAT( "<u>" );
         }
 
-        /* */
+        /* */ 
         Eia608TextUtf8( utf8, p_char[x] );
         CAT( utf8 );
 

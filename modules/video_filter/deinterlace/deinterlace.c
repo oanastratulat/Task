@@ -378,7 +378,7 @@ picture_t *Deinterlace( filter_t *p_filter, picture_t *p_pic )
     /* For framerate doublers, determine field duration and allocate
        output frames. */
     mtime_t i_field_dur = 0;
-    int i_double_rate_alloc_end = 0; /* One past last for allocated outpu
+    int i_double_rate_alloc_end = 0; /* One past last for allocated output
                                         frames in p_dst[]. Used only for
                                         framerate doublers. Will be inited
                                         below. Declared here because the
@@ -412,7 +412,7 @@ picture_t *Deinterlace( filter_t *p_filter, picture_t *p_pic )
         i_double_rate_alloc_end = i_nb_fields;
         if( i_nb_fields > DEINTERLACE_DST_SIZE )
         {
-            /* Note that the effective buffer size depends also on the constan
+            /* Note that the effective buffer size depends also on the constant
                private_picture in vout_wrapper.c, since that determines the
                maximum number of output pictures filter_NewPicture() will
                successfully allocate for one input frame.
@@ -542,7 +542,7 @@ picture_t *Deinterlace( filter_t *p_filter, picture_t *p_pic )
             /* Processing all actually allocated output frames. */
             for( int i = 1; i < i_double_rate_alloc_end; ++i )
             {
-                /* XXX it's not really good especially for the first picture, bu
+                /* XXX it's not really good especially for the first picture, but
                  * I don't think that delaying by one frame is worth it */
                 if( i_base_pts > VLC_TS_INVALID )
                     p_dst[i]->date = i_base_pts + i * i_field_dur;
@@ -682,7 +682,7 @@ int Open( vlc_object_t *p_this )
     }
     else
 #endif
-#if defined __ARM_NEON__ // FIXME: runtime detect suppor
+#if defined __ARM_NEON__ // FIXME: runtime detect support
     if( vlc_CPU() & CPU_CAPABILITY_NEON )
     {
         p_sys->pf_merge = MergeNEON;

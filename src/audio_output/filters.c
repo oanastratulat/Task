@@ -1,12 +1,12 @@
 /*****************************************************************************
- * filters.c : audio output filters managemen
+ * filters.c : audio output filters management
  *****************************************************************************
  * Copyright (C) 2002-2007 VLC authors and VideoLAN
  * $Id: 6c4db2796eb38717b3994b19edffaf1fe2450f04 $
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -118,8 +118,8 @@ static int SplitConversion( const audio_sample_format_t *restrict infmt,
  * @param obj parent VLC object for new filters
  * @param filters table of filters [IN/OUT]
  * @param nb_filters pointer to the number of filters in the table [IN/OUT]
- * @param infmt input audio forma
- * @param outfmt output audio forma
+ * @param infmt input audio format
+ * @param outfmt output audio format
  * @return 0 on success, -1 on failure
  */
 int aout_FiltersCreatePipeline( vlc_object_t *obj,

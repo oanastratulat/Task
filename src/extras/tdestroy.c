@@ -3,9 +3,9 @@
  * @brief replacement for GNU tdestroy()
  */
 /*****************************************************************************
- * Copyright (C) 2009 Rémi Denis-Courmon
+ * Copyright (C) 2009 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -32,7 +32,7 @@
 #include <vlc_common.h>
 #include <search.h>
 
-static struc
+static struct
 {
     const void **tab;
     size_t count;
@@ -55,7 +55,7 @@ static void list_nodes (const void *node, const VISIT which, const int depth)
     list.count++;
 }
 
-static struc
+static struct
 {
     const void *node;
     vlc_mutex_t lock;

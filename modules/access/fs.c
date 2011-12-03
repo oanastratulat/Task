@@ -2,7 +2,7 @@
  * fs.c: file system access plugin
  *****************************************************************************
  * Copyright (C) 2001-2006 the VideoLAN team
- * Copyright © 2006-2007 Rémi Denis-Courmon
+ * Copyright © 2006-2007 Rémi Denis-Courmont
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *          Rémi Denis-Courmont <rem # videolan # org>

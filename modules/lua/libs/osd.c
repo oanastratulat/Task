@@ -47,7 +47,7 @@
  *****************************************************************************/
 static int vlc_osd_icon_from_string( const char *psz_name )
 {
-    static const struc
+    static const struct
     {
         int i_icon;
         const char *psz_name;
@@ -90,7 +90,7 @@ static int vlclua_osd_icon( lua_State *L )
 
 static int vlc_osd_position_from_string( const char *psz_name )
 {
-    static const struc
+    static const struct
     {
         int i_position;
         const char *psz_name;
@@ -138,7 +138,7 @@ static int vlclua_osd_message( lua_State *L )
 
 static int vlc_osd_slider_type_from_string( const char *psz_name )
 {
-    static const struc
+    static const struct
     {
         int i_type;
         const char *psz_name;

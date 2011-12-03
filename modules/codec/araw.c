@@ -69,7 +69,7 @@ static aout_buffer_t *DecodeBlock( decoder_t *, block_t ** );
 static block_t *EncoderEncode( encoder_t *, aout_buffer_t * );
 #endif
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     void (*decode) (void *, const uint8_t *, unsigned);
     date_t end_date;
@@ -482,7 +482,7 @@ static void DecoderClose( vlc_object_t *p_this )
 #define ALAW 1
 #define ULAW 2
 
-struct encoder_sys_
+struct encoder_sys_t
 {
     int i_s16tolog;  /* used with int16_t to m/alaw */
 };

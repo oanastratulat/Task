@@ -84,7 +84,7 @@ enum {
   UPDATE_REQUEST
 }; /* FIXME Temporary. Updating by compound urls string to be removed later. */
 
-struct services_discovery_sys_
+struct services_discovery_sys_t
 {
     /* playlist node */
     input_thread_t **pp_input;

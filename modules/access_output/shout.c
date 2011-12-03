@@ -75,7 +75,7 @@ static void Close( vlc_object_t * );
                         "MP3 instead, so you can forward MP3 streams to " \
                         "the shoutcast/icecast server." )
 
-/* To be listed properly as a public stream on the Yellow Pages of shoutcast/icecas
+/* To be listed properly as a public stream on the Yellow Pages of shoutcast/icecast
    the genres should match those used on the corresponding sites. Several examples
    are Alternative, Classical, Comedy, Country etc. */
 
@@ -153,7 +153,7 @@ static ssize_t Write( sout_access_out_t *, block_t * );
 static int Seek ( sout_access_out_t *, off_t  );
 static int Control( sout_access_out_t *, int, va_list );
 
-struct sout_access_out_sys_
+struct sout_access_out_sys_t
 {
     shout_t *p_shout;
 };
@@ -201,7 +201,7 @@ static int Open( vlc_object_t *p_this )
     psz_url = var_GetNonEmptyString( p_access, SOUT_CFG_PREFIX "url" );
 
     p_shout = p_sys->p_shout = shout_new();
-    if( !p_shou
+    if( !p_shout
          || shout_set_host( p_shout, url.psz_host ) != SHOUTERR_SUCCESS
          || shout_set_protocol( p_shout, SHOUT_PROTOCOL_ICY ) != SHOUTERR_SUCCESS
          || shout_set_port( p_shout, url.i_port ) != SHOUTERR_SUCCESS
@@ -372,8 +372,8 @@ static int Open( vlc_object_t *p_this )
         }
 */
         if ( i_ret != SHOUTERR_CONNECTED )
-     {
-         msg_Warn( p_access, "unable to establish connection, retrying..." );
+    	{
+    	    msg_Warn( p_access, "unable to establish connection, retrying..." );
             msleep( 30000000 );
         }
     }
@@ -404,7 +404,7 @@ error:
 }
 
 /*****************************************************************************
- * Close: close the targe
+ * Close: close the target
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

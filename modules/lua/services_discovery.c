@@ -44,7 +44,7 @@ static const char * const ppsz_sd_options[] = { "sd", "longname", NULL };
 /*****************************************************************************
  * Local structures
  *****************************************************************************/
-struct services_discovery_sys_
+struct services_discovery_sys_t
 {
     lua_State *L;
     char *psz_filename;
@@ -183,7 +183,7 @@ void Close_LuaSD( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Run: Thread entry-poin
+ * Run: Thread entry-point
  ****************************************************************************/
 static void* Run( void *data )
 {

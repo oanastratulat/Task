@@ -47,7 +47,7 @@ static picture_t *Deinterlace( filter_t *p_filter, picture_t *p_pic );
 /*****************************************************************************
  * filter_sys_t : filter descriptor
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     bool b_resize;
     bool b_convert;

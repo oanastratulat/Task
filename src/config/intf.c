@@ -6,7 +6,7 @@
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -134,7 +134,7 @@ void config_RemoveIntf( vlc_object_t *p_this, const char *psz_intf )
 #undef config_ExistIntf
 /*
  * Returns true if the specified extra interface is present in the
- * configuration, false if no
+ * configuration, false if not
  */
 bool config_ExistIntf( vlc_object_t *p_this, const char *psz_intf )
 {

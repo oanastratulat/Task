@@ -111,7 +111,7 @@ static const char *const ppsz_filter_options[] = {
 /*****************************************************************************
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     vlc_mutex_t lock;
     double     f_contrast;

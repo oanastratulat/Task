@@ -1,5 +1,5 @@
 /*****************************************************************************
- * bank.c : Modules lis
+ * bank.c : Modules list
  *****************************************************************************
  * Copyright (C) 2001-2011 VLC authors and VideoLAN
  *
@@ -7,9 +7,9 @@
  *          Ethan C. Baldridge <BaldridgeE@cadmus.com>
  *          Hans-Peter Jansen <hpj@urpla.net>
  *          Gildas Bazin <gbazin@videolan.org>
- *          Rémi Denis-Courmon
+ *          Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -49,7 +49,7 @@
 #include "config/configuration.h"
 #include "modules/modules.h"
 
-static struc
+static struct
 {
     vlc_mutex_t lock;
     module_t *head;
@@ -109,7 +109,7 @@ void module_InitBank (void)
         /* Fills the module bank structure with the main module infos.
          * This is very useful as it will allow us to consider the main
          * library just as another module, and for instance the configuration
-         * options of main will be available in the module bank structure jus
+         * options of main will be available in the module bank structure just
          * as for every other module. */
         module_t *module = module_InitStatic (vlc_entry__main);
         if (likely(module != NULL))
@@ -203,7 +203,7 @@ size_t module_LoadPlugins (vlc_object_t *obj)
 /**
  * Frees the flat list of VLC modules.
  * @param list list obtained by module_list_get()
- * @param length number of items on the lis
+ * @param length number of items on the list
  * @return nothing.
  */
 void module_list_free (module_t **list)
@@ -524,7 +524,7 @@ static int AllocatePluginFile (module_bank_t *bank, const char *abspath,
  *
  * The module can then be handled by module_need() and module_unneed().
  *
- * \param path file path of the shared objec
+ * \param path file path of the shared object
  * \param fast whether to optimize loading for speed or safety
  *             (fast is used when the plug-in is registered but not used)
  */

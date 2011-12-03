@@ -9,7 +9,7 @@
  *          Derk-Jan Hartman <hartman at videolan dot org>
  *          Rémi Denis-Courmont <rem # videolan : org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -31,8 +31,8 @@
 #include <vlc_common.h>
 
 /*****************************************************************************
- * VLC_CompileBy, VLC_CompileHos
- * VLC_Compiler, VLC_Changese
+ * VLC_CompileBy, VLC_CompileHost
+ * VLC_Compiler, VLC_Changeset
  *****************************************************************************/
 #define DECLARE_VLC_VERSION( func, var )                                    \
 const char * VLC_##func ( void )                                            \

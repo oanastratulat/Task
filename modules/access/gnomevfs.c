@@ -1,5 +1,5 @@
 /*****************************************************************************
- * gnomevfs.c: GnomeVFS inpu
+ * gnomevfs.c: GnomeVFS input
  *****************************************************************************
  * Copyright (C) 2005 the VideoLAN team
  * $Id: f65815210ba3bebd6d2748647458381f4f84c482 $
@@ -63,7 +63,7 @@ static int     Seek( access_t *, uint64_t );
 static ssize_t Read( access_t *, uint8_t *, size_t );
 static int     Control( access_t *, int, va_list );
 
-struct access_sys_
+struct access_sys_t
 {
     unsigned int i_nb_reads;
     char *psz_name;
@@ -252,7 +252,7 @@ static int Open( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Close: close the targe
+ * Close: close the target
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

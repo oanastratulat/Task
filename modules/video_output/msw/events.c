@@ -86,7 +86,7 @@ UINT GetMenuState(HMENU hMenu, UINT id, UINT flags)
 #define WM_VLC_HIDE_MOUSE   (WM_APP + 0)
 #define WM_VLC_CHANGE_TEXT  (WM_APP + 1)
 
-struct event_thread_
+struct event_thread_t
 {
     vout_display_t *vd;
 
@@ -233,7 +233,7 @@ static void *EventThread( void *p_this )
 
     vlc_mutex_lock( &p_event->lock );
     /* Create a window for the video */
-    /* Creating a window under Windows also initializes the thread's even
+    /* Creating a window under Windows also initializes the thread's event
      * message queue */
     if( DirectXCreateWindow( p_event ) )
         p_event->b_error = true;
@@ -804,7 +804,7 @@ static long FAR PASCAL DirectXEventProc( HWND hwnd, UINT message,
         /*
         ** For overlay, DefWindowProc() will erase dirty regions
         ** with colorkey.
-        ** For non-overlay, vout will paint the whole window a
+        ** For non-overlay, vout will paint the whole window at
         ** regular interval, therefore dirty regions can be ignored
         ** to minimize repaint.
         */
@@ -812,7 +812,7 @@ static long FAR PASCAL DirectXEventProc( HWND hwnd, UINT message,
             {
                 ValidateRect(hwnd, NULL);
             }
-            // fall through to defaul
+            // fall through to default
 #else
         /*
         ** For OpenGL and Direct3D, vout will update the whole
@@ -927,7 +927,7 @@ static long FAR PASCAL DirectXEventProc( HWND hwnd, UINT message,
     return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
-static struc
+static struct
 {
     int i_dxkey;
     int i_vlckey;

@@ -109,7 +109,7 @@ vlc_module_end ()
  * This structure is part of the audio output thread descriptor.
  * It describes the waveOut specific properties of an audio device.
  *****************************************************************************/
-struct aout_sys_
+struct aout_sys_t
 {
     aout_packet_t packet;
     uint32_t i_wave_device_id;               /* ID of selected output device */
@@ -142,7 +142,7 @@ struct aout_sys_
 /*****************************************************************************
  * Open: open the audio device
  *****************************************************************************
- * This function opens and setups Win32 waveOu
+ * This function opens and setups Win32 waveOut
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {
@@ -160,7 +160,7 @@ static int Open( vlc_object_t *p_this )
     p_aout->pf_flush = aout_PacketFlush;
 
     /*
-     initialize/update Device selection Lis
+     initialize/update Device selection List
     */
     ReloadWaveoutDevices( p_this, "waveout-audio-device", val, val, NULL);
 
@@ -472,7 +472,7 @@ static void Probe( audio_output_t * p_aout )
 /*****************************************************************************
  * Play: play a sound buffer
  *****************************************************************************
- * This doesn't actually play the buffer. This just stores the buffer so i
+ * This doesn't actually play the buffer. This just stores the buffer so it
  * can be played by the callback thread.
  *****************************************************************************/
 static void Play( audio_output_t *_p_aout, block_t *block )
@@ -519,7 +519,7 @@ static void Close( vlc_object_t *p_this )
       was running on termination
 
       at this point now its sure, that there will be no new
-      data send to the driver, and we can cancel the las
+      data send to the driver, and we can cancel the last
       running playbuffers
     */
     MMRESULT result = waveOutReset( p_sys->h_waveout );
@@ -537,7 +537,7 @@ static void Close( vlc_object_t *p_this )
              if returnvalue > 0 (means some buffer still playing)
              wait for the driver event callback that one buffer
              is finished with playing, and check again
-             the timeout of 5000ms is just, an emergency exi
+             the timeout of 5000ms is just, an emergency exit
              of this loop, to avoid deadlock in case of other
              (currently not known bugs, problems, errors cases?)
            */
@@ -583,7 +583,7 @@ static int OpenWaveOut( audio_output_t *p_aout, uint32_t i_device_id, int i_form
 
     /* Set sound format */
 
-#define waveformat p_aout->sys->waveforma
+#define waveformat p_aout->sys->waveformat
 
     waveformat.dwChannelMask = 0;
     for( unsigned i = 0; i < sizeof(pi_channels_src)/sizeof(uint32_t); i++ )
@@ -698,7 +698,7 @@ static int OpenWaveOut( audio_output_t *p_aout, uint32_t i_device_id, int i_form
 
     return VLC_SUCCESS;
 
-#undef waveforma
+#undef waveformat
 
 }
 
@@ -749,7 +749,7 @@ static int PlayWaveOut( audio_output_t *p_aout, HWAVEOUT h_waveout,
     {
         p_waveheader->lpData = (LPSTR)p_buffer->p_buffer;
         /*
-          copy the buffer to the silence buffer :) so in case we don'
+          copy the buffer to the silence buffer :) so in case we don't
           get the next buffer fast enough (I will repeat this one a time
           for AC3 / DTS and SPDIF this will sound better instead of
           a hickup)
@@ -868,7 +868,7 @@ static int WaveOutClearDoneBuffers(aout_sys_t *p_sys)
  * WaveOutThread: this thread will capture play notification events.
  *****************************************************************************
  * We use this thread to feed new audio samples to the sound card because
- * we are not authorized to use waveOutWrite() directly in the waveou
+ * we are not authorized to use waveOutWrite() directly in the waveout
  * callback.
  *****************************************************************************/
 static void* WaveOutThread( void *data )
@@ -1083,8 +1083,8 @@ static int ReloadWaveoutDevices( vlc_object_t *p_this, char const *psz_name,
 }
 
 /*
-  convert devicename to device ID for outpu
-  if device not found return WAVE_MAPPER, so le
+  convert devicename to device ID for output
+  if device not found return WAVE_MAPPER, so let
   windows decide which preferred audio device
   should be used.
 */

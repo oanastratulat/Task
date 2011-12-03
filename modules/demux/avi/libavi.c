@@ -578,7 +578,7 @@ static void AVI_ChunkFree_indx( avi_chunk_t *p_chk )
 
 
 
-static const struc
+static const struct
 {
     vlc_fourcc_t i_fourcc;
     const char *psz_type;
@@ -657,7 +657,7 @@ static void AVI_ChunkFree_nothing( avi_chunk_t *p_chk )
     VLC_UNUSED( p_chk );
 }
 
-static const struc
+static const struct
 {
     vlc_fourcc_t i_fourcc;
     int   (*AVI_ChunkRead_function)( stream_t *s, avi_chunk_t *p_chk );

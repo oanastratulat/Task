@@ -1,9 +1,9 @@
 /*****************************************************************************
  * poll.c: poll() emulation for Winsock
  *****************************************************************************
- * Copyright © 2007 Rémi Denis-Courmon
+ * Copyright © 2007 Rémi Denis-Courmont
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -72,7 +72,7 @@ resume:
 
         /* With POSIX, FD_SET & FD_ISSET are not defined if fd is negative or
          * bigger or equal than FD_SETSIZE. That is one of the reasons why VLC
-         * uses poll() rather than select(). Most POSIX systems implemen
+         * uses poll() rather than select(). Most POSIX systems implement
          * fd_set has a bit field with no sanity checks. This is especially bad
          * on systems (such as BSD) that have no process open files limit by
          * default, such that it is quite feasible to get fd >= FD_SETSIZE.
@@ -84,7 +84,7 @@ resume:
          * However, FD_SET and FD_ISSET silently and safely discard excess
          * entries. Here, overflow cannot happen anyway: fd_set of adequate
          * size are allocated.
-         * Note that Vista has a much nicer WSAPoll(), but Mingw does no
+         * Note that Vista has a much nicer WSAPoll(), but Mingw does not
          * support it yet.
          */
         if (fds[i].events & POLLIN)

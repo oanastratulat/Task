@@ -61,7 +61,7 @@ static int DemuxHold( demux_t *demux )
     return 1;
 }
 
-struct demux_sys_
+struct demux_sys_t
 {
     mtime_t end;
     mtime_t length;
@@ -197,7 +197,7 @@ nop:
         p_demux->pf_control = ControlPause;
         return VLC_SUCCESS;
     }
-
+ 
     msg_Err( p_demux, "unknown command `%s'", psz_name );
     return VLC_EGENERIC;
 }

@@ -128,13 +128,13 @@ static const char *const ppsz_sout_options[] = {
 
 #define DEFAULT_PORT 1234
 
-struct sout_stream_sys_
+struct sout_stream_sys_t
 {
     sout_mux_t           *p_mux;
     session_descriptor_t *p_session;
 };
 
-struct sout_stream_id_
+struct sout_stream_id_t
 {
 };
 

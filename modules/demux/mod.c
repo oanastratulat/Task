@@ -108,7 +108,7 @@ vlc_module_end ()
  *****************************************************************************/
 static vlc_mutex_t libmodplug_lock = VLC_STATIC_MUTEX;
 
-struct demux_sys_
+struct demux_sys_t
 {
     es_format_t  fmt;
     es_out_id_t *es;
@@ -438,7 +438,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
  *****************************************************************************/
 static int Validate( demux_t *p_demux, const char *psz_ext )
 {
-    static const struc
+    static const struct
     {
         int i_offset;
         const char *psz_marker;

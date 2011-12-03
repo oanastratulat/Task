@@ -65,7 +65,7 @@ vlc_module_end ()
  * decoder_sys_t : decoder descriptor
  *****************************************************************************/
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     /* Module mode */
     bool b_packetizer;
@@ -299,7 +299,7 @@ static block_t *DecodeBlock( decoder_t *p_dec, block_t **pp_block )
                 return NULL;
             }
 
-            /* Copy the whole frame into the buffer. When we reach this poin
+            /* Copy the whole frame into the buffer. When we reach this point
              * we already know we have enough data available. */
             block_GetBytes( &p_sys->bytestream,
                             p_buf, __MIN( p_sys->frame.i_size, p_out_buffer->i_buffer ) );

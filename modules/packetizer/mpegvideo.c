@@ -29,9 +29,9 @@
  *
  * Although we should time-stamp each picture with a PTS, this isn't possible
  * with the current implementation.
- * The problem comes from the fact that for non-low-delay streams we can'
+ * The problem comes from the fact that for non-low-delay streams we can't
  * calculate the PTS of pictures used as backward reference. Even the temporal
- * reference number doesn't help here because all the pictures don'
+ * reference number doesn't help here because all the pictures don't
  * necessarily have the same duration (eg. 3:2 pulldown).
  *
  * However this doesn't really matter as far as the MPEG muxers are concerned
@@ -80,7 +80,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     /*
      * Input properties
@@ -269,7 +269,7 @@ static block_t *GetCc( decoder_t *p_dec, bool pb_present[4] )
     if( p_cc )
     {
         memcpy( p_cc->p_buffer, p_sys->cc.p_data, p_sys->cc.i_data );
-        p_cc->i_dts =
+        p_cc->i_dts = 
         p_cc->i_pts = p_sys->cc.b_reorder ? p_sys->i_cc_pts : p_sys->i_cc_dts;
         p_cc->i_flags = ( p_sys->cc.b_reorder  ? p_sys->i_cc_flags : BLOCK_FLAG_TYPE_P ) & ( BLOCK_FLAG_TYPE_I|BLOCK_FLAG_TYPE_P|BLOCK_FLAG_TYPE_B);
     }
@@ -362,7 +362,7 @@ static block_t *ParseMPEGBlock( decoder_t *p_dec, block_t *p_frag )
           (p_frag->p_buffer[3] == 0x00 || p_frag->p_buffer[3] > 0xaf) ) &&
           p_sys->p_seq == NULL )
     {
-        /* We have a picture but without a sequence header we can'
+        /* We have a picture but without a sequence header we can't
          * do anything */
         msg_Dbg( p_dec, "waiting for sequence start" );
         if( p_sys->p_frame ) block_ChainRelease( p_sys->p_frame );
@@ -509,7 +509,7 @@ static block_t *ParseMPEGBlock( decoder_t *p_dec, block_t *p_frag )
     if( !p_frag )
         return p_pic;
     /*
-     * Check info of current fragmen
+     * Check info of current fragment
      */
     if( p_frag->p_buffer[3] == 0xb8 )
     {

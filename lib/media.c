@@ -1,12 +1,12 @@
 /*****************************************************************************
- * media.c: Libvlc API media descripor managemen
+ * media.c: Libvlc API media descripor management
  *****************************************************************************
  * Copyright (C) 2007 VLC authors and VideoLAN
  * $Id: 2c01c80abee996e193721b7c73aa23ef68667c27 $
  *
  * Authors: Pierre d'Herbemont <pdherbemont@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -259,7 +259,7 @@ libvlc_media_t * libvlc_media_new_from_input_item(
 
     p_md->state = libvlc_NothingSpecial;
 
-    /* A media descriptor can be a playlist. When you open a playlis
+    /* A media descriptor can be a playlist. When you open a playlist
      * It can give a bunch of item to read. */
     p_md->p_subitems        = NULL;
 
@@ -286,7 +286,7 @@ libvlc_media_t * libvlc_media_new_from_input_item(
 }
 
 /**************************************************************************
- * Create a new media descriptor objec
+ * Create a new media descriptor object
  **************************************************************************/
 libvlc_media_t *libvlc_media_new_location( libvlc_instance_t *p_instance,
                                            const char * psz_mrl )
@@ -334,7 +334,7 @@ libvlc_media_t *libvlc_media_new_fd( libvlc_instance_t *p_instance, int fd )
 }
 
 /**************************************************************************
- * Create a new media descriptor objec
+ * Create a new media descriptor object
  **************************************************************************/
 libvlc_media_t * libvlc_media_new_as_node( libvlc_instance_t *p_instance,
                                            const char * psz_name )
@@ -383,7 +383,7 @@ void libvlc_media_add_option_flag( libvlc_media_t * p_md,
 }
 
 /**************************************************************************
- * Delete a media descriptor objec
+ * Delete a media descriptor object
  **************************************************************************/
 void libvlc_media_release( libvlc_media_t *p_md )
 {
@@ -418,7 +418,7 @@ void libvlc_media_release( libvlc_media_t *p_md )
 }
 
 /**************************************************************************
- * Retain a media descriptor objec
+ * Retain a media descriptor object
  **************************************************************************/
 void libvlc_media_retain( libvlc_media_t *p_md )
 {
@@ -427,7 +427,7 @@ void libvlc_media_retain( libvlc_media_t *p_md )
 }
 
 /**************************************************************************
- * Duplicate a media descriptor objec
+ * Duplicate a media descriptor object
  **************************************************************************/
 libvlc_media_t *
 libvlc_media_duplicate( libvlc_media_t *p_md_orig )
@@ -437,7 +437,7 @@ libvlc_media_duplicate( libvlc_media_t *p_md_orig )
 }
 
 /**************************************************************************
- * Get mrl from a media descriptor objec
+ * Get mrl from a media descriptor object
  **************************************************************************/
 char *
 libvlc_media_get_mrl( libvlc_media_t * p_md )
@@ -485,7 +485,7 @@ int libvlc_media_save_meta( libvlc_media_t *p_md )
  * Can be error, playing, buffering, NothingSpecial.
  **************************************************************************/
 
-libvlc_state_
+libvlc_state_t
 libvlc_media_get_state( libvlc_media_t *p_md )
 {
     assert( p_md );
@@ -572,7 +572,7 @@ libvlc_media_event_manager( libvlc_media_t * p_md )
 /**************************************************************************
  * Get duration of media object (in ms)
  **************************************************************************/
-int64_
+int64_t
 libvlc_media_get_duration( libvlc_media_t * p_md )
 {
     assert( p_md );
@@ -643,7 +643,7 @@ libvlc_media_parse_async(libvlc_media_t *media)
 /**************************************************************************
  * Get parsed status for media object.
  **************************************************************************/
-in
+int
 libvlc_media_is_parsed(libvlc_media_t *media)
 {
     bool parsed;
@@ -681,7 +681,7 @@ libvlc_media_get_user_data( libvlc_media_t * p_md )
 /**************************************************************************
  * Get media descriptor's elementary streams description
  **************************************************************************/
-in
+int
 libvlc_media_get_tracks_info( libvlc_media_t *p_md, libvlc_media_track_info_t ** pp_es )
 {
     assert( p_md );

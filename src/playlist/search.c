@@ -6,7 +6,7 @@
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -37,7 +37,7 @@
 /**
  * Search a playlist item by its playlist_item id.
  * The playlist have to be locked
- * @param p_playlist: the playlis
+ * @param p_playlist: the playlist
  * @param i_id: the id to find
  * @return the item or NULL on failure
  */
@@ -53,9 +53,9 @@ playlist_item_t* playlist_ItemGetById( playlist_t * p_playlist , int i_id )
 }
 
 /**
- * Search an item by its input_item_
+ * Search an item by its input_item_t
  * The playlist have to be locked
- * @param p_playlist: the playlis
+ * @param p_playlist: the playlist
  * @param p_item: the input_item_t to find
  * @return the item, or NULL on failure
  */
@@ -86,7 +86,7 @@ playlist_item_t* playlist_ItemGetByInput( playlist_t * p_playlist,
  ***************************************************************************/
 
 /**
- * Enable all items in the playlis
+ * Enable all items in the playlist
  * @param p_root: the current root item
  */
 static void playlist_LiveSearchClean( playlist_item_t *p_root )
@@ -102,7 +102,7 @@ static void playlist_LiveSearchClean( playlist_item_t *p_root )
 
 
 /**
- * Enable/Disable items in the playlist according to the search argumen
+ * Enable/Disable items in the playlist according to the search argument
  * @param p_root: the current root item
  * @param psz_string: the string to search
  * @return true if an item match
@@ -157,8 +157,8 @@ static bool playlist_LiveSearchUpdateInternal( playlist_item_t *p_root,
 
 
 /**
- * Launch the recursive search in the playlis
- * @param p_playlist: the playlis
+ * Launch the recursive search in the playlist
+ * @param p_playlist: the playlist
  * @param p_root: the current root item
  * @param psz_string: the string to find
  * @return VLC_SUCCESS

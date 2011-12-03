@@ -1,9 +1,9 @@
 /*****************************************************************************
- * quit.c: LibVLC termination even
+ * quit.c: LibVLC termination event
  *****************************************************************************
  * Copyright (C) 2009-2010 VLC authors and VideoLAN
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.

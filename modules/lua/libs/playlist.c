@@ -303,7 +303,7 @@ static int vlclua_playlist_current( lua_State *L )
 
 static int vlc_sort_key_from_string( const char *psz_name )
 {
-    static const struc
+    static const struct
     {
         const char *psz_name;
         int i_key;

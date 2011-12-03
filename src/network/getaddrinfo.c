@@ -2,12 +2,12 @@
  * getaddrinfo.c: getaddrinfo/getnameinfo replacement functions
  *****************************************************************************
  * Copyright (C) 2005 VLC authors and VideoLAN
- * Copyright (C) 2002-2007 Rémi Denis-Courmon
+ * Copyright (C) 2002-2007 Rémi Denis-Courmont
  * $Id: 0d5cdf873792f36e0b29574145a777045c73535e $
  *
  * Author: Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -72,7 +72,7 @@ int vlc_getnameinfo( const struct sockaddr *sa, int salen,
 /**
  * Resolves a host name to a list of socket addresses (like getaddrinfo()).
  *
- * @param p_this a VLC objec
+ * @param p_this a VLC object
  * @param node host name to resolve (encoded as UTF-8), or NULL
  * @param i_port port number for the socket addresses
  * @param p_hints parameters (see getaddrinfo() manual page)

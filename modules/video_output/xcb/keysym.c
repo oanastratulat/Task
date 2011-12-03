@@ -3,7 +3,7 @@
  * @brief Code generator for X11 key definitions (X11/keysymdef.h)
  */
 /*****************************************************************************
- * Copyright © 2009 Rémi Denis-Courmon
+ * Copyright © 2009 Rémi Denis-Courmont
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -61,7 +61,7 @@ static void printkey (const void *node, const VISIT which, const int depth)
 #endif
     printf ("/* XK_%-20s: %s*/\n", sym->xname, sym->uname);
     printf ("{ 0x%08"PRIx32", 0x%04"PRIx32" },\n", sym->xsym, sym->usym);
-
+        
     (void) depth;
 }
 

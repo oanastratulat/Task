@@ -198,7 +198,7 @@ vlc_module_end ()
  *****************************************************************************/
 #define NO_BREAKING_SPACE  "&#160;"
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     int                 i_align;          /* Subtitles alignment on the vout */
 
@@ -279,7 +279,7 @@ static int OpenDecoder( vlc_object_t *p_this )
     {
         /* xgettext:
            The Windows ANSI code page most commonly used for this language.
-           VLC uses this as a guess of the subtitle files character se
+           VLC uses this as a guess of the subtitle files character set
            (if UTF-8 and UTF-16 autodetection fails).
            Western European languages normally use "CP1252", which is a
            Microsoft-variant of ISO 8859-1. That suits the Latin alphabet.
@@ -365,7 +365,7 @@ static void CloseDecoder( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * ParseText: parse an text subtitle packet and send it to the video outpu
+ * ParseText: parse an text subtitle packet and send it to the video output
  *****************************************************************************/
 static subpicture_t *ParseText( decoder_t *p_dec, block_t *p_block )
 {

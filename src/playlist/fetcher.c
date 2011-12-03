@@ -7,7 +7,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -43,7 +43,7 @@
 /*****************************************************************************
  * Structures/definitions
  *****************************************************************************/
-struct playlist_fetcher_
+struct playlist_fetcher_t
 {
     playlist_t      *p_playlist;
 
@@ -359,7 +359,7 @@ static int InputEvent( vlc_object_t *p_this, char const *psz_cmd,
 }
 
 
-/* Check if it is not yet preparsed and if so wait for i
+/* Check if it is not yet preparsed and if so wait for it
  * (at most 0.5s)
  * (This can happen if we fetch art on play)
  * FIXME this doesn't work if we need to fetch meta before art...

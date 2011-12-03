@@ -98,7 +98,7 @@ static char *FromACP( const char *str )
 
 #define IGNORE_ES NAV_ES
 
-typedef struc
+typedef struct
 {
     vlc_fourcc_t i_fourcc;
     off_t        i_pos;
@@ -112,7 +112,7 @@ typedef struc
 } avi_packet_t;
 
 
-typedef struc
+typedef struct
 {
     vlc_fourcc_t i_id;
     uint32_t     i_flags;
@@ -122,7 +122,7 @@ typedef struc
 
 } avi_entry_t;
 
-typedef struc
+typedef struct
 {
     unsigned int    i_size;
     unsigned int    i_max;
@@ -133,7 +133,7 @@ static void avi_index_Init( avi_index_t * );
 static void avi_index_Clean( avi_index_t * );
 static void avi_index_Append( avi_index_t *, off_t *, avi_entry_t * );
 
-typedef struc
+typedef struct
 {
     bool            b_activated;
     bool            b_eof;
@@ -161,7 +161,7 @@ typedef struc
     stream_t        *p_out_muxed;
 } avi_track_t;
 
-struct demux_sys_
+struct demux_sys_t
 {
     mtime_t i_time;
     mtime_t i_length;
@@ -221,7 +221,7 @@ static mtime_t  AVI_MovieGetLength( demux_t * );
 static void AVI_MetaLoad( demux_t *, avi_chunk_list_t *p_riff, avi_chunk_avih_t *p_avih );
 
 /*****************************************************************************
- * Stream managemen
+ * Stream management
  *****************************************************************************/
 static int        AVI_TrackSeek  ( demux_t *, int, mtime_t );
 static int        AVI_TrackStopFinishedStreams( demux_t *);
@@ -795,7 +795,7 @@ static void Close ( vlc_object_t * p_this )
  *****************************************************************************
  * Returns -1 in case of error, 0 in case of EOF, 1 otherwise
  *****************************************************************************/
-typedef struc
+typedef struct
 {
     bool b_ok;
 
@@ -988,7 +988,7 @@ static int Demux_Seekable( demux_t *p_demux )
                     }
 
                     /* Prevents from eating all the CPU with broken files.
-                     * This value should be low enough so that it doesn'
+                     * This value should be low enough so that it doesn't
                      * affect the reading speed too much. */
                     if( !(++i_loop_count % 1024) )
                     {
@@ -1220,7 +1220,7 @@ static int Demux_UnSeekable( demux_t *p_demux )
             ( avi_pk.i_cat != AUDIO_ES && avi_pk.i_cat != VIDEO_ES ) )
         {
             /* we haven't found an audio or video packet:
-             *  - we have seek, found first next packe
+             *  - we have seek, found first next packet
              *  - others packets could be found, skip them
              */
             switch( avi_pk.i_fourcc )
@@ -1300,7 +1300,7 @@ static int Demux_UnSeekable( demux_t *p_demux )
 }
 
 /*****************************************************************************
- * Seek: goto to i_date or i_percen
+ * Seek: goto to i_date or i_percent
  *****************************************************************************/
 static int Seek( demux_t *p_demux, mtime_t i_date, int i_percent )
 {
@@ -1642,7 +1642,7 @@ static int AVI_StreamChunkFind( demux_t *p_demux, unsigned int i_stream )
             }
 
             /* Prevents from eating all the CPU with broken files.
-             * This value should be low enough so that it doesn'
+             * This value should be low enough so that it doesn't
              * affect the reading speed too much. */
             if( !(++i_loop_count % 1024) )
             {
@@ -2153,7 +2153,7 @@ static int AVI_IndexFind_idx1( demux_t *p_demux,
     *pp_idx1 = p_idx1;
 
     /* The offset in the index should be from the start of the movi content,
-     * but some broken files use offset from the start of the file. Jus
+     * but some broken files use offset from the start of the file. Just
      * checking the offset of the first packet is not enough as some files
      * has unused chunk at the beginning of the movi content.
      */
@@ -2676,7 +2676,7 @@ exit:
         AVI_ChunkFree( p_demux->s, &ck );
 }
 /*****************************************************************************
- * Stream managemen
+ * Stream management
  *****************************************************************************/
 static int AVI_TrackStopFinishedStreams( demux_t *p_demux )
 {

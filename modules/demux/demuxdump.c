@@ -70,7 +70,7 @@ static int Control( demux_t *, int,va_list );
 
 #define DUMP_BLOCKSIZE  16384
 
-struct demux_sys_
+struct demux_sys_t
 {
     char        *psz_file;
     FILE        *p_file;

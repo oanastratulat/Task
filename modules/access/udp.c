@@ -2,14 +2,14 @@
  * udp.c: raw UDP input module
  *****************************************************************************
  * Copyright (C) 2001-2005 the VideoLAN team
- * Copyright (C) 2007 Remi Denis-Courmon
+ * Copyright (C) 2007 Remi Denis-Courmont
  * $Id: 8a316c47dc6e7829f3cbe05bc05ee50e7a182f4d $
  *
  * Authors: Christophe Massiot <massiot@via.ecp.fr>
  *          Tristan Leteurtre <tooney@via.ecp.fr>
  *          Laurent Aimar <fenrir@via.ecp.fr>
  *          Jean-Paul Saman <jpsaman #_at_# m2x dot nl>
- *          Remi Denis-Courmon
+ *          Remi Denis-Courmont
  *
  * Reviewed: 23 October 2003, Jean-Paul Saman <jpsaman _at_ videolan _dot_ org>
  *
@@ -70,7 +70,7 @@ static block_t *BlockUDP( access_t * );
 static int Control( access_t *, int, va_list );
 
 /*****************************************************************************
- * Open: open the socke
+ * Open: open the socket
  *****************************************************************************/
 static int Open( vlc_object_t *p_this )
 {

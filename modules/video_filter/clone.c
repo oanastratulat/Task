@@ -125,7 +125,7 @@ static int Open( vlc_object_t *p_this )
     }
     else
     {
-        /* No list was specified. We will use the default vout, and ge
+        /* No list was specified. We will use the default vout, and get
          * the number of clones from clone-count */
         p_splitter->i_output = var_CreateGetInteger( p_splitter, CFG_PREFIX "count" );
         if( p_splitter->i_output <= 0 )

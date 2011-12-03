@@ -6,7 +6,7 @@
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -95,7 +95,7 @@ bool config_IsSafe( const char *name )
     return p_config != NULL && p_config->b_safe;
 }
 
-#undef config_GetIn
+#undef config_GetInt
 /*****************************************************************************
  * config_GetInt: get the value of an int variable
  *****************************************************************************
@@ -130,7 +130,7 @@ int64_t config_GetInt( vlc_object_t *p_this, const char *psz_name )
     return val;
 }
 
-#undef config_GetFloa
+#undef config_GetFloat
 /*****************************************************************************
  * config_GetFloat: get the value of a float variable
  *****************************************************************************
@@ -247,7 +247,7 @@ void config_PutPsz( vlc_object_t *p_this,
     free (oldstr);
 }
 
-#undef config_PutIn
+#undef config_PutInt
 /*****************************************************************************
  * config_PutInt: set the integer value of an int variable
  *****************************************************************************
@@ -286,7 +286,7 @@ void config_PutInt( vlc_object_t *p_this, const char *psz_name,
     vlc_rwlock_unlock (&config_lock);
 }
 
-#undef config_PutFloa
+#undef config_PutFloat
 /*****************************************************************************
  * config_PutFloat: set the value of a float variable
  *****************************************************************************
@@ -341,7 +341,7 @@ static int confnamecmp (const void *key, const void *elem)
     return strcmp (key, (*conf)->psz_name);
 }
 
-static struc
+static struct
 {
     module_config_t **list;
     size_t count;

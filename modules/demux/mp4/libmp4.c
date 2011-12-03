@@ -35,7 +35,7 @@
 #include "drms.h"
 
 /*****************************************************************************
- * Here are defined some macro to make life simpler but before using i
+ * Here are defined some macro to make life simpler but before using it
  * *look* at the code.
  *
  *****************************************************************************/
@@ -283,7 +283,7 @@ static int MP4_NextBox( stream_t *p_stream, MP4_Box_t *p_box )
  * For all known box a loader is given,
  *  XXX: all common struct have to be already read by MP4_ReadBoxCommon
  *       after called one of theses functions, file position is unknown
- *       you need to call MP4_GotoBox to go where you wan
+ *       you need to call MP4_GotoBox to go where you want
  *****************************************************************************/
 static int MP4_ReadBoxContainerRaw( stream_t *p_stream, MP4_Box_t *p_container )
 {
@@ -1610,15 +1610,15 @@ static int MP4_ReadBox_sample_text( stream_t *p_stream, MP4_Box_t *p_box )
             p_box->data.p_sample_text->i_justification_horizontal = 1;
             p_box->data.p_sample_text->i_justification_vertical = 1;
             break;
-        case -1:    // Flush Righ
+        case -1:    // Flush Right
             p_box->data.p_sample_text->i_justification_horizontal = -1;
             p_box->data.p_sample_text->i_justification_vertical = -1;
             break;
-        case -2:    // Flush Lef
+        case -2:    // Flush Left
             p_box->data.p_sample_text->i_justification_horizontal = 0;
             p_box->data.p_sample_text->i_justification_vertical = 0;
             break;
-        case 0: // Flush Defaul
+        case 0: // Flush Default
         default:
             p_box->data.p_sample_text->i_justification_horizontal = 1;
             p_box->data.p_sample_text->i_justification_vertical = -1;
@@ -2517,7 +2517,7 @@ static int MP4_ReadBox_0xa9xxx( stream_t *p_stream, MP4_Box_t *p_box )
             // version should be 0, flags should be 1 for text, 0 for data
             if( ( i_version == 0x00000001 ) && (i_data_len >= 12 ) )
             {
-                // the rest is the tex
+                // the rest is the text
                 i_data_len -= 12;
                 p_box->data.p_0xa9xxx->psz_text = malloc( i_data_len + 1 );
                 if( p_box->data.p_0xa9xxx->psz_text == NULL )
@@ -3001,7 +3001,7 @@ unknown:
 /****                   "Higher level" Functions                          ****/
 /**** ------------------------------------------------------------------- ****/
 
-static const struc
+static const struct
 {
     uint32_t i_type;
     int  (*MP4_ReadBox_function )( stream_t *p_stream, MP4_Box_t *p_box );
@@ -3327,7 +3327,7 @@ void MP4_BoxFree( stream_t *s, MP4_Box_t *p_box )
 /*****************************************************************************
  * MP4_BoxGetRoot : Parse the entire file, and create all boxes in memory
  *****************************************************************************
- *  The first box is a virtual box "root" and is the father for all firs
+ *  The first box is a virtual box "root" and is the father for all first
  *  level boxes for the file, a sort of virtual contener
  *****************************************************************************/
 MP4_Box_t *MP4_BoxGetRoot( stream_t *s )

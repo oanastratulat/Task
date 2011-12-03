@@ -791,7 +791,7 @@ int spectrometer_Run(visual_effect_t * p_effect, vlc_object_t *p_aout,
 
 
 /*****************************************************************************
- * scope_Run: scope effec
+ * scope_Run: scope effect
  *****************************************************************************/
 int scope_Run(visual_effect_t * p_effect, vlc_object_t *p_aout,
               const block_t * p_buffer , picture_t * p_picture)
@@ -848,7 +848,7 @@ int scope_Run(visual_effect_t * p_effect, vlc_object_t *p_aout,
 
 
 /*****************************************************************************
- * vuMeter_Run: vu meter effec
+ * vuMeter_Run: vu meter effect
  *****************************************************************************/
 int vuMeter_Run(visual_effect_t * p_effect, vlc_object_t *p_aout,
                 const block_t * p_buffer , picture_t * p_picture)

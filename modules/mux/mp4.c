@@ -83,7 +83,7 @@ static int Mux      ( sout_mux_t * );
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-typedef struc
+typedef struct
 {
     uint64_t i_pos;
     int      i_size;
@@ -94,7 +94,7 @@ typedef struc
 
 } mp4_entry_t;
 
-typedef struc
+typedef struct
 {
     es_format_t   fmt;
     int           i_track_id;
@@ -118,7 +118,7 @@ typedef struc
 
 } mp4_stream_t;
 
-struct sout_mux_sys_
+struct sout_mux_sys_t
 {
     bool b_mov;
     bool b_3gp;
@@ -134,7 +134,7 @@ struct sout_mux_sys_
     mp4_stream_t **pp_streams;
 };
 
-typedef struct bo_
+typedef struct bo_t
 {
     bool b_grow;
 
@@ -866,8 +866,8 @@ static bo_t *GetAvcCTag( mp4_stream_t *p_stream )
             int i_offset    = 1;
             int i_size      = 0;
             int i_startcode = 0;
-
-
+ 
+ 
             for( i_offset = 1; i_offset+2 < i_buffer ; i_offset++)
             {
                 if( p_buffer[i_offset] == 0 && p_buffer[i_offset+1] == 0 &&
@@ -896,7 +896,7 @@ static bo_t *GetAvcCTag( mp4_stream_t *p_stream )
             p_buffer += i_size;
         }
     }
-
+ 
     /* FIXME use better value */
     avcC = box_new( "avcC" );
     bo_add_8( avcC, 1 );      /* configuration version */
@@ -1084,7 +1084,7 @@ static bo_t *GetSounBox( sout_mux_t *p_mux, mp4_stream_t *p_stream )
     }
     bo_add_16be( soun, 0 );         // revision level (0)
     bo_add_32be( soun, 0 );         // vendor
-    // channel-coun
+    // channel-count
     bo_add_16be( soun, p_stream->fmt.audio.i_channels );
     // sample size
     bo_add_16be( soun, p_stream->fmt.audio.i_bitspersample ?
@@ -1195,7 +1195,7 @@ static bo_t *GetVideBox( mp4_stream_t *p_stream )
     }
 
     bo_add_16be( vide, p_stream->fmt.video.i_width );  // i_width
-    bo_add_16be( vide, p_stream->fmt.video.i_height ); // i_heigh
+    bo_add_16be( vide, p_stream->fmt.video.i_height ); // i_height
 
     bo_add_32be( vide, 0x00480000 );                // h 72dpi
     bo_add_32be( vide, 0x00480000 );                // v 72dpi
@@ -1275,10 +1275,10 @@ static bo_t *GetTextBox( void )
         bo_add_16be( text, 0 );     // back ground color
     }
 
-    bo_add_16be( text, 0 );         // box tex
-    bo_add_16be( text, 0 );         // box tex
-    bo_add_16be( text, 0 );         // box tex
-    bo_add_16be( text, 0 );         // box tex
+    bo_add_16be( text, 0 );         // box text
+    bo_add_16be( text, 0 );         // box text
+    bo_add_16be( text, 0 );         // box text
+    bo_add_16be( text, 0 );         // box text
 
     bo_add_64be( text, 0 );         // reserved
     for( i = 0; i < 3; i++ )
@@ -1423,7 +1423,7 @@ static bo_t *GetStblBox( sout_mux_t *p_mux, mp4_stream_t *p_stream )
             }
         }
 
-        bo_add_32be( stts, i - i_first ); // sample-coun
+        bo_add_32be( stts, i - i_first ); // sample-count
         bo_add_32be( stts, i_delta );     // sample-delta
     }
     bo_fix_32be( stts, 12, i_index );
@@ -1433,7 +1433,7 @@ static bo_t *GetStblBox( sout_mux_t *p_mux, mp4_stream_t *p_stream )
 
     stsz = box_full_new( "stsz", 0, 0 );
     bo_add_32be( stsz, 0 );                             // sample-size
-    bo_add_32be( stsz, p_stream->i_entry_count );       // sample-coun
+    bo_add_32be( stsz, p_stream->i_entry_count );       // sample-count
     for( i = 0; i < p_stream->i_entry_count; i++ )
     {
         bo_add_32be( stsz, p_stream->entry[i].i_size ); // sample-size

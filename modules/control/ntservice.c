@@ -81,7 +81,7 @@ vlc_module_begin ()
     set_callbacks( Activate, Close )
 vlc_module_end ()
 
-struct intf_sys_
+struct intf_sys_t
 {
     SERVICE_STATUS_HANDLE hStatus;
     SERVICE_STATUS status;

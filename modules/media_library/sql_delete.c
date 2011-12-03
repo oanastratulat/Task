@@ -30,10 +30,10 @@
 
 /**
  * @brief Generic DELETE function for many medias
- * Delete a media and all its referencies which don't poin
+ * Delete a media and all its referencies which don't point
  * an anything else.
  *
- * @param p_ml This media_library_t objec
+ * @param p_ml This media_library_t object
  * @param p_array list of ids to delete
  * @return VLC_SUCCESS or VLC_EGENERIC
  * TODO: Expand to delete media/artist/album given any params

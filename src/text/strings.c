@@ -2,14 +2,14 @@
  * strings.c: String related functions
  *****************************************************************************
  * Copyright (C) 2006 VLC authors and VideoLAN
- * Copyright (C) 2008-2009 Rémi Denis-Courmon
+ * Copyright (C) 2008-2009 Rémi Denis-Courmont
  * $Id: a1df0bbda2580525b8f06622c8998fb5d93a24ae $
  *
  * Authors: Antoine Cellerier <dionoea at videolan dot org>
  *          Daniel Stranger <vlc at schmaller dot de>
  *          Rémi Denis-Courmont <rem # videolan org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -153,7 +153,7 @@ static char *encode_URI_bytes (const char *psz_uri, size_t len)
  * Encodes a URI component (RFC3986 §2).
  *
  * @param psz_uri nul-terminated UTF-8 representation of the component.
- * Obviously, you can't pass a URI containing a nul character, but you don'
+ * Obviously, you can't pass a URI containing a nul character, but you don't
  * want to do that, do you?
  *
  * @return encoded string (must be free()'d), or NULL for ENOMEM.
@@ -306,7 +306,7 @@ static int cmp_entity (const void *key, const void *elem)
 
 /**
  * Converts "&lt;", "&gt;" and "&amp;" to "<", ">" and "&"
- * \param string to conver
+ * \param string to convert
  */
 void resolve_xml_special_chars( char *psz_value )
 {
@@ -954,7 +954,7 @@ char *str_format_meta( vlc_object_t *p_object, const char *string )
 #undef INSERT_STRING
 #undef INSERT_STRING_NO_FREE
 
-#undef str_forma
+#undef str_format
 /**
  * Apply str format time and str format meta
  */
@@ -1068,7 +1068,7 @@ char *make_URI (const char *path, const char *scheme)
     if (path == NULL)
         return NULL;
     if (scheme == NULL && !strcmp (path, "-"))
-        return strdup ("fd://0"); // standard inpu
+        return strdup ("fd://0"); // standard input
     if (strstr (path, "://") != NULL)
         return strdup (path); /* Already a URI */
     /* Note: VLC cannot handle URI schemes without double slash after the
@@ -1184,7 +1184,7 @@ char *make_URI (const char *path, const char *scheme)
 
 /**
  * Tries to convert a URI to a local (UTF-8-encoded) file path.
- * @param url URI to conver
+ * @param url URI to convert
  * @return NULL on error, a nul-terminated string otherwise
  * (use free() to release it)
  */

@@ -84,7 +84,7 @@ vlc_module_end ()
  * This structure is part of the video output thread descriptor.
  * It describes the Distort specific properties of an output thread.
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     int ia_luminance_data[MAX_WINDOW_SZ];
     vlc_mutex_t lock;

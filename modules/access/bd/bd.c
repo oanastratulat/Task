@@ -73,7 +73,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-struct demux_sys_
+struct demux_sys_t
 {
     char *psz_base;
     bool b_shortname;
@@ -190,7 +190,7 @@ static int Open( vlc_object_t *p_this )
     LoadClip( p_demux );
     LoadPlaylist( p_demux );
 
-    /* Reorder playlist to have the most significant firs
+    /* Reorder playlist to have the most significant first
      * (as we don't have menu support, no idea how to find the main title */
     ReorderPlaylist( p_demux );
 
@@ -1243,7 +1243,7 @@ static int LoadClip( demux_t *p_demux )
 }
 
 /* */
-struct es_out_sys_
+struct es_out_sys_t
 {
     demux_t *p_demux;
 };

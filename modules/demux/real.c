@@ -23,7 +23,7 @@
 
 /**
  * Status of this demuxer:
- * Real Media forma
+ * Real Media format
  * -----------------
  *
  * version v3 w/ 14_4/lpcJ is ok.
@@ -79,7 +79,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 
-typedef struc
+typedef struct
 {
     int         i_id;
     es_format_t fmt;
@@ -109,14 +109,14 @@ typedef struc
     mtime_t     i_last_dts;
 } real_track_t;
 
-typedef struc
+typedef struct
 {
     uint32_t i_file_offset;
     uint32_t i_time_offset;
     uint32_t i_frame_index;
 } real_index_t;
 
-struct demux_sys_
+struct demux_sys_t
 {
     int64_t  i_data_offset;
     int64_t  i_data_size;
@@ -373,7 +373,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
         case DEMUX_GET_POSITION:
             pf = (double*) va_arg( args, double* );
 
-            /* read stream size maybe failed in rtsp streaming,
+            /* read stream size maybe failed in rtsp streaming, 
                so use duration to determin the position at first  */
             if( p_sys->i_our_duration > 0 )
             {
@@ -440,7 +440,7 @@ static int Control( demux_t *p_demux, int i_query, va_list args )
 
         case DEMUX_GET_LENGTH:
             pi64 = (int64_t*)va_arg( args, int64_t * );
-
+ 
             if( p_sys->i_our_duration <= 0 )
             {
                 *pi64 = 0;
@@ -815,7 +815,7 @@ static const uint8_t sipr_swap_index_table[38][2] = {
 
 static void SiprPacketReorder(uint8_t *buf, int sub_packet_h, int framesize)
 {
-    int n, bs = sub_packet_h * framesize * 2 / 96; // nibbles per subpacke
+    int n, bs = sub_packet_h * framesize * 2 / 96; // nibbles per subpacket
 
     for (n = 0; n < 38; n++) {
         int j;
@@ -1230,7 +1230,7 @@ static void HeaderINDX( demux_t *p_demux )
         }
 
         real_index_t *p_idx = &p_sys->p_index[i];
-
+        
         p_idx->i_time_offset = GetDWBE( &p_entry[2] );
         p_idx->i_file_offset = GetDWBE( &p_entry[6] );
         p_idx->i_frame_index = GetDWBE( &p_entry[10] );

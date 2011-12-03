@@ -144,7 +144,7 @@ vlc_module_end ()
  * This structure is part of the video output thread descriptor.
  * It describes the Crop specific properties of an output thread.
  *****************************************************************************/
-struct vout_sys_
+struct vout_sys_t
 {
     vlc_mutex_t lock;
     vout_thread_t *p_vout;
@@ -315,7 +315,7 @@ static int Init( vout_thread_t *p_vout )
             }
         }
 
-        if( p_vout->p_sys->i_y + p_vout->p_sys->i_heigh
+        if( p_vout->p_sys->i_y + p_vout->p_sys->i_height
                                                    > p_vout->output.i_height )
         {
             p_vout->p_sys->i_y = 0;
@@ -333,8 +333,8 @@ static int Init( vout_thread_t *p_vout )
     {
         p_vout->p_sys->i_aspect    =  p_vout->p_sys->i_ratio * 432;
         p_vout->p_sys->i_width  = p_vout->fmt_out.i_visible_width;
-        p_vout->p_sys->i_height = p_vout->output.i_aspec
-                                * p_vout->output.i_height / p_vout->p_sys->i_aspec
+        p_vout->p_sys->i_height = p_vout->output.i_aspect
+                                * p_vout->output.i_height / p_vout->p_sys->i_aspect
                                 * p_vout->p_sys->i_width / p_vout->output.i_width;
         p_vout->p_sys->i_height += p_vout->p_sys->i_height % 2;
         p_vout->p_sys->i_x = p_vout->fmt_out.i_x_offset;
@@ -480,10 +480,10 @@ static int Manage( vout_thread_t *p_vout )
 }
 
 /*****************************************************************************
- * Render: display previously rendered outpu
+ * Render: display previously rendered output
  *****************************************************************************
  * This function sends the currently rendered image to Crop image, waits
- * until it is displayed and switches the two rendering buffers, preparing nex
+ * until it is displayed and switches the two rendering buffers, preparing next
  * frame.
  *****************************************************************************/
 static void Render( vout_thread_t *p_vout, picture_t *p_pic )
@@ -680,7 +680,7 @@ static void UpdateStats( vout_thread_t *p_vout, picture_t *p_pic )
             return;
         }
 
-        if (p_vout->output.i_aspec
+        if (p_vout->output.i_aspect
                             * p_vout->output.i_height /
                                 (i_lastwhite - i_firstwhite + 1)
                             * p_vout->p_sys->i_width /
@@ -719,9 +719,9 @@ static void UpdateStats( vout_thread_t *p_vout, picture_t *p_pic )
         if ( p_vout->p_sys->i_lastchange >= (unsigned int)i_time )
         {
             p_vout->p_sys->i_aspect    =  p_vout->p_sys->i_ratio * 432;
-            int i_height = p_vout->output.i_aspec
+            int i_height = p_vout->output.i_aspect
                                     * p_vout->output.i_height /
-                                        p_vout->p_sys->i_aspec
+                                        p_vout->p_sys->i_aspect
                                     * p_vout->p_sys->i_width /
                                         p_vout->output.i_width;
             i_firstwhite = (p_vout->output.i_height - i_height) / 2;
@@ -808,13 +808,13 @@ static void UpdateStats( vout_thread_t *p_vout, picture_t *p_pic )
     p_vout->p_sys->i_y = i_firstwhite;
     p_vout->p_sys->i_height = i_lastwhite - i_firstwhite + 1;
 #ifdef BEST_AUTOCROP
-    // check p_vout->p_sys->i_height <= p_vout->output.i_heigh
+    // check p_vout->p_sys->i_height <= p_vout->output.i_height
     if (p_vout->p_sys->i_height > p_vout->output.i_height)
         p_vout->p_sys->i_height = p_vout->output.i_height;
 #endif
 
-    p_vout->p_sys->i_aspect = p_vout->output.i_aspec
-                            * p_vout->output.i_height / p_vout->p_sys->i_heigh
+    p_vout->p_sys->i_aspect = p_vout->output.i_aspect
+                            * p_vout->output.i_height / p_vout->p_sys->i_height
                             * p_vout->p_sys->i_width / p_vout->output.i_width;
 
     p_vout->p_sys->b_changed = true;

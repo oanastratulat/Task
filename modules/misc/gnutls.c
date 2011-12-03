@@ -1,7 +1,7 @@
 /*****************************************************************************
  * gnutls.c
  *****************************************************************************
- * Copyright (C) 2004-2011 Rémi Denis-Courmon
+ * Copyright (C) 2004-2011 Rémi Denis-Courmont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -260,7 +260,7 @@ static int gnutls_ContinueHandshake (vlc_tls_t *session)
 }
 
 
-typedef struc
+typedef struct
 {
     int flag;
     const char *msg;
@@ -375,7 +375,7 @@ error:
     return -1;
 }
 
-static in
+static int
 gnutls_SessionPrioritize (vlc_object_t *obj, gnutls_session_t session)
 {
     char *priorities = var_InheritString (obj, "gnutls-priorities");
@@ -495,7 +495,7 @@ static void gnutls_Addx509File (vlc_object_t *obj,
     gnutls_Addx509FD (obj, cred, fd, priv, 0);
 }
 #else /* WIN32 */
-static in
+static int
 gnutls_loadOSCAList (vlc_object_t *p_this,
                      gnutls_certificate_credentials cred)
 {

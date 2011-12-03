@@ -275,7 +275,7 @@ static OMX_ERRORTYPE ImplementationSpecificWorkarounds(decoder_t *p_dec,
 }
 
 /*****************************************************************************
- * SetPortDefinition: set definition of the omx port based on the vlc forma
+ * SetPortDefinition: set definition of the omx port based on the vlc format
  *****************************************************************************/
 static OMX_ERRORTYPE SetPortDefinition(decoder_t *p_dec, OmxPort *p_port,
                                        es_format_t *p_fmt)
@@ -409,7 +409,7 @@ static OMX_ERRORTYPE SetPortDefinition(decoder_t *p_dec, OmxPort *p_port,
 }
 
 /*****************************************************************************
- * GetPortDefinition: set vlc format based on the definition of the omx por
+ * GetPortDefinition: set vlc format based on the definition of the omx port
  *****************************************************************************/
 static OMX_ERRORTYPE GetPortDefinition(decoder_t *p_dec, OmxPort *p_port,
                                        es_format_t *p_fmt)
@@ -523,7 +523,7 @@ static OMX_ERRORTYPE GetPortDefinition(decoder_t *p_dec, OmxPort *p_port,
 }
 
 /*****************************************************************************
- * DeinitialiseComponent: Deinitialise and unload an OMX componen
+ * DeinitialiseComponent: Deinitialise and unload an OMX component
  *****************************************************************************/
 static OMX_ERRORTYPE DeinitialiseComponent(decoder_t *p_dec,
                                            OMX_HANDLETYPE omx_handle)
@@ -589,7 +589,7 @@ static OMX_ERRORTYPE DeinitialiseComponent(decoder_t *p_dec,
 }
 
 /*****************************************************************************
- * InitialiseComponent: Load and initialise an OMX componen
+ * InitialiseComponent: Load and initialise an OMX component
  *****************************************************************************/
 static OMX_ERRORTYPE InitialiseComponent(decoder_t *p_dec,
     OMX_STRING psz_component, OMX_HANDLETYPE *p_handle)
@@ -1507,7 +1507,7 @@ static void CloseGeneric( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * OmxEventHandler:
+ * OmxEventHandler: 
  *****************************************************************************/
 static OMX_ERRORTYPE OmxEventHandler( OMX_HANDLETYPE omx_handle,
     OMX_PTR app_data, OMX_EVENTTYPE event, OMX_U32 data_1,

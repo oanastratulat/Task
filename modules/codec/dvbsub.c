@@ -36,7 +36,7 @@
  * The character codes in the string should actually be indexes referring to a
  * character table identified in the subtitle descriptor.
  *
- * The spec is quite vague in this area, but what is meant is perhaps that i
+ * The spec is quite vague in this area, but what is meant is perhaps that it
  * refers to the character index in the codepage belonging to the language
  * specified in the subtitle descriptor. Potentially it's designed for widechar
  * (but not for UTF-*) codepages.
@@ -47,7 +47,7 @@
  * -----------------------------------------
  * DDS (Display Definition Segment) tells the decoder how the subtitle image
  * relates to the video image.
- * For SD, the subtitle image is always considered to be for display a
+ * For SD, the subtitle image is always considered to be for display at
  * 720x576 (although it's assumed that for NTSC, this is 720x480, this
  * is not documented well) Also, for SD, the subtitle image is drawn 'on
  * the glass' (i.e. after video scaling, letterbox, etc.)
@@ -57,7 +57,7 @@
  * intended for, and hence how to scale the subtitle images for a
  * particular video size
  * i.e. if HD video is presented as letterbox, the subs will be in the
- * same place on the video as if the video was presented on an HD se
+ * same place on the video as if the video was presented on an HD set
  * indeed, if the HD video was pillarboxed by the decoder, the subs may
  * be cut off as well as the video. The intent here is that the subs can
  * be placed accurately on the video - something which was missed in the
@@ -159,7 +159,7 @@ typedef struct dvbsub_objectdef_s
 } dvbsub_objectdef_t;
 
 /* The entry in the palette CLUT */
-typedef struc
+typedef struct
 {
     uint8_t                 Y;
     uint8_t                 Cr;
@@ -232,7 +232,7 @@ typedef struct dvbsub_regiondef_s
 } dvbsub_regiondef_t;
 
 /* The page defines the list of regions [7.2.2] */
-typedef struc
+typedef struct
 {
     int i_id;
     int i_timeout; /* in seconds */
@@ -244,7 +244,7 @@ typedef struc
 
 } dvbsub_page_t;
 
-struct decoder_sys_
+struct decoder_sys_t
 {
     bs_t               bs;
 
@@ -714,7 +714,7 @@ static void decode_clut( decoder_t *p_dec, bs_t *s )
         }
 
         /* According to EN 300-743 section 7.2.3 note 1, type should
-         * not have more than 1 bit set to one, but some streams don'
+         * not have more than 1 bit set to one, but some streams don't
          * respect this note. */
         if( ( i_type & 0x04 ) && ( i_id < 4 ) )
         {
@@ -1658,14 +1658,14 @@ static subpicture_t *render( decoder_t *p_dec )
 /*****************************************************************************
  * encoder_sys_t : encoder descriptor
  *****************************************************************************/
-typedef struct encoder_region_
+typedef struct encoder_region_t
 {
     int i_width;
     int i_height;
 
 } encoder_region_t;
 
-struct encoder_sys_
+struct encoder_sys_t
 {
     unsigned int i_page_ver;
     unsigned int i_region_ver;

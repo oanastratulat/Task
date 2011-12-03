@@ -1,7 +1,7 @@
 /*****************************************************************************
  * src.c : Secret Rabbit Code (a.k.a. libsamplerate) resampler
  *****************************************************************************
- * Copyright (C) 2011 Rémi Denis-Courmon
+ * Copyright (C) 2011 Rémi Denis-Courmont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -217,7 +217,7 @@ static int Open(vlc_object_t *object)
     sys->overlay = NULL;
     const bool is_overlay = var_InheritBool(vd, "overlay");
     if (is_overlay) {
-        static const struc
+        static const struct
         {
             vlc_fourcc_t vlc;
             uint32_t     sdl;
@@ -361,7 +361,7 @@ error:
 }
 
 /**
- * Close a SDL video outpu
+ * Close a SDL video output
  */
 static void Close(vlc_object_t *object)
 {
@@ -568,7 +568,7 @@ static int Control(vout_display_t *vd, int query, va_list args)
 }
 
 /**
- * Proccess pending even
+ * Proccess pending event
  */
 static void Manage(vout_display_t *vd)
 {
@@ -693,7 +693,7 @@ static const struct {
 
     { SDLK_INSERT, KEY_INSERT },
     { SDLK_DELETE, KEY_DELETE },
-    /*TODO: find a equivalent for SDL
+    /*TODO: find a equivalent for SDL 
     { , KEY_MEDIA_NEXT_TRACK }
     { , KEY_MEDIA_PREV_TRACK }
     { , KEY_VOLUME_MUTE }

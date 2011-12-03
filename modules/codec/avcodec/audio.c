@@ -46,7 +46,7 @@
 /*****************************************************************************
  * decoder_sys_t : decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     AVCODEC_COMMON_MEMBERS
 

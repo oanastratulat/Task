@@ -2,14 +2,14 @@
  * io.c: network I/O functions
  *****************************************************************************
  * Copyright (C) 2004-2005, 2007 VLC authors and VideoLAN
- * Copyright © 2005-2006 Rémi Denis-Courmon
+ * Copyright © 2005-2006 Rémi Denis-Courmont
  * $Id: b4b419680ffc01ba65cde476065a3e8f291273df $
  *
  * Authors: Laurent Aimar <fenrir@videolan.org>
  *          Rémi Denis-Courmont <rem # videolan.org>
  *          Christophe Mutricy <xtophe at videolan dot org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -176,7 +176,7 @@ int *net_Listen (vlc_object_t *p_this, const char *psz_host,
             struct sockaddr_in6 dumb =
             {
                 .sin6_family = ptr->ai_addr->sa_family,
-                .sin6_port =  ((struct sockaddr_in *)(ptr->ai_addr))->sin_por
+                .sin6_port =  ((struct sockaddr_in *)(ptr->ai_addr))->sin_port
             };
 
             bind (fd, (struct sockaddr *)&dumb, ptr->ai_addrlen);
@@ -255,7 +255,7 @@ int *net_Listen (vlc_object_t *p_this, const char *psz_host,
  * data; in that case, a short count means EOF has been reached or the VLC
  * object has been signaled.
  *****************************************************************************/
-ssize_
+ssize_t
 net_Read (vlc_object_t *restrict p_this, int fd, const v_socket_t *vs,
           void *restrict p_buf, size_t i_buflen, bool waitall)
 {

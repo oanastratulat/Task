@@ -6,7 +6,7 @@
  *
  * Author: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -408,7 +408,7 @@ static int ImageWriteUrl( image_handler_t *p_image, picture_t *p_pic,
 }
 
 /**
- * Convert an image to a different forma
+ * Convert an image to a different format
  *
  */
 
@@ -528,7 +528,7 @@ static picture_t *ImageFilter( image_handler_t *p_image, picture_t *p_pic,
  * Misc functions
  *
  */
-static const struc
+static const struct
 {
     vlc_fourcc_t i_codec;
     const char *psz_ext;
@@ -591,7 +591,7 @@ static const char *Fourcc2Ext( vlc_fourcc_t i_codec )
 }
 */
 
-static const struc
+static const struct
 {
     vlc_fourcc_t i_codec;
     const char *psz_mime;

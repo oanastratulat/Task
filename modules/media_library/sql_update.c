@@ -31,7 +31,7 @@
 /**
  * @brief Generic update in Media Library database
  *
- * @param p_ml the media library objec
+ * @param p_ml the media library object
  * @param selected_type the type of the element we're selecting
  * @param where the list of ids or uri to change
  * @param changes list of changes to make in the entries
@@ -187,7 +187,7 @@ quit_buildwhere:
 /**
  * @brief Generic UPDATE query builder
  *
- * @param p_ml This media_library_t objec
+ * @param p_ml This media_library_t object
  * @param ppsz_query *ppsz_query will contain query for update
  * @param ppsz_id_query will contain query to get the ids of updated files
  * @param selected_type the type of the element we're selecting
@@ -634,9 +634,9 @@ quit_buildupdate_success:
 #undef SET_INT
 
 /**
- * @brief Update a ml_media_
+ * @brief Update a ml_media_t
  *
- * @param p_ml the media library objec
+ * @param p_ml the media library object
  * @param p_media media to synchronise in the database
  * @return VLC_SUCCESS or VLC_EGENERIC
  * @note: the media id may be 0, in this case, the update is based
@@ -758,10 +758,10 @@ quit1:
 }
 
 /**
- * @brief Update an album's cover ar
+ * @brief Update an album's cover art
  * @param p_ml The Media Library
  * @param i_album_id Album's ID
- * @param psz_cover New cover ar
+ * @param psz_cover New cover art
  * @return VLC success/error code
  **/
 int SetArtCover( media_library_t *p_ml,

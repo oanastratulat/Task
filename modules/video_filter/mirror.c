@@ -100,7 +100,7 @@ static int FilterCallback( vlc_object_t *, char const *,
 /*****************************************************************************
  * filter_sys_t: adjust filter method descriptor
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     int i_split;
     int i_direction;
@@ -177,10 +177,10 @@ static void Destroy( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Render: displays previously rendered outpu
+ * Render: displays previously rendered output
  *****************************************************************************
  * This function send the currently rendered image to Mirror image, waits
- * until it is displayed and switch the two rendering buffers, preparing nex
+ * until it is displayed and switch the two rendering buffers, preparing next
  * frame.
  *****************************************************************************/
 static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
@@ -298,7 +298,7 @@ static void PlanarVerticalMirror( picture_t *p_pic, picture_t *p_outpic,
 }
 
 /*****************************************************************************
- * YUV422VerticalMirror: Mirrors vertically image byte by byte for YUV422 forma
+ * YUV422VerticalMirror: Mirrors vertically image byte by byte for YUV422 format
  *****************************************************************************
  * This function mirrors image vertically. It iterates for all lines in
  * image and for every line, it iterates for 4-byte chucks, properly mirroring
@@ -395,7 +395,7 @@ static void YUV422Mirror2Pixels( uint8_t* p_dst, uint8_t *p_src,
 }
 
 /*****************************************************************************
- * RV24VerticalMirror: Mirrors vertically image byte by byte for RV24 forma
+ * RV24VerticalMirror: Mirrors vertically image byte by byte for RV24 format
  *****************************************************************************
  * This function mirrors image vertically. It iterates for all lines in
  * image and for every line, it iterates for 3-byte chunks.
@@ -460,7 +460,7 @@ static void RV24VerticalMirror( picture_t *p_pic, picture_t *p_outpic,
 }
 
 /*****************************************************************************
- * RV32VerticalMirror: Mirrors vertically image byte by byte for RV32 forma
+ * RV32VerticalMirror: Mirrors vertically image byte by byte for RV32 format
  *****************************************************************************
  * This function mirrors image vertically. It iterates for all lines in
  * image and for every line, it iterates for 4-byte chunks as 32-bit pointers.

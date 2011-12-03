@@ -152,7 +152,7 @@ vlc_module_end ()
  * Local prototypes
  *****************************************************************************/
 static block_t *DoWork( filter_t *, block_t * );
-static const struc
+static const struct
 {
     const char *psz_name;
     int  (*pf_run)( visual_effect_t *, vlc_object_t *,
@@ -324,7 +324,7 @@ static block_t *DoWork( filter_t *p_filter, block_t *p_in_buf )
 
     /* First, get a new picture */
     while( ( p_outpic = vout_GetPicture( p_sys->p_vout ) ) == NULL)
-    {   /* XXX: This looks like a bad idea. Don't run to me for sympathy if i
+    {   /* XXX: This looks like a bad idea. Don't run to me for sympathy if it
          * dead locks... */
         if( !vlc_object_alive (p_sys->p_vout) )
             return NULL;
@@ -347,7 +347,7 @@ static block_t *DoWork( filter_t *p_filter, block_t *p_in_buf )
             p_effect->pf_run( p_effect, VLC_OBJECT(p_filter),
                               p_in_buf, p_outpic );
         }
-#undef p_effec
+#undef p_effect
     }
 
     p_outpic->date = p_in_buf->i_pts + (p_in_buf->i_length / 2);
@@ -389,7 +389,7 @@ static void Close( vlc_object_t *p_this )
         free( p_effect->p_data );
         free( p_effect->psz_args );
         free( p_effect );
-#undef p_effec
+#undef p_effect
     }
 
     free( p_sys->effect );

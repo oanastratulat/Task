@@ -5,7 +5,7 @@
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -54,7 +54,7 @@ xml_t *xml_Create( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * xml_Delete: Deletes an instance of xml_
+ * xml_Delete: Deletes an instance of xml_t
  *****************************************************************************/
 void xml_Delete( xml_t *p_xml )
 {
@@ -66,7 +66,7 @@ void xml_Delete( xml_t *p_xml )
 #undef xml_ReaderCreate
 /**
  * Creates an XML reader.
- * @param obj parent VLC objec
+ * @param obj parent VLC object
  * @param stream stream to read XML from
  * @return NULL on error.
  */
@@ -104,7 +104,7 @@ void xml_ReaderDelete(xml_reader_t *reader)
  * Resets an existing XML reader.
  * If you need to parse several XML files, this function is much faster than
  * xml_ReaderCreate() and xml_ReaderDelete() combined.
- * If the stream parameter is NULL, the XML reader will be stopped, bu
+ * If the stream parameter is NULL, the XML reader will be stopped, but
  * not restarted until the next xml_ReaderReset() call with a non-NULL stream.
  *
  * @param reader XML reader to reinitialize

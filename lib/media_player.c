@@ -5,7 +5,7 @@
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -40,7 +40,7 @@
 #include "media_player_internal.h"
 
 /*
- * mapping of libvlc_navigate_mode_t to vlc_action_
+ * mapping of libvlc_navigate_mode_t to vlc_action_t
  */
 static const vlc_action_t libvlc_navigate_to_action[] =
 {
@@ -55,20 +55,20 @@ static const uint32_t libvlc_navigate_to_action_size =                        \
   sizeof( libvlc_navigate_to_action ) / sizeof( libvlc_navigate_to_action[0] );
 
 
-static in
+static int
 input_seekable_changed( vlc_object_t * p_this, char const * psz_cmd,
                         vlc_value_t oldval, vlc_value_t newval,
                         void * p_userdata );
-static in
+static int
 input_pausable_changed( vlc_object_t * p_this, char const * psz_cmd,
                         vlc_value_t oldval, vlc_value_t newval,
                         void * p_userdata );
-static in
+static int
 input_event_changed( vlc_object_t * p_this, char const * psz_cmd,
                      vlc_value_t oldval, vlc_value_t newval,
                      void * p_userdata );
 
-static in
+static int
 snapshot_was_taken( vlc_object_t *p_this, char const *psz_cmd,
                     vlc_value_t oldval, vlc_value_t newval, void *p_data );
 
@@ -141,7 +141,7 @@ static void release_input_thread( libvlc_media_player_t *p_mi, bool b_input_abor
 }
 
 /*
- * Retrieve the input thread. Be sure to release the objec
+ * Retrieve the input thread. Be sure to release the object
  * once you are done with it. (libvlc Internal)
  */
 input_thread_t *libvlc_get_input_thread( libvlc_media_player_t *p_mi )
@@ -190,7 +190,7 @@ static void set_state( libvlc_media_player_t *p_mi, libvlc_state_t state,
     }
 }
 
-static in
+static int
 input_seekable_changed( vlc_object_t * p_this, char const * psz_cmd,
                         vlc_value_t oldval, vlc_value_t newval,
                         void * p_userdata )
@@ -208,7 +208,7 @@ input_seekable_changed( vlc_object_t * p_this, char const * psz_cmd,
     return VLC_SUCCESS;
 }
 
-static in
+static int
 input_pausable_changed( vlc_object_t * p_this, char const * psz_cmd,
                         vlc_value_t oldval, vlc_value_t newval,
                         void * p_userdata )
@@ -226,7 +226,7 @@ input_pausable_changed( vlc_object_t * p_this, char const * psz_cmd,
     return VLC_SUCCESS;
 }
 
-static in
+static int
 input_event_changed( vlc_object_t * p_this, char const * psz_cmd,
                      vlc_value_t oldval, vlc_value_t newval,
                      void * p_userdata )
@@ -373,7 +373,7 @@ static void libvlc_media_player_destroy( libvlc_media_player_t * );
  *
  * Refcount strategy:
  * - All items created by _new start with a refcount set to 1.
- * - Accessor _release decrease the refcount by 1, if after tha
+ * - Accessor _release decrease the refcount by 1, if after that
  *   operation the refcount is 0, the object is destroyed.
  * - Accessor _retain increase the refcount by 1 (XXX: to implement)
  *
@@ -522,7 +522,7 @@ libvlc_media_player_new( libvlc_instance_t *instance )
     register_event(mp, MediaChanged);
 
     /* Attach a var callback to the global object to provide the glue between
-     * vout_thread that generates the event and media_player that re-emits i
+     * vout_thread that generates the event and media_player that re-emits it
      * with its own event manager
      *
      * FIXME: It's unclear why we want to put this in public API, and why we
@@ -651,7 +651,7 @@ void libvlc_media_player_set_media(
     libvlc_media_retain( p_md );
     p_mi->p_md = p_md;
 
-    /* The policy here is to ignore that we were created using a differen
+    /* The policy here is to ignore that we were created using a different
      * libvlc_instance, because we don't really care */
     p_mi->p_libvlc_instance = p_md->p_libvlc_instance;
 
@@ -855,7 +855,7 @@ void libvlc_video_set_format( libvlc_media_player_t *mp, const char *chroma,
 }
 
 /**************************************************************************
- * set_nsobjec
+ * set_nsobject
  **************************************************************************/
 void libvlc_media_player_set_nsobject( libvlc_media_player_t *p_mi,
                                         void * drawable )
@@ -869,7 +869,7 @@ void libvlc_media_player_set_nsobject( libvlc_media_player_t *p_mi,
 }
 
 /**************************************************************************
- * get_nsobjec
+ * get_nsobject
  **************************************************************************/
 void * libvlc_media_player_get_nsobject( libvlc_media_player_t *p_mi )
 {
@@ -1150,7 +1150,7 @@ void libvlc_media_player_set_title( libvlc_media_player_t *p_mi,
     var_SetInteger( p_input_thread, "title", i_title );
     vlc_object_release( p_input_thread );
 
-    //send even
+    //send event
     libvlc_event_t event;
     event.type = libvlc_MediaPlayerTitleChanged;
     event.u.media_player_title_changed.new_title = i_title;

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * m3u.c : M3U playlist format impor
+ * m3u.c : M3U playlist format import
  *****************************************************************************
  * Copyright (C) 2004 the VideoLAN team
  * $Id: 5c34aa386beb469ec52daa6dc77211f966ddb1fd $
@@ -36,7 +36,7 @@
 
 #include "playlist.h"
 
-struct demux_sys_
+struct demux_sys_t
 {
     char *psz_prefix;
     char *(*pf_dup) (const char *);

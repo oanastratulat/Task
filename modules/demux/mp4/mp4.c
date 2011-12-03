@@ -64,7 +64,7 @@ static int   Seek    ( demux_t *, mtime_t );
 static int   Control ( demux_t *, int, va_list );
 
 /* Contain all information about a chunk */
-typedef struc
+typedef struct
 {
     uint64_t     i_offset; /* absolute position of this chunk in the file */
     uint32_t     i_sample_description_index; /* index for SampleEntry to use */
@@ -89,7 +89,7 @@ typedef struc
 } mp4_chunk_t;
 
  /* Contain all needed information for read all track with vlc */
-typedef struc
+typedef struct
 {
     unsigned int i_track_ID;/* this should be unique */
 
@@ -142,7 +142,7 @@ typedef struc
 } mp4_track_t;
 
 
-struct demux_sys_
+struct demux_sys_t
 {
     MP4_Box_t    *p_root;      /* container for the whole file */
 
@@ -1797,7 +1797,7 @@ static int TrackCreateES( demux_t *p_demux, mp4_track_t *p_track,
                 p_soun->i_qt_description > 20 + 28 )
             {
                 /* Flags:
-                 *  0x01: IsFloa
+                 *  0x01: IsFloat
                  *  0x02: IsBigEndian
                  *  0x04: IsSigned
                  */
@@ -1857,7 +1857,7 @@ static int TrackCreateES( demux_t *p_demux, mp4_track_t *p_track,
             break;
     }
 
-    /* now see if esds is present and if so create a data packe
+    /* now see if esds is present and if so create a data packet
         with decoder_specific_info  */
 #define p_decconfig p_esds->data.p_esds->es_descriptor.p_decConfigDescr
     if( ( ( p_esds = MP4_BoxGet( p_sample, "esds" ) ) ||

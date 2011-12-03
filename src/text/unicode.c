@@ -2,11 +2,11 @@
  * unicode.c: Unicode <-> locale functions
  *****************************************************************************
  * Copyright (C) 2005-2006 VLC authors and VideoLAN
- * Copyright © 2005-2010 Rémi Denis-Courmon
+ * Copyright © 2005-2010 Rémi Denis-Courmont
  *
  * Authors: Rémi Denis-Courmont <rem # videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -64,7 +64,7 @@ void LocaleFree (const char *str)
 /**
  * Converts a string from the system locale character encoding to UTF-8.
  *
- * @param locale nul-terminated string to conver
+ * @param locale nul-terminated string to convert
  *
  * @return a nul-terminated UTF-8 string, or NULL in case of error.
  * To avoid memory leak, you have to pass the result to LocaleFree()
@@ -83,7 +83,7 @@ char *FromLocale (const char *locale)
  * converts a string from the system locale character encoding to utf-8,
  * the result is always allocated on the heap.
  *
- * @param locale nul-terminated string to conver
+ * @param locale nul-terminated string to convert
  *
  * @return a nul-terminated utf-8 string, or null in case of error.
  * The result must be freed using free() - as with the strdup() function.
@@ -122,7 +122,7 @@ char *ToLocale (const char *utf8)
  * converts a string from UTF-8 to the system locale character encoding,
  * the result is always allocated on the heap.
  *
- * @param utf8 nul-terminated string to conver
+ * @param utf8 nul-terminated string to convert
  *
  * @return a nul-terminated string, or null in case of error.
  * The result must be freed using free() - as with the strdup() function.
@@ -237,7 +237,7 @@ size_t vlc_towc (const char *str, uint32_t *restrict pwc)
     int charlen = clz8 (c ^ 0xFF);
     switch (charlen)
     {
-        case 0: // 7-bit ASCII character -> short cu
+        case 0: // 7-bit ASCII character -> short cut
             *pwc = c;
             return c != '\0';
 
@@ -424,12 +424,12 @@ char *FromCharset(const char *charset, const void *data, size_t data_size)
 
 /**
  * Converts a nul-terminated UTF-8 string to a given character encoding.
- * @param charset iconv name of the character se
+ * @param charset iconv name of the character set
  * @param in nul-terminated UTF-8 string
- * @param outsize pointer to hold the byte size of resul
+ * @param outsize pointer to hold the byte size of result
  *
  * @return A pointer to the result, which must be released using free().
- * The UTF-8 nul terminator is included in the conversion if the targe
+ * The UTF-8 nul terminator is included in the conversion if the target
  * character encoding supports it. However it is not included in the returned
  * byte size.
  * In case of error, NULL is returned and the byte size is undefined.

@@ -1,5 +1,5 @@
 /*
- * core.c - libvlc smoke tes
+ * core.c - libvlc smoke test
  *
  * $Id: 85806310b97cb1f88030d62240391cd118b0c5ae $
  */
@@ -48,7 +48,7 @@ static void test_moduledescriptionlist (libvlc_module_description_t *list)
         assert (module->psz_longname == NULL || strlen (module->psz_longname));
         assert (module->psz_help == NULL || strlen (module->psz_help));
         module = module->p_next;
-    }
+    }    
 
     libvlc_module_description_list_release (list);
 }

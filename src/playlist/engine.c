@@ -6,7 +6,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -144,10 +144,10 @@ static int VideoSplitterCallback( vlc_object_t *p_this, char const *psz_cmd,
 }
 
 /**
- * Create playlis
+ * Create playlist
  *
  * Create a playlist structure.
- * \param p_parent the vlc object that is to be the parent of this playlis
+ * \param p_parent the vlc object that is to be the parent of this playlist
  * \return a pointer to the created playlist, or NULL on error
  */
 playlist_t * playlist_Create( vlc_object_t *p_parent )
@@ -267,7 +267,7 @@ playlist_t * playlist_Create( vlc_object_t *p_parent )
  * This is not thread-safe. Any reference to the playlist is assumed gone.
  * (In particular, all interface and services threads must have been joined).
  *
- * \param p_playlist the playlist objec
+ * \param p_playlist the playlist object
  */
 void playlist_Destroy( playlist_t *p_playlist )
 {

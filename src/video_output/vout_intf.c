@@ -5,7 +5,7 @@
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -75,7 +75,7 @@ static int SubMarginCallback( vlc_object_t *, char const *,
 /*****************************************************************************
  * vout_IntfInit: called during the vout creation to initialise misc things.
  *****************************************************************************/
-static const struc
+static const struct
 {
     double f_value;
     const char *psz_label;
@@ -86,7 +86,7 @@ static const struc
     { 2, N_("2:1 Double") },
     { 0, NULL } };
 
-static const struc
+static const struct
 {
     const char *psz_value;
     const char *psz_label;
@@ -104,7 +104,7 @@ static const struc
     { "1:1", "1:1" },
     { NULL, NULL } };
 
-static const struc
+static const struct
 {
     const char *psz_value;
     const char *psz_label;
@@ -355,7 +355,7 @@ static int VoutSnapshotPip( vout_thread_t *p_vout, picture_t *p_pic )
     if( !p_subpic )
         return VLC_EGENERIC;
 
-    /* FIXME SPU_DEFAULT_CHANNEL is not good (used by the text) bu
+    /* FIXME SPU_DEFAULT_CHANNEL is not good (used by the text) but
      * hardcoded 0 doesn't seem right */
     p_subpic->i_channel = 0;
     p_subpic->i_start = mdate();
@@ -372,7 +372,7 @@ static int VoutSnapshotPip( vout_thread_t *p_vout, picture_t *p_pic )
 }
 
 /**
- * This function will display the name and a PIP of the provided snapsho
+ * This function will display the name and a PIP of the provided snapshot
  */
 static void VoutOsdSnapshot( vout_thread_t *p_vout, picture_t *p_pic, const char *psz_filename )
 {
@@ -387,7 +387,7 @@ static void VoutOsdSnapshot( vout_thread_t *p_vout, picture_t *p_pic, const char
 }
 
 /**
- * This function will handle a snapshot reques
+ * This function will handle a snapshot request
  */
 static void VoutSaveSnapshot( vout_thread_t *p_vout )
 {
@@ -400,7 +400,7 @@ static void VoutSaveSnapshot( vout_thread_t *p_vout )
     block_t *p_image;
     video_format_t fmt;
 
-    /* 500ms timeou
+    /* 500ms timeout
      * XXX it will cause trouble with low fps video (< 2fps) */
     if( vout_GetSnapshot( p_vout, &p_image, &p_picture, &fmt, psz_format, 500*1000 ) )
     {

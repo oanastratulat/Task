@@ -526,7 +526,7 @@ vlc_module_end ()
  *****************************************************************************/
 static picture_t *DecodeBlock  ( decoder_t *p_dec, block_t **pp_block );
 
-struct picture_free_
+struct picture_free_t
 {
    picture_t *p_pic;
    decoder_t *p_dec;
@@ -535,7 +535,7 @@ struct picture_free_
 /*****************************************************************************
  * decoder_sys_t : Schroedinger decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     /*
      * Dirac properties
@@ -635,7 +635,7 @@ static void SetVideoFormat( decoder_t *p_dec )
 }
 
 /*****************************************************************************
- * SchroFrameFree: schro_frame callback to release the associated picture_
+ * SchroFrameFree: schro_frame callback to release the associated picture_t
  * When schro_decoder_reset() is called there will be pictures in the
  * decoding pipeline that need to be released rather than displayed.
  *****************************************************************************/
@@ -713,7 +713,7 @@ static SchroFrame *CreateSchroFrameFromPic( decoder_t *p_dec )
 }
 
 /*****************************************************************************
- * SchroBufferFree: schro_buffer callback to release the associated block_
+ * SchroBufferFree: schro_buffer callback to release the associated block_t
  *****************************************************************************/
 static void SchroBufferFree( SchroBuffer *buf, void *priv )
 {
@@ -871,7 +871,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pict );
  * picture_pts_t : store pts alongside picture number, not carried through
  * encoder
  *****************************************************************************/
-struct picture_pts_
+struct picture_pts_t
 {
    mtime_t i_pts;    /* associated pts */
    uint32_t u_pnum;  /* dirac picture number */
@@ -882,7 +882,7 @@ struct picture_pts_
  * encoder_sys_t : Schroedinger encoder descriptor
  *****************************************************************************/
 #define SCHRO_PTS_TLB_SIZE 256
-struct encoder_sys_
+struct encoder_sys_t
 {
     /*
      * Schro properties
@@ -905,7 +905,7 @@ struct encoder_sys_
     bool b_eos_pulled;
 };
 
-static struc
+static struct
 {
     unsigned int i_height;
     int i_approx_fps;
@@ -1298,14 +1298,14 @@ error:
 }
 
 
-struct enc_picture_free_
+struct enc_picture_free_t
 {
    picture_t *p_pic;
    encoder_t *p_enc;
 };
 
 /*****************************************************************************
- * EncSchroFrameFree: schro_frame callback to release the associated picture_
+ * EncSchroFrameFree: schro_frame callback to release the associated picture_t
  * When schro_encoder_reset() is called there will be pictures in the
  * encoding pipeline that need to be released rather than displayed.
  *****************************************************************************/
@@ -1420,7 +1420,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pic )
             schro_encoder_end_of_stream( p_sys->p_schro );
         }
     } else {
-        /* we only know if the sequence is interlaced when the firs
+        /* we only know if the sequence is interlaced when the first
          * picture arrives, so final setup is done here */
         /* XXX todo, detect change of interlace */
         p_sys->p_format->interlaced = !p_pic->b_progressive;
@@ -1544,7 +1544,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pic )
                     uint32_t len = GetDWBE( p_block->p_buffer + 5 );
                     /* if it hasn't been done so far, stash a copy of the
                      * sequence header for muxers such as ogg */
-                    /* The OggDirac spec advises that a Dirac EOS DataUni
+                    /* The OggDirac spec advises that a Dirac EOS DataUnit
                      * is appended to the sequence header to allow guard
                      * against poor streaming servers */
                     /* XXX, should this be done using the packetizer ? */

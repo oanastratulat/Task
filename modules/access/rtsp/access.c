@@ -1,5 +1,5 @@
 /*****************************************************************************
- * access.c: Real rtsp inpu
+ * access.c: Real rtsp input
  *****************************************************************************
  * Copyright (C) 2005 VideoLAN
  * $Id: bd1bbc393b70271df6cbdfa477933a7b9a299959 $
@@ -61,7 +61,7 @@ static block_t *BlockRead( access_t * );
 static int     Seek( access_t *, uint64_t );
 static int     Control( access_t *, int, va_list );
 
-struct access_sys_
+struct access_sys_t
 {
     rtsp_client_t *p_rtsp;
 
@@ -251,7 +251,7 @@ static int Open( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * Close: close the targe
+ * Close: close the target
  *****************************************************************************/
 static void Close( vlc_object_t * p_this )
 {

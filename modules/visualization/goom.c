@@ -75,7 +75,7 @@ vlc_module_end ()
 #define MAX_BLOCKS 100
 #define GOOM_DELAY 400000
 
-typedef struc
+typedef struct
 {
     vlc_thread_t  thread;
 
@@ -99,7 +99,7 @@ typedef struc
 
 } goom_thread_t;
 
-struct filter_sys_
+struct filter_sys_t
 {
     goom_thread_t *p_thread;
 

@@ -267,7 +267,7 @@ void drms_get_p_key( void *_p_drms, uint32_t *p_key )
  * Return values:
  *  0: success
  * -1: unimplemented
- * -2: invalid argumen
+ * -2: invalid argument
  * -3: could not get system key
  * -4: could not get SCI data
  * -5: no user key found in SCI data
@@ -1490,7 +1490,7 @@ static int GetUserKey( void *_p_drms, uint32_t *p_user_key )
     }
 
     /* Phase 2: look for the user key in the generated data. I must admit I
-     *          do not understand what is going on here, because it almos
+     *          do not understand what is going on here, because it almost
      *          looks like we are browsing data that makes sense, even though
      *          the DoShuffle() part made it completely meaningless. */
 

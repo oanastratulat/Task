@@ -66,7 +66,7 @@ vlc_module_end ()
 static int Demux  ( demux_t * );
 static int Control( demux_t *, int i_query, va_list args );
 
-typedef struc
+typedef struct
 {
     int i_cat;
 
@@ -80,7 +80,7 @@ typedef struc
 
 } asf_track_t;
 
-struct demux_sys_
+struct demux_sys_t
 {
     mtime_t             i_time;     /* s */
     mtime_t             i_length;   /* length of file file */
@@ -225,7 +225,7 @@ static void Close( vlc_object_t * p_this )
 }
 
 /*****************************************************************************
- * SeekIndex: goto to i_date or i_percen
+ * SeekIndex: goto to i_date or i_percent
  *****************************************************************************/
 static int SeekPercent( demux_t *p_demux, int i_query, va_list args )
 {
@@ -431,7 +431,7 @@ static int DemuxPacket( demux_t *p_demux )
         unsigned int i_opaque_data_present;
 
         i_error_correction_data_length = p_peek[0] & 0x0f;  // 4bits
-        i_opaque_data_present = ( p_peek[0] >> 4 )& 0x01;    // 1bi
+        i_opaque_data_present = ( p_peek[0] >> 4 )& 0x01;    // 1bit
         i_error_correction_length_type = ( p_peek[0] >> 5 ) & 0x03; // 2bits
         i_skip += 1; // skip error correction flags
 

@@ -81,7 +81,7 @@ static int InputChange( vlc_object_t *, const char *,
 static int StateChange( vlc_object_t *, const char *,
                         vlc_value_t, vlc_value_t, void * );
 
-struct intf_sys_
+struct intf_sys_t
 {
     playlist_t      *p_playlist;
     vlc_object_t    *p_input;

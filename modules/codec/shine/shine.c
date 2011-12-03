@@ -496,7 +496,7 @@ static const struct huffcodebig ht_big[HTN] =
   { 16, 11, 2047 },
   { 16, 13, 8191 } };
 
-static const struc
+static const struct
 {
   uint32_t region0_cnt;
   uint32_t region1_cnt;
@@ -871,14 +871,14 @@ static void encodeSideInfo( side_info_t si[2][2] )
    * A (31-21) = frame sync
    * B (20-19) = MPEG type
    * C (18-17) = MPEG layer
-   * D (16)    = protection bi
+   * D (16)    = protection bit
    * E (15-12) = bitrate index
    * F (11-10) = samplerate index
-   * G (9)     = padding bi
-   * H (8)     = private bi
+   * G (9)     = padding bit
+   * H (8)     = private bit
    * I (7-6)   = channel mode
    * J (5-4)   = mode extension (jstereo only)
-   * K (3)     = copyright bi
+   * K (3)     = copyright bit
    * L (2)     = original
    * M (1-0)   = emphasis
    */

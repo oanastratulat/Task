@@ -109,7 +109,7 @@ vlc_module_end()
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-typedef struct hdsdi_audio_
+typedef struct hdsdi_audio_t
 {
     int         i_channel; /* i_group * 2 + i_pair */
 
@@ -121,7 +121,7 @@ typedef struct hdsdi_audio_
     es_out_id_t *p_es;
 } hdsdi_audio_t;
 
-struct demux_sys_
+struct demux_sys_t
 {
     /* video device reader */
     int          i_vfd;
@@ -390,7 +390,7 @@ static void SparseCopy( int16_t *p_dest, const int16_t *p_src,
 /*****************************************************************************
  * Video & audio decoding
  *****************************************************************************/
-struct block_extension_
+struct block_extension_t
 {
     bool            b_progressive;          /**< is it a progressive frame ? */
     bool            b_top_field_first;             /**< which field is first */
@@ -492,7 +492,7 @@ static int InitVideo( demux_t *p_demux )
     fmt.video.i_frame_rate_base = p_sys->i_frame_rate_base;
     fmt.video.i_width           = fmt.video.i_visible_width = p_sys->i_width;
     fmt.video.i_height          = fmt.video.i_visible_height = p_sys->i_height;
-    fmt.video.i_sar_num         = p_sys->i_aspect * fmt.video.i_heigh
+    fmt.video.i_sar_num         = p_sys->i_aspect * fmt.video.i_height
                                   / fmt.video.i_width;
     fmt.video.i_sar_den         = VOUT_ASPECT_FACTOR;
     p_sys->p_es_video           = es_out_Add( p_demux->out, &fmt );

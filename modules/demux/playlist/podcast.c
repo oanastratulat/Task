@@ -230,7 +230,7 @@ static int Demux( demux_t *p_demux )
                 break;
             }
 
-            // End elemen
+            // End element
             case XML_READER_ENDELEM:
             {
                 FREENULL( psz_elname );

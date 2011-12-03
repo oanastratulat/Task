@@ -77,7 +77,7 @@ vlc_module_end();
 /*****************************************************************************
  * Definitions of structures used by this plugin
  *****************************************************************************/
-struct demux_sys_
+struct demux_sys_t
 {
     es_out_id_t *p_es;
     es_format_t  fmt;

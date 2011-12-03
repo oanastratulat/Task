@@ -114,7 +114,7 @@ vlc_module_end ()
 /*****************************************************************************
  * Structure to hold the Bar Graph properties
  ****************************************************************************/
-typedef struc
+typedef struct
 {
     int i_alpha;       /* -1 means use default alpha */
     int nbChannels;
@@ -130,7 +130,7 @@ typedef struc
 /**
  * Private data holder
  */
-struct filter_sys_
+struct filter_sys_t
 {
     filter_t *p_blend;
 
@@ -590,19 +590,19 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
         if (i_line == moinsTrois - 1) {
             // 3
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsWhite(24,27);
         }
         if (i_line == moinsTrois) {
             // 3
             DrawPointsBlack(16,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsTrois + 1) {
             // 3
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsTrois + 2) {
@@ -618,19 +618,19 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
         if (i_line == moinsCinq - 1) {
             // 5
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsWhite(24,27);
         }
         if (i_line == moinsCinq) {
             // 5
             DrawPointsBlack(16,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsCinq + 1) {
             // 5
             DrawPointsBlack(16,17);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsCinq + 2) {
@@ -646,19 +646,19 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
         if (i_line == moinsSept - 1) {
             // 7
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsWhite(24,27);
         }
         if (i_line == moinsSept) {
             // 7
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsSept + 1) {
             // 7
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsSept + 2) {
@@ -680,7 +680,7 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
             // 0
             DrawPointsBlack(16,17);
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsWhite(24,27);
         }
         if (i_line == moinsDix) {
@@ -689,7 +689,7 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
             // 0
             DrawPointsBlack(16,17);
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsDix + 1) {
@@ -698,7 +698,7 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
             // 0
             DrawPointsBlack(16,17);
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsDix + 2) {
@@ -721,7 +721,7 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
             // 0
             DrawPointsBlack(16,17);
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsWhite(24,27);
         }
         if (i_line == moinsVingt) {
@@ -730,7 +730,7 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
             // 0
             DrawPointsBlack(16,17);
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsVingt + 1) {
@@ -739,7 +739,7 @@ static picture_t *LoadImage( vlc_object_t *p_this, int nbChannels, int* i_values
             // 0
             DrawPointsBlack(16,17);
             DrawPointsBlack(18,19);
-            // limi
+            // limit
             DrawPointsBlack(24,27);
         }
         if (i_line == moinsVingt + 2) {

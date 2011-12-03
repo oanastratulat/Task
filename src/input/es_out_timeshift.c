@@ -6,7 +6,7 @@
  *
  * Authors: Laurent Aimar < fenrir _AT_ videolan _DOT_ org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -100,39 +100,39 @@ typedef struct attribute_packed
         int  i_int;
         int64_t i_i64;
         es_out_id_t *p_es;
-        struc
+        struct
         {
             int     i_int;
             int64_t i_i64;
         } int_i64;
-        struc
+        struct
         {
             int        i_int;
             vlc_meta_t *p_meta;
         } int_meta;
-        struc
+        struct
         {
             int       i_int;
             vlc_epg_t *p_epg;
         } int_epg;
-        struc
+        struct
         {
             es_out_id_t *p_es;
             bool        b_bool;
         } es_bool;
-        struc
+        struct
         {
             es_out_id_t *p_es;
             es_format_t *p_fmt;
         } es_fmt;
-        struc
+        struct
         {
             /* FIXME Really too big (double make the whole thing too big) */
             double  f_position;
             mtime_t i_time;
             mtime_t i_length;
         } times;
-        struc
+        struct
         {
             mtime_t i_pts_delay;
             mtime_t i_pts_jitter;
@@ -155,7 +155,7 @@ typedef struct attribute_packed
 } ts_cmd_t;
 
 typedef struct ts_storage_t ts_storage_t;
-struct ts_storage_
+struct ts_storage_t
 {
     ts_storage_t *p_next;
 
@@ -173,7 +173,7 @@ struct ts_storage_
     ts_cmd_t *p_cmd;
 };
 
-typedef struc
+typedef struct
 {
     vlc_thread_t   thread;
     input_thread_t *p_input;
@@ -206,15 +206,15 @@ typedef struc
 
 } ts_thread_t;
 
-struct es_out_id_
+struct es_out_id_t
 {
     es_out_id_t *p_es;
 };
 
-struct es_out_sys_
+struct es_out_sys_t
 {
     input_thread_t *p_input;
- es_out_t       *p_out;
+	es_out_t       *p_out;
 
     /* Configuration */
     int64_t        i_tmp_size_max;    /* Maximal temporary file size in byte */
@@ -1005,7 +1005,7 @@ static void *TsRun( void *p_data )
             if( !es_out_SetRate( p_ts->p_out, p_ts->i_rate_source, p_ts->i_rate ) )
             {
                 vlc_value_t val = { .i_int = p_ts->i_rate };
-                /* Warn back inpu
+                /* Warn back input
                  * FIXME it is perfectly safe BUT it is ugly as it may hide a
                  * rate change requested by user */
                 input_ControlPush( p_ts->p_input, INPUT_CONTROL_SET_RATE, &val );

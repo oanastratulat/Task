@@ -7,7 +7,7 @@
  * Authors: Samuel Hocevar <sam@zoy.org>
  *          Clément Stenac <zorglub@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -50,7 +50,7 @@ static void *Thread   ( void * );
  * Additionally to the playlist, this thread controls :
  *    - Statistics
  *    - VLM
- * \param p_paren
+ * \param p_parent
  * \return an object with a started thread
  */
 void playlist_Activate( playlist_t *p_playlist )
@@ -137,7 +137,7 @@ static void UpdateActivity( playlist_t *p_playlist, int i_delta )
 }
 
 /**
- * Synchronise the current index of the playlis
+ * Synchronise the current index of the playlist
  * to match the index of the current item.
  *
  * \param p_playlist the playlist structure
@@ -208,7 +208,7 @@ static void ResetCurrentlyPlaying( playlist_t *p_playlist,
 /**
  * Start the input for an item
  *
- * \param p_playlist the playlist objec
+ * \param p_playlist the playlist object
  * \param p_item the item to play
  * \return nothing
  */
@@ -288,7 +288,7 @@ static int PlayItem( playlist_t *p_playlist, playlist_item_t *p_item )
  * Compute the next playlist item depending on
  * the playlist course mode (forward, backward, random, view,...).
  *
- * \param p_playlist the playlist objec
+ * \param p_playlist the playlist object
  * \return nothing
  */
 static playlist_item_t *NextItem( playlist_t *p_playlist )

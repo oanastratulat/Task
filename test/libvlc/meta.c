@@ -1,5 +1,5 @@
 /*
- * meta.c - libvlc smoke tes
+ * meta.c - libvlc smoke test
  *
  * $Id: aa29c98406f8444de7a3c6d3a59b621fd9e4ed1a $
  */

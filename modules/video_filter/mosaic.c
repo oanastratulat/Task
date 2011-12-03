@@ -55,7 +55,7 @@ static int MosaicCallback   ( vlc_object_t *, char const *, vlc_value_t,
 /*****************************************************************************
  * filter_sys_t : filter descriptor
  *****************************************************************************/
-struct filter_sys_
+struct filter_sys_t
 {
     vlc_mutex_t lock;         /* Internal filter lock */
 
@@ -602,7 +602,7 @@ static subpicture_t *Filter( filter_t *p_filter, mtime_t date )
 
             if( p_sys->b_ar ) /* keep aspect ratio */
             {
-                if( (float)fmt_out.i_width / (float)fmt_out.i_heigh
+                if( (float)fmt_out.i_width / (float)fmt_out.i_height
                       > (float)fmt_in.i_width / (float)fmt_in.i_height )
                 {
                     fmt_out.i_width = ( fmt_out.i_height * fmt_in.i_width )
@@ -670,32 +670,32 @@ static subpicture_t *Filter( filter_t *p_filter, mtime_t date )
             {
                 /* we don't have to center the video since it takes the
                 whole rectangle area or it's larger than the rectangle */
-                p_region->i_x = p_sys->i_xoffse
+                p_region->i_x = p_sys->i_xoffset
                             + i_col * ( p_sys->i_width / p_sys->i_cols )
                             + ( i_col * p_sys->i_borderw ) / p_sys->i_cols;
             }
             else
             {
                 /* center the video in the dedicated rectangle */
-                p_region->i_x = p_sys->i_xoffse
+                p_region->i_x = p_sys->i_xoffset
                         + i_col * ( p_sys->i_width / p_sys->i_cols )
                         + ( i_col * p_sys->i_borderw ) / p_sys->i_cols
                         + ( col_inner_width - fmt_out.i_width ) / 2;
             }
 
-            if( fmt_out.i_height > row_inner_heigh
+            if( fmt_out.i_height > row_inner_height
                 || p_sys->b_ar || p_sys->b_keep )
             {
                 /* we don't have to center the video since it takes the
                 whole rectangle area or it's taller than the rectangle */
-                p_region->i_y = p_sys->i_yoffse
+                p_region->i_y = p_sys->i_yoffset
                         + i_row * ( p_sys->i_height / p_sys->i_rows )
                         + ( i_row * p_sys->i_borderh ) / p_sys->i_rows;
             }
             else
             {
                 /* center the video in the dedicated rectangle */
-                p_region->i_y = p_sys->i_yoffse
+                p_region->i_y = p_sys->i_yoffset
                         + i_row * ( p_sys->i_height / p_sys->i_rows )
                         + ( i_row * p_sys->i_borderh ) / p_sys->i_rows
                         + ( row_inner_height - fmt_out.i_height ) / 2;

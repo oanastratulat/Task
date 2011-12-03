@@ -1,9 +1,9 @@
 /**
  * @file input.c
- * @brief RTP packet inpu
+ * @brief RTP packet input
  */
 /*****************************************************************************
- * Copyright © 2008 Rémi Denis-Courmon
+ * Copyright © 2008 Rémi Denis-Courmont
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License

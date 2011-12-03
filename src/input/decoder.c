@@ -8,7 +8,7 @@
  *          Gildas Bazin <gbazin@videolan.org>
  *          Laurent Aimar <fenrir@via.ecp.fr>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
@@ -79,7 +79,7 @@ static void vout_unlink_picture( decoder_t *, picture_t * );
 static subpicture_t *spu_new_buffer( decoder_t *, const subpicture_updater_t * );
 static void spu_del_buffer( decoder_t *, subpicture_t * );
 
-struct decoder_owner_sys_
+struct decoder_owner_sys_t
 {
     int64_t         i_preroll_end;
 
@@ -129,7 +129,7 @@ struct decoder_owner_sys_
 
     /* Pause */
     bool b_paused;
-    struc
+    struct
     {
         mtime_t i_date;
         int     i_ignore;
@@ -137,7 +137,7 @@ struct decoder_owner_sys_
 
     /* Buffering */
     bool b_buffering;
-    struc
+    struct
     {
         bool b_first;
         bool b_full;
@@ -160,7 +160,7 @@ struct decoder_owner_sys_
     bool b_flushing;
 
     /* CC */
-    struc
+    struct
     {
         bool b_supported;
         bool pb_present[4];
@@ -313,7 +313,7 @@ static decoder_t *decoder_New( vlc_object_t *p_parent, input_thread_t *p_input,
  *
  * \param p_input the input thread
  * \param p_es the es descriptor
- * \return the spawned decoder objec
+ * \return the spawned decoder object
  */
 decoder_t *input_DecoderNew( input_thread_t *p_input,
                              es_format_t *fmt, input_clock_t *p_clock,
@@ -377,7 +377,7 @@ void input_DecoderDelete( decoder_t *p_dec )
  * Put a block_t in the decoder's fifo.
  * Thread-safe w.r.t. the decoder. May be a cancellation point.
  *
- * \param p_dec the decoder objec
+ * \param p_dec the decoder object
  * \param p_block the data block
  */
 void input_DecoderDecode( decoder_t *p_dec, block_t *p_block, bool b_do_pace )
@@ -727,12 +727,12 @@ static void DecoderUnsupportedCodec( decoder_t *p_dec, vlc_fourcc_t codec )
 
 
 /**
- * Create a decoder objec
+ * Create a decoder object
  *
  * \param p_input the input thread
  * \param p_es the es descriptor
  * \param b_packetizer instead of a decoder
- * \return the decoder objec
+ * \return the decoder object
  */
 static decoder_t * CreateDecoder( vlc_object_t *p_parent,
                                   input_thread_t *p_input,
@@ -1049,7 +1049,7 @@ static void DecoderOutputChangePause( decoder_t *p_dec, bool b_paused, mtime_t i
 
     /* XXX only audio and video output have to be paused.
      * - for sout it is useless
-     * - for subs, it is done by the vou
+     * - for subs, it is done by the vout
      */
     if( p_dec->fmt_out.i_cat == AUDIO_ES )
     {
@@ -1774,7 +1774,7 @@ static void DecoderFlushBuffering( decoder_t *p_dec )
 }
 
 #ifdef ENABLE_SOUT
-/* This function process a block for sou
+/* This function process a block for sout
  */
 static void DecoderProcessSout( decoder_t *p_dec, block_t *p_block )
 {
@@ -2004,7 +2004,7 @@ static void DecoderProcessOnFlush( decoder_t *p_dec )
 /**
  * Decode a block
  *
- * \param p_dec the decoder objec
+ * \param p_dec the decoder object
  * \param p_block the block to decode
  * \return VLC_SUCCESS or an error code
  */
@@ -2081,9 +2081,9 @@ static void DecoderError( decoder_t *p_dec, block_t *p_block )
 
 
 /**
- * Destroys a decoder objec
+ * Destroys a decoder object
  *
- * \param p_dec the decoder objec
+ * \param p_dec the decoder object
  * \return nothing
  */
 static void DeleteDecoder( decoder_t * p_dec )

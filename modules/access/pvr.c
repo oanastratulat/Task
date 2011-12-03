@@ -165,7 +165,7 @@ vlc_module_end ()
 static ssize_t Read   ( access_t *, uint8_t *, size_t );
 static int Control( access_t *, int, va_list );
 
-struct access_sys_
+struct access_sys_t
 {
     /* file descriptor */
     int i_fd;
@@ -193,7 +193,7 @@ struct access_sys_
 
 #define MAX_V4L2_CTRLS (6)
 /*****************************************************************************
- * AddV4L2Ctrl: adds a control to the v4l2 controls lis
+ * AddV4L2Ctrl: adds a control to the v4l2 controls list
  *****************************************************************************/
 static void AddV4L2Ctrl( access_t * p_access,
                          struct v4l2_ext_controls * p_controls,

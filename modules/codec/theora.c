@@ -42,7 +42,7 @@
 /*****************************************************************************
  * decoder_sys_t : theora decoder descriptor
  *****************************************************************************/
-struct decoder_sys_
+struct decoder_sys_t
 {
     /* Module mode */
     bool b_packetizer;
@@ -527,7 +527,7 @@ static void theora_CopyPicture( picture_t *p_pic,
 /*****************************************************************************
  * encoder_sys_t : theora encoder descriptor
  *****************************************************************************/
-struct encoder_sys_
+struct encoder_sys_t
 {
     /*
      * Input properties

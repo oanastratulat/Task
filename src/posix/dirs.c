@@ -2,11 +2,11 @@
  * dirs.c: XDG directories configuration
  *****************************************************************************
  * Copyright (C) 2001-2007 VLC authors and VideoLAN
- * Copyright © 2007-2009 Rémi Denis-Courmon
+ * Copyright © 2007-2009 Rémi Denis-Courmont
  *
  * Authors: Gildas Bazin <gbazin@videolan.org>
  *
- * This program is free software; you can redistribute it and/or modify i
+ * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
