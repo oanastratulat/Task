@@ -326,7 +326,7 @@ static block_t *Reassemble( decoder_t *p_dec, block_t *p_block )
 
 /******************************************************************************
   The format is roughly as follows (everything is big-endian):
- 
+
    size     description
    -------------------------------------------
    byte     subtitle channel (0..7) in bits 0-3

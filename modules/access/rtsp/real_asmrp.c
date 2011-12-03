@@ -72,7 +72,7 @@ typedef struct {
 
   int         sym;
   int         num;
- 
+
   char        str[ASMRP_MAX_ID];
 
   /* private part */
@@ -122,7 +122,7 @@ static void asmrp_init (asmrp_t *p, const char *str) {
 
   p->buf = strdup (str);
   p->pos = 0;
- 
+
   asmrp_getch (p);
 }
 
@@ -156,10 +156,10 @@ static void asmrp_string (asmrp_t *p) {
     asmrp_getch (p);
   }
   p->str[l]=0;
- 
+
   if (p->ch=='"')
     asmrp_getch (p);
- 
+
   p->sym = ASMRP_SYM_STRING;
 }
 
@@ -178,7 +178,7 @@ static void asmrp_identifier (asmrp_t *p) {
     asmrp_getch (p);
   }
   p->str[l]=0;
- 
+
   p->sym = ASMRP_SYM_ID;
 }
 
@@ -379,7 +379,7 @@ static int asmrp_set_id (asmrp_t *p, const char *s, int v) {
   }
 
   p->sym_tab[i].v = v;
- 
+
   lprintf ("symbol '%s' assigned %d\n", s, v);
 
   return i;
@@ -390,7 +390,7 @@ static int asmrp_condition (asmrp_t *p) ;
 static int asmrp_operand (asmrp_t *p) {
 
   int i, ret;
- 
+
   lprintf ("operand\n");
 
   ret = 0;
@@ -400,7 +400,7 @@ static int asmrp_operand (asmrp_t *p) {
   case ASMRP_SYM_DOLLAR:
 
     asmrp_get_sym (p);
- 
+
     if (p->sym != ASMRP_SYM_ID) {
       printf ("error: identifier expected.\n");
       break;
@@ -440,7 +440,7 @@ static int asmrp_operand (asmrp_t *p) {
   }
 
   lprintf ("operand done, =%d\n", ret);
- 
+
   return ret;
 }
 
@@ -490,7 +490,7 @@ static int asmrp_comp_expression (asmrp_t *p) {
 }
 
 static int asmrp_condition (asmrp_t *p) {
- 
+
   int a;
 
   lprintf ("condition\n");
@@ -529,7 +529,7 @@ static void asmrp_assignment (asmrp_t *p) {
     lprintf ("empty assignment\n");
     return;
   }
- 
+
   if (p->sym != ASMRP_SYM_ID) {
     printf ("error: identifier expected\n");
     return;
@@ -553,22 +553,22 @@ static void asmrp_assignment (asmrp_t *p) {
 }
 
 static int asmrp_rule (asmrp_t *p) {
- 
+
   int ret;
 
   lprintf ("rule\n");
 
   ret = 1;
- 
+
   if (p->sym == ASMRP_SYM_HASH) {
 
     asmrp_get_sym (p);
     ret = asmrp_condition (p);
 
     while (p->sym == ASMRP_SYM_COMMA) {
- 
+
       asmrp_get_sym (p);
- 
+
       asmrp_assignment (p);
     }
 

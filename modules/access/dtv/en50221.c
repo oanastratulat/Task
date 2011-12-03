@@ -1042,7 +1042,7 @@ static bool CAPMTNeedsDescrambling( dvbpsi_pmt_t *p_pmt )
             return true;
         }
     }
- 
+
     for( p_es = p_pmt->p_first_es; p_es != NULL; p_es = p_es->p_next )
     {
         for( p_dr = p_es->p_first_descriptor; p_dr != NULL;
@@ -1140,7 +1140,7 @@ static uint8_t *CAPMTES( system_ids_t *p_ids, uint8_t *p_capmt,
 {
     uint8_t *p_data;
     int i;
- 
+
     if ( i_size )
         p_data = xrealloc( p_capmt, i_capmt_size + 6 + i_size );
     else
@@ -1283,11 +1283,11 @@ static void CAPMTAdd( cam_t * p_cam, int i_session_id,
         CAPMTFirst( p_cam, i_session_id, p_pmt );
         return;
     }
- 
+
 #ifdef CAPMT_WAIT
     msleep( CAPMT_WAIT * 1000 );
 #endif
- 
+
     msg_Dbg( p_cam->obj, "adding CAPMT for SID %d on session %d",
              p_pmt->i_program_number, i_session_id );
 

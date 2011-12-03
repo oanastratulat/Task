@@ -114,7 +114,7 @@ static void resolve_callback(
 {
     services_discovery_t *p_sd = ( services_discovery_t* )userdata;
     services_discovery_sys_t *p_sys = p_sd->p_sys;
-    
+
     VLC_UNUSED(interface); VLC_UNUSED(host_name);
     VLC_UNUSED(flags);
 

@@ -229,7 +229,7 @@ static void Display(vout_display_t *vd, picture_t *picture, subpicture_t *subpic
              * the exact fourcc used. */
             header = "YUV4MPEG2";
         } else {
-            snprintf(buffer, sizeof(buffer), "%4.4s", 
+            snprintf(buffer, sizeof(buffer), "%4.4s",
                      (const char*)&fmt.i_chroma);
             header = buffer;
         }

@@ -295,7 +295,7 @@ static int cmpapp (const void *a, const void *b)
     if (wa < wb)
         return -1;
     return 0;
-} 
+}
 
 static void UpdateApps (services_discovery_t *sd)
 {

@@ -633,7 +633,7 @@ static void Play (audio_output_t *aout, block_t *block)
             block->i_buffer -= bytes;
             // pts, length
         }
-        else  
+        else
         {
             int val = snd_pcm_recover (pcm, frames, 1);
             if (val)

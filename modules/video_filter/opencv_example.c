@@ -147,7 +147,7 @@ static picture_t *Filter( filter_t *p_filter, picture_t *p_pic )
     CvPoint pt1, pt2;
     int i, scale = 1;
     filter_sys_t *p_sys = p_filter->p_sys;
- 
+
     if ((!p_pic) )
     {
         msg_Err( p_filter, "no image array" );

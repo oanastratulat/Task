@@ -113,7 +113,7 @@ static sout_stream_id_t *Add( sout_stream_t *p_stream, es_format_t *p_fmt )
     es_format_t *p_fmt_copy;
 
     msg_Dbg( p_stream, "Adding a stream" );
- 
+
     p_fmt_copy = malloc(sizeof(es_format_t));
     es_format_Copy( p_fmt_copy, p_fmt );
 

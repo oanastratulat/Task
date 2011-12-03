@@ -95,7 +95,7 @@ VCDMetaInfo( access_t *p_access, /*const*/ char *psz_mrl )
     addnum(_("Last Entry Point"), last_entry-1 );
     addnum(_("Track size (in sectors)"), i_secsize );
   }
- 
+
   {
     lid_t i_lid;
     for( i_lid = 1 ; i_lid <= p_vcdplayer->i_lids ; i_lid++ ) {
@@ -143,7 +143,7 @@ VCDMetaInfo( access_t *p_access, /*const*/ char *psz_mrl )
     char *psz_name = VCDFormatStr( p_vcdplayer, psz_tfmt, psz_mrl,
                                                   &(p_vcdplayer->play_item) );
     free( psz_tfmt );
- 
+
     input_Control( p_input, INPUT_SET_NAME, psz_name );
     free( psz_name );
   }

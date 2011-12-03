@@ -86,7 +86,7 @@ static int Open( vlc_object_t *p_this )
 {
     access_t *p_access = (access_t *) p_this;
     access_sys_t *p_sys;
-    char *psz, *p; 
+    char *psz, *p;
     int length_path, length_media_name;
     int i;
 
@@ -405,7 +405,7 @@ static ssize_t Read( access_t *p_access, uint8_t *p_buffer, size_t i_len )
         rtmp_packet = rtmp_build_bytes_read( p_sys->p_thread, p_access->info.i_pos );
 
         tmp_buffer = rtmp_encode_packet( p_sys->p_thread, rtmp_packet );
- 
+
         i_ret = net_Write( p_sys->p_thread, p_sys->p_thread->fd, NULL, tmp_buffer, rtmp_packet->length_encoded );
         if( i_ret != rtmp_packet->length_encoded )
         {

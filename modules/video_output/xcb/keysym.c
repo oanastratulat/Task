@@ -61,7 +61,7 @@ static void printkey (const void *node, const VISIT which, const int depth)
 #endif
     printf ("/* XK_%-20s: %s*/\n", sym->xname, sym->uname);
     printf ("{ 0x%08"PRIx32", 0x%04"PRIx32" },\n", sym->xsym, sym->usym);
-        
+
     (void) depth;
 }
 

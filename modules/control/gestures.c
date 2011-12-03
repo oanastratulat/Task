@@ -250,7 +250,7 @@ static void RunIntf( intf_thread_t *p_intf )
             case GESTURE(RIGHT,LEFT,NONE,NONE):
                 msg_Dbg( p_intf, "Play/Pause" );
                 p_input = playlist_CurrentInput( p_playlist );
- 
+
                 if( p_input )
                 {
                     int i_state = var_GetInteger( p_input, "state" );
