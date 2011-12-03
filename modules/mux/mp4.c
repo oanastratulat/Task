@@ -866,8 +866,8 @@ static bo_t *GetAvcCTag( mp4_stream_t *p_stream )
             int i_offset    = 1;
             int i_size      = 0;
             int i_startcode = 0;
-
-
+ 
+ 
             for( i_offset = 1; i_offset+2 < i_buffer ; i_offset++)
             {
                 if( p_buffer[i_offset] == 0 && p_buffer[i_offset+1] == 0 &&
@@ -896,7 +896,7 @@ static bo_t *GetAvcCTag( mp4_stream_t *p_stream )
             p_buffer += i_size;
         }
     }
-
+ 
     /* FIXME use better value */
     avcC = box_new( "avcC" );
     bo_add_8( avcC, 1 );      /* configuration version */

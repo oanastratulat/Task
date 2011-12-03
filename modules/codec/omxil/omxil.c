@@ -1507,7 +1507,7 @@ static void CloseGeneric( vlc_object_t *p_this )
 }
 
 /*****************************************************************************
- * OmxEventHandler:
+ * OmxEventHandler: 
  *****************************************************************************/
 static OMX_ERRORTYPE OmxEventHandler( OMX_HANDLETYPE omx_handle,
     OMX_PTR app_data, OMX_EVENTTYPE event, OMX_U32 data_1,

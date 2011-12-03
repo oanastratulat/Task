@@ -894,7 +894,7 @@ static int BdHeader( unsigned *pi_rate,
     default:
         return -1;
     }
-    switch( (h >> 8) & 0x0f )
+    switch( (h >> 8) & 0x0f ) 
     {
     case 1:
         *pi_rate = 48000;
