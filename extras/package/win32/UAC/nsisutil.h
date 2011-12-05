@@ -92,38 +92,38 @@ inline bool NSISCALL SetErrorFlag(extra_parameters*pExtraParams) {return pExtraP
 inline bool NSISCALL ClearErrorFlag(extra_parameters*pExtraParams) {return pExtraParams?((pExtraParams->exec_flags->exec_error=0)||true):false;}
 
 __forceinline int NSISCALL ExecuteCodeSegment(extra_parameters*pExtraParams,int pos,HWND hwndProgress=NULL) {
-	return pExtraParams?pExtraParams->ExecuteCodeSegment(pos,hwndProgress):(/*EXEC_ERROR*/0x7FFFFFFF);
+    return pExtraParams?pExtraParams->ExecuteCodeSegment(pos,hwndProgress):(/*EXEC_ERROR*/0x7FFFFFFF);
 }
 
-static NSISCH* __fastcall GetVar(const int varnum) 
+static NSISCH* __fastcall GetVar(const int varnum)
 {
-	//ASSERT(NSIS::Vars && NSIS::StrSize);
-	if (varnum < 0 || varnum >= __VIDX_UNDOCLAST) return NULL;
-	return NSIS::Vars+(varnum*NSIS::StrSize);
+    //ASSERT(NSIS::Vars && NSIS::StrSize);
+    if (varnum < 0 || varnum >= __VIDX_UNDOCLAST) return NULL;
+    return NSIS::Vars+(varnum*NSIS::StrSize);
 }
 
 inline void NSISCALL SetVarUINT(const int varnum,UINT Value) {
-	wsprintf(GetVar(varnum),_T("%u"),Value);
+    wsprintf(GetVar(varnum),_T("%u"),Value);
 }
 
 static stack_t* NSISCALL StackPop() {
-	if (NSIS::StackTop && *NSIS::StackTop) {
-		stack_t*s=(*NSIS::StackTop);
-		*NSIS::StackTop=(*NSIS::StackTop)->next;
-		return s;
-	}
-	return 0;
+    if (NSIS::StackTop && *NSIS::StackTop) {
+    stack_t*s=(*NSIS::StackTop);
+    *NSIS::StackTop=(*NSIS::StackTop)->next;
+    return s;
+    }
+    return 0;
 }
 __forceinline void NSISCALL StackFreeItem(stack_t*pStackItem) {NSIS::MemFree(pStackItem);}
 
 static DWORD NSISCALL StackPush(NSISCH*InStr,UINT StackStrSize=NSIS::StrSize) {
-	if (!NSIS::StackTop)return ERROR_INVALID_PARAMETER;
-	stack_t*sNew=(stack_t*)NSIS::MemAlloc(sizeof(stack_t)+(StackStrSize*sizeof(NSISCH)));
-	if (!sNew)return ERROR_OUTOFMEMORY;
-	lstrcpyn(sNew->text,InStr,StackStrSize);
-	sNew->next=*NSIS::StackTop;
-	*NSIS::StackTop=sNew;
-	return NO_ERROR;
+    if (!NSIS::StackTop)return ERROR_INVALID_PARAMETER;
+    stack_t*sNew=(stack_t*)NSIS::MemAlloc(sizeof(stack_t)+(StackStrSize*sizeof(NSISCH)));
+    if (!sNew)return ERROR_OUTOFMEMORY;
+    lstrcpyn(sNew->text,InStr,StackStrSize);
+    sNew->next=*NSIS::StackTop;
+    *NSIS::StackTop=sNew;
+    return NO_ERROR;
 }
 
 }; /* namespace */
@@ -132,9 +132,9 @@ static DWORD NSISCALL StackPush(NSISCH*InStr,UINT StackStrSize=NSIS::StrSize) {
 #define NSISUTIL_INITEXPORT(_v,_strsize,_stackt) NSIS::Vars=_v;NSIS::StrSize=_strsize;NSIS::StackTop=_stackt
 
 //#define NSISEXPORT4(_func,_h,_strsize,_v,_stackt) extern "C" void __declspec(dllexport) __cdecl \
-//	_func (HWND _h,int _strsize,NSISCH*_v,NSIS::stack_t **_stackt) { NSISUTIL_INITEXPORT(_v,_strsize,_stackt); TRACE("EXPORT::" #_func "\n"); 
+//    _func (HWND _h,int _strsize,NSISCH*_v,NSIS::stack_t **_stackt) { NSISUTIL_INITEXPORT(_v,_strsize,_stackt); TRACE("EXPORT::" #_func "\n");
 //#define NSISEXPORT5(_func,_h,_strsize,_v,_stackt,_eparams) extern "C" void __declspec(dllexport) __cdecl \
-//	_func (HWND _h,int _strsize,NSISCH*_v,NSIS::stack_t **_stackt,NSIS::extra_parameters* _eparams) {  NSISUTIL_INITEXPORT(_v,_strsize,_stackt); TRACE("EXPORT::" #_func "\n"); 
+//    _func (HWND _h,int _strsize,NSISCH*_v,NSIS::stack_t **_stackt,NSIS::extra_parameters* _eparams) {  NSISUTIL_INITEXPORT(_v,_strsize,_stackt); TRACE("EXPORT::" #_func "\n");
 //#define NSISEXPORT NSISEXPORT5
 
 #define EXPORTNSISFUNC extern "C" void __declspec(dllexport) __cdecl

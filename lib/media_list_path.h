@@ -177,7 +177,7 @@ libvlc_media_list_item_at_path( libvlc_media_list_t * p_mlist, const libvlc_medi
 
         p_current_mlist = libvlc_media_subitems( p_md );
         libvlc_media_release( p_md );
- 
+
         if( !p_current_mlist )
             return NULL;
 
@@ -213,7 +213,7 @@ libvlc_media_list_parentlist_at_path( libvlc_media_list_t * p_mlist, const libvl
 
         p_current_mlist = libvlc_media_subitems( p_md );
         libvlc_media_release( p_md );
- 
+
         if( !p_current_mlist )
             return NULL;
 
@@ -235,10 +235,10 @@ libvlc_media_list_sublist_at_path( libvlc_media_list_t * p_mlist, const libvlc_m
     libvlc_media_t * p_md = libvlc_media_list_item_at_path( p_mlist, path );
     if( !p_md )
         return NULL;
- 
+
     ret = libvlc_media_subitems( p_md );
     libvlc_media_release( p_md );
- 
+
     return ret;
 }
 

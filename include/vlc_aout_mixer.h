@@ -36,7 +36,7 @@ extern "C" {
 
 typedef struct audio_mixer audio_mixer_t;
 
-/** 
+/**
  * audio output mixer
  */
 struct audio_mixer

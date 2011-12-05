@@ -102,7 +102,7 @@ enum stream_query_e
     STREAM_CONTROL_ACCESS,  /* arg1= int i_access_query, args   res: can fail
                              if access unreachable or access control answer */
 
-    /* You should update size of source if any and then update size 
+    /* You should update size of source if any and then update size
      * FIXME find a way to avoid it */
     STREAM_UPDATE_SIZE,
 

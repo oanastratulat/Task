@@ -7,17 +7,17 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    BREventMenuUsage	= 134,
-    BREventOKUsage		= 137,
-    BREventRightUsage	= 138,
-    BREventLeftUsage	= 139,
-    BREventUpUsage		= 140,
-    BREventDownUsage	= 141
+    BREventMenuUsage    = 134,
+    BREventOKUsage    = 137,
+    BREventRightUsage    = 138,
+    BREventLeftUsage    = 139,
+    BREventUpUsage    = 140,
+    BREventDownUsage    = 141
 } BREventUsage;
 
 typedef enum {
-    BREventUpValue		= 0,
-    BREventDownValue	= 1
+    BREventUpValue    = 0,
+    BREventDownValue    = 1
 } BREventValue;
 
 @interface BREvent : NSObject
