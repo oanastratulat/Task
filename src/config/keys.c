@@ -1,57 +1,57 @@
-    /*****************************************************************************
-    * keys.c: keys configuration
-    *****************************************************************************
-    * Copyright (C) 2003-2009 VLC authors and VideoLAN
-    *
-    * Authors: Sigmund Augdal Helberg <dnumgis@videolan.org>
-    *
-    * This program is free software; you can redistribute it and/or modify it
-    * under the terms of the GNU Lesser General Public License as published by
-    * the Free Software Foundation; either version 2.1 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    * GNU Lesser General Public License for more details.
-    *
-    * You should have received a copy of the GNU Lesser General Public License
-    * along with this program; if not, write to the Free Software Foundation,
-    * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
-    *****************************************************************************/
+/*****************************************************************************
+ * keys.c: keys configuration
+ *****************************************************************************
+ * Copyright (C) 2003-2009 VLC authors and VideoLAN
+ *
+ * Authors: Sigmund Augdal Helberg <dnumgis@videolan.org>
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ *****************************************************************************/
 
-    #ifdef HAVE_CONFIG_H
-    # include <config.h>
-    #endif
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-    /**
-    * \file
-    * This file defines functions and structures for hotkey handling in vlc
-    */
+/**
+ * \file
+ * This file defines functions and structures for hotkey handling in vlc
+ */
 
-    #ifdef HAVE_CONFIG_H
-    # include <config.h>
-    #endif
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-    #include <stdlib.h>
-    #include <limits.h>
-    #ifdef HAVE_SEARCH_H
-    # include <search.h>
-    #endif
+#include <stdlib.h>
+#include <limits.h>
+#ifdef HAVE_SEARCH_H
+# include <search.h>
+#endif
 
-    #include <vlc_common.h>
-    #include <vlc_keys.h>
-    #include "configuration.h"
-    #include "libvlc.h"
+#include <vlc_common.h>
+#include <vlc_keys.h>
+#include "configuration.h"
+#include "libvlc.h"
 
-    typedef struct key_descriptor_s
-    {
+typedef struct key_descriptor_s
+{
     const char psz_key_string[20];
     uint32_t i_key_code;
-    } key_descriptor_t;
+} key_descriptor_t;
 
-    static const struct key_descriptor_s vlc_keys[] =
-    {   /* Alphabetical order */
+static const struct key_descriptor_s vlc_keys[] =
+{   /* Alphabetical order */
     { "Backspace",         KEY_BACKSPACE         },
     { "Browser Back",      KEY_BROWSER_BACK      },
     { "Browser Favorites", KEY_BROWSER_FAVORITES },
@@ -99,142 +99,142 @@
     { "Volume Mute",       KEY_VOLUME_MUTE       },
     { "Volume Down",       KEY_VOLUME_DOWN       },
     { "Volume Up",         KEY_VOLUME_UP         },
-    };
-    #define KEYS_COUNT (sizeof(vlc_keys)/sizeof(vlc_keys[0]))
+};
+#define KEYS_COUNT (sizeof(vlc_keys)/sizeof(vlc_keys[0]))
 
-    static int keystrcmp (const void *key, const void *elem)
-    {
+static int keystrcmp (const void *key, const void *elem)
+{
     const char *sa = key, *sb = elem;
     return strcmp (sa, sb);
-    }
+}
 
-    /* Convert Unicode code point to UTF-8 */
-    static char *utf8_cp (uint_fast32_t cp, char *buf)
-    {
+/* Convert Unicode code point to UTF-8 */
+static char *utf8_cp (uint_fast32_t cp, char *buf)
+{
     if (cp < (1 << 7))
     {
-    buf[1] = 0;
-    buf[0] = cp;
+        buf[1] = 0;
+        buf[0] = cp;
     }
     else if (cp < (1 << 11))
     {
-    buf[2] = 0;
-    buf[1] = 0x80 | (cp & 0x3F);
-    cp >>= 6;
-    buf[0] = 0xC0 | cp;
+        buf[2] = 0;
+        buf[1] = 0x80 | (cp & 0x3F);
+        cp >>= 6;
+        buf[0] = 0xC0 | cp;
     }
     else if (cp < (1 << 16))
     {
-    buf[3] = 0;
-    buf[2] = 0x80 | (cp & 0x3F);
-    cp >>= 6;
-    buf[1] = 0x80 | (cp & 0x3F);
-    cp >>= 6;
-    buf[0] = 0xE0 | cp;
+        buf[3] = 0;
+        buf[2] = 0x80 | (cp & 0x3F);
+        cp >>= 6;
+        buf[1] = 0x80 | (cp & 0x3F);
+        cp >>= 6;
+        buf[0] = 0xE0 | cp;
     }
     else if (cp < (1 << 21))
     {
-    buf[4] = 0;
-    buf[3] = 0x80 | (cp & 0x3F);
-    cp >>= 6;
-    buf[2] = 0x80 | (cp & 0x3F);
-    cp >>= 6;
-    buf[1] = 0x80 | (cp & 0x3F);
-    cp >>= 6;
-    buf[0] = 0xE0 | cp;
+        buf[4] = 0;
+        buf[3] = 0x80 | (cp & 0x3F);
+        cp >>= 6;
+        buf[2] = 0x80 | (cp & 0x3F);
+        cp >>= 6;
+        buf[1] = 0x80 | (cp & 0x3F);
+        cp >>= 6;
+        buf[0] = 0xE0 | cp;
     }
     else
-    return NULL;
+        return NULL;
     return buf;
-    }
+}
 
-    /**
-    * Parse a human-readable string representation of a VLC key code.
-    * @return a VLC key code, or KEY_UNSET on failure.
-    */
-    uint_fast32_t vlc_str2keycode (const char *name)
-    {
+/**
+ * Parse a human-readable string representation of a VLC key code.
+ * @return a VLC key code, or KEY_UNSET on failure.
+ */
+uint_fast32_t vlc_str2keycode (const char *name)
+{
     uint_fast32_t mods = 0;
     uint32_t code;
 
     for (;;)
     {
-    size_t len = strcspn (name, "-+");
-    if (len == 0 || name[len] == '\0')
-    break;
+        size_t len = strcspn (name, "-+");
+        if (len == 0 || name[len] == '\0')
+            break;
 
-    if (len == 4 && !strncasecmp (name, "Ctrl", 4))
-    mods |= KEY_MODIFIER_CTRL;
-    if (len == 3 && !strncasecmp (name, "Alt", 3))
-    mods |= KEY_MODIFIER_ALT;
-    if (len == 5 && !strncasecmp (name, "Shift", 5))
-    mods |= KEY_MODIFIER_SHIFT;
-    if (len == 4 && !strncasecmp (name, "Meta", 4))
-    mods |= KEY_MODIFIER_META;
-    if (len == 7 && !strncasecmp (name, "Command", 7))
-    mods |= KEY_MODIFIER_COMMAND;
+        if (len == 4 && !strncasecmp (name, "Ctrl", 4))
+            mods |= KEY_MODIFIER_CTRL;
+        if (len == 3 && !strncasecmp (name, "Alt", 3))
+            mods |= KEY_MODIFIER_ALT;
+        if (len == 5 && !strncasecmp (name, "Shift", 5))
+            mods |= KEY_MODIFIER_SHIFT;
+        if (len == 4 && !strncasecmp (name, "Meta", 4))
+            mods |= KEY_MODIFIER_META;
+        if (len == 7 && !strncasecmp (name, "Command", 7))
+            mods |= KEY_MODIFIER_COMMAND;
 
-    name += len + 1;
+        name += len + 1;
     }
 
     key_descriptor_t *d = bsearch (name, vlc_keys, KEYS_COUNT,
-    sizeof (vlc_keys[0]), keystrcmp);
+                                   sizeof (vlc_keys[0]), keystrcmp);
     if (d != NULL)
-    code = d->i_key_code;
+        code = d->i_key_code;
     else
     if (vlc_towc (name, &code) <= 0)
-    code = KEY_UNSET;
+        code = KEY_UNSET;
 
     if (code != KEY_UNSET)
-    code |= mods;
+        code |= mods;
     return code;
-    }
+}
 
-    /**
-    * Format a human-readable and unique representation of a VLC key code
-    * (including modifiers).
-    * @return a heap-allocated string, or NULL on error.
-    */
-    char *vlc_keycode2str (uint_fast32_t code)
-    {
+/**
+ * Format a human-readable and unique representation of a VLC key code
+ * (including modifiers).
+ * @return a heap-allocated string, or NULL on error.
+ */
+char *vlc_keycode2str (uint_fast32_t code)
+{
     const char *name;
     char *str, buf[5];
     uintptr_t key = code & ~KEY_MODIFIER;
 
     for (size_t i = 0; i < KEYS_COUNT; i++)
-    if (vlc_keys[i].i_key_code == key)
-    {
-    name = vlc_keys[i].psz_key_string;
-    goto found;
-    }
+        if (vlc_keys[i].i_key_code == key)
+        {
+            name = vlc_keys[i].psz_key_string;
+            goto found;
+        }
 
     if (utf8_cp (key, buf) == NULL)
-    return NULL;
+        return NULL;
     name = buf;
 
-    found:
+found:
     if (asprintf (&str, "%s%s%s%s%s%s",
-    (code & KEY_MODIFIER_CTRL) ? "Ctrl+" : "",
-    (code & KEY_MODIFIER_ALT) ? "Alt+" : "",
-    (code & KEY_MODIFIER_SHIFT) ? "Shift+" : "",
-    (code & KEY_MODIFIER_META) ? "Meta+" : "",
-    (code & KEY_MODIFIER_COMMAND) ? "Command+" : "", name) == -1)
-    return NULL;
+                  (code & KEY_MODIFIER_CTRL) ? "Ctrl+" : "",
+                  (code & KEY_MODIFIER_ALT) ? "Alt+" : "",
+                  (code & KEY_MODIFIER_SHIFT) ? "Shift+" : "",
+                  (code & KEY_MODIFIER_META) ? "Meta+" : "",
+                  (code & KEY_MODIFIER_COMMAND) ? "Command+" : "", name) == -1)
+        return NULL;
     return str;
-    }
+}
 
 
-    /*** VLC key map ***/
+/*** VLC key map ***/
 
-    #define MAXACTION 20
-    struct action
-    {
+#define MAXACTION 20
+struct action
+{
     char name[MAXACTION];
     vlc_action_t value;
-    };
+};
 
-    static const struct action actions[] =
-    {
+static const struct action actions[] =
+{
     /* *MUST* be sorted (ASCII order) */
     { "aspect-ratio", ACTIONID_ASPECT_RATIO, },
     { "audio-track", ACTIONID_AUDIO_TRACK, },
@@ -336,103 +336,103 @@
     { "zoom-half", ACTIONID_ZOOM_HALF, },
     { "zoom-original", ACTIONID_ZOOM_ORIGINAL, },
     { "zoom-quarter", ACTIONID_ZOOM_QUARTER, },
-    };
-    #define ACTIONS_COUNT (sizeof (actions) / sizeof (actions[0]))
+};
+#define ACTIONS_COUNT (sizeof (actions) / sizeof (actions[0]))
 
-    struct mapping
-    {
+struct mapping
+{
     uint32_t     key; ///< Key code
     vlc_action_t action; ///< Action ID
-    };
+};
 
-    static int keycmp (const void *a, const void *b)
-    {
+static int keycmp (const void *a, const void *b)
+{
     const struct mapping *ka = a, *kb = b;
 
-    #if (INT_MAX >= 0x7fffffff)
+#if (INT_MAX >= 0x7fffffff)
     return ka->key - kb->key;
-    #else
+#else
     return (ka->key < kb->key) ? -1 : (ka->key > kb->key) ? +1 : 0;
-    #endif
-    }
+#endif
+}
 
-    struct vlc_actions
-    {
+struct vlc_actions
+{
     void *map; /* Key map */
     void *global_map; /* Grabbed/global key map */
     struct hotkey keys[0];
-    };
+};
 
-    static int vlc_key_to_action (vlc_object_t *obj, const char *varname,
-    vlc_value_t prevkey, vlc_value_t curkey, void *d)
-    {
+static int vlc_key_to_action (vlc_object_t *obj, const char *varname,
+                              vlc_value_t prevkey, vlc_value_t curkey, void *d)
+{
     void *const *map = d;
     const struct mapping **pent;
     uint32_t keycode = curkey.i_int;
 
     pent = tfind (&keycode, map, keycmp);
     if (pent == NULL)
-    return VLC_SUCCESS;
+        return VLC_SUCCESS;
 
     (void) varname;
     (void) prevkey;
     return var_SetInteger (obj, "key-action", (*pent)->action);
-    }
+}
 
-    /**
-    * Sets up all key mappings for a given action.
-    * \param map tree (of struct mapping entries) to write mappings to
-    * \param confname VLC configuration item to read mappings from
-    * \param action action ID
-    */
-    static void vlc_MapAction (vlc_object_t *obj, void **map,
-    const char *confname, vlc_action_t action)
-    {
+/**
+ * Sets up all key mappings for a given action.
+ * \param map tree (of struct mapping entries) to write mappings to
+ * \param confname VLC configuration item to read mappings from
+ * \param action action ID
+ */
+static void vlc_MapAction (vlc_object_t *obj, void **map,
+                           const char *confname, vlc_action_t action)
+{
     char *keys = var_InheritString (obj, confname);
     if (keys == NULL)
-    return;
+        return;
 
     for (char *buf, *key = strtok_r (keys, "\t", &buf);
-    key != NULL;
-    key = strtok_r (NULL, "\t", &buf))
+         key != NULL;
+         key = strtok_r (NULL, "\t", &buf))
     {
-    uint32_t code = vlc_str2keycode (key);
-    if (code == KEY_UNSET)
-    {
-    msg_Warn (obj, "Key \"%s\" unrecognized", key);
-    continue;
-    }
+        uint32_t code = vlc_str2keycode (key);
+        if (code == KEY_UNSET)
+        {
+            msg_Warn (obj, "Key \"%s\" unrecognized", key);
+            continue;
+        }
 
-    struct mapping *entry = malloc (sizeof (*entry));
-    if (entry == NULL)
-    continue;
-    entry->key = code;
-    entry->action = action;
+        struct mapping *entry = malloc (sizeof (*entry));
+        if (entry == NULL)
+            continue;
+        entry->key = code;
+        entry->action = action;
 
-    struct mapping **pent = tsearch (entry, map, keycmp);
-    if (unlikely(pent == NULL))
-    continue;
-    if (*pent != entry)
-    {
-    free (entry);
-    msg_Warn (obj, "Key \"%s\" bound to multiple actions", key);
-    }
+        struct mapping **pent = tsearch (entry, map, keycmp);
+        if (unlikely(pent == NULL))
+            continue;
+        if (*pent != entry)
+        {
+            free (entry);
+            msg_Warn (obj, "Key \"%s\" bound to multiple actions", key);
+        }
     }
     free (keys);
-    }
+}
 
 
-    /**
-    * Initializes the key map from configuration.
-    */
-    struct vlc_actions *vlc_InitActions (libvlc_int_t *libvlc)
-    {
+/**
+ * Initializes the key map from configuration.
+ */
+struct vlc_actions *vlc_InitActions (libvlc_int_t *libvlc)
+{
     vlc_object_t *obj = VLC_OBJECT(libvlc);
     struct hotkey *keys;
     struct vlc_actions *as = malloc (sizeof (*as) + (ACTIONS_COUNT + 1) * sizeof (*keys));
 
     if (unlikely(as == NULL))
-    return NULL;
+        return NULL;
     as->map = NULL;
     as->global_map = NULL;
     keys = as->keys;
@@ -444,23 +444,23 @@
     /* Initialize from configuration */
     for (size_t i = 0; i < ACTIONS_COUNT; i++)
     {
-    #ifndef NDEBUG
-    if (i > 0
-    && strcmp (actions[i-1].name, actions[i].name) >= 0)
-    {
-    msg_Err (libvlc, "key-%s and key-%s are not ordered properly",
-    actions[i-1].name, actions[i].name);
-    abort ();
-    }
-    #endif
-    keys->psz_action = actions[i].name;
-    keys++;
+#ifndef NDEBUG
+        if (i > 0
+         && strcmp (actions[i-1].name, actions[i].name) >= 0)
+        {
+            msg_Err (libvlc, "key-%s and key-%s are not ordered properly",
+                     actions[i-1].name, actions[i].name);
+            abort ();
+        }
+#endif
+        keys->psz_action = actions[i].name;
+        keys++;
 
-    char name[12 + MAXACTION];
+        char name[12 + MAXACTION];
 
-    snprintf (name, sizeof (name), "global-key-%s", actions[i].name);
-    vlc_MapAction (obj, &as->map, name + 7, actions[i].value);
-    vlc_MapAction (obj, &as->global_map, name, actions[i].value);
+        snprintf (name, sizeof (name), "global-key-%s", actions[i].name);
+        vlc_MapAction (obj, &as->map, name + 7, actions[i].value);
+        vlc_MapAction (obj, &as->global_map, name, actions[i].value);
     }
 
     keys->psz_action = NULL;
@@ -468,47 +468,47 @@
     libvlc->p_hotkeys = as->keys;
     var_AddCallback (obj, "key-pressed", vlc_key_to_action, &as->map);
     var_AddCallback (obj, "global-key-pressed", vlc_key_to_action,
-    &as->global_map);
+                     &as->global_map);
     return as;
-    }
+}
 
-    /**
-    * Destroys the key map.
-    */
-    void vlc_DeinitActions (libvlc_int_t *libvlc, struct vlc_actions *as)
-    {
+/**
+ * Destroys the key map.
+ */
+void vlc_DeinitActions (libvlc_int_t *libvlc, struct vlc_actions *as)
+{
     if (unlikely(as == NULL))
-    return;
+        return;
 
     var_DelCallback (libvlc, "global-key-pressed", vlc_key_to_action,
-    &as->global_map);
+                     &as->global_map);
     var_DelCallback (libvlc, "key-pressed", vlc_key_to_action, &as->map);
 
     tdestroy (as->global_map, free);
     tdestroy (as->map, free);
     free (as);
     libvlc->p_hotkeys = NULL;
-    }
+}
 
 
-    static int actcmp(const void *key, const void *ent)
-    {
+static int actcmp(const void *key, const void *ent)
+{
     const struct action *act = ent;
     return strcmp(key, act->name);
-    }
+}
 
-    /**
-    * Get the action ID from the action name in the configuration subsystem.
-    * @return the action ID or ACTIONID_NONE on error.
-    */
-    vlc_action_t vlc_GetActionId (const char *name)
-    {
+/**
+ * Get the action ID from the action name in the configuration subsystem.
+ * @return the action ID or ACTIONID_NONE on error.
+ */
+vlc_action_t vlc_GetActionId (const char *name)
+{
     const struct action *act;
 
     if (strncmp (name, "key-", 4))
-    return ACTIONID_NONE;
+        return ACTIONID_NONE;
     name += 4;
 
     act = bsearch(name, actions, ACTIONS_COUNT, sizeof(*act), actcmp);
     return (act != NULL) ? act->value : ACTIONID_NONE;
-    }
+}

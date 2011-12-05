@@ -1,43 +1,43 @@
-    /*****************************************************************************
-    * winsock.c: POSIX replacements for Winsock
-    *****************************************************************************
-    * Copyright © 2006-2008 Rémi Denis-Courmont
-    *
-    * This program is free software; you can redistribute it and/or modify it
-    * under the terms of the GNU Lesser General Public License as published by
-    * the Free Software Foundation; either version 2.1 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    * GNU Lesser General Public License for more details.
-    *
-    * You should have received a copy of the GNU Lesser General Public License
-    * along with this program; if not, write to the Free Software Foundation,
-    * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
-    *****************************************************************************/
+/*****************************************************************************
+ * winsock.c: POSIX replacements for Winsock
+ *****************************************************************************
+ * Copyright © 2006-2008 Rémi Denis-Courmont
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ *****************************************************************************/
 
-    #ifdef HAVE_CONFIG_H
-    # include "config.h"
-    #endif
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
 
-    #include <vlc_common.h>
-    #include <errno.h>
-    #include <vlc_network.h>
+#include <vlc_common.h>
+#include <errno.h>
+#include <vlc_network.h>
 
-    #ifndef WSA_QOS_EUNKNOWNPSOBJ
-    # define WSA_QOS_EUNKNOWNPSOBJ 11024L
-    #endif
+#ifndef WSA_QOS_EUNKNOWNPSOBJ
+# define WSA_QOS_EUNKNOWNPSOBJ 11024L
+#endif
 
-    typedef struct
-    {
+typedef struct
+{
     int code;
     const char *msg;
-    } wsaerrmsg_t;
+} wsaerrmsg_t;
 
-    static const wsaerrmsg_t wsaerrmsg[] =
-    {
+static const wsaerrmsg_t wsaerrmsg[] =
+{
     { WSA_INVALID_HANDLE, "Specified event object handle is invalid" },
     { WSA_NOT_ENOUGH_MEMORY, "Insufficient memory available" },
     { WSA_INVALID_PARAMETER, "One or more parameters are invalid" },
@@ -135,60 +135,60 @@
     { WSA_QOS_RESERVED_PETYPE, "Reserved policy QOS element type" },
     { 0, NULL }
     /* Winsock2 error codes are missing, they "never" occur */
-    };
+};
 
 
-    const char *net_strerror( int value )
-    {
+const char *net_strerror( int value )
+{
     /* There doesn't seem to be any portable error message generation for
-    * Winsock errors. Some old versions had s_error, but it appears to be
-    * gone, and is not documented.
-    */
+     * Winsock errors. Some old versions had s_error, but it appears to be
+     * gone, and is not documented.
+     */
     for( const wsaerrmsg_t *e = wsaerrmsg; e->msg != NULL; e++ )
-    if( e->code == value )
-    return e->msg;
+        if( e->code == value )
+            return e->msg;
 
     /* Remember to update src/misc/messages.c if you change this one */
     return "Unknown network stack error";
-    }
+}
 
-    #if 0
-    ssize_t vlc_sendmsg (int s, struct msghdr *hdr, int flags)
-    {
+#if 0
+ssize_t vlc_sendmsg (int s, struct msghdr *hdr, int flags)
+{
     /* WSASendMsg would be more straightforward, and would support ancilliary
-    * data, but it's not yet in mingw32. */
+     * data, but it's not yet in mingw32. */
     if ((hdr->msg_iovlen > 100) || (hdr->msg_controllen > 0))
     {
-    errno = EINVAL;
-    return -1;
+        errno = EINVAL;
+        return -1;
     }
 
     WSABUF buf[hdr->msg_iovlen];
     for (size_t i = 0; i < sizeof (buf) / sizeof (buf[0]); i++)
-    buf[i].buf = hdr->msg_iov[i].iov_base,
-    buf[i].len = hdr->msg_iov[i].iov_len;
+        buf[i].buf = hdr->msg_iov[i].iov_base,
+        buf[i].len = hdr->msg_iov[i].iov_len;
 
     DWORD sent;
     if (WSASendTo (s, buf, sizeof (buf) / sizeof (buf[0]), &sent, flags,
-    hdr->msg_name, hdr->msg_namelen, NULL, NULL) == 0)
-    return sent;
+                   hdr->msg_name, hdr->msg_namelen, NULL, NULL) == 0)
+        return sent;
     return -1;
-    }
+}
 
-    ssize_t vlc_recvmsg (int s, struct msghdr *hdr, int flags)
-    {
+ssize_t vlc_recvmsg (int s, struct msghdr *hdr, int flags)
+{
     /* WSARecvMsg would be more straightforward, and would support ancilliary
-    * data, but it's not yet in mingw32. */
+     * data, but it's not yet in mingw32. */
     if (hdr->msg_iovlen > 100)
     {
-    errno = EINVAL;
-    return -1;
+        errno = EINVAL;
+        return -1;
     }
 
     WSABUF buf[hdr->msg_iovlen];
     for (size_t i = 0; i < sizeof (buf) / sizeof (buf[0]); i++)
-    buf[i].buf = hdr->msg_iov[i].iov_base,
-    buf[i].len = hdr->msg_iov[i].iov_len;
+        buf[i].buf = hdr->msg_iov[i].iov_base,
+        buf[i].len = hdr->msg_iov[i].iov_len;
 
     DWORD recvd, dwFlags = flags;
     INT fromlen = hdr->msg_namelen;
@@ -196,21 +196,21 @@
     hdr->msg_flags = 0;
 
     int ret = WSARecvFrom (s, buf, sizeof (buf) / sizeof (buf[0]), &recvd,
-    &dwFlags, hdr->msg_name, &fromlen, NULL, NULL);
+                           &dwFlags, hdr->msg_name, &fromlen, NULL, NULL);
     hdr->msg_namelen = fromlen;
     hdr->msg_flags = dwFlags;
     if (ret == 0)
-    return recvd;
+        return recvd;
 
-    #ifdef MSG_TRUNC
+#ifdef MSG_TRUNC
     if (WSAGetLastError() == WSAEMSGSIZE)
     {
-    hdr->msg_flags |= MSG_TRUNC;
-    return recvd;
+        hdr->msg_flags |= MSG_TRUNC;
+        return recvd;
     }
-    #else
-    # warning Out-of-date Winsock header files!
-    #endif
+#else
+# warning Out-of-date Winsock header files!
+#endif
     return -1;
-    }
-    #endif
+}
+#endif
