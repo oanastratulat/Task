@@ -1007,7 +1007,7 @@ static void Eia608TextLine( struct eia608_screen *screen, char *psz_text, int i_
                 CAT( "<u>" );
         }
 
-        /* */
+        /* */ 
         Eia608TextUtf8( utf8, p_char[x] );
         CAT( utf8 );
 

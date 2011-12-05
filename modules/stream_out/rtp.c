@@ -533,7 +533,7 @@ static int Open( vlc_object_t *p_this )
      * then actual PTS will catch up using offsets. */
     p_sys->i_npt_zero = VLC_TS_INVALID;
     p_sys->i_pts_zero = rtp_init_ts(p_sys->p_vod_media,
-                                    p_sys->psz_vod_session);
+                                    p_sys->psz_vod_session); 
     p_sys->i_es = 0;
     p_sys->es   = NULL;
     p_sys->rtsp = NULL;
@@ -1618,7 +1618,7 @@ int64_t rtp_get_ts( const sout_stream_t *p_stream, const sout_stream_id_t *id,
     if (p_npt != NULL)
         *p_npt = npt;
 
-    return p_sys->i_pts_zero + npt;
+    return p_sys->i_pts_zero + npt; 
 }
 
 void rtp_packetize_common( sout_stream_id_t *id, block_t *out,

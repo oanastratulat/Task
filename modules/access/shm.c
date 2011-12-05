@@ -134,7 +134,7 @@ static int Open (vlc_object_t *obj)
     long pagesize = sysconf (_SC_PAGE_SIZE);
     if (pagesize == -1)
         return VLC_EGENERIC;
-
+    
     demux_sys_t *sys = malloc (sizeof (*sys));
     if (unlikely(sys == NULL))
         return VLC_ENOMEM;

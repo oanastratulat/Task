@@ -693,7 +693,7 @@ static const struct {
 
     { SDLK_INSERT, KEY_INSERT },
     { SDLK_DELETE, KEY_DELETE },
-    /*TODO: find a equivalent for SDL
+    /*TODO: find a equivalent for SDL 
     { , KEY_MEDIA_NEXT_TRACK }
     { , KEY_MEDIA_PREV_TRACK }
     { , KEY_VOLUME_MUTE }
